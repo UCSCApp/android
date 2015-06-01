@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">UCSC Student App</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="fakedata">[
+       {
+          "name":"Edge of Eden",
+          "date":"July 18th 10pm 2am",
+          "description":"Musical festival with a finale by Squidward Tortellini"
+       },
+       {
+          "name":"Holi Festival",
+          "date":"May 25th 10am 12pm",
+          "description":"This event is super fun and super great!"
+       },
+       {
+          "name":"Meeting",
+          "date":"May 31st 2pm 4pm",
+          "description":"Simba is asking you to go to this super boring meeting thing again"
+       },
+       {
+          "name":"French Fried",
+          "date":"January 1st 13am 7pm",
+          "description":"TBH Im not entirely sure what this is, so please dont come to this event at all, This desciption is purposely awkwardly long to hopefully break all of your apps becase I am a devious motherfucker like that. So I am still writing random shit now to break your apps in my malicious ways. I wonder if anyone will actually handle this case. I sure as hell wouldnt. Who the fuck actually spends the time to write this long a description about a dumb event called French Fried holy fuck. Btw I hope you arent actually reading this when you should be coding the solution to fixing your description box that just broke due to my malicious test script. Unless of course it worked in which case, you should probably stop reading this anyway because holy fuck this is a long motha fucking description. It is called French Fried. Starts at 13am. Be there."
+       },
+       {
+          "name":"Short but sweet",
+          "date":"never",
+          "description":"meow"
+       }
+    ]</string>
+</resources>
+

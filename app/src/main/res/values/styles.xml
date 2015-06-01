@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item> <!-- Disable window action bar, we are using
+                                                       the toolbar instead-->
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>
