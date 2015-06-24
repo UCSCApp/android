@@ -32,6 +32,7 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         ((TextView)convertView.findViewById(R.id.name)).setText(e.name());
         ((TextView)convertView.findViewById(R.id.date)).setText(e.date());
         ((TextView)convertView.findViewById(R.id.description)).setText(e.desc());
+        ((TextView)convertView.findViewById(R.id.url)).setText(e.url());
         Log.e("HERE3", "JERE");
         return convertView;
     }

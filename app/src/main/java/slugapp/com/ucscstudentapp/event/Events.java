@@ -27,7 +27,6 @@ public class Events extends AppCompatActivity {
         List<Event> events = parseFakeData();
         Log.e("STring 2", "" + events.size());
         linkListView(events);
-
     }
 
     private void linkActionBar(String name) {
