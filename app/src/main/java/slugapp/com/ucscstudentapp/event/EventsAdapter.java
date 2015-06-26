@@ -8,9 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.InputStream;
 import java.util.List;
@@ -34,16 +37,25 @@ public class EventsAdapter extends ArrayAdapter<Event> {
             convertView = inflater.inflate(R.layout.events_item, null);
         }
         Event e = getItem(position);
-        if (e.url() != "") {
-            new DownloadImageTask((ImageView) convertView.findViewById(R.id.image)).execute(e.url());
+        if (e.name() == "" && e.date() == "" && e.desc() == "" && e.url() != "") {
+            ((ViewManager) convertView).removeView(convertView.findViewById(R.id.text));
+            //new DownloadImageTask((ImageView) convertView.findViewById(R.id.image)).execute(e.url());
+            ImageLoader image_loader = ImageLoader.getInstance();
+            image_loader.displayImage(e.url(), (ImageView) convertView.findViewById(R.id.image));
+        } else {
+            String short_description = e.desc().length() > 100 ? (e.desc().substring(0, 100) + "...") : e.desc();
+            ((TextView) convertView.findViewById(R.id.name)).setText(e.name());
+            ((TextView) convertView.findViewById(R.id.date)).setText(e.date());
+            ((TextView) convertView.findViewById(R.id.description)).setText(short_description);
+            if (e.url() != "") {
+                //new DownloadImageTask((ImageView) convertView.findViewById(R.id.image)).execute(e.url());
+                ImageLoader image_loader = ImageLoader.getInstance();
+                image_loader.displayImage(e.url(), (ImageView) convertView.findViewById(R.id.image));
+            }
         }
-        String short_description = e.desc().length() > 100 ? (e.desc().substring(0, 100) + "...") : e.desc();
-        ((TextView) convertView.findViewById(R.id.name)).setText(e.name());
-        ((TextView) convertView.findViewById(R.id.date)).setText(e.date());
-        ((TextView) convertView.findViewById(R.id.description)).setText(short_description);
         return convertView;
     }
-
+    /*
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bitmap_image;
 
@@ -68,4 +80,5 @@ public class EventsAdapter extends ArrayAdapter<Event> {
             bitmap_image.setImageBitmap(result);
         }
     }
+    */
 }
