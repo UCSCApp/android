@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -55,14 +54,9 @@ public class Events extends AppCompatActivity {
     class PostMessageSpec extends ServerCallSpec {
         @Override
         public void useResult(Context context, String result) {
-            if (result == null) {
-                // Do something here, e.g. tell the user that the server cannot be contacted.
-                //Log.i(LOG_TAG, "The server call failed.");
-            } else {
+            if (result != null) {
                 // Translates the string result, decoding the Json.
-                //Log.i(LOG_TAG, "Received string: " + result);
-                if(result != null || result != "")
-                    displayResult(result);
+                //if (result != null || result != "") displayResult(result);
                 // Stores in the settings the last messages received.
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                 SharedPreferences.Editor editor = settings.edit();
@@ -78,6 +72,7 @@ public class Events extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.events);
         events = new ArrayList<Event>();
+        parseFakeData();
         linkActionBar("Events");
     }
 
@@ -87,9 +82,7 @@ public class Events extends AppCompatActivity {
         // Let us display the previous posts, if any.
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String result = settings.getString(PREF_POSTS, null);
-        if (result != null) {
-            displayResult(result);
-        }
+        //if (result != null) displayResult(result);
         new YourAsyncTask().execute();
         linkListView(events);
     }
@@ -109,16 +102,17 @@ public class Events extends AppCompatActivity {
         try {
             JSONArray arr = new JSONArray(json);
             Log.e("HERE", "" + arr.length());
-            for(int i = 0; i < arr.length(); ++i) {
+            for (int i = 0; i < arr.length(); ++i) {
                 JSONObject obj = arr.getJSONObject(i);
-                Event e = new Event(obj.getString("name"),
-                        obj.getString("date"),
-                        obj.getString("description"));//,
-                        //obj.getString("url"));
+                Event e = new Event(
+                        obj.has("name") ? obj.getString("name") : "",
+                        obj.has("date") ? obj.getString("date") : "",
+                        obj.has("description") ? obj.getString("description") : "",
+                        obj.has("url") ? obj.getString("url") : "");
                 events.add(e);
             }
 
-        }catch(JSONException je) {
+        } catch (JSONException je) {
             Log.e("string", "" + je.getMessage());
         }
     }
@@ -134,5 +128,60 @@ public class Events extends AppCompatActivity {
     private void linkListView(List<Event> events) {
         ListView lv = (ListView) findViewById(R.id.list);
         lv.setAdapter(new EventsAdapter(this, events));
+
     }
+
+    private void parseFakeData() {
+        String json = "[\n" +
+                "       {\n" +
+                "          \"name\":\"Edge of Eden\",\n" +
+                "          \"date\":\"July 18th 10pm 2am\",\n" +
+                "          \"description\":\"Musical festival with a finale by Squidward Tortellini\",\n" +
+                "          \"url\":\"https://www.petfinder.com/wp-content/uploads/2012/11/dog-how-to-select-your-new-best-friend-thinkstock99062463.jpg\"\n" +
+                "       },\n" +
+                "       {\n" +
+                "          \"name\":\"Holi Festival\",\n" +
+                "          \"date\":\"May 25th 10am 12pm\",\n" +
+                "          \"description\":\"This event is super fun and super great!\",\n" +
+                "          \"url\":\"http://www.vetprofessionals.com/catprofessional/images/home-cat.jpg\"\n" +
+                "       },\n" +
+                "       {\n" +
+                "          \"name\":\"Meeting\",\n" +
+                "          \"date\":\"May 31st 2pm 4pm\",\n" +
+                "          \"description\":\"Simba is asking you to go to this super boring meeting thing again\",\n" +
+                "          \"url\":\"https://www.petfinder.com/wp-content/uploads/2012/11/guidelines-for-placing-your-bird-thinkstock-93216977.jpg\"\n" +
+                "       },\n" +
+                "       {\n" +
+                "          \"name\":\"French Fried\",\n" +
+                "          \"date\":\"January 1st 13am 7pm\",\n" +
+                "          \"description\":\"TBH Im not entirely sure what this is, so please dont come to this event at all, This desciption is purposely awkwardly long to hopefully break all of your apps becase I am a devious motherfucker like that. So I am still writing random shit now to break your apps in my malicious ways. I wonder if anyone will actually handle this case. I sure as hell wouldnt. Who the fuck actually spends the time to write this long a description about a dumb event called French Fried holy fuck. Btw I hope you arent actually reading this when you should be coding the solution to fixing your description box that just broke due to my malicious test script. Unless of course it worked in which case, you should probably stop reading this anyway because holy fuck this is a long motha fucking description. It is called French Fried. Starts at 13am. Be there.\",\n" +
+                "          \"url\":\"http://arlingtonva.s3.amazonaws.com/wp-content/uploads/sites/25/2013/12/rat.jpg\"\n" +
+                "       },\n" +
+                "       {\n" +
+                "          \"name\":\"Short but sweet\",\n" +
+                "          \"date\":\"never\",\n" +
+                "          \"description\":\"meow\",\n" +
+                "          \"url\":\"http://assets.academy.com/mgen/34/10095934.jpg?is=500,500\"\n" +
+                "       }\n" +
+                "]";
+        events.clear();
+        try {
+            JSONArray arr = new JSONArray(json);
+            Log.e("HERE", "" + arr.length());
+            for (int i = 0; i < arr.length(); ++i) {
+                JSONObject obj = arr.getJSONObject(i);
+                Event e = new Event(
+                        obj.has("name") ? obj.getString("name") : "",
+                        obj.has("date") ? obj.getString("date") : "",
+                        obj.has("description") ? obj.getString("description") : "",
+                        obj.has("url") ? obj.getString("url") : "");
+                events.add(e);
+            }
+
+        } catch (JSONException je) {
+            Log.e("string", "" + je.getMessage());
+        }
+    }
+
 }
+
