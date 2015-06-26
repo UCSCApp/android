@@ -32,7 +32,6 @@
             android:background="#FFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@drawable/event_divider"
             android:dividerHeight="2dip"/>
 
     </LinearLayout>
