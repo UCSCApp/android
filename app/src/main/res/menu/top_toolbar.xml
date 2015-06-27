@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".top_toolbar_MainActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="200"
+        app:showAsAction="ifRoom"
+        android:title="Search"></item>
+    <!--
+    <item
+        android:id="@+id/navigation_icon"
+        android:icon="@drawable/ic_navigation"
+        android:orderInCategory="200"
+        app:showAsAction="ifRoom"
+        android:title="Navigation"></item>
+    -->
+
+</menu>

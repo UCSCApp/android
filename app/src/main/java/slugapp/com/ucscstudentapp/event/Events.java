@@ -1,5 +1,6 @@
 package slugapp.com.ucscstudentapp.event;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -8,6 +9,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -83,7 +87,7 @@ public class Events extends AppCompatActivity {
         setContentView(R.layout.events);
         events = new ArrayList<Event>();
         parseFakeData();
-        linkActionBar("Events");
+        linkActionBar("Event Center");
     }
 
     @Override
@@ -107,6 +111,26 @@ public class Events extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.top_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void displayResult(String json) {
         events.clear();
         try {
@@ -127,11 +151,19 @@ public class Events extends AppCompatActivity {
     }
 
     private void linkActionBar(String name) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_navigation);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText(name);
+/*
+        ActionBar actionBar = getActionBar();
+        View mActionBarView = getLayoutInflater().inflate(R.layout.top_toolbar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);*/
     }
 
     private void linkListView(List<Event> events) {
