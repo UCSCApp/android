@@ -27,11 +27,11 @@
                 android:layout_gravity="top|center"
                 android:textColor="#FFF"/>
         </android.support.v7.widget.Toolbar>
+
         <ListView
             android:id="@+id/list"
             android:background="#FFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </LinearLayout>
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->

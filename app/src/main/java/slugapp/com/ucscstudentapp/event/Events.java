@@ -2,19 +2,28 @@ package slugapp.com.ucscstudentapp.event;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -37,9 +46,9 @@ public class Events extends AppCompatActivity {
     public static final String PREF_POSTS = "pref_posts";
     private ServerCall uploader;
     private List<Event> events;
+    private SampleFragmentPagerAdapter adapter;
 
     private class HttpCall extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected Void doInBackground(Void... args) {
             // code where data is processing
@@ -57,7 +66,6 @@ public class Events extends AppCompatActivity {
             return null;
         }
     }
-
     // This class is used to do the HTTP call, and it specifies how to use the result.
     class PostMessageSpec extends ServerCallSpec {
         @Override
@@ -81,10 +89,44 @@ public class Events extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // UNIVERSAL IMAGE LOADER
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
-
         setContentView(R.layout.events);
+        LayoutInflater inflater = getLayoutInflater();
+        /*
+        getWindow().addContentView(inflater.inflate(R.layout.bottom_toolbar, null),
+                new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // BOTTOM TOOLBAR
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        adapter = new SampleFragmentPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        // Give the PagerSlidingTabStrip the ViewPager
+        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        // Attach the view pager to the tab strip
+        tabsStrip.setViewPager(viewPager);
+        // Attach the page change listener to tab strip and **not** the view pager inside the activity
+        tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(Events.this, "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Code goes here
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Code goes here
+            }
+        });
+        */
         events = new ArrayList<Event>();
         parseFakeData();
         linkActionBar("Event Center");
@@ -159,17 +201,33 @@ public class Events extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText(name);
-/*
-        ActionBar actionBar = getActionBar();
-        View mActionBarView = getLayoutInflater().inflate(R.layout.top_toolbar, null);
-        actionBar.setCustomView(mActionBarView);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);*/
     }
 
+    boolean click_done = false;
     private void linkListView(List<Event> events) {
         ListView lv = (ListView) findViewById(R.id.list);
+        View header = (View)getLayoutInflater().inflate(R.layout.click_to_see, null);
+        if (click_done == false) lv.addHeaderView(header);
+        click_done = true;
         lv.setAdapter(new EventsAdapter(this, events));
+    }
 
+    public void goToEvent(View view) {
+        Intent intent = new Intent(Events.this, EventDetails.class);
+        int counter = 0;
+        for (; counter < events.size(); counter++) {
+            TextView tv = (TextView) view.findViewById(R.id.name);
+            Log.e("string", "" + tv.getText());
+            Log.e("string", "" + events.get(counter).name());
+            if (tv.getText() == events.get(counter).name()) break;
+        }
+        Bundle b = new Bundle();
+        b.putCharArray("name", events.get(counter).name().toCharArray());
+        b.putCharArray("date", events.get(counter).date().toCharArray());
+        b.putCharArray("description", events.get(counter).desc().toCharArray());
+        b.putCharArray("url", events.get(counter).url().toCharArray());
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     private void parseFakeData() {
