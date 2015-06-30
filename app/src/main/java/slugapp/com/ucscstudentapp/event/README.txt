@@ -10,6 +10,8 @@ TO DO:
 - Converting each page into fragments
 - Settings page
 - Also, images load kind of slow, maybe some way to make them load faster?
+edit 6/29/2015 11:53pm:
+- Event page also needs search function actually
 
 Currently the Events page is using the fake json. To make actual http call:
 - Uncomment lines 83 and 163
