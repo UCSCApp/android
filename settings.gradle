@@ -1,1 +1,1 @@
-include ':libs:UniversalImageLoader'
+include ':app'

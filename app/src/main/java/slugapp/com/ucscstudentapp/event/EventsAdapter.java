@@ -8,9 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.InputStream;
 import java.util.List;
@@ -20,6 +23,9 @@ import slugapp.com.ucscstudentapp.event.Event;
 
 /**
  * Created by simba on 5/31/15.
+ *
+ * This file is the adapter for Events.java. This file basically takes each Event object and displays
+ * it to the listview
  */
 public class EventsAdapter extends ArrayAdapter<Event> {
     public EventsAdapter(Context context, List<Event> objects) {
@@ -34,38 +40,28 @@ public class EventsAdapter extends ArrayAdapter<Event> {
             convertView = inflater.inflate(R.layout.events_item, null);
         }
         Event e = getItem(position);
-        if (e.url() != "") {
-            new DownloadImageTask((ImageView) convertView.findViewById(R.id.image)).execute(e.url());
-        }
-        String short_description = e.desc().length() > 100 ? (e.desc().substring(0, 100) + "...") : e.desc();
-        ((TextView) convertView.findViewById(R.id.name)).setText(e.name());
-        ((TextView) convertView.findViewById(R.id.date)).setText(e.date());
-        ((TextView) convertView.findViewById(R.id.description)).setText(short_description);
-        return convertView;
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bitmap_image;
-
-        public DownloadImageTask(ImageView bitmap_image) {
-            this.bitmap_image = bitmap_image;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String url_display = urls[0];
-            Bitmap icon = null;
-            try {
-                InputStream in = new java.net.URL(url_display).openStream();
-                icon = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
+        /*
+         * If no text, but image, then show banner
+         */
+        if (e.name() == "" && e.date() == "" && e.desc() == "" && e.url() != "") {
+            ((ViewManager) convertView).removeView(convertView.findViewById(R.id.text));
+            // Displays image
+            ImageLoader image_loader = ImageLoader.getInstance();
+            image_loader.displayImage(e.url(), (ImageView) convertView.findViewById(R.id.image));
+            /*
+             * If text included
+             */
+        } else {
+            String short_description = e.desc().length() > 100 ? (e.desc().substring(0, 100) + "...") : e.desc();
+            ((TextView) convertView.findViewById(R.id.name)).setText(e.name());
+            ((TextView) convertView.findViewById(R.id.date)).setText(e.date());
+            ((TextView) convertView.findViewById(R.id.description)).setText(short_description);
+            // If image included, display it
+            if (e.url() != "") {
+                ImageLoader image_loader = ImageLoader.getInstance();
+                image_loader.displayImage(e.url(), (ImageView) convertView.findViewById(R.id.image));
             }
-            return icon;
         }
-
-        protected void onPostExecute(Bitmap result) {
-            bitmap_image.setImageBitmap(result);
-        }
+        return convertView;
     }
 }

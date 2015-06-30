@@ -16,3 +16,5 @@ Currently the Events page is using the fake json. To make actual http call:
 - Comment line 150
 - (if somehow android studio auto formats and changes the line numbers, just uncomment the lines
    that have displayResult and comment the line with parseFakeData)
+
+Only tested on Galaxy S5 so far
