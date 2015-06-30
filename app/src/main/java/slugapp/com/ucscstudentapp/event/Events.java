@@ -1,6 +1,5 @@
 package slugapp.com.ucscstudentapp.event;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +36,14 @@ import java.util.List;
 import slugapp.com.ucscstudentapp.R;
 
 
+/**
+ * Created by isayyuhh_s on 6/27/2015.
+ *
+ *
+ * This file temporarily contains the MainActivity. It handles the Event Page activity.
+ * Currently working on organizing the files and where each method goes.
+ */
+
 public class Events extends AppCompatActivity {
 
     /*
@@ -48,6 +55,7 @@ public class Events extends AppCompatActivity {
     private List<Event> events;
     private SampleFragmentPagerAdapter adapter;
 
+    // This class actually does the http call and uses the ServerCall file
     private class HttpCall extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... args) {
@@ -89,12 +97,23 @@ public class Events extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*
+         * Handles image loading throughout the app. Initializes Universal Image Loader
+         */
         // UNIVERSAL IMAGE LOADER
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
+
         setContentView(R.layout.events);
-        LayoutInflater inflater = getLayoutInflater();
+
         /*
+         * This code covers displaying the bottom
+         * Commented because there are bugs, working on how I will implement the bottom toolbar,
+         * maybe with fragments
+         */
+
+        /*
+        LayoutInflater inflater = getLayoutInflater();
         getWindow().addContentView(inflater.inflate(R.layout.bottom_toolbar, null),
                 new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -132,6 +151,9 @@ public class Events extends AppCompatActivity {
         linkActionBar("Event Center");
     }
 
+    /*
+     * Resume currently does an http call whenever resuming
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -153,6 +175,9 @@ public class Events extends AppCompatActivity {
         super.onPause();
     }
 
+    /*
+     * OnCreateOptionsMenu inflates the top toolbar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -166,13 +191,16 @@ public class Events extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+     * display result uses the actual json and puts it into an Event object all into an Event array
+     */
     private void displayResult(String json) {
         events.clear();
         try {
@@ -192,6 +220,9 @@ public class Events extends AppCompatActivity {
         }
     }
 
+    /*
+     * link action toolbar sets up the top toolbar
+     */
     private void linkActionBar(String name) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
         setSupportActionBar(toolbar);
@@ -203,15 +234,22 @@ public class Events extends AppCompatActivity {
         title.setText(name);
     }
 
+    /*
+     * link list view puts tthe temporary header and calls the adapter
+     */
     boolean click_done = false;
     private void linkListView(List<Event> events) {
         ListView lv = (ListView) findViewById(R.id.list);
-        View header = (View)getLayoutInflater().inflate(R.layout.click_to_see, null);
+        View header = getLayoutInflater().inflate(R.layout.click_to_see, null);
         if (click_done == false) lv.addHeaderView(header);
         click_done = true;
         lv.setAdapter(new EventsAdapter(this, events));
     }
 
+    /*
+     * go to event allows a click on an event to create a new activity and show more details
+     * of the event
+     */
     public void goToEvent(View view) {
         Intent intent = new Intent(Events.this, EventDetails.class);
         int counter = 0;
@@ -219,7 +257,8 @@ public class Events extends AppCompatActivity {
             TextView tv = (TextView) view.findViewById(R.id.name);
             Log.e("string", "" + tv.getText());
             Log.e("string", "" + events.get(counter).name());
-            if (tv.getText() == events.get(counter).name()) break;
+            if (((String)tv.getText()).contains(events.get(counter).name()) ||
+                    events.get(counter).name().contains(tv.getText())) break;
         }
         Bundle b = new Bundle();
         b.putCharArray("name", events.get(counter).name().toCharArray());
@@ -230,6 +269,9 @@ public class Events extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
+     * parse fake data is used to test the functions of the event page, similar to display result
+     */
     private void parseFakeData() {
         String json = "[\n" +
                 "       {\n" +

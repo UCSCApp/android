@@ -21,6 +21,10 @@ import slugapp.com.ucscstudentapp.R;
 
 /**
  * Created by isayyuhh_s on 6/27/2015.
+ *
+ * This file is a new activity displaying all of the contents for each individual event.
+ * Contains similar functions as Events.java because still organizing everything. To see
+ * each functions function, see Events.java.
  */
 public class EventDetails extends AppCompatActivity {
     Event e;

@@ -3,6 +3,9 @@ package slugapp.com.ucscstudentapp.event;
 /**
  * Created by simba on 5/31/15.
  */
+/*
+ * This file contains the Event Object that holds all the data for each event
+ */
 public class Event {
     private String name;
     private String date;

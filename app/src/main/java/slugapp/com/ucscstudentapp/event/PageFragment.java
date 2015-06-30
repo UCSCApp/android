@@ -11,6 +11,8 @@ import slugapp.com.ucscstudentapp.R;
 
 /**
  * Created by isayyuhh_s on 6/27/2015.
+ *
+ * This file is for the bottom toolbar, not currently implemented
  */
 public class PageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";

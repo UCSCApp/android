@@ -17,6 +17,8 @@ import slugapp.com.ucscstudentapp.R;
 
 /**
  * Created by isayyuhh_s on 6/27/2015.
+ *
+ * Adapter for EventDetails.java. Similar function as EventsAdapter.java, maybe hoping to combine the 2.
  */
 public class EventDetailsAdapter  extends ArrayAdapter<Event> {
     public EventDetailsAdapter(Context context, List<Event> objects) {

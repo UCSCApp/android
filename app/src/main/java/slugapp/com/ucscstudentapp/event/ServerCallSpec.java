@@ -14,6 +14,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class holds the specifications of the json
+ */
+
 public class ServerCallSpec {
 
     private static final String LOG_TAG = "ServerCallSpec";
