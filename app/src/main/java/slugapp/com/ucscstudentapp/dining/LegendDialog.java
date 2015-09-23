@@ -39,7 +39,7 @@ public class LegendDialog extends DialogFragment {
             LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(75, 75);
             LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            iconParams.setMargins(8, 10, 0, 10);
+            iconParams.setMargins(12, 10, 0, 10);
             tvParams.setMargins(100, 10, 8, 10);
 
             // linear layout

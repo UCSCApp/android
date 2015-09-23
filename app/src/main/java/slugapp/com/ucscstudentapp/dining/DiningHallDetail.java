@@ -25,9 +25,6 @@ import slugapp.com.ucscstudentapp.map.Map;
  * Created by isayyuhh_s on 8/8/2015.
  */
 public class DiningHallDetail extends Fragment {
-    private final static int LAT = 0;
-    private final static int LNG = 1;
-
     private String name;
     private DiningHall diningHall;
     private ActivityReference mCallBack;

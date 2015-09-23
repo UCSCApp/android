@@ -56,28 +56,15 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/blegend"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Legend"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/blegend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:text=" (?)"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Legend (?)"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
             </TableRow>
         </TableLayout>
 
@@ -105,28 +92,15 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/llegend"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Legend"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/llegend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:text=" (?)"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Legend (?)"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
             </TableRow>
         </TableLayout>
 
@@ -154,28 +128,15 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/dlegend"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Legend"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/dlegend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:text=" (?)"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Legend (?)"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
             </TableRow>
         </TableLayout>
     </LinearLayout>
