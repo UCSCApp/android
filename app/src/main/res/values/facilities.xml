@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="college_eight_oakes_dining">
+        <item>36.991565</item>
+        <item>-122.065267</item>
+    </string-array>
+    <string-array name="porter_kresge_dining">
+        <item>36.994344</item>
+        <item>-122.065800</item>
+    </string-array>
+    <string-array name="college_nine_college_ten_dining">
+        <item>37.001096</item>
+        <item>-122.058031</item>
+    </string-array>
+    <string-array name="crown_merrill_dining">
+        <item>36.999971</item>
+        <item>-122.054448</item>
+    </string-array>
+    <string-array name="cowell_stevenson_dining">
+        <item>36.997157</item>
+        <item>-122.053150</item>
+    </string-array>
+    <string-array name="map_dining_halls">
+        <item>College Eight / Oakes</item>
+        <item>Porter / Kresge</item>
+        <item>College Nine / College Ten</item>
+        <item>Crown / Merrill</item>
+        <item>Cowell / Stevenson</item>
+    </string-array>
+    <string-array name="map_libraries">
+        <item>McHenry Library</item>
+        <item>S&amp;E Library</item>
+    </string-array>
+    <string-array name="map_computer_labs">
+        <item>College Eight Computer Lab</item>
+        <item>Porter Computer Lab</item>
+    </string-array>
+    <string-array name="map_classrooms">
+        <item>Thimann Hall</item>
+        <item>Thimann Labs</item>
+        <item>Classroom Unit 1 &amp; 2</item>
+        <item>Baskin E1 &amp; E2</item>
+    </string-array>
+</resources>

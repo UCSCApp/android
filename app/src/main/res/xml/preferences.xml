@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_sync"
+        android:title="Sample Preference 1"
+        android:summary="Summary goes here."
+        android:defaultValue="true" />
+
+</PreferenceScreen>

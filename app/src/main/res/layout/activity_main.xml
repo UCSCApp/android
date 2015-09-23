@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/top_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ColorPrimary"
+        android:gravity="center_horizontal"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:text="Event Center"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <FrameLayout
+            android:id="@+id/listFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:layout_weight=".115"/>
+
+        <LinearLayout
+            android:id="@+id/bottom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_weight=".885"
+            android:background="@color/ColorPrimary"/>
+    </LinearLayout>
+</LinearLayout>
+
