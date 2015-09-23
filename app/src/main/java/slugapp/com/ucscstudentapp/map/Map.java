@@ -65,19 +65,19 @@ public class Map extends SupportMapFragment implements DialogCallback {
         if (b != null && b.containsKey("name")) {
             switch (b.getString("name")) {
                 case "College Eight / Oakes":
-                    mapEditor.moveTo(new LatLng(36.991565, -122.065267), b.getString("name"));
+                    mapEditor.moveTo(new LatLng(36.991565, -122.065267));
                     break;
                 case "Porter / Kresge":
-                    mapEditor.moveTo(new LatLng(36.994344, -122.065800), b.getString("name"));
+                    mapEditor.moveTo(new LatLng(36.994344, -122.065800));
                     break;
                 case "College Nine / College Ten":
-                    mapEditor.moveTo(new LatLng(37.001096, -122.058031), b.getString("name"));
+                    mapEditor.moveTo(new LatLng(37.001096, -122.058031));
                     break;
                 case "Crown / Merrill":
-                    mapEditor.moveTo(new LatLng(36.999971, -122.054448), b.getString("name"));
+                    mapEditor.moveTo(new LatLng(36.999971, -122.054448));
                     break;
                 case "Cowell / Stevenson":
-                    mapEditor.moveTo(new LatLng(36.997157, -122.053150), b.getString("name"));
+                    mapEditor.moveTo(new LatLng(36.997157, -122.053150));
                     break;
             }
         }

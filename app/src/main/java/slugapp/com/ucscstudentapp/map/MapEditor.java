@@ -59,10 +59,7 @@ public class MapEditor {
         }
     }
 
-    public void moveTo (LatLng latLng, String name) {
-        map.addMarker(new MarkerOptions()
-                .title(name)
-                .position(latLng)).showInfoWindow();
+    public void moveTo (LatLng latLng) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     }
 
