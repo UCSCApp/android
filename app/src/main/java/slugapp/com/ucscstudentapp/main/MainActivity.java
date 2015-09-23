@@ -26,7 +26,7 @@ import java.util.Calendar;
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.event.Date;
-import slugapp.com.ucscstudentapp.event.EventCenterList;
+import slugapp.com.ucscstudentapp.event.EventList;
 
 /**
  * Created by isaiah on 6/27/2015.
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements ActivityReference
         // Initial Fragment
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        EventCenterList llf = new EventCenterList();
+        EventList llf = new EventList();
         ft.replace(R.id.listFragment, llf);
         ft.commit();
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.event.EventCenterList;
+import slugapp.com.ucscstudentapp.event.EventList;
 import slugapp.com.ucscstudentapp.dining.DiningHallGrid;
 import slugapp.com.ucscstudentapp.map.Map;
 import slugapp.com.ucscstudentapp.settings.Settings;
@@ -54,7 +54,7 @@ public class ToggleImageButton extends ImageButton {
             FragmentTransaction ft = mCallBack.fm().beginTransaction();
 
             if (view.getId() == eventID) {
-                EventCenterList fragment = new EventCenterList();
+                EventList fragment = new EventList();
                 ft.replace(R.id.listFragment, fragment);
             }
             else if (view.getId() == diningID) {

@@ -18,7 +18,7 @@ import slugapp.com.ucscstudentapp.http.ImageHttpRequest;
  *
  * Edited by isaiah on 6/27/2015.
  *
- * This file is the Adapter for EventCenterList.java and displays each Event to the ListView.
+ * This file is the Adapter for EventList.java and displays each Event to the ListView.
  */
 public class EventListAdapter extends ArrayAdapter<Event> {
     public EventListAdapter(Context context) {

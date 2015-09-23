@@ -84,6 +84,7 @@ public class DiningHallDetail extends Fragment {
         setMenu(diningHall.getBreakfast(), (TableLayout) view.findViewById(R.id.breakfast));
         setMenu(diningHall.getLunch(), (TableLayout) view.findViewById(R.id.lunch));
         setMenu(diningHall.getDinner(), (TableLayout) view.findViewById(R.id.dinner));
+        setLegendDialog(view);
 
         return view;
     }
@@ -133,6 +134,39 @@ public class DiningHallDetail extends Fragment {
             row.addView(name, 0, rowParams);
             row.addView(attributes, 1, rowParams);
             table.addView(row);
+        }
+    }
+
+    private void setLegendDialog (View view) {
+        // set legend OnClickListener
+        for (int i = 0; i < 3; i++) {
+            TextView legend;
+            switch (i) {
+                case 0:default:
+                    legend = (TextView) view.findViewById(R.id.blegend);
+                    break;
+                case 1:
+                    legend = (TextView) view.findViewById(R.id.llegend);
+                    break;
+                case 2:
+                    legend = (TextView) view.findViewById(R.id.dlegend);
+                    break;
+            }
+            legend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    LegendDialog dialog = new LegendDialog();
+                    dialog.show(ft, "dialog");
+                }
+            });
         }
     }
 }

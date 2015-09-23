@@ -22,7 +22,7 @@ import slugapp.com.ucscstudentapp.main.ActivityReference;
 /**
  * Created by isaiah on 6/23/2015.
  */
-public class EventCenterList extends Fragment {
+public class EventList extends Fragment {
     private ActivityReference mCallback;
 
     @Override

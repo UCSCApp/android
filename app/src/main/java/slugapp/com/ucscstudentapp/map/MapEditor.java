@@ -46,7 +46,7 @@ public class MapEditor {
     }
 
     public void moveTo (LatLng latLng) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.5f));
     }
 
     /**
