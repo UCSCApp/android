@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.main.ActivityReference;
 
-public class Map extends SupportMapFragment implements DialogCallback {
+public class Map extends SupportMapFragment {
     private MapEditor mapEditor;
     private ActivityReference mCallBack;
     private int toolbar_height;
@@ -38,7 +38,7 @@ public class Map extends SupportMapFragment implements DialogCallback {
         setHasOptionsMenu(true);
 
         // Map editor
-        mapEditor = new MapEditor(getActivity(), this, mCallBack);
+        mapEditor = new MapEditor(mCallBack);
         toolbar_height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 (float) 48, getActivity().getResources().getDisplayMetrics());
     }
@@ -59,7 +59,6 @@ public class Map extends SupportMapFragment implements DialogCallback {
         // Set map
         mapEditor.initializeMap(getMap());
         mapEditor.setMarkers();
-        mapEditor.setCustomMarkers();
         mapEditor.setListeners();
         Bundle b = getArguments();
         if (b != null && b.containsKey("name")) {
@@ -87,13 +86,5 @@ public class Map extends SupportMapFragment implements DialogCallback {
     public void onPause() {
         super.onPause();
         if (mapEditor != null) mapEditor.hideInfoWindows();
-    }
-
-    /**
-     * Creates new Marker
-     */
-    @Override
-    public void createMarker(String title, float lat, float lng) {
-        mapEditor.createMarker(title, lat, lng);
     }
 }
