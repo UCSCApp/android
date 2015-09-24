@@ -10,7 +10,7 @@ import slugapp.com.ucscstudentapp.event.Date;
 /**
  * Created by isayyuhh_s on 8/3/2015.
  */
-public interface ActivityReference {
+public interface ActivityCallback {
     // Fragment Manager
     FragmentManager fm();
     void setButtons(int buttonId);

@@ -18,21 +18,21 @@ import slugapp.com.ucscstudentapp.social.joint_login_social_fragment;
  */
 public class ToggleImageButton extends ImageButton {
     private static int eventID, diningID, mapID, socialID, settingsID;
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
 
     public ToggleImageButton(Context context) {
         super(context);
-        this.mCallBack = (ActivityReference) context;
+        this.mCallBack = (ActivityCallback) context;
     }
 
     public ToggleImageButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mCallBack = (ActivityReference) context;
+        this.mCallBack = (ActivityCallback) context;
     }
 
     public ToggleImageButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.mCallBack = (ActivityReference) context;
+        this.mCallBack = (ActivityCallback) context;
     }
 
     public static void setIds(ToggleImageButton event_button, ToggleImageButton dining_button,

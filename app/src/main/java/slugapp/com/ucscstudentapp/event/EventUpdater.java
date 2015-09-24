@@ -10,19 +10,19 @@ import java.util.List;
 
 import slugapp.com.ucscstudentapp.http.Callback;
 import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by simba on 8/2/15.
  */
 public class EventUpdater implements SwipeRefreshLayout.OnRefreshListener {
     protected EventListAdapter adapter;
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
     private boolean initial = true;
 
     public EventUpdater(Context context, EventListAdapter adapter) {
         this.adapter = adapter;
-        this.mCallBack = (ActivityReference) context;
+        this.mCallBack = (ActivityCallback) context;
     }
 
     @Override

@@ -19,14 +19,14 @@ import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 //http://docs.fabric.io/android/twitter/show-timelines.html
 
 
 public class TwitterTimelineFragment extends ListFragment {
 
-    private ActivityReference mListener;
+    private ActivityCallback mListener;
 
     // TODO: Rename and change types and number of parameters
     public static TwitterTimelineFragment newInstance(String param1, String param2) {
@@ -63,7 +63,7 @@ public class TwitterTimelineFragment extends ListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (ActivityReference) activity;
+            mListener = (ActivityCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement ActivityReference");

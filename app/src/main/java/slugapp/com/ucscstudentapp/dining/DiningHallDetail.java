@@ -18,7 +18,7 @@ import android.widget.TextView;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.http.Callback;
 import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 import slugapp.com.ucscstudentapp.map.Map;
 
 /**
@@ -27,12 +27,12 @@ import slugapp.com.ucscstudentapp.map.Map;
 public class DiningHallDetail extends Fragment {
     private String name;
     private DiningHall diningHall;
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mCallBack = (ActivityReference) activity;
+        this.mCallBack = (ActivityCallback) activity;
     }
 
     @Override

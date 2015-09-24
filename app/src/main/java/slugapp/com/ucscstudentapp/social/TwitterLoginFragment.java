@@ -15,7 +15,7 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 //
 //  TwitterLoginFragment.java
@@ -29,7 +29,7 @@ public class TwitterLoginFragment extends Fragment {
     private TwitterLoginButton loginButton;
 
 
-    private ActivityReference mListener;
+    private ActivityCallback mListener;
 
     public TwitterLoginFragment() {
         // Required empty public constructor
@@ -77,7 +77,7 @@ public class TwitterLoginFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (ActivityReference) activity;
+            mListener = (ActivityCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement ActivityReference");

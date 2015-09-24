@@ -15,18 +15,18 @@ import android.widget.ListView;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.event.EventDetail;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 8/29/2015.
  */
 public class FacilityList extends Fragment {
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mCallBack = (ActivityReference) activity;
+        this.mCallBack = (ActivityCallback) activity;
     }
 
     @Override

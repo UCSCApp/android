@@ -15,7 +15,7 @@ import slugapp.com.ucscstudentapp.R;
  * Basically a placeholder Fragment until each page is added
  */
 public class EmptyPageFragment extends Fragment {
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
@@ -24,7 +24,7 @@ public class EmptyPageFragment extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallBack = (ActivityReference) activity;
+            mCallBack = (ActivityCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");

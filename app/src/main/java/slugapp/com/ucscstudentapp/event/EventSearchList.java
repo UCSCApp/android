@@ -16,7 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 7/26/2015.
@@ -25,12 +25,12 @@ import slugapp.com.ucscstudentapp.main.ActivityReference;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class EventSearchList extends Fragment {
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallBack = (ActivityReference) activity;
+        mCallBack = (ActivityCallback) activity;
     }
 
     @Override

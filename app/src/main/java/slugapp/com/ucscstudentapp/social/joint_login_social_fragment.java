@@ -35,7 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 import slugapp.com.ucscstudentapp.social.instagram.Instagram;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramRequest;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramSession;
@@ -51,7 +51,7 @@ import slugapp.com.ucscstudentapp.social.instagram.InstagramUser;
 public class joint_login_social_fragment extends android.support.v4.app.Fragment {
     private InstagramSession mInstagramSession;
     private Instagram mInstagram;
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
     //private TwitterLoginButton loginButton;
     private ProgressBar mLoadingPb;
     private GridView mGridView;
@@ -305,7 +305,7 @@ public class joint_login_social_fragment extends android.support.v4.app.Fragment
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallBack = (ActivityReference) activity;
+            mCallBack = (ActivityCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement ActivityReference");

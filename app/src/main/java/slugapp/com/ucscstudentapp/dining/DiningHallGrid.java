@@ -16,18 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 9/1/2015.
  */
 public class DiningHallGrid extends Fragment {
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mCallBack = (ActivityReference) activity;
+        this.mCallBack = (ActivityCallback) activity;
     }
 
     @Override

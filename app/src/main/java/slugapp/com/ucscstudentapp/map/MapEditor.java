@@ -16,7 +16,7 @@ import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.dining.DiningHallDetail;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 8/18/2015.
@@ -25,12 +25,12 @@ import slugapp.com.ucscstudentapp.main.ActivityReference;
  */
 public class MapEditor {
     private GoogleMap map;
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
     private Marker currentMarker = null;
     private List<Marker> diningHallList;
     private List<Marker> libraryList;
 
-    public MapEditor (ActivityReference callback) {
+    public MapEditor (ActivityCallback callback) {
         this.mCallBack = callback;
     }
 

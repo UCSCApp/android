@@ -19,17 +19,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 public class Map extends SupportMapFragment {
     private MapEditor mapEditor;
-    private ActivityReference mCallBack;
+    private ActivityCallback mCallBack;
     private int toolbar_height;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallBack = (ActivityReference) activity;
+        mCallBack = (ActivityCallback) activity;
     }
 
     @Override

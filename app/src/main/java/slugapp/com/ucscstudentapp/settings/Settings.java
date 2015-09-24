@@ -12,20 +12,20 @@ import android.view.ViewGroup;
 import com.github.machinarius.preferencefragment.PreferenceFragment;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityReference;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 7/26/2015.
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Settings extends PreferenceFragment {
-    private ActivityReference mCallback;
+    private ActivityCallback mCallback;
     private Context context;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallback = (ActivityReference) activity;
+        mCallback = (ActivityCallback) activity;
         context = activity;
     }
 

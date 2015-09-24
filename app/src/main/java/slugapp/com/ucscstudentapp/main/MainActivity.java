@@ -35,7 +35,7 @@ import slugapp.com.ucscstudentapp.event.EventList;
  * Fragments, and contains Top and Bottom Toolbars.
  */
 
-public class MainActivity extends AppCompatActivity implements ActivityReference {
+public class MainActivity extends AppCompatActivity implements ActivityCallback {
     private SwipeRefreshLayout swipeLayout;
     private FragmentManager fm;
     private TextView title;
