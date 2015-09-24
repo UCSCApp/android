@@ -59,12 +59,10 @@ public class MapEditor {
         // Libraries
         libraryList.add(map.addMarker(new MarkerOptions()
                 .title("McHenry Library")
-                .snippet("tap here to see more")
                 .position(new LatLng(36.99578157522153, -122.058908423001))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.library))));
         libraryList.add(map.addMarker(new MarkerOptions()
                 .title("S&E Library")
-                .snippet("tap here to see more")
                 .position(new LatLng(36.99904411574191, -122.06070818525006))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.library))));
 
@@ -114,14 +112,16 @@ public class MapEditor {
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Bundle b = new Bundle();
-                b.putString("name", marker.getTitle());
-                FragmentTransaction ft = mCallBack.fm().beginTransaction();
-                DiningHallDetail llf = new DiningHallDetail();
-                llf.setArguments(b);
-                ft.replace(R.id.listFragment, llf);
-                ft.addToBackStack(null);
-                ft.commit();
+                if (diningHallList.contains(marker)) {
+                    Bundle b = new Bundle();
+                    b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
+                    FragmentTransaction ft = mCallBack.fm().beginTransaction();
+                    DiningHallDetail llf = new DiningHallDetail();
+                    llf.setArguments(b);
+                    ft.replace(R.id.listFragment, llf);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
             }
         });
 
