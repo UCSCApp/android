@@ -7,8 +7,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.R;
-
 /**
  * Created by isayyuhh_s on 9/2/2015.
  */

@@ -5,15 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -21,7 +18,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.event.EventSearchList;
 import slugapp.com.ucscstudentapp.http.Callback;
 import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
@@ -90,6 +86,8 @@ public class DiningHallDetail extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        // find on map
         if (id == R.id.map_find) {
             Bundle b = new Bundle();
             b.putString("name", mCallBack.title());
