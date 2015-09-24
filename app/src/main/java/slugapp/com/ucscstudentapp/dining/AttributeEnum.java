@@ -6,16 +6,16 @@ import slugapp.com.ucscstudentapp.R;
  * Created by isayyuhh on 9/24/2015.
  */
 public enum AttributeEnum {
-    EGGS("eggs", R.drawable.ic_egg),
-    MILK("milk", R.drawable.ic_milk),
-    SOY("soy", R.drawable.ic_soy),
-    VEGGIE("veggie", R.drawable.ic_veggie),
-    GLUTEN("gluten", R.drawable.ic_gluten),
-    VEGAN("vegan", R.drawable.ic_vegan),
-    NUTS("nuts", R.drawable.ic_nuts),
-    FISH("fish", R.drawable.ic_fish),
-    PORK("pork", R.drawable.ic_pork),
-    BEEF("beef", R.drawable.ic_beef);
+    EGGS("Eggs", R.drawable.ic_egg),
+    MILK("Milk", R.drawable.ic_milk),
+    SOY("Soy", R.drawable.ic_soy),
+    VEGGIE("Veggie", R.drawable.ic_veggie),
+    GLUTEN("Gluten", R.drawable.ic_gluten),
+    VEGAN("Vegan", R.drawable.ic_vegan),
+    NUTS("Nuts", R.drawable.ic_nuts),
+    FISH("Fish", R.drawable.ic_fish),
+    PORK("Pork", R.drawable.ic_pork),
+    BEEF("Beef", R.drawable.ic_beef);
 
     private int icon;
     private String string;
