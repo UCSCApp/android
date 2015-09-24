@@ -41,8 +41,9 @@ public class MapEditor {
         }
     }
 
-    public void moveTo(LatLng latLng) {
+    public void moveTo(LatLng latLng, Marker marker) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.5f));
+        marker.showInfoWindow();
     }
 
     /**

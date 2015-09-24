@@ -66,24 +66,24 @@ public class Map extends SupportMapFragment {
         mapEditor.setMarkers(diningHallList, libraryList);
         mapEditor.setListeners(diningHallList, libraryList);
 
+        // if started from "find on map" button on dining hall
         Bundle b = getArguments();
         if (b != null && b.containsKey("name")) {
-            switch (b.getString("name")) {
-                case "College Eight / Oakes":
-                    mapEditor.moveTo(new LatLng(36.991565, -122.065267));
+            for (int i = 0; i < MarkerEnum.DiningHall.values().length; i++) {
+
+                // if correct dining hall
+                if (b.getString("name").equals(MarkerEnum.DiningHall.values()[i].getName())) {
+                    for (int j = 0; j < diningHallList.size(); j++) {
+
+                        // if found marker from marker list
+                        if (diningHallList.get(j).getTitle().replace(" Dining Hall", "")
+                                .equals(b.getString("name"))) {
+                            mapEditor.moveTo(new LatLng(MarkerEnum.DiningHall.values()[i].getLat(),
+                                    MarkerEnum.DiningHall.values()[i].getLng()), diningHallList.get(j));
+                        }
+                    }
                     break;
-                case "Porter / Kresge":
-                    mapEditor.moveTo(new LatLng(36.994344, -122.065800));
-                    break;
-                case "College Nine / College Ten":
-                    mapEditor.moveTo(new LatLng(37.001096, -122.058031));
-                    break;
-                case "Crown / Merrill":
-                    mapEditor.moveTo(new LatLng(36.999971, -122.054448));
-                    break;
-                case "Cowell / Stevenson":
-                    mapEditor.moveTo(new LatLng(36.997157, -122.053150));
-                    break;
+                }
             }
         }
     }
