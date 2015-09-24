@@ -36,6 +36,7 @@ public class Map extends SupportMapFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
 
         // Map editor
         mapEditor = new MapEditor(mCallBack);
