@@ -31,7 +31,7 @@ public class LegendDialog extends DialogFragment {
 
     private void setList(View view) {
         LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
-        for (int i = 0; i < DiningHall.Attribute.values().length; i++) {
+        for (int i = 0; i < AttributeEnum.values().length; i++) {
             // legend params
             LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -50,12 +50,12 @@ public class LegendDialog extends DialogFragment {
             // icon
             ImageView icon = new ImageView(getActivity());
             icon.setLayoutParams(iconParams);
-            icon.setImageResource(DiningHall.Attribute.values()[i].getIcon());
+            icon.setImageResource(AttributeEnum.values()[i].getIcon());
             ll.addView(icon);
 
             // text view
             TextView tv = new TextView(getActivity());
-            tv.setText(DiningHall.Attribute.values()[i].getString());
+            tv.setText(AttributeEnum.values()[i].getString());
             tv.setTextColor(Color.BLACK);
             tv.setTextSize(14.0f);
             tv.setLayoutParams(tvParams);

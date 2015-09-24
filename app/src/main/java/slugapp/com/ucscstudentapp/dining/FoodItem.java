@@ -7,9 +7,9 @@ import java.util.List;
  */
 public class FoodItem {
     private String name;
-    private List<DiningHall.Attribute> attributes;
+    private List<AttributeEnum> attributes;
 
-    public FoodItem (String name, List<DiningHall.Attribute> attributes) {
+    public FoodItem (String name, List<AttributeEnum> attributes) {
         this.name = name;
         this.attributes = attributes;
     }
@@ -17,7 +17,7 @@ public class FoodItem {
     public String name () {
         return this.name;
     }
-    public List<DiningHall.Attribute> attributes () {
+    public List<AttributeEnum> attributes () {
         return this.attributes;
     }
 }
