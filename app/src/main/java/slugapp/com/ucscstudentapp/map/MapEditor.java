@@ -112,7 +112,8 @@ public class MapEditor {
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if (marker.getTitle().equals("")) return;
+                if (marker.getTitle().equals("S&E Library") ||
+                        marker.getTitle().equals("McHenry Library")) return;
                 Bundle b = new Bundle();
                 b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
                 FragmentTransaction ft = mCallBack.fm().beginTransaction();
