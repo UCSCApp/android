@@ -54,42 +54,24 @@ public class MapEditor {
         final List<Marker> diningHallList = dhList;
         final List<Marker> libraryList = lList;
 
-        // Libraries
-        libraryList.add(map.addMarker(new MarkerOptions()
-                .title("McHenry Library")
-                .position(new LatLng(36.99578157522153, -122.058908423001))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.library))));
-        libraryList.add(map.addMarker(new MarkerOptions()
-                .title("S&E Library")
-                .position(new LatLng(36.99904411574191, -122.06070818525006))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.library))));
-
         // Dining Halls
-        diningHallList.add(map.addMarker(new MarkerOptions()
-                .title("College Eight / Oakes Dining Hall")
-                .snippet("tap here to see more")
-                .position(new LatLng(36.991565, -122.065267))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dining_hall))));
-        diningHallList.add(map.addMarker(new MarkerOptions()
-                .title("Porter / Kresge Dining Hall")
-                .snippet("tap here to see more")
-                .position(new LatLng(36.994344, -122.065800))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dining_hall))));
-        diningHallList.add(map.addMarker(new MarkerOptions()
-                .title("College Nine / College Ten Dining Hall")
-                .snippet("tap here to see more")
-                .position(new LatLng(37.001096, -122.058031))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dining_hall))));
-        diningHallList.add(map.addMarker(new MarkerOptions()
-                .title("Crown / Merrill Dining Hall")
-                .snippet("tap here to see more")
-                .position(new LatLng(36.999971, -122.054448))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dining_hall))));
-        diningHallList.add(map.addMarker(new MarkerOptions()
-                .title("Cowell / Stevenson Dining Hall")
-                .snippet("tap here to see more")
-                .position(new LatLng(36.997157, -122.053150))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dining_hall))));
+        for (int i = 0; i < MarkerEnum.DiningHall.values().length; i++) {
+            diningHallList.add(map.addMarker(new MarkerOptions()
+                    .title(MarkerEnum.DiningHall.values()[i].getName() + " Dining Hall")
+                    .snippet("tap here to see more")
+                    .position(new LatLng(MarkerEnum.DiningHall.values()[i].getLat(),
+                            MarkerEnum.DiningHall.values()[i].getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.dining_hall))));
+        }
+
+        // Libraries
+        for (int i = 0; i < MarkerEnum.Library.values().length; i++) {
+            libraryList.add(map.addMarker(new MarkerOptions()
+                    .title(MarkerEnum.Library.values()[i].getName())
+                    .position(new LatLng(MarkerEnum.Library.values()[i].getLat(),
+                            MarkerEnum.Library.values()[i].getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.library))));
+        }
     }
 
     /**
@@ -112,8 +94,12 @@ public class MapEditor {
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if (marker.getTitle().equals("S&E Library") ||
-                        marker.getTitle().equals("McHenry Library")) return;
+                // if not library
+                for (int i = 0; i < MarkerEnum.Library.values().length; i++) {
+                    if (marker.getTitle().equals(MarkerEnum.Library.values()[i].getName())) {
+                        return;
+                    }
+                }
                 Bundle b = new Bundle();
                 b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
                 FragmentTransaction ft = mCallBack.fm().beginTransaction();
