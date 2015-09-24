@@ -10,7 +10,6 @@ package slugapp.com.ucscstudentapp.map;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
