@@ -45,7 +45,7 @@ public class FacilityList extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.top_toolbar, menu);
+        inflater.inflate(R.menu.search_toolbar, menu);
         mCallBack.setTitle("Facilities");
 
         mCallBack.setSearchButton(menu);

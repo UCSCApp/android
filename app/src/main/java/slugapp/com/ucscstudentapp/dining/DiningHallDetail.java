@@ -5,7 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +21,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.ucscstudentapp.R;
+import slugapp.com.ucscstudentapp.event.EventSearchList;
 import slugapp.com.ucscstudentapp.http.Callback;
 import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
@@ -59,22 +65,6 @@ public class DiningHallDetail extends Fragment {
         View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
         mCallBack.setTitle(name);
 
-        // find on map button
-        Button btn = (Button) view.findViewById(R.id.find);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putString("name", mCallBack.title());
-                FragmentTransaction ft = mCallBack.fm().beginTransaction();
-                Map fragment = new Map();
-                fragment.setArguments(b);
-                ft.replace(R.id.listFragment, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
-
         // set date, breakfast, lunch, and dinner
         TextView date = (TextView) view.findViewById(R.id.date);
         date.setText(mCallBack.today().month() + " " + mCallBack.today().day());
@@ -90,6 +80,27 @@ public class DiningHallDetail extends Fragment {
     public void onStart() {
         super.onStart();
         mCallBack.setButtons(R.id.dining_button);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.find_on_map_toolbar, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.map_find) {
+            Bundle b = new Bundle();
+            b.putString("name", mCallBack.title());
+            FragmentTransaction ft = mCallBack.fm().beginTransaction();
+            Map fragment = new Map();
+            fragment.setArguments(b);
+            ft.replace(R.id.listFragment, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setMenu(FoodMenu menu, TableLayout table) {

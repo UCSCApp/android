@@ -86,14 +86,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         dining_button.setImageResource(R.drawable.ic_dining);
         ToggleImageButton map_button = (ToggleImageButton) child.findViewById(R.id.map_button);
         map_button.setImageResource(R.drawable.ic_map);
-
-        /*
-        ToggleImageButton social_button = (ToggleImageButton) child.findViewById(R.id.social_button);
-        social_button.setImageResource(R.drawable.ic_social);
-        ToggleImageButton settings_button = (ToggleImageButton) child.findViewById(R.id.settings_button);
-        settings_button.setImageResource(R.drawable.ic_settings);
-        */
-
         ToggleImageButton.setIds(events_button, dining_button, map_button); //, social_button, settings_button);
         bottom.addView(child);
         events_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
@@ -154,12 +146,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         findViewById(R.id.dining_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         findViewById(R.id.map_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-
-        /*
-        findViewById(R.id.social_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(R.id.settings_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        */
-
         findViewById(buttonId).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 

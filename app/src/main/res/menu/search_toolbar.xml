@@ -9,5 +9,5 @@
         android:orderInCategory="200"
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom" />
 </menu>

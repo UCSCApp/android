@@ -10,25 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/find"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dip"
-            android:gravity="center_horizontal"
-            android:paddingBottom="12dip"
-            android:paddingTop="12dip"
-            android:text="Find On Map"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
         <TextView
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textColor="#000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:paddingTop="10dip"/>
 
         <TableLayout
             android:id="@+id/breakfast"

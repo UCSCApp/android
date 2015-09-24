@@ -96,7 +96,7 @@ public class Date {
             for (int i = 0; i < day; i++) digit++;
             while (digit > 9) digit %= 10;
             this.string = month + " " + Integer.toString(day) +
-                    (digit == 1 ? "st" : digit == 2 ? "nd" : digit == 3 ? "rd" : "th") + " - " +
+                    (digit == 1 ? "st" : digit == 2 ? "nd" : digit == 3 ? "rd" : "th") + " | " +
                     Integer.toString(startTime) + startTimeTOD + " to " + Integer.toString(endTime)
                     + endTimeTOD;
         }

@@ -55,7 +55,7 @@ public class EventList extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.top_toolbar, menu);
+        inflater.inflate(R.menu.search_toolbar, menu);
 
         // SearchView
         SearchView searchView = mCallback.setSearchButton(menu);
@@ -78,7 +78,7 @@ public class EventList extends Fragment {
                 ft.commit();
                 return true;
             }
-        });;
+        });
     }
 
     @Override
@@ -98,7 +98,8 @@ public class EventList extends Fragment {
         EventUpdater upd = new EventUpdater(getActivity(), adp);
         mCallback.setCurrentSwipeLayout((SwipeRefreshLayout) view.findViewById(R.id.swipe_container));
         mCallback.currentSwipeLayout().setOnRefreshListener(upd);
-        mCallback.currentSwipeLayout().setColorSchemeResources(android.R.color.holo_blue_bright,
+        mCallback.currentSwipeLayout().setColorSchemeResources(
+                android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
