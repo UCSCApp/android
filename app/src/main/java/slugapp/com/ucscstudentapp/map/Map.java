@@ -17,6 +17,10 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
@@ -24,7 +28,8 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
 public class Map extends SupportMapFragment {
     private MapEditor mapEditor;
     private ActivityCallback mCallBack;
-    private int toolbar_height;
+    private List<Marker> diningHallList;
+    private List<Marker> libraryList;
 
     @Override
     public void onAttach(Activity activity) {
@@ -40,8 +45,8 @@ public class Map extends SupportMapFragment {
 
         // Map editor
         mapEditor = new MapEditor(mCallBack);
-        toolbar_height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                (float) 48, getActivity().getResources().getDisplayMetrics());
+        libraryList = new ArrayList<>();
+        diningHallList = new ArrayList<>();
     }
 
     @Override
@@ -59,8 +64,9 @@ public class Map extends SupportMapFragment {
 
         // Set map
         mapEditor.initializeMap(getMap());
-        mapEditor.setMarkers();
-        mapEditor.setListeners();
+        mapEditor.setMarkers(diningHallList, libraryList);
+        mapEditor.setListeners(diningHallList, libraryList);
+
         Bundle b = getArguments();
         if (b != null && b.containsKey("name")) {
             switch (b.getString("name")) {
@@ -81,11 +87,5 @@ public class Map extends SupportMapFragment {
                     break;
             }
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mapEditor != null) mapEditor.hideInfoWindows();
     }
 }

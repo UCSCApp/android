@@ -2,6 +2,7 @@ package slugapp.com.ucscstudentapp.map;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,21 +21,18 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 8/18/2015.
- *
+ * <p/>
  * Edits the map
  */
 public class MapEditor {
     private GoogleMap map;
     private ActivityCallback mCallBack;
-    private Marker currentMarker = null;
-    private List<Marker> diningHallList;
-    private List<Marker> libraryList;
 
-    public MapEditor (ActivityCallback callback) {
+    public MapEditor(ActivityCallback callback) {
         this.mCallBack = callback;
     }
 
-    public void initializeMap (GoogleMap map) {
+    public void initializeMap(GoogleMap map) {
         if (this.map == null) {
             this.map = map;
 
@@ -45,16 +43,16 @@ public class MapEditor {
         }
     }
 
-    public void moveTo (LatLng latLng) {
+    public void moveTo(LatLng latLng) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.5f));
     }
 
     /**
      * Sets Defaults Markers
      */
-    public void setMarkers() {
-        libraryList = new ArrayList<>();
-        diningHallList = new ArrayList<>();
+    public void setMarkers(List<Marker> dhList, List<Marker> lList) {
+        final List<Marker> diningHallList = dhList;
+        final List<Marker> libraryList = lList;
 
         // Libraries
         libraryList.add(map.addMarker(new MarkerOptions()
@@ -97,13 +95,15 @@ public class MapEditor {
     /**
      * Sets Marker Listeners
      */
-    public void setListeners() {
+    public void setListeners(List<Marker> dhList, List<Marker> lList) {
+        final List<Marker> diningHallList = dhList;
+        final List<Marker> libraryList = lList;
+
         // OnMarkerClickListener
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 marker.showInfoWindow();
-                currentMarker = marker;
                 map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 return false;
             }
@@ -112,16 +112,15 @@ public class MapEditor {
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if (diningHallList.contains(marker)) {
-                    Bundle b = new Bundle();
-                    b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
-                    FragmentTransaction ft = mCallBack.fm().beginTransaction();
-                    DiningHallDetail llf = new DiningHallDetail();
-                    llf.setArguments(b);
-                    ft.replace(R.id.listFragment, llf);
-                    ft.addToBackStack(null);
-                    ft.commit();
-                }
+                if (marker.getTitle().equals("")) return;
+                Bundle b = new Bundle();
+                b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
+                FragmentTransaction ft = mCallBack.fm().beginTransaction();
+                DiningHallDetail llf = new DiningHallDetail();
+                llf.setArguments(b);
+                ft.replace(R.id.listFragment, llf);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
@@ -140,9 +139,5 @@ public class MapEditor {
                 }
             }
         });
-    }
-
-    public void hideInfoWindows () {
-        if (currentMarker != null) currentMarker.hideInfoWindow();
     }
 }
