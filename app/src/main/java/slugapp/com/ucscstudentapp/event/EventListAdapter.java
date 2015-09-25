@@ -22,7 +22,7 @@ import slugapp.com.ucscstudentapp.http.ImageHttpRequest;
  */
 public class EventListAdapter extends ArrayAdapter<Event> {
     public EventListAdapter(Context context) {
-        super(context, R.layout.item_event_center);
+        super(context, R.layout.item_event);
     }
 
     public void setData(List<Event> events) {
@@ -38,7 +38,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_event_center, null);
+            convertView = inflater.inflate(R.layout.item_event, null);
         }
         Event e = getItem(position);
         new ImageHttpRequest(e.url())

@@ -38,7 +38,7 @@ public class EmptyPageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_event_center, container, false);
+        View view = inflater.inflate(R.layout.list_event, container, false);
         mCallBack.setTitle("Empty");
         return view;
     }
