@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         View child = getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
 
         // Bottom Buttons
-        ToggleImageButton events_button = (ToggleImageButton) child.findViewById(R.id.events_button);
+        BottomToolbarButton events_button = (BottomToolbarButton) child.findViewById(R.id.events_button);
         events_button.setImageResource(R.drawable.ic_events);
-        ToggleImageButton dining_button = (ToggleImageButton) child.findViewById(R.id.dining_button);
+        BottomToolbarButton dining_button = (BottomToolbarButton) child.findViewById(R.id.dining_button);
         dining_button.setImageResource(R.drawable.ic_dining);
-        ToggleImageButton map_button = (ToggleImageButton) child.findViewById(R.id.map_button);
+        BottomToolbarButton map_button = (BottomToolbarButton) child.findViewById(R.id.map_button);
         map_button.setImageResource(R.drawable.ic_map);
-        ToggleImageButton.setIds(events_button, dining_button, map_button); //, social_button, settings_button);
+        BottomToolbarButton.setIds(events_button, dining_button, map_button); //, social_button, settings_button);
         bottom.addView(child);
         events_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }

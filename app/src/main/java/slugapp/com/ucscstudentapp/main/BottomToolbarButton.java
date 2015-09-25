@@ -16,27 +16,27 @@ import slugapp.com.ucscstudentapp.social.joint_login_social_fragment;
 /**
  * Created by isayyuhh_s on 7/28/2015.
  */
-public class ToggleImageButton extends ImageButton {
+public class BottomToolbarButton extends ImageButton {
     private static int eventID, diningID, mapID, socialID, settingsID;
     private ActivityCallback mCallBack;
 
-    public ToggleImageButton(Context context) {
+    public BottomToolbarButton(Context context) {
         super(context);
         this.mCallBack = (ActivityCallback) context;
     }
 
-    public ToggleImageButton(Context context, AttributeSet attrs) {
+    public BottomToolbarButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mCallBack = (ActivityCallback) context;
     }
 
-    public ToggleImageButton(Context context, AttributeSet attrs, int defStyle) {
+    public BottomToolbarButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.mCallBack = (ActivityCallback) context;
     }
 
-    public static void setIds(ToggleImageButton event_button, ToggleImageButton dining_button,
-                              ToggleImageButton map_button) {
+    public static void setIds(BottomToolbarButton event_button, BottomToolbarButton dining_button,
+                              BottomToolbarButton map_button) {
             //, ToggleImageButton social_button, ToggleImageButton settings_button) {
         eventID = event_button.getId();
         diningID = dining_button.getId();
