@@ -15,7 +15,8 @@ public enum AttributeEnum {
     NUTS("Nuts", R.drawable.ic_nuts),
     FISH("Fish", R.drawable.ic_fish),
     PORK("Pork", R.drawable.ic_pork),
-    BEEF("Beef", R.drawable.ic_beef);
+    BEEF("Beef", R.drawable.ic_beef),
+    ALLERGY_FREE("Allergy free", R.drawable.ic_allergy_free);
 
     private int icon;
     private String string;

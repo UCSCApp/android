@@ -40,7 +40,7 @@ public class LegendDialog extends DialogFragment {
             LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             iconParams.setMargins(12, 10, 0, 10);
-            tvParams.setMargins(100, 10, 8, 10);
+            tvParams.setMargins(50, 10, 12, 10);
 
             // linear layout
             LinearLayout ll = new LinearLayout(getActivity());
