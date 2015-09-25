@@ -49,7 +49,8 @@ public class Map extends SupportMapFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
         mCallBack.setTitle("Map");
 
@@ -79,7 +80,8 @@ public class Map extends SupportMapFragment {
                         if (diningHallList.get(j).getTitle().replace(" Dining Hall", "")
                                 .equals(b.getString("name"))) {
                             mapEditor.moveTo(new LatLng(MarkerEnum.DiningHall.values()[i].getLat(),
-                                    MarkerEnum.DiningHall.values()[i].getLng()), diningHallList.get(j));
+                                    MarkerEnum.DiningHall.values()[i].getLng()),
+                                    diningHallList.get(j));
                         }
                     }
                     break;

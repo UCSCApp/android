@@ -95,9 +95,7 @@ public class MapEditor {
             public void onInfoWindowClick(Marker marker) {
                 // if not library
                 for (int i = 0; i < MarkerEnum.Library.values().length; i++) {
-                    if (marker.getTitle().equals(MarkerEnum.Library.values()[i].getName())) {
-                        return;
-                    }
+                    if (marker.getTitle().equals(MarkerEnum.Library.values()[i].getName())) return;
                 }
                 Bundle b = new Bundle();
                 b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
