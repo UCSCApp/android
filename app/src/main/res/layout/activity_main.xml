@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:layout_weight=".115"/>
+            android:layout_weight=".1"/>
 
         <LinearLayout
             android:id="@+id/bottom_toolbar"
@@ -44,7 +44,7 @@
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:layout_weight=".885"
+            android:layout_weight=".9"
             android:background="@color/ColorPrimary"/>
     </LinearLayout>
 </LinearLayout>
