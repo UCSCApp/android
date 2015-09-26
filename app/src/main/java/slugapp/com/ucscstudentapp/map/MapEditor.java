@@ -36,7 +36,7 @@ public class MapEditor {
 
             // Set initial state
             map.getUiSettings().setZoomControlsEnabled(true);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(36.991499, -122.058835), 14));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(36.995231, -122.059972), 15));
             map.setMyLocationEnabled(true);
         }
     }
@@ -115,11 +115,11 @@ public class MapEditor {
                 Marker marker;
                 for (int i = 0; i < libraryList.size(); i++) {
                     marker = libraryList.get(i);
-                    marker.setVisible(cameraPosition.zoom > 15);
+                    marker.setVisible(cameraPosition.zoom > 14.9);
                 }
                 for (int i = 0; i < diningHallList.size(); i++) {
                     marker = diningHallList.get(i);
-                    marker.setVisible(cameraPosition.zoom > 15);
+                    marker.setVisible(cameraPosition.zoom > 14.9);
                 }
             }
         });
