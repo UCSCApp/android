@@ -22,8 +22,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.FutureTask;
+import java.util.Timer;
 
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
@@ -42,8 +41,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private FragmentManager fm;
     private TextView title;
     private Date today;
-    private FutureTask<Void> task;
-    private ExecutorService exec;
+    private Timer timer;
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
@@ -68,19 +66,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.task != null && this.exec != null) {
-            this.task.cancel(true);
-            this.exec.shutdown();
-        }
+        if (this.timer != null) this.timer.cancel();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (this.task != null && this.exec != null) {
-            this.task.cancel(true);
-            this.exec.shutdown();
-        }
+        if (this.timer != null) this.timer.cancel();
     }
 
     /*
@@ -149,9 +141,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
-    public void setTask(FutureTask<Void> task, ExecutorService exec) {
-        this.task = task;
-        this.exec = exec;
+    public Timer getTimer() {
+        return this.timer;
+    }
+
+    @Override
+    public void initTimer() {
+        this.timer = new Timer();
     }
 
     @Override

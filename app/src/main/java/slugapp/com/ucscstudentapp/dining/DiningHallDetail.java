@@ -105,7 +105,7 @@ public class DiningHallDetail extends Fragment {
         // for each food item
         for (int i = 0; i < menu.size(); i++) {
             // init objects
-            FoodItem food = menu.get(i);
+            Food food = menu.get(i);
             TableRow row = new TableRow(getActivity());
             TextView name = new TextView(getActivity());
             LinearLayout attributes = new LinearLayout(getActivity());
@@ -169,7 +169,7 @@ public class DiningHallDetail extends Fragment {
                     ft.addToBackStack(null);
 
                     // Create and show the dialog.
-                    LegendDialog dialog = new LegendDialog();
+                    DiningLegendDialog dialog = new DiningLegendDialog();
                     dialog.show(ft, "dialog");
                 }
             });

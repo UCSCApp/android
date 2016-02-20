@@ -15,9 +15,9 @@ import slugapp.com.ucscstudentapp.R;
 /**
  * Created by isayyuhh on 9/23/2015.
  */
-public class LegendDialog extends DialogFragment {
+public class DiningLegendDialog extends DialogFragment {
 
-    public LegendDialog() {
+    public DiningLegendDialog() {
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LegendDialog extends DialogFragment {
 
     private void setList(View view) {
         LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
-        for (int i = 0; i < AttributeEnum.values().length; i++) {
+        for (int i = 0; i < FoodAttribute.values().length; i++) {
             // legend params
             LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -50,12 +50,12 @@ public class LegendDialog extends DialogFragment {
             // icon
             ImageView icon = new ImageView(getActivity());
             icon.setLayoutParams(iconParams);
-            icon.setImageResource(AttributeEnum.values()[i].getIcon());
+            icon.setImageResource(FoodAttribute.values()[i].getIcon());
             ll.addView(icon);
 
             // text view
             TextView tv = new TextView(getActivity());
-            tv.setText(AttributeEnum.values()[i].getString());
+            tv.setText(FoodAttribute.values()[i].getString());
             tv.setTextColor(Color.BLACK);
             tv.setTextSize(14.0f);
             tv.setLayoutParams(tvParams);

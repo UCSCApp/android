@@ -1,9 +1,9 @@
 package slugapp.com.ucscstudentapp.map;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,17 +15,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.dining.DiningHallDetail;
-import slugapp.com.ucscstudentapp.http.Callback;
-import slugapp.com.ucscstudentapp.http.LoopHttpRequest;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
@@ -36,8 +29,6 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
 public class MapEditor {
     private GoogleMap map;
     private ActivityCallback mCallBack;
-    private FutureTask<Void> task;
-    private ExecutorService exec;
     private List<Marker> loops;
 
     public MapEditor(ActivityCallback callback) {
@@ -56,20 +47,23 @@ public class MapEditor {
     }
 
     public void setLoops() {
-        final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(this.map);
-        //LoopRunnable callable = new LoopRunnable(this.map);
-        //this.exec = Executors.newFixedThreadPool(1);
-        //this.task = new FutureTask(callable);
-        //this.exec.execute(task);
-        //this.mCallBack.setTask(task, exec);
         this.loops = new ArrayList<>();
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+        final Handler handler = new Handler();
+        final LoopRunnable runnable = new LoopRunnable(this.map, loops);
+
+        this.mCallBack.initTimer();
+        this.mCallBack.getTimer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+
                 handler.post(runnable);
             }
         }, 0, 2000);
+    }
+
+    public void removeLoops () {
+        for (Marker marker: this.loops) marker.remove();
     }
 
     public void moveTo(LatLng latLng, Marker marker) {

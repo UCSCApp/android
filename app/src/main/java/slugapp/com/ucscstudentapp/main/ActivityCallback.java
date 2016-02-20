@@ -5,8 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.FutureTask;
+import java.util.Timer;
 
 import slugapp.com.ucscstudentapp.event.Date;
 
@@ -32,5 +31,6 @@ public interface ActivityCallback {
     void setTitle(String title);
     void setToday();
 
-    void setTask(FutureTask<Void> task, ExecutorService exec);
+    Timer getTimer();
+    void initTimer();
 }

@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by isayyuhh_s on 9/2/2015.
  */
-public class FoodItem {
+public class Food {
     private String name;
-    private List<AttributeEnum> attributes;
+    private List<FoodAttribute> attributes;
 
-    public FoodItem (String name, List<AttributeEnum> attributes) {
+    public Food(String name, List<FoodAttribute> attributes) {
         this.name = name;
         this.attributes = attributes;
     }
@@ -17,7 +17,7 @@ public class FoodItem {
     public String name () {
         return this.name;
     }
-    public List<AttributeEnum> attributes () {
+    public List<FoodAttribute> attributes () {
         return this.attributes;
     }
 }

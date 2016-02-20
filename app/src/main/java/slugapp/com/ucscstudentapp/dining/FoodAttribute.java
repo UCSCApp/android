@@ -5,7 +5,7 @@ import slugapp.com.ucscstudentapp.R;
 /**
  * Created by isayyuhh on 9/24/2015.
  */
-public enum AttributeEnum {
+public enum FoodAttribute {
     EGGS("Eggs", R.drawable.ic_egg),
     MILK("Milk", R.drawable.ic_milk),
     SOY("Soy", R.drawable.ic_soy),
@@ -21,7 +21,7 @@ public enum AttributeEnum {
     private int icon;
     private String string;
 
-    AttributeEnum(String string, int icon) {
+    FoodAttribute(String string, int icon) {
         this.icon = icon;
         this.string = string;
     }

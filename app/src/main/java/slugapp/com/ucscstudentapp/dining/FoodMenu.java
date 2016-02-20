@@ -7,16 +7,16 @@ import java.util.List;
  * Created by isayyuhh_s on 9/2/2015.
  */
 public class FoodMenu {
-    private List<FoodItem> items;
+    private List<Food> items;
 
     public FoodMenu () {
         items = new ArrayList<>();
     }
 
-    public void add (FoodItem item) {
+    public void add (Food item) {
         items.add(item);
     }
-    public FoodItem get (int position) {
+    public Food get (int position) {
         return items.get(position);
     }
     public int size () {

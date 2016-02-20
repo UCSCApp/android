@@ -10,6 +10,7 @@ package slugapp.com.ucscstudentapp.map;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,9 @@ public class Map extends SupportMapFragment {
         setRetainInstance(true);
 
         // Map editor
-        this.mapEditor = new MapEditor(mCallBack);
         this.libraryList = new ArrayList<>();
         this.diningHallList = new ArrayList<>();
+        this.mapEditor = new MapEditor(mCallBack);
     }
 
     @Override
@@ -97,12 +98,9 @@ public class Map extends SupportMapFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
+        this.mapEditor.removeLoops();
+        if (this.mCallBack.getTimer() != null) this.mCallBack.getTimer().cancel();
     }
 }

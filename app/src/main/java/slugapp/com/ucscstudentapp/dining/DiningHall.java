@@ -21,14 +21,14 @@ public class DiningHall {
     private FoodMenu addMenu (JSONArray array) throws JSONException {
         FoodMenu menu = new FoodMenu();
         for (int k = 0; k < array.length(); k++) {
-            List<AttributeEnum> attributes = new ArrayList<>();
+            List<FoodAttribute> attributes = new ArrayList<>();
             JSONObject item = array.getJSONObject(k);
             JSONArray attr = item.getJSONArray("attribs");
             String name = item.getString("name");
             for (int l = 0; l < attr.length(); l++) {
-                attributes.add(AttributeEnum.valueOf(attr.getString(l).toUpperCase()));
+                attributes.add(FoodAttribute.valueOf(attr.getString(l).toUpperCase()));
             }
-            menu.add(new FoodItem(name, attributes));
+            menu.add(new Food(name, attributes));
         }
         return menu;
     }
