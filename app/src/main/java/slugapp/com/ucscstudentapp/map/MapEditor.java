@@ -1,6 +1,8 @@
 package slugapp.com.ucscstudentapp.map;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +17,8 @@ import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.dining.DiningHallDetail;
+import slugapp.com.ucscstudentapp.http.Callback;
+import slugapp.com.ucscstudentapp.http.LoopHttpRequest;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
@@ -25,6 +29,7 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
 public class MapEditor {
     private GoogleMap map;
     private ActivityCallback mCallBack;
+    private LoopAsyncTask task;
 
     public MapEditor(ActivityCallback callback) {
         this.mCallBack = callback;
@@ -39,6 +44,15 @@ public class MapEditor {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(36.995231, -122.059972), 15));
             map.setMyLocationEnabled(true);
         }
+    }
+
+    public void setLoops() {
+        this.task = new LoopAsyncTask(this.map);
+        this.task.execute();
+    }
+
+    public void endTask () {
+        if (this.task != null) this.task.cancel(false);
     }
 
     public void moveTo(LatLng latLng, Marker marker) {

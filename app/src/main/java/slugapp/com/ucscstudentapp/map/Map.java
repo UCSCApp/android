@@ -33,7 +33,7 @@ public class Map extends SupportMapFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallBack = (ActivityCallback) activity;
+        this.mCallBack = (ActivityCallback) activity;
     }
 
     @Override
@@ -43,16 +43,16 @@ public class Map extends SupportMapFragment {
         setRetainInstance(true);
 
         // Map editor
-        mapEditor = new MapEditor(mCallBack);
-        libraryList = new ArrayList<>();
-        diningHallList = new ArrayList<>();
+        this.mapEditor = new MapEditor(mCallBack);
+        this.libraryList = new ArrayList<>();
+        this.diningHallList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
-        mCallBack.setTitle("Map");
+        this.mCallBack.setTitle("Map");
 
         return view;
     }
@@ -60,12 +60,12 @@ public class Map extends SupportMapFragment {
     @Override
     public void onStart() {
         super.onStart();
-        mCallBack.setButtons(R.id.map_button);
+        this.mCallBack.setButtons(R.id.map_button);
 
         // Set map
-        mapEditor.initializeMap(getMap());
-        mapEditor.setMarkers(diningHallList, libraryList);
-        mapEditor.setListeners(diningHallList, libraryList);
+        this.mapEditor.initializeMap(getMap());
+        this.mapEditor.setMarkers(this.diningHallList, this.libraryList);
+        this.mapEditor.setListeners(this.diningHallList, this.libraryList);
 
         // if started from "find on map" button on dining hall
         Bundle b = getArguments();
@@ -80,7 +80,7 @@ public class Map extends SupportMapFragment {
                         if (diningHallList.get(j).getTitle().replace(" Dining Hall", "")
                                 .equals(b.getString("name"))) {
                             mapEditor.moveTo(new LatLng(MarkerEnum.DiningHall.values()[i].getLat(),
-                                    MarkerEnum.DiningHall.values()[i].getLng()),
+                                            MarkerEnum.DiningHall.values()[i].getLng()),
                                     diningHallList.get(j));
                         }
                     }
@@ -88,5 +88,24 @@ public class Map extends SupportMapFragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onResume () {
+        super.onResume();
+
+        this.mapEditor.setLoops();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.mapEditor.endTask();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.mapEditor.endTask();
     }
 }
