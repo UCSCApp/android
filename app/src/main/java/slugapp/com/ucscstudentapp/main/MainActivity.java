@@ -22,6 +22,8 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.FutureTask;
 
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
@@ -30,7 +32,7 @@ import slugapp.com.ucscstudentapp.event.EventList;
 
 /**
  * Created by isaiah on 6/27/2015.
- * <p>
+ * <p/>
  * This file contains the MainActivity. It handles all of the pages of the app in the form of
  * Fragments, and contains Top and Bottom Toolbars.
  */
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private FragmentManager fm;
     private TextView title;
     private Date today;
+    private FutureTask<Void> task;
+    private ExecutorService exec;
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
@@ -59,6 +63,24 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         setBottomToolbar();
         setFragment();
         setToday();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.task != null && this.exec != null) {
+            this.task.cancel(true);
+            this.exec.shutdown();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (this.task != null && this.exec != null) {
+            this.task.cancel(true);
+            this.exec.shutdown();
+        }
     }
 
     /*
@@ -121,13 +143,19 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         String todaysMonth =
                 slugapp.com.ucscstudentapp.event.Date.MONTHS[Integer.parseInt(month.format(date)) - 1];
         this.today = new slugapp.com.ucscstudentapp.event.Date(
-                 Character.toUpperCase(todaysMonth.charAt(0)) + todaysMonth.substring(1) +
+                Character.toUpperCase(todaysMonth.charAt(0)) + todaysMonth.substring(1) +
                         " " + day.format(date) + " " + Integer.parseInt(hour.format(date)) + tod.format(date)
                         + " " + Integer.parseInt(hour.format(date)) + tod.format(date));
     }
 
     @Override
-    public String title () {
+    public void setTask(FutureTask<Void> task, ExecutorService exec) {
+        this.task = task;
+        this.exec = exec;
+    }
+
+    @Override
+    public String title() {
         return this.title.getText().toString();
     }
 
@@ -150,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
-    public SearchView setSearchButton (Menu menu) {
+    public SearchView setSearchButton(Menu menu) {
         findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
         final SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));

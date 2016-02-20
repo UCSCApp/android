@@ -13,7 +13,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.dining.DiningHallDetail;
@@ -29,7 +36,9 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
 public class MapEditor {
     private GoogleMap map;
     private ActivityCallback mCallBack;
-    private LoopAsyncTask task;
+    private FutureTask<Void> task;
+    private ExecutorService exec;
+    private List<Marker> loops;
 
     public MapEditor(ActivityCallback callback) {
         this.mCallBack = callback;
@@ -47,12 +56,20 @@ public class MapEditor {
     }
 
     public void setLoops() {
-        this.task = new LoopAsyncTask(this.map);
-        this.task.execute();
-    }
-
-    public void endTask () {
-        if (this.task != null) this.task.cancel(false);
+        final Handler handler = new Handler();
+        final LoopRunnable runnable = new LoopRunnable(this.map);
+        //LoopRunnable callable = new LoopRunnable(this.map);
+        //this.exec = Executors.newFixedThreadPool(1);
+        //this.task = new FutureTask(callable);
+        //this.exec.execute(task);
+        //this.mCallBack.setTask(task, exec);
+        this.loops = new ArrayList<>();
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(runnable);
+            }
+        }, 0, 2000);
     }
 
     public void moveTo(LatLng latLng, Marker marker) {
@@ -64,12 +81,9 @@ public class MapEditor {
      * Sets Defaults Markers
      */
     public void setMarkers(List<Marker> dhList, List<Marker> lList) {
-        final List<Marker> diningHallList = dhList;
-        final List<Marker> libraryList = lList;
-
         // Dining Halls
         for (int i = 0; i < MarkerEnum.DiningHall.values().length; i++) {
-            diningHallList.add(map.addMarker(new MarkerOptions()
+            dhList.add(map.addMarker(new MarkerOptions()
                     .title(MarkerEnum.DiningHall.values()[i].getName() + " Dining Hall")
                     .snippet("tap here to see more")
                     .position(new LatLng(MarkerEnum.DiningHall.values()[i].getLat(),
@@ -79,7 +93,7 @@ public class MapEditor {
 
         // Libraries
         for (int i = 0; i < MarkerEnum.Library.values().length; i++) {
-            libraryList.add(map.addMarker(new MarkerOptions()
+            lList.add(map.addMarker(new MarkerOptions()
                     .title(MarkerEnum.Library.values()[i].getName())
                     .position(new LatLng(MarkerEnum.Library.values()[i].getLat(),
                             MarkerEnum.Library.values()[i].getLng()))
@@ -103,6 +117,7 @@ public class MapEditor {
                 return false;
             }
         });
+
         // OnInfoWindowClickListener
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override

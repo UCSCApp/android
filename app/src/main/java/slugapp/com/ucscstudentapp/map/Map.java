@@ -93,19 +93,16 @@ public class Map extends SupportMapFragment {
     @Override
     public void onResume () {
         super.onResume();
-
         this.mapEditor.setLoops();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        this.mapEditor.endTask();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        this.mapEditor.endTask();
     }
 }
