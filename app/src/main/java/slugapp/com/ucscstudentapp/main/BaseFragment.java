@@ -13,7 +13,7 @@ import android.view.View;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.event.EventSearchList;
+import slugapp.com.ucscstudentapp.event.EventSearchListFragment;
 import slugapp.com.ucscstudentapp.event.EventUpdater;
 
 /**
@@ -83,7 +83,7 @@ public abstract class BaseFragment extends SupportMapFragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 ac.hideKeyboard();
-                EventSearchList fragment = new EventSearchList();
+                EventSearchListFragment fragment = new EventSearchListFragment();
                 Bundle b = new Bundle();
                 b.putString("query", query);
                 fragment.setArguments(b);

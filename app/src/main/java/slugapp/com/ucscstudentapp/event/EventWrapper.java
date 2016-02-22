@@ -3,8 +3,6 @@ package slugapp.com.ucscstudentapp.event;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
-
 /**
  * Created by simba on 7/31/15.
  */

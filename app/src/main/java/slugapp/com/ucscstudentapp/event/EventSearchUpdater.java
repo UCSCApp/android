@@ -15,11 +15,11 @@ import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
  *
  * Does Search
  */
-public class EventSearch extends EventUpdater {
+public class EventSearchUpdater extends EventUpdater {
     private String query;
 
-    public EventSearch(Context context, EventListAdapter adapter,
-                       String query) {
+    public EventSearchUpdater(Context context, EventListAdapter adapter,
+                              String query) {
         super(context, adapter);
         this.query = query;
     }

@@ -18,7 +18,7 @@ import slugapp.com.ucscstudentapp.main.BaseFragment;
  *
  * Fragment that displays Search results
  */
-public class EventSearchList extends BaseFragment {
+public class EventSearchListFragment extends BaseFragment {
     private String query;
 
     @Override
@@ -42,7 +42,7 @@ public class EventSearchList extends BaseFragment {
         ListView listView = (ListView) view.findViewById(R.id.list);
         EventListAdapter adp = new EventListAdapter(getActivity());
         listView.setAdapter(adp);
-        EventSearch upd = new EventSearch(getActivity(), adp, this.query);
+        EventSearchUpdater upd = new EventSearchUpdater(getActivity(), adp, this.query);
         upd.onRefresh();
         EventSearchListListener listListener = new EventSearchListListener(this.ac);
         listView.setOnItemClickListener(listListener);

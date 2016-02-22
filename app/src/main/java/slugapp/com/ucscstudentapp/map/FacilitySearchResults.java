@@ -59,7 +59,7 @@ public class FacilitySearchResults extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.list);
         ListAdapter adp = new ListAdapter(getActivity());
         listView.setAdapter(adp);
-        //EventSearch upd = new EventSearch(getActivity(), adp, query);
+        //EventSearchUpdater upd = new EventSearchUpdater(getActivity(), adp, query);
         //upd.onRefresh();
 
         EventSearchListListener listListener =

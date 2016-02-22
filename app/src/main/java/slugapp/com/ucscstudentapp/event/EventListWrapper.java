@@ -5,8 +5,6 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
-
 /**
  * Created by simba on 8/1/15.
  */

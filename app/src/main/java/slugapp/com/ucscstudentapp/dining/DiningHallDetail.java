@@ -1,6 +1,5 @@
 package slugapp.com.ucscstudentapp.dining;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.http.HttpCallback;
 import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
 import slugapp.com.ucscstudentapp.main.BaseFragment;
 import slugapp.com.ucscstudentapp.map.MapFragment;
 
@@ -30,12 +28,6 @@ import slugapp.com.ucscstudentapp.map.MapFragment;
 public class DiningHallDetail extends BaseFragment {
     private String diningHallName;
     private DiningHall diningHall;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.ac = (ActivityCallback) activity;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

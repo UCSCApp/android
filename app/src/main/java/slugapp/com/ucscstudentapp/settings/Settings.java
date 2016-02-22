@@ -1,9 +1,7 @@
 package slugapp.com.ucscstudentapp.settings;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
 /**
  * Created by isayyuhh_s on 7/26/2015.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Settings extends PreferenceFragment {
     private ActivityCallback mCallback;
     private Context context;
