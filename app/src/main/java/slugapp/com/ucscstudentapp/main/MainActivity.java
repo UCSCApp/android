@@ -66,13 +66,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.timer != null) this.timer.cancel();
+        //if (this.timer != null) this.timer.cancel();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (this.timer != null) this.timer.cancel();
+        //if (this.timer != null) this.timer.cancel();
     }
 
     /*

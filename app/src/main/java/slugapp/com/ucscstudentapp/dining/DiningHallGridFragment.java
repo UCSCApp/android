@@ -76,19 +76,19 @@ public class DiningHallGridFragment extends BaseFragment {
             String name;
             switch (position) {
                 case 0:
-                    name = "College Eight / Oakes";
+                    name = "College Eight / Oakes Dining Hall";
                     break;
                 case 1:
-                    name = "Porter / Kresge";
+                    name = "Porter / Kresge Dining Hall";
                     break;
                 case 2:
-                    name = "College Nine / College Ten";
+                    name = "College Nine / College Ten Dining Hall";
                     break;
                 case 3:
-                    name = "Crown / Merrill";
+                    name = "Crown / Merrill Dining Hall";
                     break;
                 case 4:
-                    name = "Cowell / Stevenson";
+                    name = "Cowell / Stevenson Dining Hall";
                     break;
                 default:
                     return;

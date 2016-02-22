@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.View;
-
-import com.google.android.gms.maps.SupportMapFragment;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.event.EventSearchListFragment;
@@ -19,7 +18,7 @@ import slugapp.com.ucscstudentapp.event.EventUpdater;
 /**
  * Created by isayyuhh on 2/21/16.
  */
-public abstract class BaseFragment extends SupportMapFragment {
+public abstract class BaseFragment extends Fragment {
     protected ActivityCallback ac;
     protected String title;
     protected int buttonId;
@@ -39,8 +38,8 @@ public abstract class BaseFragment extends SupportMapFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ac.setTitle(title);
-        ac.setButtons(buttonId);
+        this.ac.setTitle(title);
+        this.ac.setButtons(buttonId);
     }
 
     protected abstract void setView (View view);
@@ -49,6 +48,7 @@ public abstract class BaseFragment extends SupportMapFragment {
         this.title = title;
         this.buttonId = id;
     }
+
     protected void setSearchView (Menu menu) {
         getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
         final SearchView searchView =

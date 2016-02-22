@@ -59,8 +59,10 @@ public class BottomToolbarButton extends ImageButton {
                 MapFragment fragment = new MapFragment();
                 ac.setFragment(fragment);
             } else if (view.getId() == socialID) {
+                /*
                 joint_login_social_fragment fragment = new joint_login_social_fragment();
                 ac.setFragment(fragment);
+                */
                 /*
                 //this is if we want to implement logging users in so they can like, favorite, post, etc.
                 if() {

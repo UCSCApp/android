@@ -8,8 +8,10 @@ package slugapp.com.ucscstudentapp.map;
 //  Copyright (c) 2015 UCSC Android. All rights reserved.
 //
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,14 +32,30 @@ import java.util.TimerTask;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.dining.DiningHallDetail;
+import slugapp.com.ucscstudentapp.main.ActivityCallback;
 import slugapp.com.ucscstudentapp.main.BaseFragment;
 
-public class MapFragment extends BaseFragment implements OnMapReadyCallback{
+public class MapFragment extends SupportMapFragment implements OnMapReadyCallback{
     private final static MarkerEnum[] markerEnums = MarkerEnum.values();
 
     private List<Marker> staticMarkers;
     private List<Marker> dynamicMarkers;
+    protected ActivityCallback ac;
+    protected String title;
+    protected int buttonId;
     private boolean init = true;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.ac = (ActivityCallback) activity;
+    }
+
+    @Override
+    public void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +67,14 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback{
     }
 
     @Override
-    public void onResume () {
+    public void onStart() {
+        super.onStart();
+        this.ac.setTitle(title);
+        this.ac.setButtons(buttonId);
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
         this.getMapAsync(this);
     }
@@ -67,10 +93,14 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback{
         this.ifFromFindOnMap(map);
     }
 
-    @Override
     protected void setView (View view) {
         this.staticMarkers = new ArrayList<>();
         this.dynamicMarkers = new ArrayList<>();
+    }
+
+    protected void setLayout (String title, int id) {
+        this.title = title;
+        this.buttonId = id;
     }
 
     public void setStaticMarkers(GoogleMap map) {
@@ -151,8 +181,11 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback{
                 if (this.foundMarker(name, currEnum, MarkerEnumType.DININGHALL)) {
                     for (Marker marker: this.staticMarkers) {
                         String title = marker.getTitle();
-                        if (title.equals(name)) {
-                            LatLng latLng = new LatLng(currEnum.getLat(), currEnum.getLng());
+                        if (title.contains(name)) {
+                            Log.e("Test", "Here");
+                            float lat = Float.valueOf(this.ac.toStr(currEnum.getLat()));
+                            float lng = Float.valueOf(this.ac.toStr(currEnum.getLng()));
+                            LatLng latLng = new LatLng(lat, lng);
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.5f));
                             marker.showInfoWindow();
                         }
@@ -166,7 +199,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback{
     }
 
     private boolean foundMarker (String name, MarkerEnum currEnum, MarkerEnumType type) {
-        return currEnum.getType() == type && name.equals(this.ac.toStr(currEnum.getTitle()));
+        return currEnum.getType() == type && this.ac.toStr(currEnum.getTitle()).contains(name);
     }
 
     private void initialZoom (GoogleMap map) {
