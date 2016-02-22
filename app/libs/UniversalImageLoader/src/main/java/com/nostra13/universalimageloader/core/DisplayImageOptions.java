@@ -257,7 +257,7 @@ public final class DisplayImageOptions {
 		/**
 		 * Incoming image will be displayed in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware
 		 * image aware view} if empty URI (null or empty
-		 * string) will be passed to <b>ImageLoader.displayImage(...)</b> method.
+		 * getString) will be passed to <b>ImageLoader.displayImage(...)</b> method.
 		 *
 		 * @param imageRes Image resource
 		 */
@@ -269,7 +269,7 @@ public final class DisplayImageOptions {
 		/**
 		 * Incoming drawable will be displayed in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware
 		 * image aware view} if empty URI (null or empty
-		 * string) will be passed to <b>ImageLoader.displayImage(...)</b> method.
+		 * getString) will be passed to <b>ImageLoader.displayImage(...)</b> method.
 		 * This option will be ignored if {@link DisplayImageOptions.Builder#showImageForEmptyUri(int)} is set.
 		 */
 		public Builder showImageForEmptyUri(Drawable drawable) {

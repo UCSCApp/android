@@ -17,7 +17,7 @@ public class TestDiningHallHttpRequest extends DiningHallHttpRequest {
     }
 
     @Override
-    public void execute(Callback<DiningHall> callback) {
+    public void execute(HttpCallback<DiningHall> callback) {
         try {
             JSONArray arr = new JSONArray(json);
             callback.onSuccess(new DiningHallWrapper(arr, name));

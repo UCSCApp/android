@@ -1,59 +1,105 @@
 package slugapp.com.ucscstudentapp.map;
 
+import slugapp.com.ucscstudentapp.R;
+
 /**
- * Created by isayyuhh on 9/24/2015.
+ * Created by isayyuhh on 2/21/16.
  */
-public class MarkerEnum {
-    public enum DiningHall {
-        COLLEGE_EIGHT_OAKES("College Eight / Oakes", 36.991565, -122.065267),
-        PORTER_KRESGE("Porter / Kresge", 36.994344, -122.065800),
-        COLLEGE_NINE_COLLEGE_TEN("College Nine / College Ten", 37.001096, -122.058031),
-        CROWN_MERRILL("Crown / Merrill", 36.999971, -122.054448),
-        COWELL_STEVENSON("Cowell / Stevenson", 36.997157, -122.053150);
+public enum MarkerEnum {
+    EIGHT_OAKES(
+            MarkerEnumType.DININGHALL,
+            R.string.map_eight_oakes_title,
+            R.string.map_eight_oakes_lat,
+            R.string.map_eight_oakes_lng,
+            R.string.map_markersnippet_dininghall,
+            R.drawable.dining_hall
+    ),
+    PORTER_KRESGE(
+            MarkerEnumType.DININGHALL,
+            R.string.map_porter_kresge_title,
+            R.string.map_porter_kresge_lat,
+            R.string.map_porter_kresge_lng,
+            R.string.map_markersnippet_dininghall,
+            R.drawable.dining_hall
+    ),
+    NINE_TEN(
+            MarkerEnumType.DININGHALL,
+            R.string.map_nine_ten_title,
+            R.string.map_nine_ten_lat,
+            R.string.map_nine_ten_lng,
+            R.string.map_markersnippet_dininghall,
+            R.drawable.dining_hall
+    ),
+    CROWN_MERRILL(
+            MarkerEnumType.DININGHALL,
+            R.string.map_crown_merrill_title,
+            R.string.map_crown_merrill_lat,
+            R.string.map_crown_merrill_lng,
+            R.string.map_markersnippet_dininghall,
+            R.drawable.dining_hall
+    ),
+    COWELL_STEVENSON(
+            MarkerEnumType.DININGHALL,
+            R.string.map_cowell_stevenson_title,
+            R.string.map_cowell_stevenson_lat,
+            R.string.map_cowell_stevenson_lng,
+            R.string.map_markersnippet_dininghall,
+            R.drawable.dining_hall
+    ),
+    MCHENRY(
+            MarkerEnumType.LIBRARY,
+            R.string.map_mchenry_title,
+            R.string.map_mchenry_lat,
+            R.string.map_mchenry_lng,
+            R.string.map_markersnippet_library,
+            R.drawable.library
+    ),
+    SNE(
+            MarkerEnumType.LIBRARY,
+            R.string.map_sne_title,
+            R.string.map_sne_lat,
+            R.string.map_sne_lng,
+            R.string.map_markersnippet_library,
+            R.drawable.library
+    );
 
-        private String name;
-        private double lat;
-        private double lng;
+    private MarkerEnumType type;
+    private int title;
+    private int lat;
+    private int lng;
+    private int snippet;
+    private int icon;
 
-        DiningHall (String name, double lat, double lng) {
-            this.name = name;
-            this.lat = lat;
-            this.lng = lng;
-        }
-
-        public String getName () {
-            return this.name;
-        }
-        public double getLat () {
-            return this.lat;
-        }
-        public double getLng () {
-            return this.lng;
-        }
+    MarkerEnum(MarkerEnumType type, int title,int lat, int lng, int snippet, int icon) {
+        this.title = title;
+        this.type = type;
+        this.lat = lat;
+        this.lng = lng;
+        this.snippet = snippet;
+        this.icon = icon;
     }
 
-    public enum Library {
-        MCHENRY("McHenry Library", 36.99578157522153, -122.058908423001),
-        S_AND_E("Science and Engineering Library", 36.99904411574191, -122.06070818525006);
+    public MarkerEnumType getType () {
+        return this.type;
+    }
 
-        private String name;
-        private double lat;
-        private double lng;
+    public int getTitle () {
+        return this.title;
+    }
 
-        Library (String name, double lat, double lng) {
-            this.name = name;
-            this.lat = lat;
-            this.lng = lng;
-        }
+    public int getLat () {
+        return this.lat;
+    }
 
-        public String getName () {
-            return this.name;
-        }
-        public double getLat () {
-            return this.lat;
-        }
-        public double getLng () {
-            return this.lng;
-        }
+    public int getLng () {
+        return this.lng;
+    }
+
+    public int getSnippet () {
+        return this.snippet;
+    }
+
+    public int getIcon () {
+        return this.icon;
     }
 }

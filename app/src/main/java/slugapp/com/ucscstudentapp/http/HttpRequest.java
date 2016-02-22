@@ -16,7 +16,7 @@ public abstract class HttpRequest extends Request {
         volleyMethod = method.method;
     }
 
-    protected void rawExecute(final Callback<String> callback) {
+    protected void rawExecute(final HttpCallback<String> callback) {
         StringRequest stringRequest = new StringRequest(
                 volleyMethod,
                 url,

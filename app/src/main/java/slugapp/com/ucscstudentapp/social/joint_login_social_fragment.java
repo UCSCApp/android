@@ -82,7 +82,7 @@ public class joint_login_social_fragment extends android.support.v4.app.Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         loginButton = (TwitterLoginButton) getView().findViewById(R.id.twitter_login_button);
-        loginButton.setCallback(new Callback<TwitterSession>() {
+        loginButton.setCallback(new HttpCallback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a session for making API calls

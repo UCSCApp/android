@@ -17,13 +17,13 @@ public class TestEventHttpRequest extends EventHttpRequest {
             "          \"name\":\"Edge of Eden\",\n" +
             "          \"date\":\"July 18th 10pm 2am\",\n" +
             "          \"description\":\"Musical festival with a finale by Squidward Tortellini\",\n" +
-            "          \"url\":\"http://tmcdigitalmedia.com/wp-content/uploads/2013/03/2_27_13-FSNA_Flyer_web_versionF.jpeg\"\n" +
+            "          \"url\":\"http://www.preparingu.com/wiki/images/d/d6/Burning_Bush_flier_A.jpg\"\n" +
             "       },\n" +
             "       {\n" +
             "          \"name\":\"Holi Festival\",\n" +
             "          \"date\":\"May 25th 10am 12pm\",\n" +
             "          \"description\":\"This event is super fun and super great!\",\n" +
-            "          \"url\":\"https://uh.collegiatelink.net/images/W460xL600/0/noshadow/Event/c40dcb200abb430c9c20c632473b959f.jpg\"\n" +
+            "          \"url\":\"http://www.taradarcydesigns.com/images/portfolio/fliers/farmers-market-flier2012legal.jpg\"\n" +
             "       },\n" +
             "       {\n" +
             "          \"name\":\"Meeting\",\n" +
@@ -46,7 +46,7 @@ public class TestEventHttpRequest extends EventHttpRequest {
             "]";
 
     @Override
-    public void execute(Callback<List<Event>> callback) {
+    public void execute(HttpCallback<List<Event>> callback) {
         try {
             JSONArray arr = new JSONArray(json);
             callback.onSuccess(new EventListWrapper(arr));

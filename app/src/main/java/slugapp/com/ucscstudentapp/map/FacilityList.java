@@ -48,7 +48,7 @@ public class FacilityList extends Fragment {
         inflater.inflate(R.menu.search_toolbar, menu);
         mCallBack.setTitle("Facilities");
 
-        mCallBack.setSearchButton(menu);
+        //mCallBack.setSearchButton(menu);
     }
 
     private void setListView(View view) {

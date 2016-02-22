@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
 
 /**
  * A cache that uses a bounded amount of space on a filesystem. Each cache
- * entry has a string key and a fixed number of values. Each key must match
+ * entry has a getString key and a fixed number of values. Each key must match
  * the regex <strong>[a-z0-9_-]{1,64}</strong>. Values are byte sequences,
  * accessible as streams or files. Each value must be between {@code 0} and
  * {@code Integer.MAX_VALUE} bytes in length.
@@ -115,7 +115,7 @@ final class DiskLruCache implements Closeable {
      *     READ 3400330d1dfc7f3f7f4b8d4d803dfcf6
      *
      * The first five lines of the journal form its header. They are the
-     * constant string "libcore.io.DiskLruCache", the disk cache's version,
+     * constant getString "libcore.io.DiskLruCache", the disk cache's version,
      * the application's version, the value count, and a blank line.
      *
      * Each of the subsequent lines in the file is a record of the state of a
@@ -737,7 +737,7 @@ final class DiskLruCache implements Closeable {
 			return ins[index];
 		}
 
-		/** Returns the string value for {@code index}. */
+		/** Returns the getString value for {@code index}. */
 		public String getString(int index) throws IOException {
 			return inputStreamToString(getInputStream(index));
 		}
@@ -794,7 +794,7 @@ final class DiskLruCache implements Closeable {
 		}
 
 		/**
-		 * Returns the last committed value as a string, or null if no value
+		 * Returns the last committed value as a getString, or null if no value
 		 * has been committed.
 		 */
 		public String getString(int index) throws IOException {

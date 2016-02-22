@@ -9,7 +9,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.http.Callback;
+import slugapp.com.ucscstudentapp.http.HttpCallback;
 import slugapp.com.ucscstudentapp.http.LoopHttpRequest;
 
 /**
@@ -26,7 +26,7 @@ public class LoopRunnable implements Runnable {
 
     @Override
     public void run() {
-        new LoopHttpRequest().execute(new Callback<List<Loop>>() {
+        new LoopHttpRequest().execute(new HttpCallback<List<Loop>>() {
             @Override
             public void onSuccess(List<Loop> val) {
                 for (Loop loop: val) {

@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.http.Callback;
+import slugapp.com.ucscstudentapp.http.HttpCallback;
 import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
@@ -17,17 +17,17 @@ import slugapp.com.ucscstudentapp.main.ActivityCallback;
  */
 public class EventUpdater implements SwipeRefreshLayout.OnRefreshListener {
     protected EventListAdapter adapter;
-    private ActivityCallback mCallBack;
+    protected ActivityCallback ac;
     private boolean initial = true;
 
     public EventUpdater(Context context, EventListAdapter adapter) {
         this.adapter = adapter;
-        this.mCallBack = (ActivityCallback) context;
+        this.ac = (ActivityCallback) context;
     }
 
     @Override
     public void onRefresh() {
-        new TestEventHttpRequest().execute(new Callback<List<Event>>() {
+        new TestEventHttpRequest().execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> val) {
                 EventListSort comparator = new EventListSort();
@@ -39,15 +39,15 @@ public class EventUpdater implements SwipeRefreshLayout.OnRefreshListener {
             public void onError(Exception e) {
             }
         });
-        if (! initial) {
+        if (!initial) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mCallBack.currentSwipeLayout().setRefreshing(false);
+                    ac.currentSwipeLayout().setRefreshing(false);
                 }
             }, 1000);
         } else {
-            mCallBack.currentSwipeLayout().setRefreshing(false);
+            ac.currentSwipeLayout().setRefreshing(false);
             initial = false;
         }
     }
@@ -58,7 +58,7 @@ public class EventUpdater implements SwipeRefreshLayout.OnRefreshListener {
     protected class EventListSort implements Comparator<Event> {
         @Override
         public int compare(Event lhs, Event rhs) {
-            return mCallBack.today().compareEvents(lhs, rhs);
+            return ac.getToday().compareEvents(lhs, rhs);
         }
     }
 }

@@ -12,5 +12,5 @@ public class DiningHallHttpRequest extends HttpRequest {
         super(url, HttpRequest.Method.GET);
     }
 
-    public void execute(final Callback<DiningHall> callback) {}
+    public void execute(final HttpCallback<DiningHall> callback) {}
 }

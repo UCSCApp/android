@@ -1,17 +1,11 @@
 package slugapp.com.ucscstudentapp.http;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.event.Event;
-import slugapp.com.ucscstudentapp.event.EventWrapper;
 import slugapp.com.ucscstudentapp.map.Loop;
 import slugapp.com.ucscstudentapp.map.LoopWrapper;
 
@@ -25,8 +19,8 @@ public class LoopHttpRequest extends HttpRequest {
         super(url, Method.GET);
     }
 
-    public void execute(final Callback<List<Loop>> callback) {
-        rawExecute(new Callback<String>() {
+    public void execute(final HttpCallback<List<Loop>> callback) {
+        rawExecute(new HttpCallback<String>() {
             @Override
             public void onSuccess(String val) {
                 try {

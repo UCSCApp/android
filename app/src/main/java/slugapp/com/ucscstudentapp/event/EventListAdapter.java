@@ -18,7 +18,7 @@ import slugapp.com.ucscstudentapp.http.ImageHttpRequest;
  *
  * Edited by isaiah on 6/27/2015.
  *
- * This file is the Adapter for EventList.java and displays each Event to the ListView.
+ * This file is the Adapter for EventListFragment.java and displays each Event to the ListView.
  */
 public class EventListAdapter extends ArrayAdapter<Event> {
     public EventListAdapter(Context context) {
@@ -27,9 +27,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
     public void setData(List<Event> events) {
         clear();
-        for(Event e : events) {
-            add(e);
-        }
+        for(Event e : events) add(e);
         notifyDataSetChanged();
     }
 
@@ -41,14 +39,14 @@ public class EventListAdapter extends ArrayAdapter<Event> {
             convertView = inflater.inflate(R.layout.item_event, null);
         }
         Event e = getItem(position);
-        new ImageHttpRequest(e.url())
-                .execute((ImageView) convertView.findViewById(R.id.image));
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView date = (TextView) convertView.findViewById(R.id.date);
         TextView desc = (TextView) convertView.findViewById(R.id.description);
+        ImageView image = (ImageView) convertView.findViewById(R.id.image);
         name.setText(e.name());
-        date.setText(e.date().string());
-        desc.setText(e.desc().length() > 150 ? e.desc().substring(0, 150) + "..." : e.desc());
+        date.setText(e.date().getString());
+        desc.setText(e.shortDesc());
+        new ImageHttpRequest(e.url()).execute(image);
         return convertView;
     }
 }

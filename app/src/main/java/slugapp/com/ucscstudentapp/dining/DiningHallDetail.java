@@ -18,23 +18,23 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.http.Callback;
+import slugapp.com.ucscstudentapp.http.HttpCallback;
 import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
-import slugapp.com.ucscstudentapp.map.Map;
+import slugapp.com.ucscstudentapp.main.BaseFragment;
+import slugapp.com.ucscstudentapp.map.MapFragment;
 
 /**
  * Created by isayyuhh_s on 8/8/2015.
  */
-public class DiningHallDetail extends Fragment {
-    private String name;
+public class DiningHallDetail extends BaseFragment {
+    private String diningHallName;
     private DiningHall diningHall;
-    private ActivityCallback mCallBack;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mCallBack = (ActivityCallback) activity;
+        this.ac = (ActivityCallback) activity;
     }
 
     @Override
@@ -43,8 +43,25 @@ public class DiningHallDetail extends Fragment {
         setHasOptionsMenu(true);
 
         Bundle b = getArguments();
-        name = b.getString("name");
-        new TestDiningHallHttpRequest(name).execute(new Callback<DiningHall>() {
+        diningHallName = b.getString("name");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
+        this.setLayout(diningHallName, R.id.dining_button);
+        this.setView(view);
+
+        return view;
+    }
+
+    @Override
+    protected void setView(View view) {
+        // set date, breakfast, lunch, and dinner
+        TextView date = (TextView) view.findViewById(R.id.date);
+
+        new TestDiningHallHttpRequest(diningHallName).execute(new HttpCallback<DiningHall>() {
             @Override
             public void onSuccess(DiningHall val) {
                 diningHall = val;
@@ -53,29 +70,11 @@ public class DiningHallDetail extends Fragment {
             public void onError(Exception e) {
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
-        mCallBack.setTitle(name);
-
-        // set date, breakfast, lunch, and dinner
-        TextView date = (TextView) view.findViewById(R.id.date);
-        date.setText(mCallBack.today().month() + " " + mCallBack.today().day());
-        setMenu(diningHall.getBreakfast(), (TableLayout) view.findViewById(R.id.breakfast));
-        setMenu(diningHall.getLunch(), (TableLayout) view.findViewById(R.id.lunch));
-        setMenu(diningHall.getDinner(), (TableLayout) view.findViewById(R.id.dinner));
-        setLegendDialog(view);
-
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mCallBack.setButtons(R.id.dining_button);
+        date.setText(this.ac.getToday().getMonth() + " " + this.ac.getToday().getDay());
+        this.setMenu(this.diningHall.getBreakfast(), (TableLayout) view.findViewById(R.id.breakfast));
+        this.setMenu(this.diningHall.getLunch(), (TableLayout) view.findViewById(R.id.lunch));
+        this.setMenu(this.diningHall.getDinner(), (TableLayout) view.findViewById(R.id.dinner));
+        this.setLegendDialog(view);
     }
 
     @Override
@@ -90,13 +89,10 @@ public class DiningHallDetail extends Fragment {
         // find on map
         if (id == R.id.map_find) {
             Bundle b = new Bundle();
-            b.putString("name", mCallBack.title());
-            FragmentTransaction ft = mCallBack.fm().beginTransaction();
-            Map fragment = new Map();
+            b.putString("name", diningHall.getCollege());
+            MapFragment fragment = new MapFragment();
             fragment.setArguments(b);
-            ft.replace(R.id.listFragment, fragment);
-            ft.addToBackStack(null);
-            ft.commit();
+            this.ac.setFragment(fragment);
         }
         return super.onOptionsItemSelected(item);
     }

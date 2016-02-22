@@ -1,9 +1,10 @@
 package slugapp.com.ucscstudentapp.main;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
+
+import com.google.android.gms.maps.model.BitmapDescriptor;
 
 import java.util.Timer;
 
@@ -14,11 +15,11 @@ import slugapp.com.ucscstudentapp.event.Date;
  */
 public interface ActivityCallback {
     // Fragment Manager
-    FragmentManager fm();
-    void setButtons(int buttonId);
+    FragmentManager fm ();
+    void setFragment (Fragment fragment);
+    void setButtons (int buttonId);
 
     // Search
-    SearchView setSearchButton(Menu menu);
     void hideKeyboard();
 
     // Refresh Layout
@@ -26,11 +27,12 @@ public interface ActivityCallback {
     void setCurrentSwipeLayout (SwipeRefreshLayout newSwipeLayout);
 
     // Events Page
-    String title ();
-    Date today();
+    Date getToday();
     void setTitle(String title);
-    void setToday();
 
     Timer getTimer();
     void initTimer();
+
+    String toStr (int id);
+    BitmapDescriptor toBitMap (int id);
 }

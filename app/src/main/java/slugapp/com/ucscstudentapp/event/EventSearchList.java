@@ -1,12 +1,6 @@
 package slugapp.com.ucscstudentapp.event;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,67 +11,52 @@ import android.widget.ListView;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
+import slugapp.com.ucscstudentapp.main.BaseFragment;
 
 /**
  * Created by isayyuhh_s on 7/26/2015.
  *
  * Fragment that displays Search results
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class EventSearchList extends Fragment {
-    private ActivityCallback mCallBack;
+public class EventSearchList extends BaseFragment {
+    private String query;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallBack = (ActivityCallback) activity;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        setRetainInstance(true);
+
+        Bundle b = getArguments();
+        this.query = b.getString("query");
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event_search, container, false);
-        Bundle b = getArguments();
-        mCallBack.setTitle("Search: \"" + b.getString("query") + "\"");
-        doSearch(view, new String(b.getString("query")));
+        this.setLayout("Search: \"" + this.query + "\"", R.id.events_button);
+        this.setView(view);
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mCallBack.setButtons(R.id.events_button);
+    protected void setView(View view) {
+        ListView listView = (ListView) view.findViewById(R.id.list);
+        EventListAdapter adp = new EventListAdapter(getActivity());
+        listView.setAdapter(adp);
+        EventSearch upd = new EventSearch(getActivity(), adp, this.query);
+        upd.onRefresh();
+        EventSearchListListener listListener = new EventSearchListListener(this.ac);
+        listView.setOnItemClickListener(listListener);
     }
 
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
-        (getActivity().findViewById(R.id.toolbar_title)).setVisibility(View.VISIBLE);
-    }
-    /*
-     * Event Search
-     */
-    private void doSearch(View view, String query) {
-        ListView listView = (ListView) view.findViewById(R.id.list);
-        EventListAdapter adp = new EventListAdapter(getActivity());
-        listView.setAdapter(adp);
-        EventSearch upd = new EventSearch(getActivity(), adp, query);
-        upd.onRefresh();
-        EventSearchListListener listListener =
-                new EventSearchListListener(getActivity().getSupportFragmentManager());
-        listView.setOnItemClickListener(listListener);
-
+        getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
     }
 
     private static class EventSearchListListener implements AdapterView.OnItemClickListener {
-        private FragmentManager fm;
-        public EventSearchListListener(FragmentManager fm) {
-            this.fm = fm;
+        private ActivityCallback ac;
+        public EventSearchListListener(ActivityCallback ac) {
+            this.ac = ac;
         }
 
         @Override
@@ -86,14 +65,11 @@ public class EventSearchList extends Fragment {
             Bundle b = new Bundle();
             b.putString("name", e.name());
             b.putString("date", e.date().toString());
-            b.putString("description", e.desc());
+            b.putString("description", e.getDesc());
             b.putString("url", e.url());
-            FragmentTransaction ft = fm.beginTransaction();
             EventDetail fragment = new EventDetail();
             fragment.setArguments(b);
-            ft.replace(R.id.listFragment, fragment);
-            ft.addToBackStack(null);
-            ft.commit();
+            ac.setFragment(fragment);
         }
     }
 }

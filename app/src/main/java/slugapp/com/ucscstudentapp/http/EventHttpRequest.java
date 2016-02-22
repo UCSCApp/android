@@ -19,8 +19,8 @@ public class EventHttpRequest extends HttpRequest {
         super(url, Method.GET);
     }
 
-    public void execute(final Callback<List<Event>> callback) {
-        rawExecute(new Callback<String>() {
+    public void execute(final HttpCallback<List<Event>> callback) {
+        rawExecute(new HttpCallback<String>() {
             @Override
             public void onSuccess(String val) {
                 try {

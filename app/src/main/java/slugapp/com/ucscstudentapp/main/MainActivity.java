@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
@@ -17,6 +18,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -27,7 +30,8 @@ import java.util.Timer;
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.event.Date;
-import slugapp.com.ucscstudentapp.event.EventList;
+import slugapp.com.ucscstudentapp.event.EventListFragment;
+import slugapp.com.ucscstudentapp.event.Month;
 
 /**
  * Created by isaiah on 6/27/2015.
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private TextView title;
     private Date today;
     private Timer timer;
+    private boolean init = true;
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         setContentView(R.layout.activity_main);
         setTopToolbar();
         setBottomToolbar();
-        setFragment();
+        setFragment(new EventListFragment());
         setToday();
     }
 
@@ -108,36 +113,39 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     /*
      * Sets up the Fragment
      */
-    private void setFragment() {
-        // Initial Fragment
+    @Override
+    public void setFragment(Fragment fragment) {
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        EventList llf = new EventList();
-        ft.replace(R.id.listFragment, llf);
+        ft.replace(R.id.listFragment, fragment);
+        if (!this.init) ft.addToBackStack(null);
         ft.commit();
+        this.init = false;
     }
 
     /**
      * Interface methods
      */
     @Override
-    public Date today() {
+    public Date getToday() {
         return today;
     }
 
-    @Override
     public void setToday() {
         java.util.Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat month = new SimpleDateFormat("MM");
-        SimpleDateFormat day = new SimpleDateFormat("dd");
-        SimpleDateFormat hour = new SimpleDateFormat("hh");
-        SimpleDateFormat tod = new SimpleDateFormat("aa");
-        String todaysMonth =
-                slugapp.com.ucscstudentapp.event.Date.MONTHS[Integer.parseInt(month.format(date)) - 1];
-        this.today = new slugapp.com.ucscstudentapp.event.Date(
-                Character.toUpperCase(todaysMonth.charAt(0)) + todaysMonth.substring(1) +
-                        " " + day.format(date) + " " + Integer.parseInt(hour.format(date)) + tod.format(date)
-                        + " " + Integer.parseInt(hour.format(date)) + tod.format(date));
+        String month = new SimpleDateFormat("MM").format(date);
+        String day = new SimpleDateFormat("dd").format(date);
+        String hour = new SimpleDateFormat("hh").format(date);
+        String tod = new SimpleDateFormat("aa").format(date);
+        String todayMonth = Month.JANUARY.getVal();
+        for (Month currMonth : Month.values()) {
+            if (currMonth.getOrder() == Integer.valueOf(month)) {
+                todayMonth = currMonth.getVal();
+                break;
+            }
+        }
+        String string = todayMonth + " " + day + " " + hour + tod + " " + hour + tod;
+        this.today = new Date(string);
     }
 
     @Override
@@ -151,8 +159,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
-    public String title() {
-        return this.title.getText().toString();
+    public String toStr(int id) {
+        return this.getResources().getString(id);
+    }
+
+    @Override
+    public BitmapDescriptor toBitMap(int id) {
+        return BitmapDescriptorFactory.fromResource(id);
     }
 
     @Override
@@ -174,42 +187,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
-    public SearchView setSearchButton(Menu menu) {
-        findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
-        final SearchView searchView =
-                (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // Associate searchable configuration with the SearchView
-            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-            // SearchView OnSearchClickListener
-            searchView.setOnSearchClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    (findViewById(R.id.toolbar_title)).setVisibility(View.GONE);
-                }
-            });
-
-            // SearchView OnCloseListener
-            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    (findViewById(R.id.toolbar_title)).setVisibility(View.VISIBLE);
-                    return false;
-                }
-            });
-        }
-        return searchView;
-    }
-
-    @Override
     public void hideKeyboard() {
         // Check if no view has focus:
         View view = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 

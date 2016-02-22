@@ -1,10 +1,8 @@
 package slugapp.com.ucscstudentapp.dining;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,42 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
+import slugapp.com.ucscstudentapp.main.BaseFragment;
 
 /**
  * Created by isayyuhh_s on 9/1/2015.
  */
-public class DiningHallGrid extends Fragment {
-    private ActivityCallback mCallBack;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mCallBack = (ActivityCallback) activity;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+public class DiningHallGridFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_dining_hall, container, false);
-        mCallBack.setTitle("Dining Halls");
-
-        setListView(view);
+        this.setLayout("Dining Halls", R.id.dining_button);
+        this.setView(view);
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mCallBack.setButtons(R.id.dining_button);
-    }
-
-    private void setListView(View view) {
+    protected void setView(View view) {
         GridView listView = (GridView) view.findViewById(R.id.grid);
         final DiningHallGridAdapter adp = new DiningHallGridAdapter(getActivity());
         listView.setAdapter(adp);
@@ -75,7 +54,7 @@ public class DiningHallGrid extends Fragment {
                 case 4:
                     bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.dining_cowell_stevenson);
                     break;
-                case 5:default:
+                case 5: default:
                     bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.dining_default);
                     break;
             }
@@ -92,7 +71,7 @@ public class DiningHallGrid extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            mCallBack.hideKeyboard();
+            ac.hideKeyboard();
 
             String name;
             switch (position) {
@@ -118,7 +97,7 @@ public class DiningHallGrid extends Fragment {
             Bundle b = new Bundle();
             b.putString("name", name);
 
-            FragmentTransaction ft = mCallBack.fm().beginTransaction();
+            FragmentTransaction ft = ac.fm().beginTransaction();
             DiningHallDetail fragment = new DiningHallDetail();
             fragment.setArguments(b);
             ft.replace(R.id.listFragment, fragment);

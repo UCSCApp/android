@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import slugapp.com.ucscstudentapp.http.Callback;
+import slugapp.com.ucscstudentapp.http.HttpCallback;
 import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
 
 /**
@@ -18,14 +18,15 @@ import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
 public class EventSearch extends EventUpdater {
     private String query;
 
-    public EventSearch(Context context, EventListAdapter adapter, String query) {
+    public EventSearch(Context context, EventListAdapter adapter,
+                       String query) {
         super(context, adapter);
         this.query = query;
     }
 
     @Override
     public void onRefresh() {
-        new TestEventHttpRequest().execute(new Callback<List<Event>>() {
+        new TestEventHttpRequest().execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> val) {
                 search(val);

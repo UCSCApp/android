@@ -14,7 +14,10 @@ public class Event {
     private String url;
 
     /** Getters */
-    public String desc() { return desc; }
+    public String getDesc() { return desc; }
+    public String shortDesc() {
+        return this.desc.length() > 150 ? this.desc.substring(0, 150) + "..." : this.desc;
+    }
     public Date date() { return date; }
     public String name() { return name; }
     public String url() { return url; }

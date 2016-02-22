@@ -1,15 +1,13 @@
 package slugapp.com.ucscstudentapp.main;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 
-import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.event.EventList;
-import slugapp.com.ucscstudentapp.dining.DiningHallGrid;
-import slugapp.com.ucscstudentapp.map.Map;
+import slugapp.com.ucscstudentapp.event.EventListFragment;
+import slugapp.com.ucscstudentapp.dining.DiningHallGridFragment;
+import slugapp.com.ucscstudentapp.map.MapFragment;
 import slugapp.com.ucscstudentapp.settings.Settings;
 import slugapp.com.ucscstudentapp.social.joint_login_social_fragment;
 
@@ -18,26 +16,26 @@ import slugapp.com.ucscstudentapp.social.joint_login_social_fragment;
  */
 public class BottomToolbarButton extends ImageButton {
     private static int eventID, diningID, mapID, socialID, settingsID;
-    private ActivityCallback mCallBack;
+    private ActivityCallback ac;
 
     public BottomToolbarButton(Context context) {
         super(context);
-        this.mCallBack = (ActivityCallback) context;
+        this.ac = (ActivityCallback) context;
     }
 
     public BottomToolbarButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mCallBack = (ActivityCallback) context;
+        this.ac = (ActivityCallback) context;
     }
 
     public BottomToolbarButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.mCallBack = (ActivityCallback) context;
+        this.ac = (ActivityCallback) context;
     }
 
     public static void setIds(BottomToolbarButton event_button, BottomToolbarButton dining_button,
                               BottomToolbarButton map_button) {
-            //, ToggleImageButton social_button, ToggleImageButton settings_button) {
+        //, ToggleImageButton social_button, ToggleImageButton settings_button) {
         eventID = event_button.getId();
         diningID = dining_button.getId();
         mapID = map_button.getId();
@@ -51,48 +49,32 @@ public class BottomToolbarButton extends ImageButton {
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            FragmentTransaction ft = mCallBack.fm().beginTransaction();
-
             if (view.getId() == eventID) {
-                EventList fragment = new EventList();
-                ft.replace(R.id.listFragment, fragment);
-            }
-            else if (view.getId() == diningID) {
-                DiningHallGrid fragment = new DiningHallGrid();
-                ft.replace(R.id.listFragment, fragment);
-            }
-            else if (view.getId() == mapID) {
-                Map fragment = new Map();
-                ft.replace(R.id.listFragment, fragment);
-            }
-            else if (view.getId() == socialID) {
-                //Can be used to check if there is a TwitterSession currently running
-                /*TwitterSession session = Twitter.getSessionManager().getActiveSession();
-                TwitterAuthToken authToken = session.getAuthToken();
-                String token = authToken.token;
-                String secret = authToken.secret;*/
-
-                //this is to view the tweets with "#UCSC". It requires no login just
-                //the Twitter Authorization done in MainActivity
-                    joint_login_social_fragment fragment = new joint_login_social_fragment();
-                    ft.replace(R.id.listFragment, fragment);
+                EventListFragment fragment = new EventListFragment();
+                ac.setFragment(fragment);
+            } else if (view.getId() == diningID) {
+                DiningHallGridFragment fragment = new DiningHallGridFragment();
+                ac.setFragment(fragment);
+            } else if (view.getId() == mapID) {
+                MapFragment fragment = new MapFragment();
+                ac.setFragment(fragment);
+            } else if (view.getId() == socialID) {
+                joint_login_social_fragment fragment = new joint_login_social_fragment();
+                ac.setFragment(fragment);
                 /*
                 //this is if we want to implement logging users in so they can like, favorite, post, etc.
                 if() {
-                    FragmentTransaction ft = mCallBack.fm().beginTransaction();
+                    FragmentTransaction ft = ac.fm().beginTransaction();
                     TwitterLoginFragment llf = new TwitterLoginFragment();
                     ft.replace(R.id.listFragment, llf);
                     ft.addToBackStack(null);
                     ft.commit();
                 }
                 */
-            }
-            else if (view.getId() == settingsID) {
+            } else if (view.getId() == settingsID) {
                 Settings fragment = new Settings();
-                ft.replace(R.id.listFragment, fragment);
+                ac.setFragment(fragment);
             }
-            ft.addToBackStack(null);
-            ft.commit();
         }
     };
 

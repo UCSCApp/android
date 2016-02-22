@@ -45,13 +45,14 @@ public class DiningHall {
         this.dinner = addMenu(array);
     }
 
-    FoodMenu getBreakfast() {
+    public String getCollege () { return this.college; }
+    public FoodMenu getBreakfast() {
         return this.breakfast;
     }
-    FoodMenu getLunch() {
+    public FoodMenu getLunch() {
         return this.lunch;
     }
-    FoodMenu getDinner() {
+    public FoodMenu getDinner() {
         return this.dinner;
     }
 
