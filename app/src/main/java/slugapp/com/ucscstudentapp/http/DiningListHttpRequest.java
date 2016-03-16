@@ -6,10 +6,12 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
+
 /**
  * Created by isayyuhh_s on 9/1/2015.
  */
-public class DiningListHttpRequest extends HttpRequest {
+public class DiningListHttpRequest extends BaseHttpRequest {
     private static final String url =
             "http://ec2-54-183-90-100.us-west-1.compute.amazonaws.com:8080/dining";
     public DiningListHttpRequest() {

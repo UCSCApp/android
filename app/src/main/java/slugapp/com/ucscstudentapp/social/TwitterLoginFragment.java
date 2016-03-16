@@ -15,7 +15,7 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
+import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 
 //
 //  TwitterLoginFragment.java

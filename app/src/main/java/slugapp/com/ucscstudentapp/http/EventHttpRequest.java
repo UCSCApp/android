@@ -6,13 +6,14 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.event.Event;
-import slugapp.com.ucscstudentapp.event.EventWrapper;
+import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
+import slugapp.com.ucscstudentapp.models.Event;
+import slugapp.com.ucscstudentapp.models.EventWrapper;
 
 /**
  * Created by simba on 7/31/15.
  */
-public class EventHttpRequest extends HttpRequest {
+public class EventHttpRequest extends BaseHttpRequest {
     private static final String url =
             "http://ec2-52-8-25-141.us-west-1.compute.amazonaws.com/events/get/v1";
     public EventHttpRequest() {

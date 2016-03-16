@@ -15,9 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:paddingTop="10dip"
             android:textColor="#000"
-            android:textSize="14sp"
-            android:paddingTop="10dip"/>
+            android:textSize="14sp" />
 
         <TableLayout
             android:id="@+id/meal"
@@ -46,15 +46,26 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/legend"
+                <LinearLayout
+                    android:layout_height="match_parent"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Contains (?)"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Legend"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/legend"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:src="@drawable/ic_legend" />
+                </LinearLayout>
             </TableRow>
         </TableLayout>
     </LinearLayout>

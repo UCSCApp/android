@@ -12,6 +12,7 @@
         android:paddingLeft="8dip"
         android:paddingRight="8dip"
         android:paddingTop="12dip"
+        android:gravity="center_horizontal"
         android:textColor="#000"
         android:textSize="20sp" />
 </LinearLayout>

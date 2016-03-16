@@ -6,7 +6,7 @@
     <item
         android:id="@+id/map_find"
         android:icon="@drawable/ic_find"
-        android:orderInCategory="200"
+        android:orderInCategory="1"
         android:title="Search"
         app:showAsAction="ifRoom" />
 </menu>

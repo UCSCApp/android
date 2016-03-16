@@ -5,8 +5,9 @@ import org.json.JSONException;
 
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.event.Event;
-import slugapp.com.ucscstudentapp.event.EventListWrapper;
+import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
+import slugapp.com.ucscstudentapp.models.Event;
+import slugapp.com.ucscstudentapp.models.EventListWrapper;
 
 /**
  * Created by simba on 8/1/15.

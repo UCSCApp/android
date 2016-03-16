@@ -10,7 +10,7 @@ import slugapp.com.ucscstudentapp.R;
 /**
  * Created by simba on 8/1/15.
  */
-public class ImageHttpRequest extends Request {
+public class ImageHttpRequest extends BaseRequest {
     private String url;
 
     public ImageHttpRequest(String url) {

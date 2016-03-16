@@ -1,0 +1,47 @@
+package slugapp.com.ucscstudentapp.adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
+
+import slugapp.com.ucscstudentapp.R;
+import slugapp.com.ucscstudentapp.http.ImageHttpRequest;
+import slugapp.com.ucscstudentapp.models.Event;
+
+/**
+ * Created by simba on 5/31/15.
+ * <p/>
+ * Edited by isaiah on 6/27/2015.
+ * <p/>
+ * This file is the Adapter for EventListFragment.java and displays each Event to the ListView.
+ */
+public class EventListAdapter extends BaseListAdapter {
+    public EventListAdapter(Context context) {
+        super(context, R.layout.item_event);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item_event, null);
+        }
+        Event e = (Event) getItem(position);
+        TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView date = (TextView) convertView.findViewById(R.id.date);
+        TextView desc = (TextView) convertView.findViewById(R.id.description);
+        ImageView image = (ImageView) convertView.findViewById(R.id.image);
+        name.setText(e.name());
+        date.setText(e.date().getString());
+        desc.setText(e.shortDesc());
+        new ImageHttpRequest(e.url()).execute(image);
+        return convertView;
+    }
+}

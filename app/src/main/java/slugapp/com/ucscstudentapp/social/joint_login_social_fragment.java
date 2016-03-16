@@ -35,7 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
+import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 import slugapp.com.ucscstudentapp.social.instagram.Instagram;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramRequest;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramSession;

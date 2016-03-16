@@ -6,13 +6,14 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.map.Loop;
-import slugapp.com.ucscstudentapp.map.LoopWrapper;
+import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
+import slugapp.com.ucscstudentapp.models.Loop;
+import slugapp.com.ucscstudentapp.models.LoopWrapper;
 
 /**
  * Created by simba on 7/31/15.
  */
-public class LoopHttpRequest extends HttpRequest {
+public class LoopHttpRequest extends BaseHttpRequest {
     private static final String url = "http://bts.ucsc.edu:8081/location/get";
 
     public LoopHttpRequest() {

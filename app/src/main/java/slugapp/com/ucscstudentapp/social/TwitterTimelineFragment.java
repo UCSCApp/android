@@ -19,7 +19,7 @@ import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.main.ActivityCallback;
+import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 
 //http://docs.fabric.io/android/twitter/show-timelines.html
 

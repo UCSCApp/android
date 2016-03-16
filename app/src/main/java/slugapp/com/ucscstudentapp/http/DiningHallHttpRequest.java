@@ -6,23 +6,24 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 
-import slugapp.com.ucscstudentapp.dining.DiningHall;
-import slugapp.com.ucscstudentapp.dining.DiningHallWrapper;
+import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
+import slugapp.com.ucscstudentapp.models.DiningHall;
+import slugapp.com.ucscstudentapp.models.DiningHallWrapper;
 
 /**
  * Created by isayyuhh_s on 9/1/2015.
  */
-public class DiningHallHttpRequest extends HttpRequest {
+public class DiningHallHttpRequest extends BaseHttpRequest {
     private static final String url =
             "http://ec2-54-183-90-100.us-west-1.compute.amazonaws.com:8080/dining/menu";
     private String name;
 
     public DiningHallHttpRequest() {
-        super(url, HttpRequest.Method.POST);
+        super(url, BaseHttpRequest.Method.POST);
     }
 
     public DiningHallHttpRequest(String name) {
-        super(url, HttpRequest.Method.POST);
+        super(url, BaseHttpRequest.Method.POST);
         this.name = name;
     }
 

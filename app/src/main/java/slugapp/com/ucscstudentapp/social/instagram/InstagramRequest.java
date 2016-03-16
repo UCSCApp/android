@@ -52,7 +52,7 @@ public class InstagramRequest {
 	 * 
 	 * @param method Http method, can be GET or POST
 	 * @param endpoint Api endpoint.
-	 * @param params Request parameters
+	 * @param params BaseRequest parameters
 	 * 
 	 * @return Api response in json format.
 	 * 
@@ -72,8 +72,8 @@ public class InstagramRequest {
 	 * 
 	 * @param method Http method, can be GET or POST
 	 * @param endpoint Api endpoint.
-	 * @param params Request parameters
-	 * @param listener Request listener
+	 * @param params BaseRequest parameters
+	 * @param listener BaseRequest listener
 	 * 
 	 */
 	public void createRequest(String method, String endpoint, List<NameValuePair> params, InstagramRequestListener listener) {
@@ -84,7 +84,7 @@ public class InstagramRequest {
 	 * Create http GET request to an instagram api endpoint. 
 	 * 
 	 * @param endpoint Api endpoint.
-	 * @param params Request parameters
+	 * @param params BaseRequest parameters
 	 * 	 
 	 * @return Api response in json format.
 	 * 
@@ -100,7 +100,7 @@ public class InstagramRequest {
 	 * Create http POST request to an instagram api endpoint. 
 	 * 
 	 * @param endpoint Api endpoint.
-	 * @param params Request parameters
+	 * @param params BaseRequest parameters
 	 * 	 
 	 * @return Api response in json format.
 	 * 
@@ -116,7 +116,7 @@ public class InstagramRequest {
 	 * Create http GET request to an instagram api endpoint. 
 	 * 
 	 * @param requestUri Api url
-	 * @param params Request parameters
+	 * @param params BaseRequest parameters
 	 * 	 
 	 * @return Api response in json format.
 	 * 
@@ -163,7 +163,7 @@ public class InstagramRequest {
 			HttpEntity httpEntity 		= httpResponse.getEntity();
 			
 			if (httpEntity == null) {
-				throw new Exception("Request returns empty result");
+				throw new Exception("BaseRequest returns empty result");
 			}
 			
 			stream		= httpEntity.getContent();			
@@ -189,7 +189,7 @@ public class InstagramRequest {
 	 * Create http POST request to an instagram api endpoint. 
 	 * 
 	 *
-	 * @param params Request parameters
+	 * @param params BaseRequest parameters
 	 * 	 
 	 * @return Api response in json format.
 	 * 
@@ -221,7 +221,7 @@ public class InstagramRequest {
 			HttpEntity httpEntity 		= httpResponse.getEntity();
 			
 			if (httpEntity == null) {
-				throw new Exception("Request returns empty result");
+				throw new Exception("BaseRequest returns empty result");
 			}
 			
 			stream		= httpEntity.getContent();			
@@ -287,7 +287,7 @@ public class InstagramRequest {
         }                
     }
 	
-	//Request listener
+	//BaseRequest listener
 	public interface InstagramRequestListener {
 		public abstract void onSuccess(String response);
 		public abstract void onError(String error);
