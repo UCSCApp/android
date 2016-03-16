@@ -58,6 +58,12 @@ public abstract class BaseListFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    protected abstract void doSearch(String query);
+
+    protected abstract int doSort(BaseListItem lhs, BaseListItem rhs);
+
+    protected abstract void onClick(AdapterView<?> parent, View view, int position, long id);
+
     protected void setLayout(String title, int id) {
         this.title = title;
         this.buttonId = id;
@@ -70,20 +76,11 @@ public abstract class BaseListFragment extends Fragment {
         listView.setOnItemClickListener(new ListItemListener());
     }
 
-    protected abstract void doSearch(String query);
-
-    protected abstract int doSort(BaseListItem lhs, BaseListItem rhs);
-
-    protected abstract void onClick(AdapterView<?> parent, View view, int position, long id);
-
     protected void setSearchView(Menu menu) {
         getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
-        final SearchView searchView =
-                (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
-        SearchManager searchManager = (SearchManager) getActivity()
-                .getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity()
-                .getComponentName()));
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
 
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +89,6 @@ public abstract class BaseListFragment extends Fragment {
             }
         });
 
-        // SearchView OnCloseListener
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
@@ -125,7 +121,7 @@ public abstract class BaseListFragment extends Fragment {
         }
     }
 
-    public class ListItemListener implements AdapterView.OnItemClickListener {
+    protected class ListItemListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ac.hideKeyboard();

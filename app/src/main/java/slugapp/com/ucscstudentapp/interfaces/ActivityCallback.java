@@ -14,28 +14,79 @@ import slugapp.com.ucscstudentapp.models.Date;
  * Created by isayyuhh_s on 8/3/2015.
  */
 public interface ActivityCallback {
-    // Fragment Manager
+
+    /**
+     * Get current fragment manager
+     *
+     * @return Current fragment manager
+     */
     FragmentManager fm();
 
+    /**
+     * Sets the current fragment
+     *
+     * @param fragment Fragment to set
+     */
     void setFragment(Fragment fragment);
 
+    /**
+     * Set bottom toolbar buttons
+     *
+     * @param buttonId Id of button to set
+     */
     void setButtons(int buttonId);
 
-    // Search
+    /**
+     * Hide soft keyboard
+     */
     void hideKeyboard();
 
-    // Events Page
+    /**
+     * Get today's date
+     *
+     * @return Today's date
+     */
     Date getToday();
 
-    void setTitle(String title);
+    /**
+     * Set new toolbar title
+     *
+     * @param newTitle New toolbar title
+     */
+    void setTitle(String newTitle);
 
-    Timer getTimer();
-
+    /**
+     * Initializes Timer
+     */
     void initTimer();
 
+    /**
+     * Get timer
+     *
+     * @return Timer
+     */
+    Timer getTimer();
+
+    /**
+     * Get resource string
+     *
+     * @param id Id of resource
+     * @return String
+     */
     String toStr(int id);
 
+    /**
+     * Get resource bitmap
+     *
+     * @param id Id of bitmap
+     * @return Bitmap
+     */
     BitmapDescriptor toBitMap(int id);
 
+    /**
+     * Get Gson
+     *
+     * @return Gson
+     */
     Gson getGson();
 }

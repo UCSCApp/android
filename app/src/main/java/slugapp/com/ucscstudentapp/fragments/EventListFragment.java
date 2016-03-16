@@ -58,12 +58,12 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     protected void onClick(AdapterView<?> parent, View view, int position, long id) {
-        this.ac.hideKeyboard();
         Event e = (Event) parent.getItemAtPosition(position);
-        Bundle b = new Bundle();
-
         String json = this.ac.getGson().toJson(e);
+
+        Bundle b = new Bundle();
         b.putString("json", json);
+
         EventDetailFragment fragment = new EventDetailFragment();
         fragment.setArguments(b);
         this.ac.setFragment(fragment);

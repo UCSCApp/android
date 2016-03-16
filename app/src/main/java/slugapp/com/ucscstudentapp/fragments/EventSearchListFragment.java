@@ -20,7 +20,6 @@ import slugapp.com.ucscstudentapp.http.TestEventListHttpRequest;
 import slugapp.com.ucscstudentapp.models.BaseListItem;
 import slugapp.com.ucscstudentapp.models.Event;
 import slugapp.com.ucscstudentapp.adapters.EventListAdapter;
-import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 
 /**
  * Created by isayyuhh_s on 7/26/2015.
@@ -48,6 +47,11 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
+    }
+
+    @Override
     protected void doSearch(String query) {
     }
 
@@ -58,20 +62,15 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
 
     @Override
     protected void onClick(AdapterView<?> parent, View view, int position, long id) {
-        this.ac.hideKeyboard();
         Event e = (Event) parent.getItemAtPosition(position);
-        Bundle b = new Bundle();
-
         String json = this.ac.getGson().toJson(e);
+
+        Bundle b = new Bundle();
         b.putString("json", json);
+
         EventDetailFragment fragment = new EventDetailFragment();
         fragment.setArguments(b);
         this.ac.setFragment(fragment);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -113,27 +112,6 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
                 }
             }
             if (found < max) itor.remove();
-        }
-    }
-
-    private static class EventSearchListListener implements AdapterView.OnItemClickListener {
-        private ActivityCallback ac;
-
-        public EventSearchListListener(ActivityCallback ac) {
-            this.ac = ac;
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Event e = (Event) parent.getItemAtPosition(position);
-            Bundle b = new Bundle();
-            b.putString("name", e.name());
-            b.putString("date", e.date().toString());
-            b.putString("description", e.getDesc());
-            b.putString("url", e.url());
-            EventDetailFragment fragment = new EventDetailFragment();
-            fragment.setArguments(b);
-            ac.setFragment(fragment);
         }
     }
 }

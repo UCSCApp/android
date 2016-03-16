@@ -38,16 +38,24 @@ import slugapp.com.ucscstudentapp.enums.MonthEnum;
  */
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
+
+    /**
+     * Fields
+     */
     private FragmentManager fm;
     private TextView title;
     private Timer timer;
     private Gson gson;
     private boolean init = true;
 
-    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
     private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
 
+    /**
+     * On activity created
+     *
+     * @param savedInstanceState Saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         setFragment(new EventListFragment());
     }
 
-    /*
-     * Sets up the Top Toolbar
+    /**
+     * Initializes top toolbar
      */
     private void setTopToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
@@ -75,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         this.title = (TextView) findViewById(R.id.toolbar_title);
     }
 
-    /*
-     * Sets up the Bottom Toolbar
+    /**
+     * Initializes bottom toolbar
      */
     private void setBottomToolbar() {
         LinearLayout bottom = (LinearLayout) findViewById(R.id.bottom_toolbar);
@@ -94,8 +102,20 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         events_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 
-    /*
-     * Sets up the Fragment
+    /**
+     * Get current fragment manager
+     *
+     * @return Current fragment manager
+     */
+    @Override
+    public FragmentManager fm() {
+        return fm;
+    }
+
+    /**
+     * Sets the current fragment
+     *
+     * @param fragment Fragment to set
      */
     @Override
     public void setFragment(Fragment fragment) {
@@ -108,7 +128,37 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Interface methods
+     * Set bottom toolbar buttons
+     *
+     * @param buttonId Id of button to set
+     */
+    @Override
+    public void setButtons(int buttonId) {
+        findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+        findViewById(R.id.dining_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+        findViewById(R.id.map_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+        findViewById(buttonId).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+    }
+
+    /**
+     * Hide soft keyboard
+     */
+    @Override
+    public void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    /**
+     * Get today's date
+     *
+     * @return Today's date
      */
     @Override
     public Date getToday() {
@@ -129,58 +179,63 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         return today;
     }
 
-    @Override
-    public Timer getTimer() {
-        return this.timer;
-    }
-
-    @Override
-    public void initTimer() {
-        this.timer = new Timer();
-    }
-
-    @Override
-    public String toStr(int id) {
-        return this.getResources().getString(id);
-    }
-
-    @Override
-    public BitmapDescriptor toBitMap(int id) {
-        return BitmapDescriptorFactory.fromResource(id);
-    }
-
-    @Override
-    public Gson getGson() {
-        return this.gson;
-    }
-
+    /**
+     * Set new toolbar title
+     *
+     * @param newTitle New toolbar title
+     */
     @Override
     public void setTitle(String newTitle) {
         this.title.setText(newTitle);
     }
 
+    /**
+     * Initializes Timer
+     */
     @Override
-    public FragmentManager fm() {
-        return fm;
+    public void initTimer() {
+        this.timer = new Timer();
     }
 
+    /**
+     * Get timer
+     *
+     * @return Timer
+     */
     @Override
-    public void setButtons(int buttonId) {
-        findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(R.id.dining_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(R.id.map_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(buttonId).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+    public Timer getTimer() {
+        return this.timer;
     }
 
+    /**
+     * Get resource string
+     *
+     * @param id Id of resource
+     * @return String
+     */
     @Override
-    public void hideKeyboard() {
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+    public String toStr(int id) {
+        return this.getResources().getString(id);
+    }
+
+    /**
+     * Get resource bitmap
+     *
+     * @param id Id of bitmap
+     * @return Bitmap
+     */
+    @Override
+    public BitmapDescriptor toBitMap(int id) {
+        return BitmapDescriptorFactory.fromResource(id);
+    }
+
+    /**
+     * Get Gson
+     *
+     * @return Gson
+     */
+    @Override
+    public Gson getGson() {
+        return this.gson;
     }
 }
