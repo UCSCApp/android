@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         this.fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.listFragment, fragment);
-        if (! this.init) ft.addToBackStack(null);
+        if (!this.init) ft.addToBackStack(null);
         ft.commit();
         this.init = false;
     }

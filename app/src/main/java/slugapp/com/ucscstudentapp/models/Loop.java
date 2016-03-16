@@ -10,7 +10,7 @@ public class Loop {
     private float lat, lng;
     private LoopTypeEnum type;
 
-    public Loop (int id, float lat, float lng, String type) {
+    public Loop(int id, float lat, float lng, String type) {
         this.id = id;
         this.lat = lat;
         this.lng = lng;
@@ -19,7 +19,8 @@ public class Loop {
             case "LOOP":
                 this.type = LoopTypeEnum.LOOP;
                 break;
-            case "OUT OF SERVICE/SORRY": default:
+            case "OUT OF SERVICE/SORRY":
+            default:
                 this.type = LoopTypeEnum.OUTOFSERVICE;
                 break;
             case "UPPER CAMPUS":
@@ -28,19 +29,19 @@ public class Loop {
         }
     }
 
-    public int getId () {
+    public int getId() {
         return this.id;
     }
 
-    public float getLat () {
+    public float getLat() {
         return this.lat;
     }
 
-    public float getLng () {
+    public float getLng() {
         return this.lng;
     }
 
-    public LoopTypeEnum getType () {
+    public LoopTypeEnum getType() {
         return this.type;
     }
 }

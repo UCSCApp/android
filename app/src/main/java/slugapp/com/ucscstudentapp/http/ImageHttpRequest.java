@@ -18,12 +18,12 @@ public class ImageHttpRequest extends BaseRequest {
     }
 
     public void execute(ImageView view) {
-        if(view == null) {
+        if (view == null) {
             Log.e("VIEW", "NULL");
         }
         getImageLoader().get(url,
-                             ImageLoader.getImageListener(view,
-                                                          R.drawable.ic_dining,
-                                                          R.drawable.ic_dining));
+                ImageLoader.getImageListener(view,
+                        R.drawable.ic_dining,
+                        R.drawable.ic_dining));
     }
 }

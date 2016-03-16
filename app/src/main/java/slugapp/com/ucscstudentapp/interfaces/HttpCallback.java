@@ -5,5 +5,6 @@ package slugapp.com.ucscstudentapp.interfaces;
  */
 public interface HttpCallback<T> {
     void onSuccess(T val);
+
     void onError(Exception e);
 }

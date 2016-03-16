@@ -3,8 +3,6 @@ package slugapp.com.ucscstudentapp.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import slugapp.com.ucscstudentapp.models.DiningHall;
-
 /**
  * Created by isayyuhh_s on 9/2/2015.
  */

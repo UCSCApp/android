@@ -15,8 +15,7 @@ public enum AttributeEnum {
     NUTS("Nuts", R.drawable.ic_nuts),
     FISH("Fish", R.drawable.ic_fish),
     PORK("Pork", R.drawable.ic_pork),
-    BEEF("Beef", R.drawable.ic_beef),
-    ALLERGY_FREE("Allergy free", R.drawable.ic_allergy_free);
+    BEEF("Beef", R.drawable.ic_beef);
 
     private int icon;
     private String string;
@@ -29,6 +28,7 @@ public enum AttributeEnum {
     public int getIcon() {
         return this.icon;
     }
+
     public String getString() {
         return this.string;
     }

@@ -112,7 +112,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
     private void setMenu(FoodMenu menu, TableLayout table) {
         // for each food item
-        for (Food food: menu.getItems()) {
+        for (Food food : menu.getItems()) {
             TableRow row = new TableRow(getActivity());
             TextView name = new TextView(getActivity());
             LinearLayout attributes = new LinearLayout(getActivity());
@@ -130,13 +130,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
             // food attributes
             attributes.setOrientation(LinearLayout.HORIZONTAL);
-            if (food.attributes().size() == 0) {
-                ImageView icon = new ImageView(getActivity());
-                icon.setLayoutParams(iconParams);
-                icon.setImageResource(R.drawable.ic_allergy_free);
-                attributes.addView(icon);
-            }
-            for (AttributeEnum attribute: food.attributes()) {
+            for (AttributeEnum attribute : food.attributes()) {
                 ImageView icon = new ImageView(getActivity());
                 icon.setLayoutParams(iconParams);
                 icon.setImageResource(attribute.getIcon());

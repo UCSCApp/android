@@ -16,10 +16,11 @@ public class Food {
         this.attributes = attributes;
     }
 
-    public String name () {
+    public String name() {
         return this.name;
     }
-    public List<AttributeEnum> attributes () {
+
+    public List<AttributeEnum> attributes() {
         return this.attributes;
     }
 }

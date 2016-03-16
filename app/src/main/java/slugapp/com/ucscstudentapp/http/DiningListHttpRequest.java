@@ -14,6 +14,7 @@ import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 public class DiningListHttpRequest extends BaseHttpRequest {
     private static final String url =
             "http://ec2-54-183-90-100.us-west-1.compute.amazonaws.com:8080/dining";
+
     public DiningListHttpRequest() {
         super(url, Method.GET);
     }

@@ -15,7 +15,7 @@ import java.util.List;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.adapters.EventListAdapter;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
-import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
+import slugapp.com.ucscstudentapp.http.TestEventListHttpRequest;
 import slugapp.com.ucscstudentapp.models.BaseListItem;
 import slugapp.com.ucscstudentapp.models.Event;
 
@@ -71,7 +71,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onRefresh() {
-        new TestEventHttpRequest().execute(new HttpCallback<List<Event>>() {
+        new TestEventListHttpRequest().execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 Collections.sort(vals, new ListSort());

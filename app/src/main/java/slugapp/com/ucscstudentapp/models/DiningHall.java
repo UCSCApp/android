@@ -18,9 +18,10 @@ public class DiningHall {
     private FoodMenu lunch;
     private FoodMenu dinner;
 
-    public DiningHall () {}
+    public DiningHall() {
+    }
 
-    private FoodMenu addMenu (JSONArray array) throws JSONException {
+    private FoodMenu addMenu(JSONArray array) throws JSONException {
         FoodMenu menu = new FoodMenu();
         for (int k = 0; k < array.length(); k++) {
             List<AttributeEnum> attributes = new ArrayList<>();
@@ -34,26 +35,35 @@ public class DiningHall {
         }
         return menu;
     }
-    public void addCollege (String college) {
+
+    public void addCollege(String college) {
         this.college = college;
     }
-    public void addBreakfast (JSONArray array) throws JSONException {
+
+    public void addBreakfast(JSONArray array) throws JSONException {
         this.breakfast = addMenu(array);
     }
-    public void addLunch (JSONArray array) throws JSONException {
+
+    public void addLunch(JSONArray array) throws JSONException {
         this.lunch = addMenu(array);
     }
-    public void addDinner (JSONArray array) throws JSONException {
+
+    public void addDinner(JSONArray array) throws JSONException {
         this.dinner = addMenu(array);
     }
 
-    public String getCollege () { return this.college; }
+    public String getCollege() {
+        return this.college;
+    }
+
     public FoodMenu getBreakfast() {
         return this.breakfast;
     }
+
     public FoodMenu getLunch() {
         return this.lunch;
     }
+
     public FoodMenu getDinner() {
         return this.dinner;
     }

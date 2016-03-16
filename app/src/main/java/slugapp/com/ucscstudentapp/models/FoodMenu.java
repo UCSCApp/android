@@ -10,20 +10,23 @@ import java.util.List;
 public class FoodMenu {
     private List<Food> items;
 
-    public FoodMenu () {
+    public FoodMenu() {
         items = new ArrayList<>();
     }
 
-    public void add (Food item) {
+    public void add(Food item) {
         this.items.add(item);
     }
-    public Food get (int position) {
+
+    public Food get(int position) {
         return this.items.get(position);
     }
-    public int size () {
+
+    public int size() {
         return this.items.size();
     }
-    public List<Food> getItems () {
+
+    public List<Food> getItems() {
         return Collections.unmodifiableList(this.items);
     }
 }

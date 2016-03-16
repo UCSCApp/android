@@ -17,23 +17,23 @@ public abstract class BaseRequest {
     private static boolean hasInit = false;
 
     public static void init(Context ctx) {
-        if(!hasInit) {
+        if (!hasInit) {
             queue = Volley.newRequestQueue(ctx);
             iLoader = new ImageLoader(queue,
-                new ImageLoader.ImageCache() {
-                    private final LruCache<String, Bitmap>
-                            cache = new LruCache<>(20);
+                    new ImageLoader.ImageCache() {
+                        private final LruCache<String, Bitmap>
+                                cache = new LruCache<>(20);
 
-                    @Override
-                    public Bitmap getBitmap(String url) {
-                        return cache.get(url);
-                    }
+                        @Override
+                        public Bitmap getBitmap(String url) {
+                            return cache.get(url);
+                        }
 
-                    @Override
-                    public void putBitmap(String url, Bitmap bitmap) {
-                        cache.put(url, bitmap);
-                    }
-                });
+                        @Override
+                        public void putBitmap(String url, Bitmap bitmap) {
+                            cache.put(url, bitmap);
+                        }
+                    });
             hasInit = true;
         }
     }

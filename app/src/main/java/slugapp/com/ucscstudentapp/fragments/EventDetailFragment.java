@@ -53,8 +53,7 @@ public class EventDetailFragment extends BaseDetailFragment {
             day.setText(dayString);
             start.setText(startString);
             end.setText(endString);
-        }
-        else day.setText("When: " + event.date().getString());
+        } else day.setText("When: " + event.date().getString());
 
         description.setText(event.getDesc());
         new ImageHttpRequest(event.url()).execute(image);

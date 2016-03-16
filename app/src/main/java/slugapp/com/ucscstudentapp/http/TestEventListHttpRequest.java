@@ -12,7 +12,7 @@ import slugapp.com.ucscstudentapp.models.EventListWrapper;
 /**
  * Created by simba on 8/1/15.
  */
-public class TestEventHttpRequest extends EventHttpRequest {
+public class TestEventListHttpRequest extends EventListHttpRequest {
     private final static String json = "[\n" +
             "       {\n" +
             "          \"name\":\"Edge of Eden\",\n" +

@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
-import slugapp.com.ucscstudentapp.http.TestEventHttpRequest;
+import slugapp.com.ucscstudentapp.http.TestEventListHttpRequest;
 import slugapp.com.ucscstudentapp.models.BaseListItem;
 import slugapp.com.ucscstudentapp.models.Event;
 import slugapp.com.ucscstudentapp.adapters.EventListAdapter;
@@ -76,7 +76,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onRefresh() {
-        new TestEventHttpRequest().execute(new HttpCallback<List<Event>>() {
+        new TestEventListHttpRequest().execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 search(vals);
@@ -93,8 +93,8 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
         });
     }
 
-    private void search (List<Event> val) {
-        for (Iterator<Event> itor = val.iterator(); itor.hasNext() ;) {
+    private void search(List<Event> val) {
+        for (Iterator<Event> itor = val.iterator(); itor.hasNext(); ) {
             Event event = itor.next();
             StringTokenizer queryTokenizer = new StringTokenizer(this.query);
             int found = 0, max = queryTokenizer.countTokens();

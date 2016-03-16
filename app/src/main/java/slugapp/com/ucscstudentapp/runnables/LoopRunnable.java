@@ -30,9 +30,9 @@ public class LoopRunnable implements Runnable {
         new LoopHttpRequest().execute(new HttpCallback<List<Loop>>() {
             @Override
             public void onSuccess(List<Loop> val) {
-                for (Loop loop: val) {
+                for (Loop loop : val) {
                     boolean found = false;
-                    for (Marker marker: loops) {
+                    for (Marker marker : loops) {
                         if (String.valueOf(loop.getId()).compareTo(marker.getSnippet()) == 0) {
                             marker.setPosition(new LatLng(loop.getLat(), loop.getLng()));
                             found = true;

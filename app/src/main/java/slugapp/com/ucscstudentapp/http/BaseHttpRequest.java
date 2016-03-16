@@ -71,6 +71,7 @@ public abstract class BaseHttpRequest extends BaseRequest {
         GET(com.android.volley.Request.Method.GET);
 
         private int method;
+
         Method(int method) {
             this.method = method;
         }

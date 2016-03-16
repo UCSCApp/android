@@ -1,19 +1,11 @@
 package slugapp.com.ucscstudentapp.adapters;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.List;
 
-import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.http.ImageHttpRequest;
 import slugapp.com.ucscstudentapp.models.BaseListItem;
-import slugapp.com.ucscstudentapp.models.Event;
 
 /**
  * Created by simba on 5/31/15.

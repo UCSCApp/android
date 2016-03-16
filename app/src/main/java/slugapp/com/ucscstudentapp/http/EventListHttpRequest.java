@@ -13,10 +13,11 @@ import slugapp.com.ucscstudentapp.models.EventWrapper;
 /**
  * Created by simba on 7/31/15.
  */
-public class EventHttpRequest extends BaseHttpRequest {
+public class EventListHttpRequest extends BaseHttpRequest {
     private static final String url =
             "http://ec2-52-8-25-141.us-west-1.compute.amazonaws.com/events/get/v1";
-    public EventHttpRequest() {
+
+    public EventListHttpRequest() {
         super(url, Method.GET);
     }
 
@@ -27,11 +28,11 @@ public class EventHttpRequest extends BaseHttpRequest {
                 try {
                     JSONArray arr = new JSONArray(val);
                     List<Event> events = new ArrayList<>(arr.length());
-                    for(int i = 0; i < arr.length(); ++i) {
+                    for (int i = 0; i < arr.length(); ++i) {
                         events.add(new EventWrapper(arr.getJSONObject(i)));
                     }
                     callback.onSuccess(events);
-                } catch(JSONException je) {
+                } catch (JSONException je) {
                     callback.onError(je);
                 }
             }

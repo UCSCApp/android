@@ -132,6 +132,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.ac.getTimer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                dynamicMarkers = new ArrayList<>();
                 handler.post(runnable);
             }
         }, 0, 2000);
