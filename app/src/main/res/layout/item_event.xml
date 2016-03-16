@@ -12,33 +12,33 @@
         android:layout_height="wrap_content"
         android:layout_weight=".3"
         android:background="#fff"
+        android:paddingBottom="12dip"
         android:paddingLeft="8dip"
         android:paddingRight="8dip"
-        android:paddingTop="12dip"
-        android:paddingBottom="12dip">
+        android:paddingTop="12dip">
 
         <TextView
             android:id="@+id/name"
-            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:textColor="#000"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/date"
-            android:layout_below="@id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/name"
             android:paddingBottom="12dp"
             android:textColor="#000"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/description"
-            android:layout_below="@id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/date"
             android:textColor="#000"
             android:textSize="14sp" />
     </RelativeLayout>

@@ -31,6 +31,7 @@ public class DiningHallGridFragment extends BaseFragment {
 
     @Override
     protected void setView(View view) {
+        /*
         GridView listView = (GridView) view.findViewById(R.id.grid);
         final DiningHallGridAdapter adp = new DiningHallGridAdapter(getActivity());
         listView.setAdapter(adp);
@@ -64,6 +65,7 @@ public class DiningHallGridFragment extends BaseFragment {
         adp.setData(bitmapList);
         FacilitiesListListener listListener = new FacilitiesListListener();
         listView.setOnItemClickListener(listListener);
+        */
     }
 
     private class FacilitiesListListener implements AdapterView.OnItemClickListener {

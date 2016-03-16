@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
+        android:padding="8dip"
         android:orientation="vertical">
 
         <ImageView
@@ -16,11 +17,25 @@
             android:padding="8dip" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="8dip"
+            android:paddingTop="8dip"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dip"
             android:textColor="#000"
             android:textSize="14sp" />
 
@@ -28,7 +43,6 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dip"
             android:textColor="#000"
             android:textSize="14sp" />
     </LinearLayout>

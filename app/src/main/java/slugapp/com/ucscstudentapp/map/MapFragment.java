@@ -154,10 +154,10 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 }
                 Bundle b = new Bundle();
                 b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
-                DiningHallDetail llf = new DiningHallDetail();
-                llf.setArguments(b);
+                DiningHallDetail fragment = new DiningHallDetail();
+                fragment.setArguments(b);
 
-                ac.setFragment(llf);
+                ac.setFragment(fragment);
             }
         });
 

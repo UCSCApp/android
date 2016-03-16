@@ -1,6 +1,7 @@
 package slugapp.com.ucscstudentapp.dining;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,12 +15,15 @@ public class FoodMenu {
     }
 
     public void add (Food item) {
-        items.add(item);
+        this.items.add(item);
     }
     public Food get (int position) {
-        return items.get(position);
+        return this.items.get(position);
     }
     public int size () {
-        return items.size();
+        return this.items.size();
+    }
+    public List<Food> getItems () {
+        return Collections.unmodifiableList(this.items);
     }
 }

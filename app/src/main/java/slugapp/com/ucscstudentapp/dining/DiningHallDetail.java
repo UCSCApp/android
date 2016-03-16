@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.ucscstudentapp.R;
+import slugapp.com.ucscstudentapp.http.DiningHallHttpRequest;
 import slugapp.com.ucscstudentapp.http.HttpCallback;
 import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
 import slugapp.com.ucscstudentapp.main.BaseFragment;
@@ -35,7 +36,7 @@ public class DiningHallDetail extends BaseFragment {
         setHasOptionsMenu(true);
 
         Bundle b = getArguments();
-        diningHallName = b.getString("name");
+        this.diningHallName = b.getString("name");
     }
 
     @Override
@@ -50,23 +51,40 @@ public class DiningHallDetail extends BaseFragment {
 
     @Override
     protected void setView(View view) {
-        // set date, breakfast, lunch, and dinner
-        TextView date = (TextView) view.findViewById(R.id.date);
-
-        new TestDiningHallHttpRequest(diningHallName).execute(new HttpCallback<DiningHall>() {
+        final View view_ = view;
+        final TextView date = (TextView) view.findViewById(R.id.date);
+        new DiningHallHttpRequest(diningHallName).execute(new HttpCallback<DiningHall>() {
             @Override
             public void onSuccess(DiningHall val) {
                 diningHall = val;
+
+                date.setText(ac.getToday().getMonth() + " " + ac.getToday().getDay());
+                TableLayout layout = (TableLayout) view_.findViewById(R.id.meal);
+                int currentTime = today.getStartTime();
+                String currentTOD = today.getStartTOD().toLowerCase();
+                TextView mealTitle = (TextView) view_.findViewById(R.id.meal_title);
+                FoodMenu meal = null;
+
+                if ((currentTime == 12 || currentTime < 11) && currentTOD.compareTo("am") == 0) {
+                    meal = diningHall.getBreakfast();
+                    mealTitle.setText("Breakfast");
+                } else if (currentTime == 11 && currentTOD.compareTo("am") == 0 ||
+                        currentTime == 12 && currentTOD.compareTo("pm") == 0 ||
+                        currentTime > 0 && currentTime < 5 && currentTOD.compareTo("pm") == 0) {
+                    meal = diningHall.getLunch();
+                    mealTitle.setText("Lunch");
+                } else if (currentTime >= 5 && currentTime < 12 && currentTOD.compareTo("pm") == 0) {
+                    meal = diningHall.getDinner();
+                    mealTitle.setText("Dinner");
+                }
+                setMenu(meal, layout);
+                setLegendDialog(view_);
             }
+
             @Override
             public void onError(Exception e) {
             }
         });
-        date.setText(this.ac.getToday().getMonth() + " " + this.ac.getToday().getDay());
-        this.setMenu(this.diningHall.getBreakfast(), (TableLayout) view.findViewById(R.id.breakfast));
-        this.setMenu(this.diningHall.getLunch(), (TableLayout) view.findViewById(R.id.lunch));
-        this.setMenu(this.diningHall.getDinner(), (TableLayout) view.findViewById(R.id.dinner));
-        this.setLegendDialog(view);
     }
 
     @Override
@@ -91,9 +109,7 @@ public class DiningHallDetail extends BaseFragment {
 
     private void setMenu(FoodMenu menu, TableLayout table) {
         // for each food item
-        for (int i = 0; i < menu.size(); i++) {
-            // init objects
-            Food food = menu.get(i);
+        for (Food food: menu.getItems()) {
             TableRow row = new TableRow(getActivity());
             TextView name = new TextView(getActivity());
             LinearLayout attributes = new LinearLayout(getActivity());
@@ -105,7 +121,7 @@ public class DiningHallDetail extends BaseFragment {
             rowParams.setMargins(12, 24, 5, 0);
 
             // food name
-            name.setText(menu.get(i).name());
+            name.setText(food.name());
             name.setTextColor(Color.BLACK);
             name.setTextSize(14.0f);
 
@@ -117,10 +133,10 @@ public class DiningHallDetail extends BaseFragment {
                 icon.setImageResource(R.drawable.ic_allergy_free);
                 attributes.addView(icon);
             }
-            for (int j = 0; j < food.attributes().size(); j++) {
+            for (FoodAttribute attribute: food.attributes()) {
                 ImageView icon = new ImageView(getActivity());
                 icon.setLayoutParams(iconParams);
-                icon.setImageResource(food.attributes().get(j).getIcon());
+                icon.setImageResource(attribute.getIcon());
                 attributes.addView(icon);
             }
 
@@ -131,36 +147,22 @@ public class DiningHallDetail extends BaseFragment {
         }
     }
 
-    private void setLegendDialog (View view) {
+    private void setLegendDialog(View view) {
         // set legend OnClickListener
-        for (int i = 0; i < 3; i++) {
-            TextView legend;
-            switch (i) {
-                case 0:default:
-                    legend = (TextView) view.findViewById(R.id.blegend);
-                    break;
-                case 1:
-                    legend = (TextView) view.findViewById(R.id.llegend);
-                    break;
-                case 2:
-                    legend = (TextView) view.findViewById(R.id.dlegend);
-                    break;
-            }
-            legend.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
+        TextView legend = (TextView) view.findViewById(R.id.legend);
+        legend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) ft.remove(prev);
+                ft.addToBackStack(null);
 
-                    // Create and show the dialog.
-                    DiningLegendDialog dialog = new DiningLegendDialog();
-                    dialog.show(ft, "dialog");
-                }
-            });
-        }
+                // Create and show the dialog.
+                DiningLegendDialog dialog = new DiningLegendDialog();
+                dialog.show(ft, "dialog");
+            }
+        });
+
     }
 }

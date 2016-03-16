@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.google.gson.Gson;
+
 import slugapp.com.ucscstudentapp.main.ActivityCallback;
 
 /**
@@ -19,10 +21,9 @@ public class EventListListener implements AdapterView.OnItemClickListener {
         this.ac.hideKeyboard();
         Event e = (Event) parent.getItemAtPosition(position);
         Bundle b = new Bundle();
-        b.putString("name", e.name());
-        b.putString("date", e.date().getString());
-        b.putString("description", e.getDesc());
-        b.putString("url", e.url());
+
+        String json = this.ac.getGson().toJson(e);
+        b.putString("json", json);
         EventDetail fragment = new EventDetail();
         fragment.setArguments(b);
         this.ac.setFragment(fragment);

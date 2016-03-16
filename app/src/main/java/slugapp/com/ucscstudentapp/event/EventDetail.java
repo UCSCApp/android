@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.http.ImageHttpRequest;
 import slugapp.com.ucscstudentapp.main.BaseFragment;
@@ -24,11 +26,7 @@ public class EventDetail extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = getArguments();
-        this.event = new Event(
-                b.getString("name"),
-                b.getString("date"),
-                b.getString("description"),
-                b.getString("url"));
+        this.event = this.ac.getGson().fromJson(b.getString("json"), Event.class);
     }
 
     @Override
@@ -41,11 +39,25 @@ public class EventDetail extends BaseFragment {
 
     @Override
     protected void setView(View view) {
-        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView day = (TextView) view.findViewById(R.id.day);
+        TextView start = (TextView) view.findViewById(R.id.start);
+        TextView end = (TextView) view.findViewById(R.id.end);
         TextView description = (TextView) view.findViewById(R.id.description);
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
-        date.setText(event.date().getString());
+        if (event.date().isDefined()) {
+            String dayString = "When: " + event.date().getMonth().getVal() + " " + event.date().getDay();
+            String startString = "Starts: " + String.valueOf(event.date().getStartTime()) +
+                    event.date().getStartTOD();
+            String endString = "Ends: " + String.valueOf(event.date().getEndTime()) +
+                    event.date().getEndTOD();
+
+            day.setText(dayString);
+            start.setText(startString);
+            end.setText(endString);
+        }
+        else day.setText("When: " + event.date().getString());
+
         description.setText(event.getDesc());
         new ImageHttpRequest(event.url()).execute(image);
     }

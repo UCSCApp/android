@@ -18,12 +18,14 @@ public class TestDiningHallHttpRequest extends DiningHallHttpRequest {
 
     @Override
     public void execute(HttpCallback<DiningHall> callback) {
+            /*
         try {
             JSONArray arr = new JSONArray(json);
             callback.onSuccess(new DiningHallWrapper(arr, name));
         } catch (JSONException je) {
             je.printStackTrace();
         }
+        */
     }
 
     private final static String json = "[\n" +

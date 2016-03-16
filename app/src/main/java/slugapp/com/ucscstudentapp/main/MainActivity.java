@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.gson.Gson;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -39,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private SwipeRefreshLayout swipeLayout;
     private FragmentManager fm;
     private TextView title;
-    private Date today;
     private Timer timer;
+    private Gson gson;
     private boolean init = true;
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
@@ -54,13 +56,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         // This is the Twitter Authorization for fabric to use Twitter services in the app
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+        this.gson = new Gson();
 
         // sets views
         setContentView(R.layout.activity_main);
         setTopToolbar();
         setBottomToolbar();
         setFragment(new EventListFragment());
-        setToday();
     }
 
     @Override
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
-        title = (TextView) findViewById(R.id.toolbar_title);
+        this.title = (TextView) findViewById(R.id.toolbar_title);
     }
 
     /*
@@ -95,10 +97,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
 
         // Bottom Buttons
         BottomToolbarButton events_button = (BottomToolbarButton) child.findViewById(R.id.events_button);
-        events_button.setImageResource(R.drawable.ic_events);
         BottomToolbarButton dining_button = (BottomToolbarButton) child.findViewById(R.id.dining_button);
-        dining_button.setImageResource(R.drawable.ic_dining);
         BottomToolbarButton map_button = (BottomToolbarButton) child.findViewById(R.id.map_button);
+        events_button.setImageResource(R.drawable.ic_events);
+        dining_button.setImageResource(R.drawable.ic_dining);
         map_button.setImageResource(R.drawable.ic_map);
         BottomToolbarButton.setIds(events_button, dining_button, map_button); //, social_button, settings_button);
         bottom.addView(child);
@@ -110,10 +112,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setFragment(Fragment fragment) {
-        fm = getSupportFragmentManager();
+        this.fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.listFragment, fragment);
-        if (!this.init) ft.addToBackStack(null);
+        if (! this.init) ft.addToBackStack(null);
         ft.commit();
         this.init = false;
     }
@@ -123,10 +125,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public Date getToday() {
-        return today;
-    }
-
-    public void setToday() {
         java.util.Date date = Calendar.getInstance().getTime();
         String month = new SimpleDateFormat("MM").format(date);
         String day = new SimpleDateFormat("dd").format(date);
@@ -140,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
             }
         }
         String string = todayMonth + " " + day + " " + hour + tod + " " + hour + tod;
-        this.today = new Date(string);
+        Date today = new Date(string);
+        return today;
     }
 
     @Override
@@ -164,8 +163,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
+    public Gson getGson() {
+        return this.gson;
+    }
+
+    @Override
     public void setTitle(String newTitle) {
-        title.setText(newTitle);
+        this.title.setText(newTitle);
     }
 
     @Override

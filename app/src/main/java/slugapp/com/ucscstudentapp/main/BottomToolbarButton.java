@@ -5,11 +5,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 
+import slugapp.com.ucscstudentapp.dining.DiningHallListFragment;
 import slugapp.com.ucscstudentapp.event.EventListFragment;
-import slugapp.com.ucscstudentapp.dining.DiningHallGridFragment;
 import slugapp.com.ucscstudentapp.map.MapFragment;
 import slugapp.com.ucscstudentapp.settings.Settings;
-import slugapp.com.ucscstudentapp.social.joint_login_social_fragment;
 
 /**
  * Created by isayyuhh_s on 7/28/2015.
@@ -53,7 +52,7 @@ public class BottomToolbarButton extends ImageButton {
                 EventListFragment fragment = new EventListFragment();
                 ac.setFragment(fragment);
             } else if (view.getId() == diningID) {
-                DiningHallGridFragment fragment = new DiningHallGridFragment();
+                DiningHallListFragment fragment = new DiningHallListFragment();
                 ac.setFragment(fragment);
             } else if (view.getId() == mapID) {
                 MapFragment fragment = new MapFragment();

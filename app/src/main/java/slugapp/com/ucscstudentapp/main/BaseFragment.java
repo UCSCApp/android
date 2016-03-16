@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 
 import slugapp.com.ucscstudentapp.R;
+import slugapp.com.ucscstudentapp.event.Date;
 import slugapp.com.ucscstudentapp.event.EventSearchListFragment;
 import slugapp.com.ucscstudentapp.event.EventUpdater;
 
@@ -22,6 +23,7 @@ public abstract class BaseFragment extends Fragment {
     protected ActivityCallback ac;
     protected String title;
     protected int buttonId;
+    protected Date today;
 
     @Override
     public void onAttach(Activity activity) {
@@ -32,6 +34,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.today = this.ac.getToday();
         setHasOptionsMenu(true);
     }
 

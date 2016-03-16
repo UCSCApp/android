@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.gson.Gson;
 
 import java.util.Timer;
 
@@ -35,4 +36,6 @@ public interface ActivityCallback {
 
     String toStr (int id);
     BitmapDescriptor toBitMap (int id);
+
+    Gson getGson();
 }

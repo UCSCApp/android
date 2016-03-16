@@ -20,7 +20,7 @@
             android:paddingTop="10dip"/>
 
         <TableLayout
-            android:id="@+id/breakfast"
+            android:id="@+id/meal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="12dip"
@@ -38,87 +38,16 @@
                 android:paddingTop="5dip">
 
                 <TextView
+                    android:id="@+id/meal_title"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Breakfast"
+                    android:text=""
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/blegend"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Contains (?)"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-            android:id="@+id/lunch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="12dip"
-            android:stretchColumns="1">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/ColorPrimary"
-                android:padding="5dip">
-
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Lunch"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/llegend"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Contains (?)"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-            android:id="@+id/dinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="12dip"
-            android:stretchColumns="1">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/ColorPrimary"
-                android:padding="5dip">
-
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Dinner"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/dlegend"
+                    android:id="@+id/legend"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
