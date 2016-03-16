@@ -146,6 +146,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         });
 
         // OnInfoWindowClickListener
+        /*
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -160,6 +161,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 ac.setFragment(fragment);
             }
         });
+        */
 
         // OnCameraChangeListener
         map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {

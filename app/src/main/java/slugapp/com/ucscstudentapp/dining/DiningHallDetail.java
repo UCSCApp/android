@@ -98,11 +98,13 @@ public class DiningHallDetail extends BaseFragment {
 
         // find on map
         if (id == R.id.map_find) {
+            /*
             Bundle b = new Bundle();
             b.putString("name", diningHall.getCollege());
             MapFragment fragment = new MapFragment();
             fragment.setArguments(b);
             this.ac.setFragment(fragment);
+            */
         }
         return super.onOptionsItemSelected(item);
     }
