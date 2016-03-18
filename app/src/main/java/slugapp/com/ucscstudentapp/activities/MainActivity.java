@@ -19,11 +19,14 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
+import slugapp.com.ucscstudentapp.enums.FragmentEnum;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 import slugapp.com.ucscstudentapp.models.BottomToolbarButton;
 import slugapp.com.ucscstudentapp.models.Date;
@@ -42,14 +45,15 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     /**
      * Fields
      */
+    private static final List<FragmentEnum> fragments = Arrays.asList(FragmentEnum.values());
+    private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
+    private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
+
     private FragmentManager fm;
     private TextView title;
     private Timer timer;
     private Gson gson;
     private boolean init = true;
-
-    private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
-    private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
 
     /**
      * On activity created
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         // This is the Twitter Authorization for fabric to use Twitter services in the app
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+
         this.gson = new Gson();
 
         // sets views
@@ -89,17 +94,37 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private void setBottomToolbar() {
         LinearLayout bottom = (LinearLayout) findViewById(R.id.bottom_toolbar);
         View child = getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
-
-        // Bottom Buttons
-        BottomToolbarButton events_button = (BottomToolbarButton) child.findViewById(R.id.events_button);
-        BottomToolbarButton dining_button = (BottomToolbarButton) child.findViewById(R.id.dining_button);
-        BottomToolbarButton map_button = (BottomToolbarButton) child.findViewById(R.id.map_button);
-        events_button.setImageResource(R.drawable.ic_events);
-        dining_button.setImageResource(R.drawable.ic_dining);
-        map_button.setImageResource(R.drawable.ic_map);
-        BottomToolbarButton.setIds(events_button, dining_button, map_button); //, social_button, settings_button);
+        for (FragmentEnum fragment : fragments) {
+            setButton(child, fragment.getButtonId(), fragment.getImageId());
+        }
         bottom.addView(child);
-        events_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+
+        BottomToolbarButton event_button = (BottomToolbarButton) findViewById(R.id.events_button);
+        event_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+    }
+
+    /**
+     * Sets bottom toolbar button
+     *
+     * @param child    Child view
+     * @param buttonId Id of button
+     * @param imageId  Id of image
+     * @return Bottom toolbar button
+     */
+    private BottomToolbarButton setButton(View child, int buttonId, int imageId) {
+        BottomToolbarButton button = (BottomToolbarButton) child.findViewById(buttonId);
+        button.setImageResource(imageId);
+        return button;
+    }
+
+    /**
+     * Get list of tab fragments
+     *
+     * @return List of tab fragments
+     */
+    @Override
+    public List<FragmentEnum> getFragments() {
+        return fragments;
     }
 
     /**
@@ -134,10 +159,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setButtons(int buttonId) {
-        findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(R.id.dining_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(R.id.map_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        findViewById(buttonId).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+        for (FragmentEnum fragment : fragments) {
+            View button = this.findViewById(fragment.getButtonId());
+            button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+        }
+        View button = this.findViewById(buttonId);
+        button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 
     /**
@@ -168,15 +195,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         String hour = new SimpleDateFormat("hh").format(date);
         String tod = new SimpleDateFormat("aa").format(date);
         String todayMonth = MonthEnum.JANUARY.getVal();
+
         for (MonthEnum currMonth : MonthEnum.values()) {
-            if (currMonth.getOrder() == Integer.valueOf(month)) {
-                todayMonth = currMonth.getVal();
-                break;
-            }
+            if (currMonth.getOrder() != Integer.valueOf(month)) continue;
+            todayMonth = currMonth.getVal();
+            break;
         }
         String string = todayMonth + " " + day + " " + hour + tod + " " + hour + tod;
-        Date today = new Date(string);
-        return today;
+        return new Date(string);
     }
 
     /**

@@ -58,12 +58,9 @@ public class InstagramRequest {
 	 * 
 	 * @throws Exception If error occured.
 	 */
-	public String createRequest(String method, String endpoint, List<NameValuePair> params) throws Exception {
-		if (method.equals("POST")) {
-			return requestPost(endpoint, params); 
-		} else {
-			return requestGet(endpoint, params);
-		}
+	public String createRequest(String method, String endpoint, List<NameValuePair> params)
+			throws Exception {
+		return method.equals("POST") ? requestPost(endpoint, params) : requestGet(endpoint, params);
 	}
 	
 	/**
@@ -76,7 +73,8 @@ public class InstagramRequest {
 	 * @param listener BaseRequest listener
 	 * 
 	 */
-	public void createRequest(String method, String endpoint, List<NameValuePair> params, InstagramRequestListener listener) {
+	public void createRequest(String method, String endpoint, List<NameValuePair> params,
+							  InstagramRequestListener listener) {
 		new RequestTask(method, endpoint, params, listener).execute();
 	}
 	
@@ -92,7 +90,7 @@ public class InstagramRequest {
 	 */
 	public String requestGet(String endpoint, List<NameValuePair> params) throws Exception {
 		String requestUri = Cons.API_BASE_URL + ((endpoint.indexOf("/") == 0) ? endpoint : "/" + endpoint);
-		
+
 		return get(requestUri, params);				
 	}
 	
@@ -130,13 +128,8 @@ public class InstagramRequest {
 			String requestUrl = requestUri;
 			
 			if (!mAccessToken.equals("")) {
-				if (params == null) {
-					params = new ArrayList<NameValuePair>(1);
-					
-					params.add(new BasicNameValuePair("access_token", mAccessToken));
-				} else {
-					params.add(new BasicNameValuePair("access_token", mAccessToken));
-				}
+				if (params == null) params = new ArrayList<>(1);
+				params.add(new BasicNameValuePair("access_token", mAccessToken));
 			}
 			
 			if (params != null) {

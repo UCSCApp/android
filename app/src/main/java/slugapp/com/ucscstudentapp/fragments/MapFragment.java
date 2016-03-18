@@ -132,7 +132,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.ac.getTimer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                dynamicMarkers = new ArrayList<>();
                 handler.post(runnable);
             }
         }, 0, 2000);
@@ -148,24 +147,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 return false;
             }
         });
-
-        // OnInfoWindowClickListener
-        /*
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                for (MarkerEnum currEnum : markerEnums) {
-                    if (foundMarker(marker.getTitle(), currEnum, MarkerTypeEnum.LIBRARY)) return;
-                }
-                Bundle b = new Bundle();
-                b.putString("name", marker.getTitle().replace(" Dining Hall", ""));
-                DiningHallDetailFragment fragment = new DiningHallDetailFragment();
-                fragment.setArguments(b);
-
-                ac.setFragment(fragment);
-            }
-        });
-        */
 
         // OnCameraChangeListener
         map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {

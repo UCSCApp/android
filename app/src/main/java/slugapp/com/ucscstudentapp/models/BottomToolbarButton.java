@@ -1,21 +1,25 @@
 package slugapp.com.ucscstudentapp.models;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.lang.reflect.Constructor;
+
+import slugapp.com.ucscstudentapp.enums.FragmentEnum;
 import slugapp.com.ucscstudentapp.fragments.DiningHallListFragment;
 import slugapp.com.ucscstudentapp.fragments.EventListFragment;
 import slugapp.com.ucscstudentapp.fragments.MapFragment;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 import slugapp.com.ucscstudentapp.settings.SettingsFragment;
+import slugapp.com.ucscstudentapp.social.InstagramFeedFragment;
 
 /**
  * Created by isayyuhh_s on 7/28/2015.
  */
 public class BottomToolbarButton extends ImageButton {
-    private static int eventID, diningID, mapID, socialID, settingsID;
     private ActivityCallback ac;
 
     public BottomToolbarButton(Context context) {
@@ -33,49 +37,18 @@ public class BottomToolbarButton extends ImageButton {
         this.ac = (ActivityCallback) context;
     }
 
-    public static void setIds(BottomToolbarButton event_button, BottomToolbarButton dining_button,
-                              BottomToolbarButton map_button) {
-        //, ToggleImageButton social_button, ToggleImageButton settings_button) {
-        eventID = event_button.getId();
-        diningID = dining_button.getId();
-        mapID = map_button.getId();
-
-        /*
-        socialID = social_button.getId();
-        settingsID = settings_button.getId();
-        */
-    }
-
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (view.getId() == eventID) {
-                EventListFragment fragment = new EventListFragment();
-                ac.setFragment(fragment);
-            } else if (view.getId() == diningID) {
-                DiningHallListFragment fragment = new DiningHallListFragment();
-                ac.setFragment(fragment);
-            } else if (view.getId() == mapID) {
-                MapFragment fragment = new MapFragment();
-                ac.setFragment(fragment);
-            } else if (view.getId() == socialID) {
-                /*
-                joint_login_social_fragment fragment = new joint_login_social_fragment();
-                ac.setFragment(fragment);
-                */
-                /*
-                //this is if we want to implement logging users in so they can like, favorite, post, etc.
-                if() {
-                    FragmentTransaction ft = ac.fm().beginTransaction();
-                    TwitterLoginFragment llf = new TwitterLoginFragment();
-                    ft.replace(R.id.listFragment, llf);
-                    ft.addToBackStack(null);
-                    ft.commit();
+            try {
+                for (FragmentEnum fragmentEnum : ac.getFragments()) {
+                    if (view.getId() != fragmentEnum.getButtonId()) continue;
+                    Class<?> fragmentClass = fragmentEnum.getFragment();
+                    Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
+                    Fragment fragment = (Fragment) fragmentConstructor.newInstance();
+                    ac.setFragment(fragment);
                 }
-                */
-            } else if (view.getId() == settingsID) {
-                SettingsFragment fragment = new SettingsFragment();
-                ac.setFragment(fragment);
+            } catch (Exception e) {
             }
         }
     };

@@ -1,46 +1,11 @@
 package slugapp.com.ucscstudentapp.fragments;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
-
-import slugapp.com.ucscstudentapp.models.Date;
-import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 
 /**
  * Created by isayyuhh on 2/21/16.
  */
-public abstract class BaseDetailFragment extends Fragment {
-    protected ActivityCallback ac;
-    protected String title;
-    protected int buttonId;
-    protected Date today;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.ac = (ActivityCallback) activity;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.today = this.ac.getToday();
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        this.ac.setTitle(title);
-        this.ac.setButtons(buttonId);
-    }
-
-    protected void setLayout(String title, int id) {
-        this.title = title;
-        this.buttonId = id;
-    }
+public abstract class BaseDetailFragment extends BaseFragment {
 
     protected abstract void setView(View view);
 }

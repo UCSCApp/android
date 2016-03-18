@@ -23,13 +23,13 @@
         android:layout_height="match_parent"
         android:background="@drawable/toggle_selector"
         android:layout_weight="1"/>
-    <!--
-    <slugapp.com.ucscstudentapp.main.ToggleImageButton
+    <slugapp.com.ucscstudentapp.models.BottomToolbarButton
         android:id="@+id/social_button"
-        android:layout_width="match_parent"
+        android:layout_width="0px"
         android:layout_height="match_parent"
         android:background="@drawable/toggle_selector"
         android:layout_weight="1"/>
+    <!--
     <slugapp.com.ucscstudentapp.main.ToggleImageButton
         android:id="@+id/settings_button"
         android:layout_width="match_parent"

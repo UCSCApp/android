@@ -7,17 +7,13 @@ package slugapp.com.ucscstudentapp.social;
 //  Copyright (c) 2015 UCSC Android. All rights reserved.
 //
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,75 +38,51 @@ import java.util.LinkedList;
 import java.util.List;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
+import slugapp.com.ucscstudentapp.fragments.BaseFragment;
 import slugapp.com.ucscstudentapp.social.instagram.Instagram;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramRequest;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramSession;
 import slugapp.com.ucscstudentapp.social.instagram.InstagramUser;
+import slugapp.com.ucscstudentapp.social.instagram.PhotoListAdapter;
 
 
-public class InstagramFeedFragment extends Fragment{
+public class InstagramFeedFragment extends BaseFragment {
     private InstagramSession mInstagramSession;
     private Instagram mInstagram;
-    private ActivityCallback mCallBack;
 
     private ProgressBar mLoadingPb;
     private GridView mGridView;
 
-    private static final String CLIENT_ID = "2eb0b0a219ba482c9b9121c8287cc4aa";
-    private static final String CLIENT_SECRET = "8ad1fd55cdbc483f9b7eafae79b47ed5";
-    private static final String REDIRECT_URI = "http://slugroute.com";
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallBack = (ActivityCallback) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement ActivityReference");
-        }
-    }
+    private static final String CLIENT_ID = "1022d9b4b6ae4b0297a0f1b5d1f711e0";
+    private static final String CLIENT_SECRET = "1f67be1ee8e942578f2eb8d47d9ce9c7";
+    private static final String REDIRECT_URI = "http://s3-us-west-1.amazonaws.com/slug-app/index.html";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Social Feed");
-
-        // Instagram Implementation
-        mInstagram          = new Instagram(getActivity(), CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-
-        mInstagramSession   = mInstagram.getSession();
-
-
+        mInstagram = new Instagram(getActivity(), CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+        mInstagramSession = mInstagram.getSession();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView;
+        this.setLayout("Instagram", R.id.social_button);
 
         if (mInstagramSession.isActive()) {
             rootView = inflater.inflate(R.layout.activity_user, container, false);
             //InstagramUser instagramUser = mInstagramSession.getUser();
 
-            mLoadingPb  = (ProgressBar) rootView.findViewById(R.id.pb_loading);
-            mGridView   = (GridView) rootView.findViewById(R.id.gridView);
+            mLoadingPb = (ProgressBar) rootView.findViewById(R.id.pb_loading);
+            mGridView = (GridView) rootView.findViewById(R.id.gridView);
 
-
-            ((Button) rootView.findViewById(R.id.btn_logout)).setOnClickListener(new View.OnClickListener() {
+            rootView.findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     mInstagramSession.reset();
-                    FragmentTransaction ft = mCallBack.fm().beginTransaction();
-                    InstagramFeedFragment llf = new InstagramFeedFragment();
-                    ft.replace(R.id.listFragment, llf);
-                    ft.addToBackStack(null);
-                    ft.commit();
+                    InstagramFeedFragment fragment = new InstagramFeedFragment();
+                    ac.setFragment(fragment);
                 }
             });
 
@@ -131,13 +103,12 @@ public class InstagramFeedFragment extends Fragment{
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.init(config);
 
-            AnimateFirstDisplayListener animate  = new AnimateFirstDisplayListener();
-
+            AnimateFirstDisplayListener animate = new AnimateFirstDisplayListener();
             new DownloadTask().execute();
 
         } else {
             rootView = inflater.inflate(R.layout.instagram_login, container, false);
-            ((Button) rootView.findViewById(R.id.btn_connect)).setOnClickListener(new View.OnClickListener() {
+            rootView.findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     mInstagram.authorize(mAuthListener);
@@ -149,16 +120,6 @@ public class InstagramFeedFragment extends Fragment{
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getActivity().findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        getActivity().findViewById(R.id.map_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        //getActivity().findViewById(R.id.social_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        //getActivity().findViewById(R.id.settings_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
-        //getActivity().findViewById(R.id.social_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
-    }
-
     private void showToast(String text) {
         Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
     }
@@ -166,11 +127,8 @@ public class InstagramFeedFragment extends Fragment{
     private Instagram.InstagramAuthListener mAuthListener = new Instagram.InstagramAuthListener() {
         @Override
         public void onSuccess(InstagramUser user) {
-            FragmentTransaction ft = mCallBack.fm().beginTransaction();
-            InstagramFeedFragment llf = new InstagramFeedFragment();
-            ft.replace(R.id.listFragment, llf);
-            ft.addToBackStack(null);
-            ft.commit();
+            InstagramFeedFragment fragment = new InstagramFeedFragment();
+            ac.setFragment(fragment);
         }
 
         @Override
@@ -179,8 +137,7 @@ public class InstagramFeedFragment extends Fragment{
         }
 
         @Override
-        public void onCancel(){
-
+        public void onCancel() {
         }
     };
 
@@ -202,42 +159,37 @@ public class InstagramFeedFragment extends Fragment{
     }
 
     public class DownloadTask extends AsyncTask<URL, Integer, Long> {
-        ArrayList<String> photoList;
+        private ArrayList<String> photoList;
 
         protected void onCancelled() {
-
         }
 
         protected void onPreExecute() {
-
         }
 
         protected Long doInBackground(URL... urls) {
             long result = 0;
 
             try {
-                List<NameValuePair> params = new ArrayList<NameValuePair>(1);
-
+                List<NameValuePair> params = new ArrayList<>(1);
                 params.add(new BasicNameValuePair("count", "10"));
 
                 InstagramRequest request = new InstagramRequest(mInstagramSession.getAccessToken());
-                String response          = request.requestGet("/tags/UCSC/media/recent", params);
+                String response = request.requestGet("/tags/ucsc/media/recent", params);
+                if (response.equals("")) return result;
 
-                if (!response.equals("")) {
-                    JSONObject jsonObj  = (JSONObject) new JSONTokener(response).nextValue();
-                    JSONArray jsonData  = jsonObj.getJSONArray("data");
+                JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
+                JSONArray jsonData = jsonObj.getJSONArray("data");
 
-                    int length = jsonData.length();
+                int length = jsonData.length();
+                if (length <= 0) return result;
 
-                    if (length > 0) {
-                        photoList = new ArrayList<String>();
+                photoList = new ArrayList<>();
+                for (int i = 0; i < length; i++) {
+                    JSONObject jsonImages = jsonData.getJSONObject(i).getJSONObject("images");
+                    JSONObject jsonPhoto = jsonImages.getJSONObject("low_resolution");
 
-                        for (int i = 0; i < length; i++) {
-                            JSONObject jsonPhoto = jsonData.getJSONObject(i).getJSONObject("images").getJSONObject("low_resolution");
-
-                            photoList.add(jsonPhoto.getString("url"));
-                        }
-                    }
+                    photoList.add(jsonPhoto.getString("url"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -254,22 +206,18 @@ public class InstagramFeedFragment extends Fragment{
 
             if (photoList == null) {
                 Toast.makeText(getActivity(), "No Photos Available", Toast.LENGTH_LONG).show();
-            } else {
-                DisplayMetrics dm = new DisplayMetrics();
-
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-                int width   = (int) Math.ceil((double) dm.widthPixels / 2);
-                width=width-50;
-                int height  = width;
-
-                slugapp.com.ucscstudentapp.social.instagram.PhotoListAdapter adapter = new slugapp.com.ucscstudentapp.social.instagram.PhotoListAdapter(getActivity());
-
-                adapter.setData(photoList);
-                adapter.setLayoutParam(width, height);
-
-                mGridView.setAdapter(adapter);
+                return;
             }
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+            int length = (int) Math.ceil((double) dm.widthPixels / 2) - 50;
+
+            PhotoListAdapter adapter = new PhotoListAdapter(getActivity());
+            adapter.setData(photoList);
+            adapter.setLayoutParam(length, length);
+            mGridView.setAdapter(adapter);
         }
     }
 }

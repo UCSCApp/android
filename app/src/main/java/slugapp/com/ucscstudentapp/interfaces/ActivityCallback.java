@@ -6,14 +6,23 @@ import android.support.v4.app.FragmentManager;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.gson.Gson;
 
+import java.util.List;
 import java.util.Timer;
 
+import slugapp.com.ucscstudentapp.enums.FragmentEnum;
 import slugapp.com.ucscstudentapp.models.Date;
 
 /**
  * Created by isayyuhh_s on 8/3/2015.
  */
 public interface ActivityCallback {
+
+    /**
+     * Get list of tab fragments
+     *
+     * @return List of tab fragments
+     */
+    List<FragmentEnum> getFragments();
 
     /**
      * Get current fragment manager

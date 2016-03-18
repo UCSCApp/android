@@ -1,10 +1,7 @@
 package slugapp.com.ucscstudentapp.fragments;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -18,38 +15,12 @@ import java.util.Comparator;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.adapters.BaseListAdapter;
 import slugapp.com.ucscstudentapp.models.BaseListItem;
-import slugapp.com.ucscstudentapp.models.Date;
-import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 
 /**
  * Created by isayyuhh on 2/21/16.
  */
-public abstract class BaseListFragment extends Fragment {
-    protected ActivityCallback ac;
+public abstract class BaseListFragment extends BaseFragment {
     protected BaseListAdapter adapter;
-    protected String title;
-    protected int buttonId;
-    protected Date today;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.ac = (ActivityCallback) activity;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.today = this.ac.getToday();
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        this.ac.setTitle(title);
-        this.ac.setButtons(buttonId);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,11 +34,6 @@ public abstract class BaseListFragment extends Fragment {
     protected abstract int doSort(BaseListItem lhs, BaseListItem rhs);
 
     protected abstract void onClick(AdapterView<?> parent, View view, int position, long id);
-
-    protected void setLayout(String title, int id) {
-        this.title = title;
-        this.buttonId = id;
-    }
 
     protected void setView(View view, BaseListAdapter adapter) {
         this.adapter = adapter;
