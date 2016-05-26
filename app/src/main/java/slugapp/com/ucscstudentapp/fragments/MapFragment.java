@@ -126,7 +126,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.dynamicMarkers = new ArrayList<>();
 
         final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(map, dynamicMarkers);
+        final LoopRunnable runnable = new LoopRunnable(getActivity(), map, dynamicMarkers);
 
         this.ac.initTimer();
         this.ac.getTimer().scheduleAtFixedRate(new TimerTask() {

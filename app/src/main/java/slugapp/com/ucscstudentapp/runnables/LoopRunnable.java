@@ -1,5 +1,7 @@
 package slugapp.com.ucscstudentapp.runnables;
 
+import android.content.Context;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -17,17 +19,19 @@ import slugapp.com.ucscstudentapp.models.Loop;
  * Created by isayyuhh on 2/19/16.
  */
 public class LoopRunnable implements Runnable {
+    private Context context;
     private GoogleMap map;
     private List<Marker> loops;
 
-    public LoopRunnable(GoogleMap map, List<Marker> loops) {
+    public LoopRunnable(Context context, GoogleMap map, List<Marker> loops) {
+        this.context = context;
         this.map = map;
         this.loops = loops;
     }
 
     @Override
     public void run() {
-        new LoopHttpRequest().execute(new HttpCallback<List<Loop>>() {
+        new LoopHttpRequest(context).execute(new HttpCallback<List<Loop>>() {
             @Override
             public void onSuccess(List<Loop> val) {
                 for (Loop loop : val) {

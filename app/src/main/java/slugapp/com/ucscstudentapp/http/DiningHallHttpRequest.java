@@ -2,11 +2,8 @@ package slugapp.com.ucscstudentapp.http;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONException;
-
-import java.util.HashMap;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
@@ -22,11 +19,10 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
     public DiningHallHttpRequest(Context context, String name) {
         super(BaseHttpRequest.Method.GET);
         String api = context.getString(R.string.slugapp_api);
-        String localhost = context.getString(R.string.localhost);
-        String dining = context.getString(R.string.api_dining_list);
+        String port8080 = context.getString(R.string.port8080);
         String menu = context.getString(R.string.api_dining_menu);
         String fields = "?" + "name=" + name;
-        String url = api + localhost + dining + menu + fields;
+        String url = api + port8080 + menu + fields;
         this.url = url.replace(" ", "%20").replace("&", "%26");
         this.name = name;
     }

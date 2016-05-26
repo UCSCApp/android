@@ -21,9 +21,9 @@ public class EventListHttpRequest extends BaseHttpRequest {
     public EventListHttpRequest(Context context) {
         super(Method.GET);
         String api = context.getString(R.string.slugapp_api);
-        String localhost = context.getString(R.string.localhost);
+        String port8080 = context.getString(R.string.port8080);
         String events = context.getString(R.string.api_event_list);
-        String url = api + localhost + events;
+        String url = api + port8080 + events;
         this.url = url.replace(" ", "%20").replace("&", "%26");
     }
 

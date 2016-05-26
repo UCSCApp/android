@@ -19,9 +19,9 @@ public class DiningListHttpRequest extends BaseHttpRequest {
     public DiningListHttpRequest(Context context) {
         super(Method.GET);
         String api = context.getString(R.string.slugapp_api);
-        String localhost = context.getString(R.string.localhost);
+        String port8080 = context.getString(R.string.port8080);
         String dining = context.getString(R.string.api_dining_list);
-        String url = api + localhost + dining;
+        String url = api + port8080 + dining;
         this.url = url.replace(" ", "%20").replace("&", "%26");
     }
 

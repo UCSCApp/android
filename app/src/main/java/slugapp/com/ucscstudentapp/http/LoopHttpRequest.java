@@ -1,11 +1,14 @@
 package slugapp.com.ucscstudentapp.http;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 import slugapp.com.ucscstudentapp.models.Loop;
 import slugapp.com.ucscstudentapp.models.LoopWrapper;
@@ -14,10 +17,14 @@ import slugapp.com.ucscstudentapp.models.LoopWrapper;
  * Created by simba on 7/31/15.
  */
 public class LoopHttpRequest extends BaseHttpRequest {
-    private static final String url = "http://bts.ucsc.edu:8081/location/get";
 
-    public LoopHttpRequest() {
-        super(url, Method.GET);
+    public LoopHttpRequest(Context context) {
+        super(Method.GET);
+        String api = context.getString(R.string.bus_api);
+        String port8081 = context.getString(R.string.port8081);
+        String loops = context.getString(R.string.api_map_loops);
+        String url = api + port8081 + loops;
+        this.url = url.replace(" ", "%20").replace("&", "%26");
     }
 
     public void execute(final HttpCallback<List<Loop>> callback) {
