@@ -75,7 +75,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onRefresh() {
-        new TestEventListHttpRequest().execute(new HttpCallback<List<Event>>() {
+        new TestEventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 search(vals);

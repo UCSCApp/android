@@ -1,11 +1,14 @@
 package slugapp.com.ucscstudentapp.http;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 import slugapp.com.ucscstudentapp.models.Event;
 import slugapp.com.ucscstudentapp.models.EventWrapper;
@@ -14,11 +17,14 @@ import slugapp.com.ucscstudentapp.models.EventWrapper;
  * Created by simba on 7/31/15.
  */
 public class EventListHttpRequest extends BaseHttpRequest {
-    private static final String url =
-            "http://ec2-52-8-25-141.us-west-1.compute.amazonaws.com/events/get/v1";
 
-    public EventListHttpRequest() {
-        super(url, Method.GET);
+    public EventListHttpRequest(Context context) {
+        super(Method.GET);
+        String api = context.getString(R.string.slugapp_api);
+        String localhost = context.getString(R.string.localhost);
+        String events = context.getString(R.string.api_event_list);
+        String url = api + localhost + events;
+        this.url = url.replace(" ", "%20").replace("&", "%26");
     }
 
     public void execute(final HttpCallback<List<Event>> callback) {

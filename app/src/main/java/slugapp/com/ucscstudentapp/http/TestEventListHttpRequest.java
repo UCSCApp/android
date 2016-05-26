@@ -1,5 +1,7 @@
 package slugapp.com.ucscstudentapp.http;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -45,6 +47,10 @@ public class TestEventListHttpRequest extends EventListHttpRequest {
             "          \"url\":\"https://www.designmaz.net/wp-content/uploads/2014/11/psd-event-flyer-templates.jpg\"\n" +
             "       }\n" +
             "]";
+
+    public TestEventListHttpRequest(Context context) {
+        super(context);
+    }
 
     @Override
     public void execute(HttpCallback<List<Event>> callback) {
