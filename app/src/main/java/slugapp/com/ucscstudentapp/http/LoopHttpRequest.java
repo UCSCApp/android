@@ -21,10 +21,9 @@ public class LoopHttpRequest extends BaseHttpRequest {
     public LoopHttpRequest(Context context) {
         super(Method.GET);
         String api = context.getString(R.string.bus_api);
-        String port8081 = context.getString(R.string.port8081);
-        String loops = context.getString(R.string.api_map_loops);
-        String url = api + port8081 + loops;
-        this.url = url.replace(" ", "%20").replace("&", "%26");
+        String port = context.getString(R.string.port8081);
+        String path = context.getString(R.string.api_map_loops);
+        this.createUrl(api, port, path, null);
     }
 
     public void execute(final HttpCallback<List<Loop>> callback) {

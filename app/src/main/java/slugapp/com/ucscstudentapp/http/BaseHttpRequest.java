@@ -1,12 +1,16 @@
 package slugapp.com.ucscstudentapp.http;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 
@@ -21,9 +25,19 @@ public abstract class BaseHttpRequest extends BaseRequest {
         volleyMethod = method.method;
     }
 
-    public BaseHttpRequest(String url, Method method) {
-        this.url = url;
-        volleyMethod = method.method;
+    protected void createUrl(String api, String port, String path, HashMap<String, String> params) {
+        String fields = "";
+        if (params != null) {
+            fields += "?";
+            Set<String> set = params.keySet();
+            boolean first = true;
+            for (String param : set) {
+                if (! first) fields += "&";
+                fields += param + "=" + params.get(param);
+                first = false;
+            }
+        }
+        this.url =  api + port + path + fields.replace(" ", "%20").replace("&", "%26");
     }
 
     protected void rawExecute(final HttpCallback<String> callback) {

@@ -5,6 +5,8 @@ import android.util.Log;
 
 import org.json.JSONException;
 
+import java.util.HashMap;
+
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 import slugapp.com.ucscstudentapp.models.DiningHall;
@@ -19,11 +21,12 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
     public DiningHallHttpRequest(Context context, String name) {
         super(BaseHttpRequest.Method.GET);
         String api = context.getString(R.string.slugapp_api);
-        String port8080 = context.getString(R.string.port8080);
-        String menu = context.getString(R.string.api_dining_menu);
-        String fields = "?" + "name=" + name;
-        String url = api + port8080 + menu + fields;
-        this.url = url.replace(" ", "%20").replace("&", "%26");
+        String port = context.getString(R.string.port8080);
+        String path = context.getString(R.string.api_dining_menu);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("name", name);
+
+        this.createUrl(api, port, path, params);
         this.name = name;
     }
 
