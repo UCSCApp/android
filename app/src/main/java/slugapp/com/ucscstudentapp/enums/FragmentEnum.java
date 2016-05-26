@@ -12,8 +12,8 @@ import slugapp.com.ucscstudentapp.social.InstagramFeedFragment;
 public enum FragmentEnum {
     EVENT(EventListFragment.class, R.id.events_button, R.drawable.ic_events),
     DINING(DiningHallListFragment.class, R.id.dining_button, R.drawable.ic_dining),
-    MAP(MapFragment.class, R.id.map_button, R.drawable.ic_map),
-    SOCIAL(InstagramFeedFragment.class, R.id.social_button, R.drawable.ic_social);
+    MAP(MapFragment.class, R.id.map_button, R.drawable.ic_map);
+    //,SOCIAL(InstagramFeedFragment.class, R.id.social_button, R.drawable.ic_social);
 
     private Class fragment;
     private int buttonId;

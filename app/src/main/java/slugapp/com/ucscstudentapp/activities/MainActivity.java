@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         LinearLayout bottom = (LinearLayout) findViewById(R.id.bottom_toolbar);
         View child = getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
         for (FragmentEnum fragment : fragments) {
-            setButton(child, fragment.getButtonId(), fragment.getImageId());
+            this.setButton(child, fragment.getButtonId(), fragment.getImageId());
         }
         bottom.addView(child);
 
@@ -109,12 +109,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * @param child    Child view
      * @param buttonId Id of button
      * @param imageId  Id of image
-     * @return Bottom toolbar button
      */
-    private BottomToolbarButton setButton(View child, int buttonId, int imageId) {
+    private void setButton(View child, int buttonId, int imageId) {
         BottomToolbarButton button = (BottomToolbarButton) child.findViewById(buttonId);
         button.setImageResource(imageId);
-        return button;
     }
 
     /**

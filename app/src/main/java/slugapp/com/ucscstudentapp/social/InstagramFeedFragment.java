@@ -68,7 +68,7 @@ public class InstagramFeedFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView;
-        this.setLayout("Instagram", R.id.social_button);
+        //this.setLayout("Instagram", R.id.social_button);
 
         if (mInstagramSession.isActive()) {
             rootView = inflater.inflate(R.layout.activity_user, container, false);
