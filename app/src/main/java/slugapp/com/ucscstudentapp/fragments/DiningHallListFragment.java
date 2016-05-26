@@ -37,7 +37,7 @@ public class DiningHallListFragment extends BaseListFragment {
         super.setView(view, adapter);
 
         this.diningHalls = new ArrayList<>();
-        new DiningListHttpRequest().execute(new HttpCallback<List<String>>() {
+        new DiningListHttpRequest(getActivity()).execute(new HttpCallback<List<String>>() {
             @Override
             public void onSuccess(List<String> vals) {
                 diningHalls = new ArrayList<>();

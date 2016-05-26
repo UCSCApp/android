@@ -1,11 +1,14 @@
 package slugapp.com.ucscstudentapp.http;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
 import java.util.HashMap;
 
+import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 import slugapp.com.ucscstudentapp.models.DiningHall;
 import slugapp.com.ucscstudentapp.models.DiningHallWrapper;
@@ -14,23 +17,22 @@ import slugapp.com.ucscstudentapp.models.DiningHallWrapper;
  * Created by isayyuhh_s on 9/1/2015.
  */
 public class DiningHallHttpRequest extends BaseHttpRequest {
-    private static final String url =
-            "http://ec2-54-183-90-100.us-west-1.compute.amazonaws.com:8080/dining/menu";
     private String name;
 
-    public DiningHallHttpRequest() {
-        super(url, BaseHttpRequest.Method.POST);
-    }
-
-    public DiningHallHttpRequest(String name) {
-        super(url, BaseHttpRequest.Method.POST);
+    public DiningHallHttpRequest(Context context, String name) {
+        super(BaseHttpRequest.Method.GET);
+        String api = context.getString(R.string.slugapp_api);
+        String localhost = context.getString(R.string.localhost);
+        String dining = context.getString(R.string.api_dining_list);
+        String menu = context.getString(R.string.api_dining_menu);
+        String fields = "?" + "name=" + name;
+        String url = api + localhost + dining + menu + fields;
+        this.url = url.replace(" ", "%20").replace("&", "%26");
         this.name = name;
     }
 
     public void execute(final HttpCallback<DiningHall> callback) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("name", name);
-        rawExecute(params, new HttpCallback<String>() {
+        this.rawExecute(new HttpCallback<String>() {
             @Override
             public void onSuccess(String val) {
                 try {

@@ -1,22 +1,28 @@
 package slugapp.com.ucscstudentapp.http;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 
 /**
  * Created by isayyuhh_s on 9/1/2015.
  */
 public class DiningListHttpRequest extends BaseHttpRequest {
-    private static final String url =
-            "http://ec2-54-183-90-100.us-west-1.compute.amazonaws.com:8080/dining";
 
-    public DiningListHttpRequest() {
-        super(url, Method.GET);
+    public DiningListHttpRequest(Context context) {
+        super(Method.GET);
+        String api = context.getString(R.string.slugapp_api);
+        String localhost = context.getString(R.string.localhost);
+        String dining = context.getString(R.string.api_dining_list);
+        String url = api + localhost + dining;
+        this.url = url.replace(" ", "%20").replace("&", "%26");
     }
 
     public void execute(final HttpCallback<List<String>> callback) {
@@ -26,9 +32,7 @@ public class DiningListHttpRequest extends BaseHttpRequest {
                 try {
                     JSONArray arr = new JSONArray(val);
                     List<String> diningHalls = new ArrayList<>(arr.length());
-                    for (int i = 0; i < arr.length(); i++) {
-                        diningHalls.add(arr.getString(i));
-                    }
+                    for (int i = 0; i < arr.length(); i++) diningHalls.add(arr.getString(i));
                     callback.onSuccess(diningHalls);
                 } catch (JSONException je) {
                     callback.onError(je);

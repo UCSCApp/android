@@ -54,7 +54,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
     protected void setView(View view) {
         final View view_ = view;
         final TextView date = (TextView) view.findViewById(R.id.date);
-        new DiningHallHttpRequest(diningHallName).execute(new HttpCallback<DiningHall>() {
+        new DiningHallHttpRequest(getActivity(), diningHallName).execute(new HttpCallback<DiningHall>() {
             @Override
             public void onSuccess(DiningHall val) {
                 diningHall = val;

@@ -14,8 +14,12 @@ import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
  * Created by simba on 7/31/15.
  */
 public abstract class BaseHttpRequest extends BaseRequest {
-    private String url;
+    protected String url;
     private int volleyMethod;
+
+    public BaseHttpRequest(Method method) {
+        volleyMethod = method.method;
+    }
 
     public BaseHttpRequest(String url, Method method) {
         this.url = url;
