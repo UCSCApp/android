@@ -7,10 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -42,14 +44,12 @@ import slugapp.com.ucscstudentapp.enums.MonthEnum;
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
 
-    /**
-     * Fields
-     */
     private static final List<FragmentEnum> fragments = Arrays.asList(FragmentEnum.values());
     private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
     private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
 
     private FragmentManager fm;
+    private String name;
     private TextView title;
     private Timer timer;
     private Gson gson;
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         Fabric.with(this, new Twitter(authConfig));
 
         this.gson = new Gson();
+        this.name = FragmentEnum.EVENT.getName();
 
         // sets views
         setContentView(R.layout.activity_main);
@@ -83,8 +84,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private void setTopToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
         this.title = (TextView) findViewById(R.id.toolbar_title);
     }
 
@@ -115,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         button.setImageResource(imageId);
     }
 
+    @Override
+    public void onBackPressed() {
+        fm.popBackStackImmediate();
+    }
+
     /**
      * Get list of tab fragments
      *
@@ -142,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setFragment(Fragment fragment) {
-        this.fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        this.fm = this.getSupportFragmentManager();
+        FragmentTransaction ft = this.fm.beginTransaction();
         ft.replace(R.id.listFragment, fragment);
         if (!this.init) ft.addToBackStack(null);
         ft.commit();

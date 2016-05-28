@@ -10,7 +10,7 @@
     <string name="facebook_app_id">195315124172729</string>
 
     <!-- Api's -->
-    <string name="slugapp_api">http://ec2-54-183-244-96.us-west-1.compute.amazonaws.com</string>
+    <string name="slugapp_api">http://ec2-52-40-163-181.us-west-2.compute.amazonaws.com</string>
     <string name="bus_api">http://bts.ucsc.edu</string>
 
     <!-- Api Ports -->

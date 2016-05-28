@@ -10,19 +10,20 @@ import slugapp.com.ucscstudentapp.social.InstagramFeedFragment;
  * Created by isayyuhh on 3/16/16.
  */
 public enum FragmentEnum {
-    EVENT(EventListFragment.class, R.id.events_button, R.drawable.ic_events),
-    DINING(DiningHallListFragment.class, R.id.dining_button, R.drawable.ic_dining),
-    MAP(MapFragment.class, R.id.map_button, R.drawable.ic_map);
-    //,SOCIAL(InstagramFeedFragment.class, R.id.social_button, R.drawable.ic_social);
+    EVENT(EventListFragment.class, R.id.events_button, R.drawable.ic_events, "event"),
+    DINING(DiningHallListFragment.class, R.id.dining_button, R.drawable.ic_dining, "dining"),
+    MAP(MapFragment.class, R.id.map_button, R.drawable.ic_map, "map");
 
     private Class fragment;
     private int buttonId;
     private int imageId;
+    private String name;
 
-    FragmentEnum(Class fragment, int buttonId, int imageId) {
+    FragmentEnum(Class fragment, int buttonId, int imageId, String name) {
         this.fragment = fragment;
         this.buttonId = buttonId;
         this.imageId = imageId;
+        this.name = name;
     }
 
     public Class getFragment() {
@@ -35,5 +36,9 @@ public enum FragmentEnum {
 
     public int getImageId() {
         return this.imageId;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
