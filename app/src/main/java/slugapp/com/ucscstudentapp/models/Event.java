@@ -42,8 +42,11 @@ public class Event extends BaseListItem {
      * Constructor
      */
     public Event(String name, String date, String desc, String url) {
+        String[] dateParts = date.split("\\s+");
+
         this.name = name;
-        this.date = new Date(date);
+        if (dateParts.length != 4) this.date = new Date(date);
+        else this.date = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
         this.desc = desc;
         this.url = url;
     }

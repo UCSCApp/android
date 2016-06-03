@@ -25,7 +25,8 @@ public abstract class BaseHttpRequest extends BaseRequest {
         volleyMethod = method.method;
     }
 
-    protected void createUrl(String api, String port, String path, HashMap<String, String> params) {
+    protected void createUrl(String protocol, String api, String port, String path,
+                             HashMap<String, String> params) {
         String fields = "";
         if (params != null) {
             fields += "?";
@@ -37,7 +38,7 @@ public abstract class BaseHttpRequest extends BaseRequest {
                 first = false;
             }
         }
-        this.url =  api + port + path + fields.replace(" ", "%20").replace("&", "%26");
+        this.url =  protocol + api + port + path + fields.replace(" ", "%20").replace("&", "%26");
     }
 
     protected void rawExecute(final HttpCallback<String> callback) {

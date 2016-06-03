@@ -5,6 +5,7 @@ import slugapp.com.ucscstudentapp.R;
 /**
  * Created by isayyuhh on 2/21/16.
  */
+
 public enum MarkerEnum {
     EIGHT_OAKES(
             MarkerTypeEnum.DININGHALL,

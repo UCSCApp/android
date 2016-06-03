@@ -18,10 +18,11 @@ public class DiningListHttpRequest extends BaseHttpRequest {
 
     public DiningListHttpRequest(Context context) {
         super(Method.GET);
+        String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.slugapp_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_dining_list);
-        this.createUrl(api, port, path, null);
+        this.createUrl(protocol, api, port, path, null);
     }
 
     public void execute(final HttpCallback<List<String>> callback) {

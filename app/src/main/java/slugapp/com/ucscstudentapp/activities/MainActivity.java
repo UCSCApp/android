@@ -7,18 +7,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.gson.Gson;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
+//import com.twitter.sdk.android.Twitter;
+//import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -26,7 +24,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.enums.FragmentEnum;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
@@ -45,15 +43,13 @@ import slugapp.com.ucscstudentapp.enums.MonthEnum;
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
 
     private static final List<FragmentEnum> fragments = Arrays.asList(FragmentEnum.values());
-    private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
-    private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
+    //private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
+    //private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
 
-    private FragmentManager fm;
-    private String name;
-    private TextView title;
-    private Timer timer;
-    private Gson gson;
-    private boolean init = true;
+    private FragmentManager mFragmentManager;
+    private TextView mTitle;
+    private Timer mTimer;
+    private Gson mGson;
 
     /**
      * On activity created
@@ -65,11 +61,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         super.onCreate(savedInstanceState);
 
         // This is the Twitter Authorization for fabric to use Twitter services in the app
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+        //TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        //Fabric.with(this, new Twitter(authConfig));
 
-        this.gson = new Gson();
-        this.name = FragmentEnum.EVENT.getName();
+        this.mGson = new Gson();
 
         // sets views
         setContentView(R.layout.activity_main);
@@ -88,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-        this.title = (TextView) findViewById(R.id.toolbar_title);
+        this.mTitle = (TextView) findViewById(R.id.toolbar_title);
     }
 
     /**
@@ -120,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
 
     @Override
     public void onBackPressed() {
-        fm.popBackStackImmediate();
+        mFragmentManager.popBackStackImmediate();
     }
 
     /**
@@ -140,8 +135,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public FragmentManager fm() {
-        return fm;
+        return mFragmentManager;
     }
+
+    private boolean init = true;
 
     /**
      * Sets the current fragment
@@ -150,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setFragment(Fragment fragment) {
-        this.fm = this.getSupportFragmentManager();
-        FragmentTransaction ft = this.fm.beginTransaction();
+        this.mFragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction ft = this.mFragmentManager.beginTransaction();
         ft.replace(R.id.listFragment, fragment);
         if (!this.init) ft.addToBackStack(null);
         ft.commit();
@@ -207,18 +204,17 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
             todayMonth = currMonth.getVal();
             break;
         }
-        String string = todayMonth + " " + day + " " + hour + tod + " " + hour + tod;
-        return new Date(string);
+        return new Date(todayMonth, day, hour + tod, hour + tod);
     }
 
     /**
-     * Set new toolbar title
+     * Set new toolbar mTitle
      *
-     * @param newTitle New toolbar title
+     * @param newTitle New toolbar mTitle
      */
     @Override
     public void setTitle(String newTitle) {
-        this.title.setText(newTitle);
+        this.mTitle.setText(newTitle);
     }
 
     /**
@@ -226,17 +222,17 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void initTimer() {
-        this.timer = new Timer();
+        this.mTimer = new Timer();
     }
 
     /**
-     * Get timer
+     * Get mTimer
      *
      * @return Timer
      */
     @Override
     public Timer getTimer() {
-        return this.timer;
+        return this.mTimer;
     }
 
     /**
@@ -268,6 +264,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public Gson getGson() {
-        return this.gson;
+        return this.mGson;
     }
 }

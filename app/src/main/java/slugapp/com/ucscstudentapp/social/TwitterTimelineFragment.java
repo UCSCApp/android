@@ -15,8 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.twitter.sdk.android.tweetui.SearchTimeline;
-import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+//import com.twitter.sdk.android.tweetui.SearchTimeline;
+//import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
@@ -25,6 +25,7 @@ import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 
 
 public class TwitterTimelineFragment extends ListFragment {
+
 
     private ActivityCallback mListener;
 
@@ -42,13 +43,13 @@ public class TwitterTimelineFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final SearchTimeline searchTimeline = new SearchTimeline.Builder()
-                .query("#UCSC")
-                .build();
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getActivity())
-                .setTimeline(searchTimeline)
-                .build();
-        setListAdapter(adapter);
+        //final SearchTimeline searchTimeline = new SearchTimeline.Builder()
+        //        .query("#UCSC")
+        //        .build();
+        //final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getActivity())
+        //        .setTimeline(searchTimeline)
+        //       .build();
+        //setListAdapter(adapter);
     }
 
     @Override

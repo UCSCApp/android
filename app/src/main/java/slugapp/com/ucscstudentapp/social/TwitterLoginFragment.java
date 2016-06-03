@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+//import com.twitter.sdk.android.core.Callback;
+//import com.twitter.sdk.android.core.Result;
+//import com.twitter.sdk.android.core.TwitterException;
+//import com.twitter.sdk.android.core.TwitterSession;
+//import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
@@ -26,7 +26,7 @@ import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 //
 
 public class TwitterLoginFragment extends Fragment {
-    private TwitterLoginButton loginButton;
+    //private TwitterLoginButton loginButton;
 
 
     private ActivityCallback mListener;
@@ -39,18 +39,18 @@ public class TwitterLoginFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        loginButton = (TwitterLoginButton) getView().findViewById(R.id.twitter_login_button);
-        loginButton.setCallback(new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                // Do something with result, which provides a session for making API calls
-            }
+        //loginButton = (TwitterLoginButton) getView().findViewById(R.id.twitter_login_button);
+        //loginButton.setCallback(new Callback<TwitterSession>() {
+        //    @Override
+        //    public void success(Result<TwitterSession> result) {
+        //        // Do something with result, which provides a session for making API calls
+        //    }
 
-            @Override
-            public void failure(TwitterException exception) {
-                // Do something on failure
-            }
-        });
+        //    @Override
+        //    public void failure(TwitterException exception) {
+        //        // Do something on failure
+        //    }
+        //});
     }
 
     @Override
@@ -62,7 +62,7 @@ public class TwitterLoginFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        loginButton.onActivityResult(requestCode, resultCode, data);
+        //loginButton.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
