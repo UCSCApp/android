@@ -3,12 +3,9 @@ package slugapp.com.ucscstudentapp.models;
 import slugapp.com.ucscstudentapp.enums.MonthEnum;
 
 /**
- * Created by isayyuhh_s on 7/18/2015.
+ * Created by isayyuhh_s on 7/18/2015
  */
 public class Date {
-    /**
-     * Private Fields
-     */
     private final static MonthEnum[] months = MonthEnum.values();
 
     private String string;
@@ -68,7 +65,7 @@ public class Date {
         this.defined = false;
 
         /** Month */
-        for (MonthEnum currMonth : this.months) {
+        for (MonthEnum currMonth : months) {
             String month = currMonth.getVal();
             if (month.compareTo(newMonth) == 0) {
                 this.month = currMonth;
@@ -148,8 +145,8 @@ public class Date {
     }
 
     private int compTODs(String lhs, String rhs) {
-        if (lhs == "am" && rhs == "pm") return -1;
-        else if (lhs == "pm" && rhs == "am") return 1;
+        if (lhs.equals("am") && rhs.equals("pm")) return -1;
+        else if (lhs.equals("pm") && rhs.equals("am")) return 1;
         return 0;
     }
 
