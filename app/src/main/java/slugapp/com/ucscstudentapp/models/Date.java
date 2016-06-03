@@ -62,46 +62,6 @@ public class Date {
         this.string = string;
         this.month = null;
         this.defined = false;
-
-        String[] parts = string.split("\\s+");
-        if (parts.length != 4) return;
-
-        String newMonth = parts[0];
-        for (MonthEnum currMonth : this.months) {
-            String month = currMonth.getVal();
-            if (month.compareTo(newMonth) == 0) {
-                this.month = currMonth;
-                break;
-            }
-        }
-        if (this.month == null) return;
-
-        String newDay = parts[1];
-        String day;
-        if (newDay.length() > 4) return;
-        else if (newDay.length() < 3) day = newDay;
-        else day = newDay.substring(0, newDay.length() - 2);
-        if (!this.isInteger(day)) return;
-        this.day = Integer.parseInt(day);
-
-        String newStartTime = parts[2];
-        if (newStartTime.length() < 3 || newStartTime.length() > 4) return;
-        String startTime = newStartTime.substring(0, newStartTime.length() - 2);
-        String startTOD = newStartTime.substring(newStartTime.length() - 2, newStartTime.length());
-        if (!this.isInteger(startTime)) return;
-        this.startTime = Integer.parseInt(startTime);
-        this.startTOD = startTOD;
-
-        String newEndTime = parts[3];
-        if (newEndTime.length() < 3 || newEndTime.length() > 4) return;
-        String endTime = newEndTime.substring(0, newEndTime.length() - 2);
-        String endTOD = newEndTime.substring(newEndTime.length() - 2, newEndTime.length());
-        if (!this.isInteger(endTime)) return;
-        this.endTime = Integer.parseInt(endTime);
-        this.endTOD = endTOD;
-
-        this.string = parts[0] + " " + parts[1] + " | " + parts[2] + " - " + parts[3];
-        this.defined = true;
     }
 
     public Date(String newMonth, String newDay, String newStartTime, String newEndTime) {
