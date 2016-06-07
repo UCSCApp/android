@@ -42,7 +42,7 @@ public class EventListAdapter extends BaseListAdapter {
         date.setText(e.date().getString());
         desc.setText(e.shortDesc());
         new ImageHttpRequest(e.url()).execute(image);
-        
+
         return convertView;
     }
 }

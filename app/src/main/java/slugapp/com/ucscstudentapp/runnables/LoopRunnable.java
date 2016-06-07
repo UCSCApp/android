@@ -16,35 +16,35 @@ import slugapp.com.ucscstudentapp.http.LoopHttpRequest;
 import slugapp.com.ucscstudentapp.models.Loop;
 
 /**
- * Created by isayyuhh on 2/19/16.
+ * Created by isayyuhh on 2/19/16
  */
 public class LoopRunnable implements Runnable {
-    private Context context;
-    private GoogleMap map;
-    private List<Marker> loops;
+    private Context mContext;
+    private GoogleMap mMap;
+    private List<Marker> mLoopList;
 
-    public LoopRunnable(Context context, GoogleMap map, List<Marker> loops) {
-        this.context = context;
-        this.map = map;
-        this.loops = loops;
+    public LoopRunnable(Context context, GoogleMap map, List<Marker> loopList) {
+        this.mContext = context;
+        this.mMap = map;
+        this.mLoopList = loopList;
     }
 
     @Override
     public void run() {
-        new LoopHttpRequest(context).execute(new HttpCallback<List<Loop>>() {
+        new LoopHttpRequest(mContext).execute(new HttpCallback<List<Loop>>() {
             @Override
             public void onSuccess(List<Loop> val) {
                 for (Loop loop : val) {
                     boolean found = false;
-                    for (Marker marker : loops) {
+                    for (Marker marker : mLoopList) {
                         if (String.valueOf(loop.getId()).compareTo(marker.getSnippet()) == 0) {
                             marker.setPosition(new LatLng(loop.getLat(), loop.getLng()));
                             found = true;
                             break;
                         }
                     }
-                    if (found == false) {
-                        loops.add(map.addMarker(new MarkerOptions()
+                    if (!found) {
+                        mLoopList.add(mMap.addMarker(new MarkerOptions()
                                 .title("Loop")
                                 .snippet(String.valueOf(loop.getId()))
                                 .position(new LatLng(loop.getLat(), loop.getLng()))

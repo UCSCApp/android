@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blurryvisionbyloucrowd3aj9pb"
-    tools:context="slugapp.com.ucscstudentapp.social.joint_login_social_fragment">
+    tools:mContext="slugapp.com.ucscstudentapp.social.joint_login_social_fragment">
 
     <Button
         android:id="@+id/twitter_login_button"
