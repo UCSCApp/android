@@ -9,7 +9,7 @@ import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 import slugapp.com.ucscstudentapp.models.Date;
 
 /**
- * Created by isayyuhh on 2/21/16.
+ * Created by isayyuhh on 2/21/16
  */
 public abstract class BaseFragment extends Fragment {
     protected ActivityCallback mCallback;

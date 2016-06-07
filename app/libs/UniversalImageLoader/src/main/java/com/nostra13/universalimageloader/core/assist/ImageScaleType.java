@@ -36,7 +36,7 @@ public enum ImageScaleType {
 	/**
 	 * Image will be reduces 2-fold until next reduce step make image smaller target size.<br />
 	 * It's <b>fast</b> type and it's preferable for usage in lists/grids/galleries (and other
-	 * {@linkplain android.widget.AdapterView adapter-views}) .<br />
+	 * {@linkplain android.widget.AdapterView mAdapter-views}) .<br />
 	 * Relates to {@link android.graphics.BitmapFactory.Options#inSampleSize}<br />
 	 * Note: If original image size is smaller than target size then original image <b>won't</b> be scaled.
 	 */

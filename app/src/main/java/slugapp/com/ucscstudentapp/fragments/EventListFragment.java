@@ -77,13 +77,13 @@ public class EventListFragment extends BaseSwipeListFragment {
                 Collections.sort(vals, new ListSort());
                 List<BaseListItem> events = new ArrayList<>();
                 for (BaseListItem val : vals) events.add(val);
-                adapter.setData(events);
-                swipe.setRefreshing(false);
+                mAdapter.setData(events);
+                mSwipeLayout.setRefreshing(false);
             }
 
             @Override
             public void onError(Exception e) {
-                swipe.setRefreshing(false);
+                mSwipeLayout.setRefreshing(false);
             }
         });
     }

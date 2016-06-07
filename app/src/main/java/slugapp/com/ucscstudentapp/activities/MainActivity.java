@@ -39,7 +39,7 @@ import slugapp.com.ucscstudentapp.enums.MonthEnum;
  */
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
-    private static final List<FragmentEnum> sFragments = Arrays.asList(FragmentEnum.values());
+    private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum sStartFragment = FragmentEnum.EVENT;
 
     private FragmentManager mFragmentManager;
@@ -87,13 +87,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private void setBottomToolbar() {
         LinearLayout bottom = (LinearLayout) this.findViewById(R.id.bottom_toolbar);
         View child = this.getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
-        for (FragmentEnum fragment : sFragments) {
+        for (FragmentEnum fragment : sTabFragments) {
             this.setButton(child, fragment.getButtonId(), fragment.getImageId());
         }
         bottom.addView(child);
 
-        ToolbarButton startButton =
-                (ToolbarButton) this.findViewById(sStartFragment.getButtonId());
+        ToolbarButton startButton = (ToolbarButton) this.findViewById(sStartFragment.getButtonId());
         startButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 
@@ -120,13 +119,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get list of tab sFragments
+     * Get list of tab sTabFragments
      *
-     * @return List of tab sFragments
+     * @return List of tab sTabFragments
      */
     @Override
     public List<FragmentEnum> getFragments() {
-        return sFragments;
+        return sTabFragments;
     }
 
     /**
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setButtons(int buttonId) {
-        for (FragmentEnum fragment : sFragments) {
+        for (FragmentEnum fragment : sTabFragments) {
             View button = this.findViewById(fragment.getButtonId());
             button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         }

@@ -11,14 +11,14 @@ import slugapp.com.ucscstudentapp.adapters.BaseListAdapter;
  */
 public abstract class BaseSwipeListFragment extends BaseListFragment
         implements SwipeRefreshLayout.OnRefreshListener {
-    protected SwipeRefreshLayout swipe;
+    protected SwipeRefreshLayout mSwipeLayout;
 
     @Override
     protected void setView(View view, BaseListAdapter adapter) {
         super.setView(view, adapter);
-        this.swipe = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-        this.swipe.setOnRefreshListener(this);
-        this.swipe.setColorSchemeResources(
+        this.mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        this.mSwipeLayout.setOnRefreshListener(this);
+        this.mSwipeLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

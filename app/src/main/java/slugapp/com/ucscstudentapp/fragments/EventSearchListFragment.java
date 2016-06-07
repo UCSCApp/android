@@ -82,7 +82,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
                 Collections.sort(vals, new ListSort());
                 List<BaseListItem> events = new ArrayList<>();
                 for (BaseListItem val : vals) events.add(val);
-                adapter.setData(events);
+                mAdapter.setData(events);
             }
 
             @Override

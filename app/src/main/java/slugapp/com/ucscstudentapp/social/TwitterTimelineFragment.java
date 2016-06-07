@@ -46,10 +46,10 @@ public class TwitterTimelineFragment extends ListFragment {
         //final SearchTimeline searchTimeline = new SearchTimeline.Builder()
         //        .query("#UCSC")
         //        .build();
-        //final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getActivity())
+        //final TweetTimelineListAdapter mAdapter = new TweetTimelineListAdapter.Builder(getActivity())
         //        .setTimeline(searchTimeline)
         //       .build();
-        //setListAdapter(adapter);
+        //setListAdapter(mAdapter);
     }
 
     @Override
