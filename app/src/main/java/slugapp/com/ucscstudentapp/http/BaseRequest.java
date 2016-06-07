@@ -21,8 +21,7 @@ public abstract class BaseRequest {
             queue = Volley.newRequestQueue(ctx);
             iLoader = new ImageLoader(queue,
                     new ImageLoader.ImageCache() {
-                        private final LruCache<String, Bitmap>
-                                cache = new LruCache<>(20);
+                        private final LruCache<String, Bitmap> cache = new LruCache<>(20);
 
                         @Override
                         public Bitmap getBitmap(String url) {

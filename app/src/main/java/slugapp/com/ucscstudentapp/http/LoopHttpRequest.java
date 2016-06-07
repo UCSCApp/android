@@ -33,11 +33,11 @@ public class LoopHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    List<Loop> loops = new ArrayList<>(arr.length());
+                    List<Loop> loopList = new ArrayList<>(arr.length());
                     for (int i = 0; i < arr.length(); ++i) {
-                        loops.add(new LoopWrapper(arr.getJSONObject(i)));
+                        loopList.add(new LoopWrapper(arr.getJSONObject(i)));
                     }
-                    callback.onSuccess(loops);
+                    callback.onSuccess(loopList);
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

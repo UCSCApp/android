@@ -22,8 +22,6 @@ public class ImageHttpRequest extends BaseRequest {
             Log.e("VIEW", "NULL");
         }
         getImageLoader().get(url,
-                ImageLoader.getImageListener(view,
-                        R.drawable.ic_dining,
-                        R.drawable.ic_dining));
+                ImageLoader.getImageListener(view, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
     }
 }

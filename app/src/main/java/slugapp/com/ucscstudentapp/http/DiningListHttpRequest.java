@@ -18,10 +18,12 @@ public class DiningListHttpRequest extends BaseHttpRequest {
 
     public DiningListHttpRequest(Context context) {
         super(Method.GET);
+
         String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.slugapp_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_dining_list);
+
         this.createUrl(protocol, api, port, path, null);
     }
 
@@ -31,9 +33,11 @@ public class DiningListHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    List<String> diningHalls = new ArrayList<>(arr.length());
-                    for (int i = 0; i < arr.length(); i++) diningHalls.add(arr.getString(i));
-                    callback.onSuccess(diningHalls);
+                    List<String> diningList = new ArrayList<>(arr.length());
+                    for (int i = 0; i < arr.length(); i++) {
+                        diningList.add(arr.getString(i));
+                    }
+                    callback.onSuccess(diningList);
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

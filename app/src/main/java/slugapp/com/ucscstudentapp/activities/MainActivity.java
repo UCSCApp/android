@@ -114,10 +114,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         button.setImageResource(imageId);
     }
 
+    /*
     @Override
     public void onBackPressed() {
         mFragmentManager.popBackStackImmediate();
     }
+    */
 
     @Override
     public ActionBar getToolbar() {

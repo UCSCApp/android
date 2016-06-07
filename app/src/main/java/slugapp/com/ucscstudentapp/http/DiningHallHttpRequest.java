@@ -20,12 +20,14 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
 
     public DiningHallHttpRequest(Context context, String name) {
         super(BaseHttpRequest.Method.GET);
+
         String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.slugapp_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_dining_menu);
+
         HashMap<String, String> params = new HashMap<>();
-        params.put("name", name);
+        params.put(context.getString(R.string.name), name);
 
         this.createUrl(protocol, api, port, path, params);
         this.name = name;

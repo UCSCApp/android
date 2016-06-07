@@ -20,10 +20,12 @@ public class EventListHttpRequest extends BaseHttpRequest {
 
     public EventListHttpRequest(Context context) {
         super(Method.GET);
+
         String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.slugapp_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_event_list);
+
         this.createUrl(protocol, api, port, path, null);
     }
 
@@ -33,11 +35,11 @@ public class EventListHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    List<Event> events = new ArrayList<>(arr.length());
+                    List<Event> eventList = new ArrayList<>(arr.length());
                     for (int i = 0; i < arr.length(); ++i) {
-                        events.add(new EventWrapper(arr.getJSONObject(i)));
+                        eventList.add(new EventWrapper(arr.getJSONObject(i)));
                     }
-                    callback.onSuccess(events);
+                    callback.onSuccess(eventList);
                 } catch (JSONException je) {
                     callback.onError(je);
                 }
