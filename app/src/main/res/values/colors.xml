@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<span style="font-size: x-small;"><?xml version="1.0" encoding="utf-8"?>-->
 <resources>
-    <color name="ColorPrimary">#2196F3</color>
+    <color name="ColorPrimary">#00458c</color>
     <color name="ColorPrimaryDark">#607d8b</color>
+    <color name="Indicator">#F1B521</color>
     <color name="white">#FFFFFF</color>
 </resources>
+<!-- Color Primary 2196F3 -->
+<!-- Color Primary Dark -->
     <!--</span>-->

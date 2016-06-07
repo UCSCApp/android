@@ -68,7 +68,7 @@ public class DiningHallListFragment extends BaseListFragment {
         Bundle b = new Bundle();
         b.putString("name", name);
 
-        DiningHallDetailFragment fragment = new DiningHallDetailFragment();
+        DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
         fragment.setArguments(b);
         this.ac.setFragment(fragment);
     }

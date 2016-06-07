@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -116,6 +117,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     public void onBackPressed() {
         mFragmentManager.popBackStackImmediate();
+    }
+
+    @Override
+    public ActionBar getToolbar() {
+        return getSupportActionBar();
     }
 
     /**

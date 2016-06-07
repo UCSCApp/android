@@ -28,32 +28,32 @@ import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
  * Created by isayyuhh_s on 8/8/2015.
  */
 public class DiningHallDetailFragment extends BaseDetailFragment {
-    private String diningHallName;
-    private DiningHall diningHall;
+    private FoodMenu menu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
         Bundle b = getArguments();
-        this.diningHallName = b.getString("name");
+        this.menu = this.ac.getGson().fromJson(b.getString("json"), FoodMenu.class);
+        this.setLayout(b.getString("name"), R.id.dining_button);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
-        this.setLayout(diningHallName, R.id.dining_button);
         this.setView(view);
 
         return view;
     }
 
     @Override
-    protected void setView(View view) {
-        final View view_ = view;
+    protected void setView(final View view) {
         final TextView date = (TextView) view.findViewById(R.id.date);
+        date.setText(ac.getToday().getMonth() + " " + ac.getToday().getDay());
+        TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
+        /*
         new DiningHallHttpRequest(getActivity(), diningHallName).execute(new HttpCallback<DiningHall>() {
             @Override
             public void onSuccess(DiningHall val) {
@@ -86,28 +86,9 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             public void onError(Exception e) {
             }
         });
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.find_on_map_toolbar, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        // find on map
-        if (id == R.id.map_find) {
-            /*
-            Bundle b = new Bundle();
-            b.putString("name", diningHall.getCollege());
-            MapFragment fragment = new MapFragment();
-            fragment.setArguments(b);
-            this.ac.setFragment(fragment);
-            */
-        }
-        return super.onOptionsItemSelected(item);
+        */
+        setMenu(menu, layout);
+        setLegendDialog(view);
     }
 
     private void setMenu(FoodMenu menu, TableLayout table) {
