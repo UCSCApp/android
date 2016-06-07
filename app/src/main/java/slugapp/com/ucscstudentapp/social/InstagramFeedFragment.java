@@ -82,7 +82,7 @@ public class InstagramFeedFragment extends BaseFragment {
                 public void onClick(View arg0) {
                     mInstagramSession.reset();
                     InstagramFeedFragment fragment = new InstagramFeedFragment();
-                    ac.setFragment(fragment);
+                    mCallback.setFragment(fragment);
                 }
             });
 
@@ -128,7 +128,7 @@ public class InstagramFeedFragment extends BaseFragment {
         @Override
         public void onSuccess(InstagramUser user) {
             InstagramFeedFragment fragment = new InstagramFeedFragment();
-            ac.setFragment(fragment);
+            mCallback.setFragment(fragment);
         }
 
         @Override

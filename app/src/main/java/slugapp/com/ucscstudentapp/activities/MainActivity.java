@@ -16,22 +16,19 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.gson.Gson;
-//import com.twitter.sdk.android.Twitter;
-//import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 
-//import io.fabric.sdk.android.Fabric;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.enums.FragmentEnum;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 import slugapp.com.ucscstudentapp.models.BottomToolbarButton;
 import slugapp.com.ucscstudentapp.models.Date;
-import slugapp.com.ucscstudentapp.fragments.EventListFragment;
 import slugapp.com.ucscstudentapp.enums.MonthEnum;
 
 /**
@@ -42,64 +39,63 @@ import slugapp.com.ucscstudentapp.enums.MonthEnum;
  */
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
-
-    private static final List<FragmentEnum> fragments = Arrays.asList(FragmentEnum.values());
-    //private static final String TWITTER_KEY = "pkpaLGZDDFZyBViV2ScOOcz2R";
-    //private static final String TWITTER_SECRET = "8GqvJRMgLgbQpphUKfnUx7WLZaK2iRHxZ0VU27uYwtO1GrT82a";
+    private static final List<FragmentEnum> sFragments = Arrays.asList(FragmentEnum.values());
+    private static final FragmentEnum sStartFragment = FragmentEnum.EVENT;
 
     private FragmentManager mFragmentManager;
     private TextView mTitle;
     private Timer mTimer;
     private Gson mGson;
 
-    /**
-     * On activity created
-     *
-     * @param savedInstanceState Saved instance state
-     */
+    private boolean init;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // This is the Twitter Authorization for fabric to use Twitter services in the app
-        //TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        //Fabric.with(this, new Twitter(authConfig));
-
-        this.mGson = new Gson();
-
         // sets views
-        setContentView(R.layout.activity_main);
-        setTopToolbar();
-        setBottomToolbar();
-        setFragment(new EventListFragment());
+        this.setContentView(R.layout.activity_main);
+        this.setFields();
+        this.setTopToolbar();
+        this.setBottomToolbar();
+        this.setFragment(this.getTabFragment(sStartFragment));
     }
 
     /**
-     * Initializes top toolbar
+     * Initializes the main activity's fields
+     */
+    private void setFields() {
+        this.init = true;
+        this.mGson = new Gson();
+    }
+
+    /**
+     * Initializes the top toolbar
      */
     private void setTopToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setHomeButtonEnabled(true);
+        this.setSupportActionBar(toolbar);
+        if (this.getSupportActionBar() != null) {
+            this.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            this.getSupportActionBar().setHomeButtonEnabled(true);
         }
         this.mTitle = (TextView) findViewById(R.id.toolbar_title);
     }
 
     /**
-     * Initializes bottom toolbar
+     * Initializes the bottom toolbar
      */
     private void setBottomToolbar() {
-        LinearLayout bottom = (LinearLayout) findViewById(R.id.bottom_toolbar);
-        View child = getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
-        for (FragmentEnum fragment : fragments) {
+        LinearLayout bottom = (LinearLayout) this.findViewById(R.id.bottom_toolbar);
+        View child = this.getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
+        for (FragmentEnum fragment : sFragments) {
             this.setButton(child, fragment.getButtonId(), fragment.getImageId());
         }
         bottom.addView(child);
 
-        BottomToolbarButton event_button = (BottomToolbarButton) findViewById(R.id.events_button);
-        event_button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+        BottomToolbarButton startButton =
+                (BottomToolbarButton) this.findViewById(sStartFragment.getButtonId());
+        startButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 
     /**
@@ -114,26 +110,24 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         button.setImageResource(imageId);
     }
 
-    /*
-    @Override
-    public void onBackPressed() {
-        mFragmentManager.popBackStackImmediate();
-    }
-    */
-
+    /**
+     * Gets top toolbar
+     *
+     * @return Top toolbar
+     */
     @Override
     public ActionBar getToolbar() {
         return getSupportActionBar();
     }
 
     /**
-     * Get list of tab fragments
+     * Get list of tab sFragments
      *
-     * @return List of tab fragments
+     * @return List of tab sFragments
      */
     @Override
     public List<FragmentEnum> getFragments() {
-        return fragments;
+        return sFragments;
     }
 
     /**
@@ -145,8 +139,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     public FragmentManager fm() {
         return mFragmentManager;
     }
-
-    private boolean init = true;
 
     /**
      * Sets the current fragment
@@ -170,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setButtons(int buttonId) {
-        for (FragmentEnum fragment : fragments) {
+        for (FragmentEnum fragment : sFragments) {
             View button = this.findViewById(fragment.getButtonId());
             button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         }
@@ -194,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get today's date
+     * Get mToday's date
      *
      * @return Today's date
      */
@@ -273,5 +265,22 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     public Gson getGson() {
         return this.mGson;
+    }
+
+    /**
+     * Gets the fragment instance form the given fragment enum
+     *
+     * @param fragmentEnum Fragment enum
+     * @return Fragment from fragment enum
+     */
+    @Override
+    public Fragment getTabFragment(FragmentEnum fragmentEnum) {
+        try {
+            Class<?> fragmentClass = fragmentEnum.getFragment();
+            Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
+            return (Fragment) fragmentConstructor.newInstance();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

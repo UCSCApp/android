@@ -54,16 +54,16 @@ public interface ActivityCallback {
     void hideKeyboard();
 
     /**
-     * Get today's date
+     * Get mToday's date
      *
      * @return Today's date
      */
     Date getToday();
 
     /**
-     * Set new toolbar title
+     * Set new toolbar mTitle
      *
-     * @param newTitle New toolbar title
+     * @param newTitle New toolbar mTitle
      */
     void setTitle(String newTitle);
 
@@ -101,4 +101,6 @@ public interface ActivityCallback {
      * @return Gson
      */
     Gson getGson();
+
+    Fragment getTabFragment(FragmentEnum fragmentEnum);
 }

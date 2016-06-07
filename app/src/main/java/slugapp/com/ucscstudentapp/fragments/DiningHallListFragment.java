@@ -70,6 +70,6 @@ public class DiningHallListFragment extends BaseListFragment {
 
         DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
         fragment.setArguments(b);
-        this.ac.setFragment(fragment);
+        this.mCallback.setFragment(fragment);
     }
 }

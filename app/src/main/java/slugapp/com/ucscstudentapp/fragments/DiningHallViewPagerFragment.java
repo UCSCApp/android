@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.http.DiningHallHttpRequest;
@@ -28,23 +23,22 @@ import slugapp.com.ucscstudentapp.models.FoodMenu;
  * Created by isayyuhh on 6/3/16.
  */
 public class DiningHallViewPagerFragment extends BaseDetailFragment {
-    private String diningHallName;
-    private DiningHall diningHall;
+    private String mName;
+    private DiningHall mDiningHall;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
         Bundle b = getArguments();
-        this.diningHallName = b.getString("name");
+        this.mName = b.getString(getActivity().getString(R.string.name));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pager_dining_hall, container, false);
-        this.setLayout(diningHallName, R.id.dining_button);
+        this.setLayout(mName, R.id.dining_button);
         this.setView(view);
 
         return view;
@@ -52,13 +46,13 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
 
     @Override
     protected void setView(final View view) {
-        new DiningHallHttpRequest(getActivity(), diningHallName).execute(new HttpCallback<DiningHall>() {
+        new DiningHallHttpRequest(getActivity(), mName).execute(new HttpCallback<DiningHall>() {
             @Override
             public void onSuccess(DiningHall val) {
-                diningHall = val;
+                mDiningHall = val;
                 ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
                 pager.setOffscreenPageLimit(2);
-                pager.setAdapter(new MyPagerAdapter(ac, getChildFragmentManager()));
+                pager.setAdapter(new MyPagerAdapter(mCallback, getChildFragmentManager()));
                 pager.setCurrentItem(getTod());
             }
 
@@ -69,8 +63,8 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
     }
 
     private int getTod() {
-        int currentTime = today.getStartTime();
-        String currentTOD = today.getStartTOD().toLowerCase();
+        int currentTime = this.mToday.getStartTime();
+        String currentTOD = this.mToday.getStartTOD().toLowerCase();
 
         if ((currentTime == 12 || currentTime < 11) && currentTOD.compareTo("am") == 0) {
             return 0;
@@ -97,22 +91,22 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
         if (id == R.id.map_find) {
             /*
             Bundle b = new Bundle();
-            b.putString("name", diningHall.getCollege());
+            b.putString("name", mDiningHall.getCollege());
             MapFragment fragment = new MapFragment();
             fragment.setArguments(b);
-            this.ac.setFragment(fragment);
+            this.mCallback.setFragment(fragment);
             */
         }
         return super.onOptionsItemSelected(item);
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
-        private ActivityCallback ac;
-        private String tabtitles[] = new String[] { "Breakfast", "Lunch", "Dinner" };
+        private ActivityCallback mCallback;
+        private final String mTabTitles[] = new String[] { "Breakfast", "Lunch", "Dinner" };
 
-        public MyPagerAdapter(ActivityCallback ac, FragmentManager fm) {
+        public MyPagerAdapter(ActivityCallback mCallback, FragmentManager fm) {
             super(fm);
-            this.ac = ac;
+            this.mCallback = mCallback;
         }
 
         @Override
@@ -121,22 +115,23 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
             switch (position) {
                 default:
                 case 0:
-                    menu = diningHall.getBreakfast();
+                    menu = mDiningHall.getBreakfast();
                     break;
                 case 1:
-                    menu = diningHall.getLunch();
+                    menu = mDiningHall.getLunch();
                     break;
                 case 2:
-                    menu = diningHall.getDinner();
+                    menu = mDiningHall.getDinner();
                     break;
             }
-            Log.e("TEST", menu.get(0).name());
+
+            DiningHallDetailFragment fragment = new DiningHallDetailFragment();
 
             Bundle b = new Bundle();
-            b.putString("json", this.ac.getGson().toJson(menu));
-            b.putString("name", diningHallName);
-            DiningHallDetailFragment fragment = new DiningHallDetailFragment();
+            b.putString(mContext.getString(R.string.json), this.mCallback.getGson().toJson(menu));
+            b.putString(mContext.getString(R.string.name), mName);
             fragment.setArguments(b);
+
             return fragment;
         }
 
@@ -147,7 +142,7 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return tabtitles[position];
+            return mTabTitles[position];
         }
     }
 }

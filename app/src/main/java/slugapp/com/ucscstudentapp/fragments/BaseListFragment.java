@@ -90,7 +90,7 @@ public abstract class BaseListFragment extends BaseFragment {
     protected class ListItemListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            ac.hideKeyboard();
+            mCallback.hideKeyboard();
             onClick(parent, view, position, id);
         }
     }

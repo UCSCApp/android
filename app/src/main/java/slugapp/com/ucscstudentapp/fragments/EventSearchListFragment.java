@@ -57,20 +57,20 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
 
     @Override
     protected int doSort(BaseListItem lhs, BaseListItem rhs) {
-        return ac.getToday().compareEvents((Event) lhs, (Event) rhs);
+        return mCallback.getToday().compareEvents((Event) lhs, (Event) rhs);
     }
 
     @Override
     protected void onClick(AdapterView<?> parent, View view, int position, long id) {
         Event e = (Event) parent.getItemAtPosition(position);
-        String json = this.ac.getGson().toJson(e);
+        String json = this.mCallback.getGson().toJson(e);
 
         Bundle b = new Bundle();
         b.putString("json", json);
 
         EventDetailFragment fragment = new EventDetailFragment();
         fragment.setArguments(b);
-        this.ac.setFragment(fragment);
+        this.mCallback.setFragment(fragment);
     }
 
     @Override

@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,12 +14,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.ucscstudentapp.R;
-import slugapp.com.ucscstudentapp.models.DiningHall;
 import slugapp.com.ucscstudentapp.models.Food;
 import slugapp.com.ucscstudentapp.enums.AttributeEnum;
 import slugapp.com.ucscstudentapp.models.FoodMenu;
-import slugapp.com.ucscstudentapp.http.DiningHallHttpRequest;
-import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 
 /**
  * Created by isayyuhh_s on 8/8/2015.
@@ -35,7 +29,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = getArguments();
-        this.menu = this.ac.getGson().fromJson(b.getString("json"), FoodMenu.class);
+        this.menu = this.mCallback.getGson().fromJson(b.getString("json"), FoodMenu.class);
         this.setLayout(b.getString("name"), R.id.dining_button);
     }
 
@@ -51,7 +45,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
     @Override
     protected void setView(final View view) {
         final TextView date = (TextView) view.findViewById(R.id.date);
-        date.setText(ac.getToday().getMonth() + " " + ac.getToday().getDay());
+        date.setText(mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay());
         TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
         /*
         new DiningHallHttpRequest(getActivity(), diningHallName).execute(new HttpCallback<DiningHall>() {
@@ -59,10 +53,10 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             public void onSuccess(DiningHall val) {
                 diningHall = val;
 
-                date.setText(ac.getToday().getMonth() + " " + ac.getToday().getDay());
+                date.setText(mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay());
                 TableLayout layout = (TableLayout) view_.findViewById(R.id.meal);
-                int currentTime = today.getStartTime();
-                String currentTOD = today.getStartTOD().toLowerCase();
+                int currentTime = mToday.getStartTime();
+                String currentTOD = mToday.getStartTOD().toLowerCase();
                 TextView mealTitle = (TextView) view_.findViewById(R.id.meal_title);
                 FoodMenu meal = null;
 

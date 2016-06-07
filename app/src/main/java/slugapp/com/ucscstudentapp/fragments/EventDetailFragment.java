@@ -24,7 +24,7 @@ public class EventDetailFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = getArguments();
-        this.event = this.ac.getGson().fromJson(b.getString("json"), Event.class);
+        this.event = this.mCallback.getGson().fromJson(b.getString("json"), Event.class);
     }
 
     @Override
