@@ -20,12 +20,12 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.ac = (ActivityCallback) activity;
+        this.today = this.ac.getToday();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.today = this.ac.getToday();
         setHasOptionsMenu(true);
     }
 
