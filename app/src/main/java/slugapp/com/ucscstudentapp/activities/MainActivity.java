@@ -27,7 +27,7 @@ import java.util.Timer;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.enums.FragmentEnum;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
-import slugapp.com.ucscstudentapp.models.BottomToolbarButton;
+import slugapp.com.ucscstudentapp.models.ToolbarButton;
 import slugapp.com.ucscstudentapp.models.Date;
 import slugapp.com.ucscstudentapp.enums.MonthEnum;
 
@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         }
         bottom.addView(child);
 
-        BottomToolbarButton startButton =
-                (BottomToolbarButton) this.findViewById(sStartFragment.getButtonId());
+        ToolbarButton startButton =
+                (ToolbarButton) this.findViewById(sStartFragment.getButtonId());
         startButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * @param imageId  Id of image
      */
     private void setButton(View child, int buttonId, int imageId) {
-        BottomToolbarButton button = (BottomToolbarButton) child.findViewById(buttonId);
+        ToolbarButton button = (ToolbarButton) child.findViewById(buttonId);
         button.setImageResource(imageId);
     }
 

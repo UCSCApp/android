@@ -14,20 +14,20 @@ import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 /**
  * Created by isayyuhh_s on 7/28/2015.
  */
-public class BottomToolbarButton extends ImageButton {
+public class ToolbarButton extends ImageButton {
     private ActivityCallback mCallback;
 
-    public BottomToolbarButton(Context context) {
+    public ToolbarButton(Context context) {
         super(context);
         this.mCallback = (ActivityCallback) context;
     }
 
-    public BottomToolbarButton(Context context, AttributeSet attrs) {
+    public ToolbarButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mCallback = (ActivityCallback) context;
     }
 
-    public BottomToolbarButton(Context context, AttributeSet attrs, int defStyle) {
+    public ToolbarButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.mCallback = (ActivityCallback) context;
     }
