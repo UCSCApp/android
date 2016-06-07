@@ -15,13 +15,16 @@ import slugapp.com.ucscstudentapp.models.BaseListItem;
  * This file is the Adapter for EventListFragment.java and displays each Event to the ListView.
  */
 public abstract class BaseListAdapter extends ArrayAdapter<BaseListItem> {
+    protected Context mContext;
+
     public BaseListAdapter(Context context, int id) {
         super(context, id);
+        this.mContext = context;
     }
 
     public void setData(List<BaseListItem> items) {
-        clear();
-        for (BaseListItem item : items) add(item);
-        notifyDataSetChanged();
+        this.clear();
+        for (BaseListItem item : items) this.add(item);
+        this.notifyDataSetChanged();
     }
 }

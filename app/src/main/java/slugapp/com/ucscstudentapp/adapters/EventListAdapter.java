@@ -19,17 +19,20 @@ import slugapp.com.ucscstudentapp.models.Event;
  * This file is the Adapter for EventListFragment.java and displays each Event to the ListView.
  */
 public class EventListAdapter extends BaseListAdapter {
+    private static final int id = R.layout.item_event;
+
     public EventListAdapter(Context context) {
-        super(context, R.layout.item_event);
+        super(context, id);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_event, null);
+            LayoutInflater inflater =
+                    (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(id, null);
         }
+
         Event e = (Event) getItem(position);
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView date = (TextView) convertView.findViewById(R.id.date);
@@ -39,6 +42,7 @@ public class EventListAdapter extends BaseListAdapter {
         date.setText(e.date().getString());
         desc.setText(e.shortDesc());
         new ImageHttpRequest(e.url()).execute(image);
+        
         return convertView;
     }
 }

@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // sets views
         this.setContentView(R.layout.activity_main);
         this.setFields();
         this.setTopToolbar();
