@@ -27,7 +27,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
-        this.setLayout("Event Center", R.id.events_button);
+        //this.setLayout("Event Center", R.id.events_button);
         this.setView(view, new EventListAdapter(getActivity()));
         this.onRefresh();
         return view;
@@ -56,8 +56,11 @@ public class EventListFragment extends BaseSwipeListFragment {
         return mCallback.getToday().compareEvents((Event) lhs, (Event) rhs);
     }
 
+    private boolean refreshing = false;
+
     @Override
     protected void onClick(AdapterView<?> parent, View view, int position, long id) {
+        if (refreshing) return;
         Event e = (Event) parent.getItemAtPosition(position);
         String json = this.mCallback.getGson().toJson(e);
 
@@ -71,6 +74,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onRefresh() {
+        refreshing = true;
         new TestEventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
@@ -79,6 +83,7 @@ public class EventListFragment extends BaseSwipeListFragment {
                 for (BaseListItem val : vals) events.add(val);
                 mAdapter.setData(events);
                 mSwipeLayout.setRefreshing(false);
+                refreshing = false;
             }
 
             @Override

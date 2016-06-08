@@ -177,7 +177,7 @@ public class joint_login_social_fragment extends android.support.v4.app.Fragment
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+        //getActivity().findViewById(R.id.events_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         getActivity().findViewById(R.id.map_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         //getActivity().findViewById(R.id.social_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
         //getActivity().findViewById(R.id.settings_button).setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));

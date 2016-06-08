@@ -40,7 +40,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
-        this.setLayout("Search: \"" + this.query + "\"", R.id.events_button);
+        //this.setLayout("Search: \"" + this.query + "\"", R.id.events_button);
         this.setView(view, new EventListAdapter(getActivity()));
         this.onRefresh();
         return view;

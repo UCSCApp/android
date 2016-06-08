@@ -30,7 +30,7 @@ public class EventDetailFragment extends BaseDetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_event, container, false);
-        this.setLayout(event.name(), R.id.events_button);
+        //this.setLayout(event.name(), R.id.events_button);
         this.setView(view);
         return view;
     }

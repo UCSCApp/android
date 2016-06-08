@@ -5,23 +5,23 @@
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
     android:orientation="horizontal">
-
+<!--
     <slugapp.com.ucscstudentapp.models.ToolbarButton
         android:id="@+id/events_button"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/toggle_selector" />
+-->
 
     <slugapp.com.ucscstudentapp.models.ToolbarButton
-        android:id="@+id/dining_button"
+        android:id="@+id/map_button"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/toggle_selector" />
-
     <slugapp.com.ucscstudentapp.models.ToolbarButton
-        android:id="@+id/map_button"
+        android:id="@+id/dining_button"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"

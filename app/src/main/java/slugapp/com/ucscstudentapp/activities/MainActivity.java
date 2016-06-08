@@ -38,9 +38,11 @@ import slugapp.com.ucscstudentapp.enums.MonthEnum;
  * Fragments, and contains Top and Bottom Toolbars.
  */
 
+// LOOP, UPPER CAMPUS, EAST NIGHT CORE
+
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
     private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
-    private static final FragmentEnum sStartFragment = FragmentEnum.EVENT;
+    private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
 
     private FragmentManager mFragmentManager;
     private TextView mTitle;

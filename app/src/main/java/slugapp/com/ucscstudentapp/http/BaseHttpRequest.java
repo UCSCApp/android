@@ -12,7 +12,7 @@ import java.util.Set;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 
 /**
- * Created by simba on 7/31/15.
+ * Created by simba on 7/31/15
  */
 public abstract class BaseHttpRequest extends BaseRequest {
     protected String url;
