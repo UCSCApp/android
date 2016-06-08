@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dip"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TableLayout
+            android:id="@+id/meal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:paddingTop="12dip"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/ColorPrimary"
+                android:padding="5dip"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip">
+
+                <TextView
+                    android:id="@+id/meal_title"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Food"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Legend"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/legend"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:src="@drawable/ic_legend" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>
