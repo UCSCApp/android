@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.http.DiningHallHttpRequest;
+import slugapp.com.ucscstudentapp.http.TestDiningHallHttpRequest;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 import slugapp.com.ucscstudentapp.models.DiningHall;

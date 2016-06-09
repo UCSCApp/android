@@ -16,7 +16,7 @@ import slugapp.com.ucscstudentapp.models.DiningHallWrapper;
  * Created by isayyuhh_s on 9/1/2015.
  */
 public class DiningHallHttpRequest extends BaseHttpRequest {
-    private String name;
+    protected String name;
 
     public DiningHallHttpRequest(Context context, String name) {
         super(BaseHttpRequest.Method.GET);
@@ -40,7 +40,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
                 try {
                     callback.onSuccess(new DiningHallWrapper(val, name));
                 } catch (JSONException je) {
-                    Log.e("ERROR", "json error");
+                    je.printStackTrace();
                     callback.onError(je);
                 }
             }
