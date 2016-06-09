@@ -19,6 +19,9 @@ public class DiningHall {
     private FoodMenu dinner;
 
     public DiningHall() {
+        this.breakfast = new FoodMenu();
+        this.lunch = new FoodMenu();
+        this.dinner = new FoodMenu();
     }
 
     private FoodMenu addMenu(JSONArray array) throws JSONException {

@@ -44,44 +44,11 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
     @Override
     protected void setView(final View view) {
-        final TextView date = (TextView) view.findViewById(R.id.date);
-        date.setText(mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay());
+        final TextView dateTv = (TextView) view.findViewById(R.id.date);
+        String date = mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay();
+        dateTv.setText(date);
         TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
-        /*
-        new DiningHallHttpRequest(getActivity(), diningHallName).execute(new HttpCallback<DiningHall>() {
-            @Override
-            public void onSuccess(DiningHall val) {
-                diningHall = val;
-
-                date.setText(mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay());
-                TableLayout layout = (TableLayout) view_.findViewById(R.id.meal);
-                int currentTime = mToday.getStartTime();
-                String currentTOD = mToday.getStartTOD().toLowerCase();
-                TextView mealTitle = (TextView) view_.findViewById(R.id.meal_title);
-                FoodMenu meal = null;
-
-                if ((currentTime == 12 || currentTime < 11) && currentTOD.compareTo("am") == 0) {
-                    meal = diningHall.getBreakfast();
-                    mealTitle.setText("Breakfast");
-                } else if (currentTime == 11 && currentTOD.compareTo("am") == 0 ||
-                        currentTime == 12 && currentTOD.compareTo("pm") == 0 ||
-                        currentTime > 0 && currentTime < 5 && currentTOD.compareTo("pm") == 0) {
-                    meal = diningHall.getLunch();
-                    mealTitle.setText("Lunch");
-                } else if (currentTime >= 5 && currentTime < 12 && currentTOD.compareTo("pm") == 0) {
-                    meal = diningHall.getDinner();
-                    mealTitle.setText("Dinner");
-                }
-                setMenu(meal, layout);
-                setLegendDialog(view_);
-            }
-
-            @Override
-            public void onError(Exception e) {
-            }
-        });
-        */
-        setMenu(menu, layout);
+        setMenu(this.menu, layout);
         setLegendDialog(view);
     }
 

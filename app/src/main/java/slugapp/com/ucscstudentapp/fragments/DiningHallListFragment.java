@@ -1,11 +1,14 @@
 package slugapp.com.ucscstudentapp.fragments;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,7 @@ public class DiningHallListFragment extends BaseListFragment {
     }
 
     @Override
-    protected void setView(View view, final BaseListAdapter adapter) {
+    protected void setView(final View view, final BaseListAdapter adapter) {
         super.setView(view, adapter);
 
         this.diningHalls = new ArrayList<>();
@@ -42,11 +45,15 @@ public class DiningHallListFragment extends BaseListFragment {
             public void onSuccess(List<String> vals) {
                 diningHalls = new ArrayList<>();
                 for (String val : vals) diningHalls.add(new StringListItem(val));
-                adapter.setData(diningHalls);
+        e        adapter.setData(diningHalls);
             }
 
             @Override
             public void onError(Exception e) {
+                ListView list = (ListView) view.findViewById(R.id.list);
+                list.setVisibility(View.GONE);
+                TextView failed = (TextView) view.findViewById(R.id.failed);
+                failed.setVisibility(View.VISIBLE);
             }
         });
     }
