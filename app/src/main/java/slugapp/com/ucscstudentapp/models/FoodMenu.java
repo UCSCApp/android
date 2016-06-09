@@ -26,6 +26,10 @@ public class FoodMenu {
         return this.items.size();
     }
 
+    public boolean isEmpty() {
+        return this.items.size() == 0;
+    }
+
     public List<Food> getItems() {
         return Collections.unmodifiableList(this.items);
     }

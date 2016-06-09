@@ -58,6 +58,11 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
 
             @Override
             public void onError(Exception e) {
+                mDiningHall = new DiningHall();
+                ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
+                pager.setOffscreenPageLimit(2);
+                pager.setAdapter(new MyPagerAdapter(mCallback, getChildFragmentManager()));
+                pager.setCurrentItem(getTod());
             }
         });
     }

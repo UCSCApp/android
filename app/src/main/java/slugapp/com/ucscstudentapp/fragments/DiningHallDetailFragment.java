@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -48,11 +49,19 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
         String date = mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay();
         dateTv.setText(date);
         TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
-        setMenu(this.menu, layout);
+        setMenu(view, this.menu, layout);
         setLegendDialog(view);
     }
 
-    private void setMenu(FoodMenu menu, TableLayout table) {
+    private void setMenu(View view, FoodMenu menu, TableLayout table) {
+        if (menu.isEmpty()) {
+            LinearLayout layout = (LinearLayout) view.findViewById(R.id.table);
+            layout.setVisibility(View.GONE);
+            TextView failed = (TextView) view.findViewById(R.id.failed);
+            failed.setVisibility(View.VISIBLE);
+            return;
+        }
+
         // for each food item
         for (Food food : menu.getItems()) {
             TableRow row = new TableRow(getActivity());
