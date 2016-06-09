@@ -45,7 +45,7 @@ public class DiningHallListFragment extends BaseListFragment {
             public void onSuccess(List<String> vals) {
                 diningHalls = new ArrayList<>();
                 for (String val : vals) diningHalls.add(new StringListItem(val));
-        e        adapter.setData(diningHalls);
+                adapter.setData(diningHalls);
             }
 
             @Override
