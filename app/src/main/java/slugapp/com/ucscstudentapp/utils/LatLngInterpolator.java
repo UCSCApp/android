@@ -1,4 +1,4 @@
-package slugapp.com.ucscstudentapp.models;
+package slugapp.com.ucscstudentapp.utils;
 
 import com.google.android.gms.maps.model.LatLng;
 

@@ -11,13 +11,10 @@ package slugapp.com.ucscstudentapp.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,7 +32,6 @@ import java.util.TimerTask;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
-import slugapp.com.ucscstudentapp.models.LatLngInterpolator;
 import slugapp.com.ucscstudentapp.runnables.LoopRunnable;
 import slugapp.com.ucscstudentapp.enums.MarkerEnum;
 import slugapp.com.ucscstudentapp.enums.MarkerTypeEnum;

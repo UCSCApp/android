@@ -17,7 +17,7 @@ import java.util.List;
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.HttpCallback;
 import slugapp.com.ucscstudentapp.http.LoopHttpRequest;
-import slugapp.com.ucscstudentapp.models.LatLngInterpolator;
+import slugapp.com.ucscstudentapp.utils.LatLngInterpolator;
 import slugapp.com.ucscstudentapp.models.Loop;
 
 /**
