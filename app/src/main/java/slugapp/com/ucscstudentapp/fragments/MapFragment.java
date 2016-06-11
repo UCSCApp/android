@@ -11,10 +11,13 @@ package slugapp.com.ucscstudentapp.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,6 +35,7 @@ import java.util.TimerTask;
 
 import slugapp.com.ucscstudentapp.R;
 import slugapp.com.ucscstudentapp.interfaces.ActivityCallback;
+import slugapp.com.ucscstudentapp.models.LatLngInterpolator;
 import slugapp.com.ucscstudentapp.runnables.LoopRunnable;
 import slugapp.com.ucscstudentapp.enums.MarkerEnum;
 import slugapp.com.ucscstudentapp.enums.MarkerTypeEnum;
@@ -55,7 +59,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        this.setHasOptionsMenu(true);
     }
 
     @Override
@@ -99,13 +103,13 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.dynamicMarkers = new ArrayList<>();
     }
 
-    protected void setLayout(String title, int id) {
+    protected void setLayout(String title, int buttonId) {
         this.title = title;
-        this.buttonId = id;
+        this.buttonId = buttonId;
     }
 
     public void setStaticMarkers(GoogleMap map) {
-        for (MarkerEnum currEnum : this.markerEnums) {
+        for (MarkerEnum currEnum : markerEnums) {
             float lat = Float.valueOf(this.ac.toStr(currEnum.getLat()));
             float lng = Float.valueOf(this.ac.toStr(currEnum.getLng()));
 
@@ -126,7 +130,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.dynamicMarkers = new ArrayList<>();
 
         final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(getActivity(), map, dynamicMarkers);
+        final LoopRunnable runnable = new LoopRunnable(getActivity(), map, this.dynamicMarkers);
 
         this.ac.initTimer();
         this.ac.getTimer().scheduleAtFixedRate(new TimerTask() {
@@ -164,7 +168,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
         if (b != null && b.containsKey("name")) {
             String name = b.getString("name");
-            for (MarkerEnum currEnum : this.markerEnums) {
+            for (MarkerEnum currEnum : markerEnums) {
                 if (this.foundMarker(name, currEnum, MarkerTypeEnum.DININGHALL)) {
                     for (Marker marker : this.staticMarkers) {
                         String title = marker.getTitle();
@@ -180,7 +184,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                     break;
                 }
             }
-        } else if (init) this.initialZoom(map);
+        } else if (this.init) this.initialZoom(map);
         this.init = false;
     }
 

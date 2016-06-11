@@ -1,32 +1,18 @@
 package slugapp.com.ucscstudentapp.models;
 
-import slugapp.com.ucscstudentapp.enums.LoopTypeEnum;
-
 /**
  * Created by isayyuhh on 2/19/16.
  */
 public class Loop {
     private int id;
     private float lat, lng;
-    private LoopTypeEnum type;
+    private String type;
 
     public Loop(int id, float lat, float lng, String type) {
         this.id = id;
         this.lat = lat;
         this.lng = lng;
-
-        switch (type) {
-            case "LOOP":
-                this.type = LoopTypeEnum.LOOP;
-                break;
-            case "OUT OF SERVICE/SORRY":
-            default:
-                this.type = LoopTypeEnum.OUTOFSERVICE;
-                break;
-            case "UPPER CAMPUS":
-                this.type = LoopTypeEnum.UPPERCAMPUS;
-                break;
-        }
+        this.type = type;
     }
 
     public int getId() {
@@ -41,7 +27,5 @@ public class Loop {
         return this.lng;
     }
 
-    public LoopTypeEnum getType() {
-        return this.type;
-    }
+    public String getType() { return this.type; }
 }
