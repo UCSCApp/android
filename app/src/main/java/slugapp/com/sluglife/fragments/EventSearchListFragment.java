@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.models.BaseObject;
@@ -82,7 +83,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);
-                mAdapter.setData(events);
+                ((BaseListAdapter) mAdapter).setData(events);
             }
 
             @Override

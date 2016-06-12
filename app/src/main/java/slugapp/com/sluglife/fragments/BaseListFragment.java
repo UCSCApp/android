@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.Comparator;
@@ -20,9 +21,9 @@ import slugapp.com.sluglife.models.BaseObject;
  * Created by isayyuhh on 2/21/16.
  */
 public abstract class BaseListFragment extends BaseFragment {
-    protected BaseListAdapter mAdapter;
+    protected BaseAdapter mAdapter;
 
-    protected void setView(View view, BaseListAdapter adapter) {
+    protected void setView(View view, BaseAdapter adapter) {
         this.mAdapter = adapter;
         ListView listView = (ListView) view.findViewById(R.id.list);
         listView.setAdapter(adapter);

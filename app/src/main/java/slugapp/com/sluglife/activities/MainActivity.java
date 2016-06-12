@@ -31,6 +31,11 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.ToolbarButton;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import io.fabric.sdk.android.Fabric;
+
 /**
  * Created by isaiah on 6/27/2015.
  * <p/>
@@ -39,6 +44,9 @@ import slugapp.com.sluglife.models.ToolbarButton;
  */
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
+    private static final String TWITTER_KEY = "FOdauNUahweKi8Zy5XmTc1bC5";
+    private static final String TWITTER_SECRET = "sGe6KKgVB8eTmkGgEqcfAhSyKXwlBOvy5CJOcipIWE0V0Ay0bF";
+
     private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
 
@@ -52,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
 
         this.setContentView(R.layout.activity_main);
         this.setFields();
@@ -152,10 +163,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     public void setButtons(int buttonId) {
         for (FragmentEnum fragment : sTabFragments) {
             View button = this.findViewById(fragment.getButtonId());
-            button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+            button.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.toggle_off));
         }
         View button = this.findViewById(buttonId);
-        button.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+        button.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.toggle_on));
     }
 
     /**

@@ -2,6 +2,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.BaseAdapter;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
@@ -14,7 +15,7 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
     protected SwipeRefreshLayout mSwipeLayout;
 
     @Override
-    protected void setView(View view, BaseListAdapter adapter) {
+    protected void setView(View view, BaseAdapter adapter) {
         super.setView(view, adapter);
         this.mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         this.mSwipeLayout.setOnRefreshListener(this);

@@ -3,6 +3,7 @@ package slugapp.com.sluglife.enums;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.fragments.DiningHallListFragment;
 import slugapp.com.sluglife.fragments.MapFragment;
+import slugapp.com.sluglife.fragments.SocialFragment;
 
 /**
  * Created by isayyuhh on 3/16/16.
@@ -10,7 +11,8 @@ import slugapp.com.sluglife.fragments.MapFragment;
 public enum FragmentEnum {
     //EVENT(EventListFragment.class, R.id.events_button, R.drawable.ic_events, "Events"),
     MAP(MapFragment.class, R.id.map_button, R.drawable.ic_map, "Map"),
-    DINING(DiningHallListFragment.class, R.id.dining_button, R.drawable.ic_dining, "Dining");
+    DINING(DiningHallListFragment.class, R.id.dining_button, R.drawable.ic_dining, "Dining"),
+    SOCIAL(SocialFragment.class, R.id.social_button, R.drawable.ic_social, "Social");
 
     private Class fragment;
     private int buttonId;

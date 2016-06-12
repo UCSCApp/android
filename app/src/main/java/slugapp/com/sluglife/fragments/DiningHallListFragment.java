@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,8 +35,9 @@ public class DiningHallListFragment extends BaseListFragment {
     }
 
     @Override
-    protected void setView(final View view, final BaseListAdapter adapter) {
+    protected void setView(final View view, final BaseAdapter adapter) {
         super.setView(view, adapter);
+        final BaseListAdapter baseListAdapter = (BaseListAdapter) adapter;
 
         this.diningHalls = new ArrayList<>();
         new DiningListHttpRequest(getActivity()).execute(new HttpCallback<List<String>>() {
@@ -43,7 +45,7 @@ public class DiningHallListFragment extends BaseListFragment {
             public void onSuccess(List<String> vals) {
                 diningHalls = new ArrayList<>();
                 for (String val : vals) diningHalls.add(new StringObject(val));
-                adapter.setData(diningHalls);
+                baseListAdapter.setData(diningHalls);
             }
 
             @Override
