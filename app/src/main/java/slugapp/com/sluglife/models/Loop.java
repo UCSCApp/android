@@ -4,28 +4,28 @@ package slugapp.com.sluglife.models;
  * Created by isayyuhh on 2/19/16.
  */
 public class Loop {
-    private int id;
-    private float lat, lng;
-    private String type;
+    private int mId;
+    private float mLatitude, mLongitude;
+    private String mType;
 
     public Loop(int id, float lat, float lng, String type) {
-        this.id = id;
-        this.lat = lat;
-        this.lng = lng;
-        this.type = type;
+        this.mId = id;
+        this.mLatitude = lat;
+        this.mLongitude = lng;
+        this.mType = type;
     }
 
     public int getId() {
-        return this.id;
+        return this.mId;
     }
 
     public float getLat() {
-        return this.lat;
+        return this.mLatitude;
     }
 
     public float getLng() {
-        return this.lng;
+        return this.mLongitude;
     }
 
-    public String getType() { return this.type; }
+    public String getType() { return this.mType; }
 }

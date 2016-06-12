@@ -17,13 +17,13 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
  */
 public class SettingsFragment extends PreferenceFragment {
     private ActivityCallback mCallback;
-    private Context context;
+    private Context mContext;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallback = (ActivityCallback) activity;
-        context = activity;
+        this.mCallback = (ActivityCallback) activity;
+        this.mContext = activity;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class SettingsFragment extends PreferenceFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_settings, container, false);
         //TextView tv = (TextView) view.findViewById(R.id.googleMaps_license);
-        //tv.setText(GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(context));
-        mCallback.setTitle("SettingsFragment");
+        //tv.setText(GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(mContext));
+        this.mCallback.setTitle("SettingsFragment");
         return view;
     }
 

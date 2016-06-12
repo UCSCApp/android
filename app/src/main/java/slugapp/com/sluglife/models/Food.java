@@ -8,19 +8,19 @@ import slugapp.com.sluglife.enums.AttributeEnum;
  * Created by isayyuhh_s on 9/2/2015.
  */
 public class Food {
-    private String name;
-    private List<AttributeEnum> attributes;
+    private String mName;
+    private List<AttributeEnum> mAttributes;
 
     public Food(String name, List<AttributeEnum> attributes) {
-        this.name = name;
-        this.attributes = attributes;
+        this.mName = name;
+        this.mAttributes = attributes;
     }
 
-    public String name() {
-        return this.name;
+    public String getName() {
+        return this.mName;
     }
 
-    public List<AttributeEnum> attributes() {
-        return this.attributes;
+    public List<AttributeEnum> getAttributes() {
+        return this.mAttributes;
     }
 }

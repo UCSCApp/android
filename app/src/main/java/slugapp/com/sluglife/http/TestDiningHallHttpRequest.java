@@ -24,7 +24,7 @@ public class TestDiningHallHttpRequest extends DiningHallHttpRequest {
     @Override
     public void execute(HttpCallback<DiningHall> callback) {
         try {
-            callback.onSuccess(new DiningHallWrapper(emptyString, name));
+            callback.onSuccess(new DiningHallWrapper(emptyString, this.mName));
         } catch (JSONException je) {
             je.printStackTrace();
         }

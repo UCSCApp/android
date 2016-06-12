@@ -1,5 +1,7 @@
 package slugapp.com.sluglife.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
@@ -17,16 +19,35 @@ import slugapp.com.sluglife.enums.AttributeEnum;
  * Created by isayyuhh on 9/23/2015.
  */
 public class DiningLegendDialogFragment extends DialogFragment {
+    private static final int LINEAR_LAYOUT_PARAMS = 75;
 
-    public DiningLegendDialogFragment() {
+    private static final int ICON_LEFT = 12;
+    private static final int ICON_TOP = 24;
+    private static final int ICON_RIGHT = 5;
+    private static final int ICON_BOTTOM = 0;
+
+    private static final int TEXTVIEW_LEFT = 12;
+    private static final int TEXTVIEW_TOP = 24;
+    private static final int TEXTVIEW_RIGHT = 5;
+    private static final int TEXTVIEW_BOTTOM = 0;
+
+    private static final float TEXT_SIZE = 14.0f;
+
+    private Context mContext;
+
+    @Override
+    public void onAttach(Activity activity) {
+        this.mContext = activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_dining_hall_legend, container);
-        getDialog().setTitle("Legend");
-        setList(view);
+
+        this.getDialog().setTitle(this.mContext.getString(R.string.title_dininglegend));
+        this.setList(view);
+
         return view;
     }
 
@@ -37,28 +58,29 @@ public class DiningLegendDialogFragment extends DialogFragment {
             LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(75, 75);
+            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
+                    LINEAR_LAYOUT_PARAMS, LINEAR_LAYOUT_PARAMS);
             LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            iconParams.setMargins(12, 10, 0, 10);
-            tvParams.setMargins(50, 10, 0, 10);
+            iconParams.setMargins(ICON_LEFT, ICON_TOP, ICON_RIGHT, ICON_BOTTOM);
+            tvParams.setMargins(TEXTVIEW_LEFT, TEXTVIEW_TOP, TEXTVIEW_RIGHT, TEXTVIEW_BOTTOM);
 
             // linear layout
-            LinearLayout ll = new LinearLayout(getActivity());
+            LinearLayout ll = new LinearLayout(this.getActivity());
             ll.setLayoutParams(llparams);
             ll.setOrientation(LinearLayout.HORIZONTAL);
 
             // icon
-            ImageView icon = new ImageView(getActivity());
+            ImageView icon = new ImageView(this.getActivity());
             icon.setLayoutParams(iconParams);
             icon.setImageResource(AttributeEnum.values()[i].getIcon());
             ll.addView(icon);
 
             // text view
-            TextView tv = new TextView(getActivity());
+            TextView tv = new TextView(this.getActivity());
             tv.setText(AttributeEnum.values()[i].getString());
             tv.setTextColor(Color.BLACK);
-            tv.setTextSize(14.0f);
+            tv.setTextSize(TEXT_SIZE);
             tv.setLayoutParams(tvParams);
             ll.addView(tv);
 

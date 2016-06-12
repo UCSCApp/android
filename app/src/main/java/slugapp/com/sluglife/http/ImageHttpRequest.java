@@ -11,17 +11,16 @@ import slugapp.com.sluglife.R;
  * Created by simba on 8/1/15.
  */
 public class ImageHttpRequest extends BaseRequest {
-    private String url;
+    private String mUrl;
 
     public ImageHttpRequest(String url) {
-        this.url = url;
+        this.mUrl = url;
     }
 
     public void execute(ImageView view) {
-        if (view == null) {
-            Log.e("VIEW", "NULL");
+        if (view != null) {
+            this.getImageLoader().get(this.mUrl,
+                    ImageLoader.getImageListener(view, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
         }
-        getImageLoader().get(url,
-                ImageLoader.getImageListener(view, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
     }
 }

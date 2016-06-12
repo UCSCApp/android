@@ -32,13 +32,14 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
 
         Bundle b = getArguments();
         this.mName = b.getString(getActivity().getString(R.string.name));
+        this.mDiningHall = new DiningHall();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pager_dining_hall, container, false);
-        this.setLayout(mName, R.id.dining_button);
+        this.setLayout(this.mName, R.id.dining_button);
         this.setView(view);
 
         return view;

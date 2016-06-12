@@ -27,13 +27,11 @@ public class LoopRunnable implements Runnable {
     private Context mContext;
     private GoogleMap mMap;
     private List<Marker> mLoopList;
-    private LatLngInterpolator.Linear linear;
 
     public LoopRunnable(Context context, GoogleMap map, List<Marker> loopList) {
         this.mContext = context;
         this.mMap = map;
         this.mLoopList = loopList;
-        this.linear = new LatLngInterpolator.Linear();
     }
 
     @Override
@@ -45,7 +43,8 @@ public class LoopRunnable implements Runnable {
                     boolean found = false;
                     for (Marker marker : mLoopList) {
                         if (String.valueOf(loop.getId()).compareTo(marker.getSnippet()) == 0) {
-                            animateMarker(marker, new LatLng(loop.getLat(), loop.getLng()), linear);
+                            animateMarker(marker, new LatLng(loop.getLat(), loop.getLng()),
+                                    new LatLngInterpolator.Linear());
                             //marker.setPosition(new LatLng(loop.getLat(), loop.getLng()));
                             found = true;
                             break;

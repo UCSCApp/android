@@ -9,9 +9,9 @@ package slugapp.com.sluglife.fragments;
 //
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,19 +37,24 @@ import slugapp.com.sluglife.enums.MarkerEnum;
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
-    private final static MarkerEnum[] markerEnums = MarkerEnum.values();
+    private final static MarkerEnum[] sMarkerEnums = MarkerEnum.values();
+    private final static float DEFAULT_ZOOM = 15.5f;
+    private final static float MAX_VISIBLE_ZOOM = 14.9f;
 
-    private List<Marker> staticMarkers;
-    private List<Marker> dynamicMarkers;
-    protected ActivityCallback ac;
-    protected String title;
-    protected int buttonId;
+    private List<Marker> mStaticMarkers;
+    private List<Marker> mDynamicMarkers;
+    private ActivityCallback mCallback;
+    private Context mContext;
+    private String mTitle;
+    private int mButtonId;
+
     private boolean init = true;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.ac = (ActivityCallback) activity;
+        this.mCallback = (ActivityCallback) activity;
+        this.mContext = activity;
     }
 
     @Override
@@ -62,16 +67,19 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
-        this.setLayout("Map", R.id.map_button);
+
+        this.setLayout(this.mContext.getString(R.string.title_map), R.id.map_button);
         this.setView();
+
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        this.ac.setTitle(title);
-        this.ac.setButtons(buttonId);
+
+        this.mCallback.setTitle(this.mTitle);
+        this.mCallback.setButtons(this.mButtonId);
     }
 
     @Override
@@ -95,26 +103,26 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     protected void setView() {
-        this.staticMarkers = new ArrayList<>();
-        this.dynamicMarkers = new ArrayList<>();
+        this.mStaticMarkers = new ArrayList<>();
+        this.mDynamicMarkers = new ArrayList<>();
     }
 
     protected void setLayout(String title, int buttonId) {
-        this.title = title;
-        this.buttonId = buttonId;
+        this.mTitle = title;
+        this.mButtonId = buttonId;
     }
 
     public void setStaticMarkers(GoogleMap map) {
-        for (MarkerEnum currEnum : markerEnums) {
-            float lat = Float.valueOf(this.ac.toStr(currEnum.getLat()));
-            float lng = Float.valueOf(this.ac.toStr(currEnum.getLng()));
+        for (MarkerEnum currEnum : sMarkerEnums) {
+            float lat = Float.valueOf(this.mCallback.toStr(currEnum.getLat()));
+            float lng = Float.valueOf(this.mCallback.toStr(currEnum.getLng()));
 
-            String title = this.ac.toStr(currEnum.getTitle());
-            String snippet = this.ac.toStr(currEnum.getSnippet());
+            String title = this.mCallback.toStr(currEnum.getTitle());
+            String snippet = this.mCallback.toStr(currEnum.getSnippet());
             LatLng latLng = new LatLng(lat, lng);
-            BitmapDescriptor bitmap = this.ac.toBitMap(currEnum.getIcon());
+            BitmapDescriptor bitmap = this.mCallback.toBitMap(currEnum.getIcon());
 
-            this.staticMarkers.add(map.addMarker(new MarkerOptions()
+            this.mStaticMarkers.add(map.addMarker(new MarkerOptions()
                     .title(title)
                     .snippet(snippet)
                     .position(latLng)
@@ -123,13 +131,13 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     private void setDynamicMarkers(GoogleMap map) {
-        this.dynamicMarkers = new ArrayList<>();
+        this.mDynamicMarkers = new ArrayList<>();
 
         final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(getActivity(), map, this.dynamicMarkers);
+        final LoopRunnable runnable = new LoopRunnable(getActivity(), map, this.mDynamicMarkers);
 
-        this.ac.initTimer();
-        this.ac.getTimer().scheduleAtFixedRate(new TimerTask() {
+        this.mCallback.initTimer();
+        this.mCallback.getTimer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 handler.post(runnable);
@@ -152,28 +160,27 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
-                for (Marker marker : staticMarkers) {
-                    marker.setVisible(cameraPosition.zoom > 14.9);
+                for (Marker marker : mStaticMarkers) {
+                    marker.setVisible(cameraPosition.zoom > MAX_VISIBLE_ZOOM);
                 }
             }
         });
     }
 
     private void ifFromFindOnMap(GoogleMap map) {
-        Bundle b = getArguments();
+        Bundle b = this.getArguments();
 
-        if (b != null && b.containsKey("name")) {
-            String name = b.getString("name");
-            for (MarkerEnum currEnum : markerEnums) {
+        if (b != null && b.containsKey(this.mContext.getString(R.string.name))) {
+            String name = b.getString(this.mContext.getString(R.string.name));
+            for (MarkerEnum currEnum : sMarkerEnums) {
                 if (this.foundMarker(name, currEnum, MarkerTypeEnum.DININGHALL)) {
-                    for (Marker marker : this.staticMarkers) {
+                    for (Marker marker : this.mStaticMarkers) {
                         String title = marker.getTitle();
                         if (title.contains(name)) {
-                            Log.e("Test", "Here");
-                            float lat = Float.valueOf(this.ac.toStr(currEnum.getLat()));
-                            float lng = Float.valueOf(this.ac.toStr(currEnum.getLng()));
+                            float lat = Float.valueOf(this.mCallback.toStr(currEnum.getLat()));
+                            float lng = Float.valueOf(this.mCallback.toStr(currEnum.getLng()));
                             LatLng latLng = new LatLng(lat, lng);
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.5f));
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
                             marker.showInfoWindow();
                         }
                     }
@@ -185,13 +192,14 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     private boolean foundMarker(String name, MarkerEnum currEnum, MarkerTypeEnum type) {
-        return currEnum.getType() == type && this.ac.toStr(currEnum.getTitle()).contains(name);
+        return currEnum.getType() == type && this.mCallback.toStr(currEnum.getTitle()).contains(name);
     }
 
     private void initialZoom(GoogleMap map) {
-        float lat = Float.valueOf(this.ac.toStr(R.string.map_init_lat));
-        float lng = Float.valueOf(this.ac.toStr(R.string.map_init_lng));
-        float zoom = Float.valueOf(this.ac.toStr(R.string.map_init_zoom));
+        float lat = Float.valueOf(this.mCallback.toStr(R.string.map_init_lat));
+        float lng = Float.valueOf(this.mCallback.toStr(R.string.map_init_lng));
+        float zoom = Float.valueOf(this.mCallback.toStr(R.string.map_init_zoom));
+
         LatLng initLatLng = new LatLng(lat, lng);
 
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -200,7 +208,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     private void removeDynamicMarkers() {
-        for (Marker marker : this.dynamicMarkers) if (marker != null) marker.remove();
-        if (this.ac.getTimer() != null) this.ac.getTimer().cancel();
+        for (Marker marker : this.mDynamicMarkers) if (marker != null) marker.remove();
+        if (this.mCallback.getTimer() != null) this.mCallback.getTimer().cancel();
     }
 }

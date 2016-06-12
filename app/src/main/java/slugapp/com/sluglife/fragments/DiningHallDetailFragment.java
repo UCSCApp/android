@@ -19,24 +19,41 @@ import slugapp.com.sluglife.enums.AttributeEnum;
 import slugapp.com.sluglife.models.FoodMenu;
 
 /**
- * Created by isayyuhh_s on 8/8/2015.
+ * Created by isayyuhh_s on 8/8/2015
  */
 public class DiningHallDetailFragment extends BaseDetailFragment {
-    private FoodMenu menu;
+    private static final int LINEAR_LAYOUT_PARAMS = 75;
+
+    private static final int TABLE_ROW_INIT_WIDTH = 0;
+    private static final int TABLE_ROW_INIT_WEIGHT = 1;
+
+    private static final int TABLE_ROW_LEFT = 12;
+    private static final int TABLE_ROW_TOP = 24;
+    private static final int TABLE_ROW_RIGHT = 5;
+    private static final int TABLE_ROW_BOTTOM = 0;
+
+    private static final int TABLE_COLUMN_FOOD = 0;
+    private static final int TABLE_COLUMN_ATTRIBUTES = 1;
+
+    private static final float TEXT_SIZE = 14.0f;
+
+    private String mName;
+    private FoodMenu mMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle b = getArguments();
-        this.menu = this.mCallback.getGson().fromJson(b.getString("json"), FoodMenu.class);
-        this.setLayout(b.getString("name"), R.id.dining_button);
+        this.mName = b.getString(this.mContext.getString(R.string.name));
+        this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.json)), FoodMenu.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
+        this.setLayout(this.mName, R.id.dining_button);
         this.setView(view);
 
         return view;
@@ -45,19 +62,24 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
     @Override
     protected void setView(final View view) {
         final TextView dateTv = (TextView) view.findViewById(R.id.date);
-        String date = mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay();
-        dateTv.setText(date);
+
+        String date = this.mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay();
         TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
-        setMenu(view, this.menu, layout);
-        setLegendDialog(view);
+
+        dateTv.setText(date);
+
+        this.setMenu(view, this.mMenu, layout);
+        this.setLegendDialog(view);
     }
 
     private void setMenu(View view, FoodMenu menu, TableLayout table) {
         if (menu.isEmpty()) {
             LinearLayout layout = (LinearLayout) view.findViewById(R.id.table);
-            layout.setVisibility(View.GONE);
             TextView failed = (TextView) view.findViewById(R.id.failed);
+
+            layout.setVisibility(View.GONE);
             failed.setVisibility(View.VISIBLE);
+
             return;
         }
 
@@ -68,28 +90,30 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             LinearLayout attributes = new LinearLayout(getActivity());
 
             // params
-            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(75, 75);
-            TableRow.LayoutParams rowParams = new TableRow.LayoutParams(0,
-                    TableRow.LayoutParams.WRAP_CONTENT, 1);
-            rowParams.setMargins(12, 24, 5, 0);
+            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
+                    LINEAR_LAYOUT_PARAMS, LINEAR_LAYOUT_PARAMS);
+            TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TABLE_ROW_INIT_WIDTH,
+                    TableRow.LayoutParams.WRAP_CONTENT, TABLE_ROW_INIT_WEIGHT);
+            rowParams.setMargins(TABLE_ROW_LEFT, TABLE_ROW_TOP, TABLE_ROW_RIGHT, TABLE_ROW_BOTTOM);
 
             // food name
-            name.setText(food.name());
+            name.setText(food.getName());
             name.setTextColor(Color.BLACK);
-            name.setTextSize(14.0f);
+            name.setTextSize(TEXT_SIZE);
 
             // food attributes
             attributes.setOrientation(LinearLayout.HORIZONTAL);
-            for (AttributeEnum attribute : food.attributes()) {
+            for (AttributeEnum attribute : food.getAttributes()) {
                 ImageView icon = new ImageView(getActivity());
+
                 icon.setLayoutParams(iconParams);
                 icon.setImageResource(attribute.getIcon());
                 attributes.addView(icon);
             }
 
             // set params
-            row.addView(name, 0, rowParams);
-            row.addView(attributes, 1, rowParams);
+            row.addView(name, TABLE_COLUMN_FOOD, rowParams);
+            row.addView(attributes, TABLE_COLUMN_ATTRIBUTES, rowParams);
             table.addView(row);
         }
     }
@@ -101,13 +125,14 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                Fragment prev = getFragmentManager().findFragmentByTag(mContext.getString(R.string.dialog));
+
                 if (prev != null) ft.remove(prev);
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
                 DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
-                dialog.show(ft, "dialog");
+                dialog.show(ft, mContext.getString(R.string.dialog));
             }
         });
 

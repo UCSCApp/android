@@ -6,73 +6,73 @@ import slugapp.com.sluglife.enums.MonthEnum;
  * Created by isayyuhh_s on 7/18/2015
  */
 public class Date {
-    private final static MonthEnum[] months = MonthEnum.values();
+    private final static MonthEnum[] sMonths = MonthEnum.values();
 
-    private String string;
-    private boolean defined;
-    private MonthEnum month;
-    private int day;
-    private int startTime;
-    private int endTime;
-    private String startTOD;
-    private String endTOD;
+    private String mString;
+    private boolean mDefined;
+    private MonthEnum mMonth;
+    private int mDay;
+    private int mStartTime;
+    private int mEndTime;
+    private String mStartTOD;
+    private String mEndTOD;
 
     /**
      * Getters
      */
     public String getString() {
-        return this.string;
+        return this.mString;
     }
 
     public MonthEnum getMonth() {
-        return this.month;
+        return this.mMonth;
     }
 
     public int getDay() {
-        return day;
+        return this.mDay;
     }
 
     public int getStartTime() {
-        return this.startTime;
+        return this.mStartTime;
     }
 
     public int getEndTime() {
-        return this.endTime;
+        return this.mEndTime;
     }
 
     public String getStartTOD() {
-        return this.startTOD;
+        return this.mStartTOD;
     }
 
     public String getEndTOD() {
-        return this.endTOD;
+        return this.mEndTOD;
     }
 
     public boolean isDefined() {
-        return defined;
+        return this.mDefined;
     }
 
     /**
      * Constructor
      */
     public Date(String string) {
-        this.string = string;
-        this.month = null;
-        this.defined = false;
+        this.mString = string;
+        this.mMonth = null;
+        this.mDefined = false;
     }
 
     public Date(String newMonth, String newDay, String newStartTime, String newEndTime) {
-        this.defined = false;
+        this.mDefined = false;
 
         /** Month */
-        for (MonthEnum currMonth : months) {
+        for (MonthEnum currMonth : sMonths) {
             String month = currMonth.getVal();
             if (month.compareTo(newMonth) == 0) {
-                this.month = currMonth;
+                this.mMonth = currMonth;
                 break;
             }
         }
-        if (this.month == null) return;
+        if (this.mMonth == null) return;
 
         /** Day */
         String day;
@@ -80,27 +80,27 @@ public class Date {
         else if (newDay.length() < 3) day = newDay;
         else day = newDay.substring(0, newDay.length() - 2);
         if (!this.isInteger(day)) return;
-        this.day = Integer.parseInt(day);
+        this.mDay = Integer.parseInt(day);
 
         /** Start Time */
         if (newStartTime.length() < 3 || newStartTime.length() > 4) return;
         String startTime = newStartTime.substring(0, newStartTime.length() - 2);
         String startTOD = newStartTime.substring(newStartTime.length() - 2, newStartTime.length());
         if (!this.isInteger(startTime)) return;
-        this.startTime = Integer.parseInt(startTime);
-        this.startTOD = startTOD;
+        this.mStartTime = Integer.parseInt(startTime);
+        this.mStartTOD = startTOD;
 
         /** End Time */
         if (newEndTime.length() < 3 || newEndTime.length() > 4) return;
         String endTime = newEndTime.substring(0, newEndTime.length() - 2);
         String endTOD = newEndTime.substring(newEndTime.length() - 2, newEndTime.length());
         if (!this.isInteger(endTime)) return;
-        this.endTime = Integer.parseInt(endTime);
-        this.endTOD = endTOD;
+        this.mEndTime = Integer.parseInt(endTime);
+        this.mEndTOD = endTOD;
 
         /** Date String */
-        this.string = newMonth + " " + newDay + " | " + newStartTime + " - " + newEndTime;
-        this.defined = true;
+        this.mString = newMonth + " " + newDay + " | " + newStartTime + " - " + newEndTime;
+        this.mDefined = true;
     }
 
     /**
@@ -121,10 +121,10 @@ public class Date {
      * Date Compare Functions
      */
     public int compareEvents(Event lhs, Event rhs) {
-        if (!lhs.date().isDefined()) return 1;
-        else if (!rhs.date().isDefined()) return -1;
-        int check = compareDates(lhs.date(), rhs.date());
-        if (check == 0) check = lhs.name().compareTo(rhs.name());
+        if (!lhs.getDate().isDefined()) return 1;
+        else if (!rhs.getDate().isDefined()) return -1;
+        int check = compareDates(lhs.getDate(), rhs.getDate());
+        if (check == 0) check = lhs.getName().compareTo(rhs.getName());
         return check;
     }
 

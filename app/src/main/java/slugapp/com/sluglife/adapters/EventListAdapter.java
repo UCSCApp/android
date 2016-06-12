@@ -38,10 +38,10 @@ public class EventListAdapter extends BaseListAdapter {
         TextView date = (TextView) convertView.findViewById(R.id.date);
         TextView desc = (TextView) convertView.findViewById(R.id.description);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
-        name.setText(e.name());
-        date.setText(e.date().getString());
-        desc.setText(e.shortDesc());
-        new ImageHttpRequest(e.url()).execute(image);
+        name.setText(e.getName());
+        date.setText(e.getDate().getString());
+        desc.setText(e.getShortDescription());
+        new ImageHttpRequest(e.getUrl()).execute(image);
 
         return convertView;
     }

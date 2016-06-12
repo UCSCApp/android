@@ -12,14 +12,15 @@ import com.android.volley.toolbox.Volley;
  * Created by simba on 8/1/15.
  */
 public abstract class BaseRequest {
-    private static RequestQueue queue;
-    private static ImageLoader iLoader;
+    private static RequestQueue sQueue;
+    private static ImageLoader sILoader;
+
     private static boolean hasInit = false;
 
     public static void init(Context ctx) {
         if (!hasInit) {
-            queue = Volley.newRequestQueue(ctx);
-            iLoader = new ImageLoader(queue,
+            sQueue = Volley.newRequestQueue(ctx);
+            sILoader = new ImageLoader(sQueue,
                     new ImageLoader.ImageCache() {
                         private final LruCache<String, Bitmap> cache = new LruCache<>(20);
 
@@ -38,10 +39,10 @@ public abstract class BaseRequest {
     }
 
     protected RequestQueue queue() {
-        return queue;
+        return sQueue;
     }
 
     protected ImageLoader getImageLoader() {
-        return iLoader;
+        return sILoader;
     }
 }

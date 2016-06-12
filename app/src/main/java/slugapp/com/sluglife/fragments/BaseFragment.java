@@ -12,9 +12,10 @@ import slugapp.com.sluglife.models.Date;
  * Created by isayyuhh on 2/21/16
  */
 public abstract class BaseFragment extends Fragment {
+    private String mTitle;
+
     protected ActivityCallback mCallback;
     protected Context mContext;
-    protected String mTitle;
     protected int mButtonId;
     protected Date mToday;
 

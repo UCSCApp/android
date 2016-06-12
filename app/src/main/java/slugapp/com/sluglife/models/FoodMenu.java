@@ -8,29 +8,29 @@ import java.util.List;
  * Created by isayyuhh_s on 9/2/2015.
  */
 public class FoodMenu {
-    private List<Food> items;
+    private List<Food> mItems;
 
     public FoodMenu() {
-        items = new ArrayList<>();
+        mItems = new ArrayList<>();
     }
 
     public void add(Food item) {
-        this.items.add(item);
+        this.mItems.add(item);
     }
 
     public Food get(int position) {
-        return this.items.get(position);
+        return this.mItems.get(position);
     }
 
     public int size() {
-        return this.items.size();
+        return this.mItems.size();
     }
 
     public boolean isEmpty() {
-        return this.items.size() == 0;
+        return this.mItems.size() == 0;
     }
 
     public List<Food> getItems() {
-        return Collections.unmodifiableList(this.items);
+        return Collections.unmodifiableList(this.mItems);
     }
 }

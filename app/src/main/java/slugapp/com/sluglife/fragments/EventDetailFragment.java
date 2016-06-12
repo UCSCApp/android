@@ -14,23 +14,23 @@ import slugapp.com.sluglife.http.ImageHttpRequest;
 /**
  * Created by isaiah on 6/27/2015.
  * <p/>
- * This file displays all of the contents for each individual event.
+ * This file displays all of the contents for each individual mEvent.
  */
 public class EventDetailFragment extends BaseDetailFragment {
-    private Event event;
+    private Event mEvent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle b = getArguments();
-        this.event = this.mCallback.getGson().fromJson(b.getString("json"), Event.class);
+        this.mEvent = this.mCallback.getGson().fromJson(b.getString("json"), Event.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_event, container, false);
-        //this.setLayout(event.name(), R.id.events_button);
+        //this.setLayout(mEvent.name(), R.id.events_button);
         this.setView(view);
         return view;
     }
@@ -43,19 +43,20 @@ public class EventDetailFragment extends BaseDetailFragment {
         TextView description = (TextView) view.findViewById(R.id.description);
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
-        if (event.date().isDefined()) {
-            String dayString = "When: " + event.date().getMonth().getVal() + " " + event.date().getDay();
-            String startString = "Starts: " + String.valueOf(event.date().getStartTime()) +
-                    event.date().getStartTOD();
-            String endString = "Ends: " + String.valueOf(event.date().getEndTime()) +
-                    event.date().getEndTOD();
+        if (mEvent.getDate().isDefined()) {
+            String dayString = "When: " + mEvent.getDate().getMonth().getVal() + " " +
+                    mEvent.getDate().getDay();
+            String startString = "Starts: " + String.valueOf(mEvent.getDate().getStartTime()) +
+                    mEvent.getDate().getStartTOD();
+            String endString = "Ends: " + String.valueOf(mEvent.getDate().getEndTime()) +
+                    mEvent.getDate().getEndTOD();
 
             day.setText(dayString);
             start.setText(startString);
             end.setText(endString);
-        } else day.setText("When: " + event.date().getString());
+        } else day.setText("When: " + mEvent.getDate().getString());
 
-        description.setText(event.getDesc());
-        new ImageHttpRequest(event.url()).execute(image);
+        description.setText(mEvent.getDescription());
+        new ImageHttpRequest(mEvent.getUrl()).execute(image);
     }
 }

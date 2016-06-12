@@ -20,7 +20,7 @@ import slugapp.com.sluglife.models.BaseListItem;
 import slugapp.com.sluglife.models.StringListItem;
 
 /**
- * Created by isayyuhh_s on 9/1/2015.
+ * Created by isayyuhh_s on 9/1/2015
  */
 public class DiningHallListFragment extends BaseListFragment {
     private List<BaseListItem> diningHalls;
@@ -28,7 +28,7 @@ public class DiningHallListFragment extends BaseListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_dining_hall, container, false);
-        this.setLayout("Dining Halls", R.id.dining_button);
+        this.setLayout(this.mContext.getString(R.string.title_dininglist), R.id.dining_button);
         this.setView(view, new DiningHallListAdapter(getActivity()));
         return view;
     }
@@ -71,7 +71,7 @@ public class DiningHallListFragment extends BaseListFragment {
         String name = tv.getText().toString();
 
         Bundle b = new Bundle();
-        b.putString("name", name);
+        b.putString(this.mContext.getString(R.string.name), name);
 
         DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
         fragment.setArguments(b);

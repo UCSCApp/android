@@ -15,11 +15,11 @@ import slugapp.com.sluglife.interfaces.HttpCallback;
  * Created by simba on 7/31/15
  */
 public abstract class BaseHttpRequest extends BaseRequest {
-    protected String url;
-    private int volleyMethod;
+    protected String mUrl;
+    private int mVolleyMethod;
 
     public BaseHttpRequest(Method method) {
-        volleyMethod = method.method;
+        mVolleyMethod = method.method;
     }
 
     protected void createUrl(String protocol, String api, String port, String path,
@@ -35,13 +35,13 @@ public abstract class BaseHttpRequest extends BaseRequest {
                 first = false;
             }
         }
-        this.url =  protocol + api + port + path + fields.replace(" ", "%20").replace("&", "%26");
+        this.mUrl =  protocol + api + port + path + fields.replace(" ", "%20").replace("&", "%26");
     }
 
     protected void rawExecute(final HttpCallback<String> callback) {
         StringRequest stringRequest = new StringRequest(
-                volleyMethod,
-                url,
+                this.mVolleyMethod,
+                this.mUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -58,6 +58,7 @@ public abstract class BaseHttpRequest extends BaseRequest {
         queue().add(stringRequest);
     }
 
+    /*
     protected void rawExecute(final HashMap<String, String> params, final HttpCallback<String> callback) {
         StringRequest stringRequest = new StringRequest(
                 volleyMethod,
@@ -81,6 +82,7 @@ public abstract class BaseHttpRequest extends BaseRequest {
         };
         queue().add(stringRequest);
     }
+    */
 
     public enum Method {
         POST(com.android.volley.Request.Method.POST),

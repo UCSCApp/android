@@ -7,47 +7,45 @@ package slugapp.com.sluglife.models;
  * This file contains the Event Object that holds all the data for each event
  */
 public class Event extends BaseListItem {
-    /**
-     * Private Fields
-     */
-    private String name;
-    private Date date;
-    private String desc;
-    private String url;
-
-    /**
-     * Getters
-     */
-    public String getDesc() {
-        return desc;
-    }
-
-    public String shortDesc() {
-        return this.desc.length() > 150 ? this.desc.substring(0, 150) + "..." : this.desc;
-    }
-
-    public Date date() {
-        return date;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public String url() {
-        return url;
-    }
+    private String mName;
+    private Date mDate;
+    private String mDescription;
+    private String mUrl;
 
     /**
      * Constructor
      */
-    public Event(String name, String date, String desc, String url) {
+    public Event(String name, String date, String description, String url) {
         String[] dateParts = date.split("\\s+");
 
-        this.name = name;
-        if (dateParts.length != 4) this.date = new Date(date);
-        else this.date = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
-        this.desc = desc;
-        this.url = url;
+        this.mName = name;
+        if (dateParts.length != 4) this.mDate = new Date(date);
+        else this.mDate = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
+        this.mDescription = description;
+        this.mUrl = url;
+    }
+
+    /**
+     * Getters
+     */
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public String getShortDescription() {
+        return this.mDescription.length() > 150 ? this.mDescription.substring(0, 150) +
+                "..." : this.mDescription;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public String getUrl() {
+        return mUrl;
     }
 }

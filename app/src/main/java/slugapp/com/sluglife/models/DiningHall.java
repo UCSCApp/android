@@ -13,15 +13,15 @@ import slugapp.com.sluglife.enums.AttributeEnum;
  * Created by isayyuhh_s on 9/2/2015.
  */
 public class DiningHall {
-    private String college;
-    private FoodMenu breakfast;
-    private FoodMenu lunch;
-    private FoodMenu dinner;
+    private String mCollege;
+    private FoodMenu mBreakfast;
+    private FoodMenu mLunch;
+    private FoodMenu mDinner;
 
     public DiningHall() {
-        this.breakfast = new FoodMenu();
-        this.lunch = new FoodMenu();
-        this.dinner = new FoodMenu();
+        this.mBreakfast = new FoodMenu();
+        this.mLunch = new FoodMenu();
+        this.mDinner = new FoodMenu();
     }
 
     private FoodMenu addMenu(JSONArray array) throws JSONException {
@@ -40,35 +40,35 @@ public class DiningHall {
     }
 
     public void addCollege(String college) {
-        this.college = college;
+        this.mCollege = college;
     }
 
     public void addBreakfast(JSONArray array) throws JSONException {
-        this.breakfast = addMenu(array);
+        this.mBreakfast = addMenu(array);
     }
 
     public void addLunch(JSONArray array) throws JSONException {
-        this.lunch = addMenu(array);
+        this.mLunch = addMenu(array);
     }
 
     public void addDinner(JSONArray array) throws JSONException {
-        this.dinner = addMenu(array);
+        this.mDinner = addMenu(array);
     }
 
     public String getCollege() {
-        return this.college;
+        return this.mCollege;
     }
 
     public FoodMenu getBreakfast() {
-        return this.breakfast;
+        return this.mBreakfast;
     }
 
     public FoodMenu getLunch() {
-        return this.lunch;
+        return this.mLunch;
     }
 
     public FoodMenu getDinner() {
-        return this.dinner;
+        return this.mDinner;
     }
 
 }

@@ -30,7 +30,7 @@ public abstract class BaseListFragment extends BaseFragment {
     }
 
     protected void setSearchView(Menu menu) {
-        getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
+        this.getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
         SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.search));
         SearchManager searchManager =
@@ -73,8 +73,7 @@ public abstract class BaseListFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.search) return true;
-        return super.onOptionsItemSelected(item);
+        return id == R.id.search || super.onOptionsItemSelected(item);
     }
 
     /*
