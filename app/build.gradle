@@ -4,11 +4,15 @@ buildscript {
     }
 
     dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -20,7 +24,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 3
-        versionName "0.0.3"
+        versionName "0.0.2"
     }
     buildTypes {
         release {
@@ -39,4 +43,7 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.+'
     compile 'com.github.machinarius:preferencefragment:0.1.1'
     compile 'com.google.code.gson:gson:2.6.1'
+    compile('com.twitter.sdk.android:twitter:1.13.2@aar') {
+        transitive = true;
+    }
 }

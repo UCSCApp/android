@@ -9,7 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-sdk android:targetSdkVersion="22" android:minSdkVersion="9" tools:overrideLibrary="com.facebook"/>
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="22"
+        tools:overrideLibrary="com.facebook" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
