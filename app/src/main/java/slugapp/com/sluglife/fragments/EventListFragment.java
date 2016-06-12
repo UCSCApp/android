@@ -16,7 +16,7 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.TestEventListHttpRequest;
-import slugapp.com.sluglife.models.BaseListItem;
+import slugapp.com.sluglife.models.BaseObject;
 import slugapp.com.sluglife.models.Event;
 
 /**
@@ -52,7 +52,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    protected int doSort(BaseListItem lhs, BaseListItem rhs) {
+    protected int doSort(BaseObject lhs, BaseObject rhs) {
         return mCallback.getToday().compareEvents((Event) lhs, (Event) rhs);
     }
 
@@ -79,8 +79,8 @@ public class EventListFragment extends BaseSwipeListFragment {
             @Override
             public void onSuccess(List<Event> vals) {
                 Collections.sort(vals, new ListSort());
-                List<BaseListItem> events = new ArrayList<>();
-                for (BaseListItem val : vals) events.add(val);
+                List<BaseObject> events = new ArrayList<>();
+                for (BaseObject val : vals) events.add(val);
                 mAdapter.setData(events);
                 mSwipeLayout.setRefreshing(false);
                 refreshing = false;

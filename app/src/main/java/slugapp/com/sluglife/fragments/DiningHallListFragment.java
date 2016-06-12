@@ -16,14 +16,14 @@ import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.DiningHallListAdapter;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.BaseListItem;
-import slugapp.com.sluglife.models.StringListItem;
+import slugapp.com.sluglife.models.BaseObject;
+import slugapp.com.sluglife.models.StringObject;
 
 /**
  * Created by isayyuhh_s on 9/1/2015
  */
 public class DiningHallListFragment extends BaseListFragment {
-    private List<BaseListItem> diningHalls;
+    private List<BaseObject> diningHalls;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class DiningHallListFragment extends BaseListFragment {
             @Override
             public void onSuccess(List<String> vals) {
                 diningHalls = new ArrayList<>();
-                for (String val : vals) diningHalls.add(new StringListItem(val));
+                for (String val : vals) diningHalls.add(new StringObject(val));
                 adapter.setData(diningHalls);
             }
 
@@ -61,7 +61,7 @@ public class DiningHallListFragment extends BaseListFragment {
     }
 
     @Override
-    protected int doSort(BaseListItem lhs, BaseListItem rhs) {
+    protected int doSort(BaseObject lhs, BaseObject rhs) {
         return 0;
     }
 

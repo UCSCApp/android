@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.models.StringListItem;
+import slugapp.com.sluglife.models.StringObject;
 
 /**
  * Created by isayyuhh_s on 8/29/2015.
@@ -27,7 +27,7 @@ public class DiningHallListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(id, null);
         }
 
-        String diningHall = ((StringListItem) this.getItem(position)).getString();
+        String diningHall = ((StringObject) this.getItem(position)).getString();
         TextView tv = (TextView) convertView.findViewById(R.id.name);
         tv.setText(diningHall);
 

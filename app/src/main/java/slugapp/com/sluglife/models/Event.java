@@ -6,7 +6,7 @@ package slugapp.com.sluglife.models;
 /*
  * This file contains the Event Object that holds all the data for each event
  */
-public class Event extends BaseListItem {
+public class Event extends BaseObject {
     private String mName;
     private Date mDate;
     private String mDescription;

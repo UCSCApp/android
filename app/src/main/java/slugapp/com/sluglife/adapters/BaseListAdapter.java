@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-import slugapp.com.sluglife.models.BaseListItem;
+import slugapp.com.sluglife.models.BaseObject;
 
 /**
  * Created by simba on 5/31/15.
@@ -14,7 +14,7 @@ import slugapp.com.sluglife.models.BaseListItem;
  * <p/>
  * This file is the Adapter for EventListFragment.java and displays each Event to the ListView.
  */
-public abstract class BaseListAdapter extends ArrayAdapter<BaseListItem> {
+public abstract class BaseListAdapter extends ArrayAdapter<BaseObject> {
     protected Context mContext;
 
     public BaseListAdapter(Context context, int id) {
@@ -22,9 +22,9 @@ public abstract class BaseListAdapter extends ArrayAdapter<BaseListItem> {
         this.mContext = context;
     }
 
-    public void setData(List<BaseListItem> items) {
+    public void setData(List<BaseObject> items) {
         this.clear();
-        for (BaseListItem item : items) this.add(item);
+        for (BaseObject item : items) this.add(item);
         this.notifyDataSetChanged();
     }
 }
