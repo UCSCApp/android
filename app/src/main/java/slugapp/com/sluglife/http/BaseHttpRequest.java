@@ -1,12 +1,10 @@
 package slugapp.com.sluglife.http;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;

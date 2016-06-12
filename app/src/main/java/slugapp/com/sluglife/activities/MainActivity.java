@@ -26,10 +26,10 @@ import java.util.Timer;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.interfaces.ActivityCallback;
-import slugapp.com.sluglife.models.ToolbarButton;
-import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.enums.MonthEnum;
+import slugapp.com.sluglife.interfaces.ActivityCallback;
+import slugapp.com.sluglife.models.Date;
+import slugapp.com.sluglife.models.ToolbarButton;
 
 /**
  * Created by isaiah on 6/27/2015.
@@ -106,16 +106,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private void setButton(View child, int buttonId, int imageId) {
         ToolbarButton button = (ToolbarButton) child.findViewById(buttonId);
         button.setImageResource(imageId);
-    }
-
-    /**
-     * Gets top toolbar
-     *
-     * @return Top toolbar
-     */
-    @Override
-    public ActionBar getToolbar() {
-        return getSupportActionBar();
     }
 
     /**

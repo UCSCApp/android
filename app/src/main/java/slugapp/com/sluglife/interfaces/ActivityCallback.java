@@ -2,7 +2,6 @@ package slugapp.com.sluglife.interfaces;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.gson.Gson;
@@ -17,8 +16,6 @@ import slugapp.com.sluglife.models.Date;
  * Created by isayyuhh_s on 8/3/2015.
  */
 public interface ActivityCallback {
-
-    ActionBar getToolbar();
 
     /**
      * Get list of tab fragments

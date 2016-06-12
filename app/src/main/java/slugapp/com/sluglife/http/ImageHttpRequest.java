@@ -1,6 +1,5 @@
 package slugapp.com.sluglife.http;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.volley.toolbox.ImageLoader;
