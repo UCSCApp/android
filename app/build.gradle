@@ -16,7 +16,7 @@ android {
     buildToolsVersion '22.0.1'
 
     defaultConfig {
-        applicationId "slugapp.com.ucscstudentapp"
+        applicationId "slugapp.com.sluglife"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 2

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SlugApp</string>
+    <string name="app_name">Slug Life</string>
     <string name="hello_world">Hello world!</string>
     <string name="text_signin">Instagram Log In</string>
     <string name="text_view_twitter_feed">Twitter Feed</string>
