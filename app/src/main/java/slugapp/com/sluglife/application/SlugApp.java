@@ -1,4 +1,4 @@
-package slugapp.com.sluglife;
+package slugapp.com.sluglife.application;
 
 import android.app.Application;
 
