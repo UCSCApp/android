@@ -172,8 +172,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     private void ifFromFindOnMap(GoogleMap map) {
         Bundle b = this.getArguments();
 
-        if (b != null && b.containsKey(this.mContext.getString(R.string.name))) {
-            String name = b.getString(this.mContext.getString(R.string.name));
+        if (b != null && b.containsKey(this.mContext.getString(R.string.key_name))) {
+            String name = b.getString(this.mContext.getString(R.string.key_name));
             for (MarkerEnum currEnum : sMarkerEnums) {
                 if (this.foundMarker(name, currEnum, MarkerTypeEnum.DININGHALL)) {
                     for (Marker marker : this.mStaticMarkers) {

@@ -47,8 +47,8 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = this.getArguments();
-        this.mName = b.getString(this.mContext.getString(R.string.name));
-        this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.json)), FoodMenu.class);
+        this.mName = b.getString(this.mContext.getString(R.string.key_name));
+        this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.key_json)), FoodMenu.class);
     }
 
     @Override
@@ -129,14 +129,14 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag(mContext.getString(R.string.dialog));
+                Fragment prev = getFragmentManager().findFragmentByTag(mContext.getString(R.string.key_dialog));
 
                 if (prev != null) ft.remove(prev);
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
                 DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
-                dialog.show(ft, mContext.getString(R.string.dialog));
+                dialog.show(ft, mContext.getString(R.string.key_dialog));
             }
         });
 

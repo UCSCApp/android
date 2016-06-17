@@ -15,6 +15,8 @@ import slugapp.com.sluglife.models.DiningHallWrapper;
  * Created by isayyuhh_s on 9/1/2015.
  */
 public class DiningHallHttpRequest extends BaseHttpRequest {
+    private Context mContext;
+
     protected String mName;
 
     public DiningHallHttpRequest(Context context, String name) {
@@ -26,9 +28,10 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
         String path = context.getString(R.string.api_dining_menu);
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(context.getString(R.string.name), name);
+        params.put(context.getString(R.string.key_name), name);
 
         this.createUrl(protocol, api, port, path, params);
+        this.mContext = context;
         this.mName = name;
     }
 
@@ -37,7 +40,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
             @Override
             public void onSuccess(String val) {
                 try {
-                    callback.onSuccess(new DiningHallWrapper(val, mName));
+                    callback.onSuccess(new DiningHallWrapper(mContext, val, mName));
                 } catch (JSONException je) {
                     je.printStackTrace();
                     callback.onError(je);

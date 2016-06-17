@@ -33,7 +33,7 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = this.getArguments();
-        this.mName = b.getString(getActivity().getString(R.string.name));
+        this.mName = b.getString(getActivity().getString(R.string.key_name));
         this.mDiningHall = new DiningHall();
     }
 
@@ -138,8 +138,8 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
             DiningHallDetailFragment fragment = new DiningHallDetailFragment();
 
             Bundle b = new Bundle();
-            b.putString(mContext.getString(R.string.json), this.mCallback.getGson().toJson(menu));
-            b.putString(mContext.getString(R.string.name), mName);
+            b.putString(mContext.getString(R.string.key_json), this.mCallback.getGson().toJson(menu));
+            b.putString(mContext.getString(R.string.key_name), mName);
             fragment.setArguments(b);
 
             return fragment;

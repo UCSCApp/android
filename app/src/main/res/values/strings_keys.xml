@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="name">name</string>
-    <string name="json">json</string>
-    <string name="dialog">dialog</string>
+    <!-- Json keys -->
+    <string name="key_breakfast">breakfast</string>
+    <string name="key_lunch">lunch</string>
+    <string name="key_dinner">dinner</string>
+
+    <!-- Bundle keys -->
+    <string name="key_name">name</string>
+    <string name="key_json">json</string>
+    <string name="key_dialog">dialog</string>
 </resources>

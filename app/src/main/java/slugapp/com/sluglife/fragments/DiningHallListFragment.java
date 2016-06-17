@@ -75,7 +75,7 @@ public class DiningHallListFragment extends BaseListFragment {
         String name = tv.getText().toString();
 
         Bundle b = new Bundle();
-        b.putString(this.mContext.getString(R.string.name), name);
+        b.putString(this.mContext.getString(R.string.key_name), name);
 
         DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
         fragment.setArguments(b);
