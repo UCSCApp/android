@@ -12,7 +12,7 @@ public enum FragmentEnum {
     //EVENT(EventListFragment.class, R.id.events_button, R.drawable.ic_events, "Events"),
     MAP(MapFragment.class, R.id.button_1, R.drawable.ic_map, "Map"),
     DINING(DiningHallListFragment.class, R.id.button_2, R.drawable.ic_dining, "Dining Halls"),
-    SOCIAL(SocialFragment.class, R.id.button_3, R.drawable.ic_social, "Social");
+    SOCIAL(SocialFragment.class, R.id.button_3, R.drawable.ic_social, "Tweets");
 
     private Class fragment;
     private int buttonId;

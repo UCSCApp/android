@@ -178,7 +178,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 if (this.foundMarker(name, currEnum, MarkerTypeEnum.DININGHALL)) {
                     for (Marker marker : this.mStaticMarkers) {
                         String title = marker.getTitle();
-                        if (title.contains(name)) {
+                        if (name != null && title.contains(name)) {
                             float lat = Float.valueOf(this.mCallback.toStr(currEnum.getLat()));
                             float lng = Float.valueOf(this.mCallback.toStr(currEnum.getLng()));
                             LatLng latLng = new LatLng(lat, lng);
