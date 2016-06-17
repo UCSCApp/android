@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.runnables.LoopRunnable;
 import slugapp.com.sluglife.enums.MarkerEnum;
@@ -47,6 +48,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     private Context mContext;
     private String mTitle;
     private int mButtonId;
+    private FragmentEnum fragmentEnum = FragmentEnum.MAP;
 
     private boolean init = true;
 
@@ -68,7 +70,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
-        this.setLayout(this.mContext.getString(R.string.title_map), R.id.map_button);
+        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
         this.setView();
 
         return view;

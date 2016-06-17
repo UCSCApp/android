@@ -15,6 +15,7 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.DiningHallListAdapter;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
@@ -25,12 +26,13 @@ import slugapp.com.sluglife.models.StringObject;
  */
 public class DiningHallListFragment extends BaseListFragment {
     private List<BaseObject> diningHalls;
+    private FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_dining_hall, container, false);
-        this.setLayout(this.mContext.getString(R.string.title_dininglist), R.id.dining_button);
-        this.setView(view, new DiningHallListAdapter(getActivity()));
+        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
+        this.setView(view, new DiningHallListAdapter(mContext));
         return view;
     }
 

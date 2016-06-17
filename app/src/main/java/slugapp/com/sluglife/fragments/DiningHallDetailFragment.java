@@ -14,6 +14,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.Food;
 import slugapp.com.sluglife.enums.AttributeEnum;
 import slugapp.com.sluglife.models.FoodMenu;
@@ -39,12 +40,13 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
     private String mName;
     private FoodMenu mMenu;
+    private FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getArguments();
+        Bundle b = this.getArguments();
         this.mName = b.getString(this.mContext.getString(R.string.name));
         this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.json)), FoodMenu.class);
     }
@@ -53,7 +55,8 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
-        this.setLayout(this.mName, R.id.dining_button);
+
+        this.setLayout(this.mName, this.fragmentEnum.getButtonId());
         this.setView(view);
 
         return view;
@@ -63,7 +66,8 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
     protected void setView(final View view) {
         final TextView dateTv = (TextView) view.findViewById(R.id.date);
 
-        String date = this.mCallback.getToday().getMonth() + " " + mCallback.getToday().getDay();
+        String date = this.mCallback.getToday().getMonth() + " " +
+                this.mCallback.getToday().getDay();
         TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
 
         dateTv.setText(date);
@@ -85,9 +89,9 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
         // for each food item
         for (Food food : menu.getItems()) {
-            TableRow row = new TableRow(getActivity());
-            TextView name = new TextView(getActivity());
-            LinearLayout attributes = new LinearLayout(getActivity());
+            TableRow row = new TableRow(this.mContext);
+            TextView name = new TextView(this.mContext);
+            LinearLayout attributes = new LinearLayout(this.mContext);
 
             // params
             LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
@@ -104,7 +108,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             // food attributes
             attributes.setOrientation(LinearLayout.HORIZONTAL);
             for (AttributeEnum attribute : food.getAttributes()) {
-                ImageView icon = new ImageView(getActivity());
+                ImageView icon = new ImageView(this.mContext);
 
                 icon.setLayoutParams(iconParams);
                 icon.setImageResource(attribute.getIcon());

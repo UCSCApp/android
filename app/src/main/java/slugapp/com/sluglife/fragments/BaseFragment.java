@@ -13,10 +13,10 @@ import slugapp.com.sluglife.models.Date;
  */
 public abstract class BaseFragment extends Fragment {
     private String mTitle;
+    private int mButtonId;
 
     protected ActivityCallback mCallback;
     protected Context mContext;
-    protected int mButtonId;
     protected Date mToday;
 
     @Override
@@ -30,7 +30,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        this.setHasOptionsMenu(true);
     }
 
     @Override

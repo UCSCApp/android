@@ -11,6 +11,7 @@ import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.BaseObject;
 
 /**
@@ -18,6 +19,7 @@ import slugapp.com.sluglife.models.BaseObject;
  */
 public class SocialFragment extends BaseListFragment {
     private TweetTimelineListAdapter adapter;
+    private FragmentEnum fragmentEnum = FragmentEnum.SOCIAL;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class SocialFragment extends BaseListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_social, container, false);
 
-        this.setLayout(this.mContext.getString(R.string.title_social), R.id.social_button);
+        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
         this.setView(view, this.adapter);
 
         return view;

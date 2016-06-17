@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
@@ -25,12 +26,13 @@ import slugapp.com.sluglife.models.FoodMenu;
 public class DiningHallViewPagerFragment extends BaseDetailFragment {
     private String mName;
     private DiningHall mDiningHall;
+    private FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getArguments();
+        Bundle b = this.getArguments();
         this.mName = b.getString(getActivity().getString(R.string.name));
         this.mDiningHall = new DiningHall();
     }
@@ -39,7 +41,8 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pager_dining_hall, container, false);
-        this.setLayout(this.mName, R.id.dining_button);
+
+        this.setLayout(this.mName, this.fragmentEnum.getButtonId());
         this.setView(view);
 
         return view;
@@ -47,7 +50,8 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
 
     @Override
     protected void setView(final View view) {
-        new DiningHallHttpRequest(getActivity(), mName).execute(new HttpCallback<DiningHall>() {
+        new DiningHallHttpRequest(this.mContext, this.mName).execute(
+                new HttpCallback<DiningHall>() {
             @Override
             public void onSuccess(DiningHall val) {
                 mDiningHall = val;

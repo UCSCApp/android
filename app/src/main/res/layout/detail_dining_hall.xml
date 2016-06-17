@@ -82,7 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dip"
-            android:text="No dining info available at the moment :("
+            android:gravity="center_horizontal"
+            android:text="Closed at this time :("
             android:textSize="16sp"
             android:visibility="gone" />
     </LinearLayout>

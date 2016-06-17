@@ -37,7 +37,7 @@ public abstract class BaseListFragment extends BaseFragment {
         SearchManager searchManager =
                 (SearchManager) this.mContext.getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getActivity().getComponentName()));
+                searchManager.getSearchableInfo(this.getActivity().getComponentName()));
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
