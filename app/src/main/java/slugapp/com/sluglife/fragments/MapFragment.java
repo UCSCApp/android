@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,10 +192,10 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
             this.mStaticMarkers.put(new Facility(MarkerTypeEnum.LIBRARY),
                     map.addMarker(new MarkerOptions()
-                    .title(title)
-                    .snippet(snippet)
-                    .position(latLng)
-                    .icon(bitmap)));
+                            .title(title)
+                            .snippet(snippet)
+                            .position(latLng)
+                            .icon(bitmap)));
         }
     }
 
@@ -211,8 +213,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if (mStaticMarkers.containsValue(marker)) goToStatic(marker);
-                //else if () {}
+                goToStatic(marker);
             }
         });
 
@@ -232,7 +233,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         for (Map.Entry entry : set) {
             Facility facility = (Facility) entry.getKey();
 
-            if (!entry.getValue().equals(marker)) continue;
+            if (!((Marker) entry.getValue()).getTitle().equals(marker.getTitle())) continue;
             if (facility.isType(MarkerTypeEnum.DININGHALL)) {
                 DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
 

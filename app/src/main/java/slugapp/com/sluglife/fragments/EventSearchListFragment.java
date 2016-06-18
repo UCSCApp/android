@@ -16,6 +16,7 @@ import java.util.StringTokenizer;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.models.BaseObject;
@@ -29,6 +30,7 @@ import slugapp.com.sluglife.adapters.EventListAdapter;
  */
 public class EventSearchListFragment extends BaseSwipeListFragment {
     private String query;
+    private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
-        //this.setLayout("Search: \"" + this.query + "\"", R.id.events_button);
+        this.setLayout("Search: \"" + this.query + "\"", fragmentEnum.getButtonId());
         this.setView(view, new EventListAdapter(getActivity()));
         this.onRefresh();
         return view;

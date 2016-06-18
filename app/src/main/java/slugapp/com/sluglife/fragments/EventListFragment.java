@@ -15,6 +15,7 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.EventListAdapter;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.models.BaseObject;
@@ -24,12 +25,13 @@ import slugapp.com.sluglife.models.Event;
  * Created by isaiah on 6/23/2015.
  */
 public class EventListFragment extends BaseSwipeListFragment {
+    private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
-        //this.setLayout("Event Center", R.id.events_button);
-        this.setView(view, new EventListAdapter(getActivity()));
+        this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
+        this.setView(view, new EventListAdapter(this.mContext));
         this.onRefresh();
         return view;
     }
@@ -44,12 +46,12 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     protected void doSearch(String query) {
-        mCallback.hideKeyboard();
+        this.mCallback.hideKeyboard();
         EventSearchListFragment fragment = new EventSearchListFragment();
         Bundle b = new Bundle();
         b.putString("query", query);
         fragment.setArguments(b);
-        mCallback.setFragment(fragment);
+        this.mCallback.setFragment(fragment);
     }
 
     @Override

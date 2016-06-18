@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.Event;
 import slugapp.com.sluglife.http.ImageHttpRequest;
 
@@ -18,6 +19,7 @@ import slugapp.com.sluglife.http.ImageHttpRequest;
  */
 public class EventDetailFragment extends BaseDetailFragment {
     private Event mEvent;
+    private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class EventDetailFragment extends BaseDetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_event, container, false);
-        //this.setLayout(mEvent.name(), R.id.events_button);
+        this.setLayout(mEvent.getName(), fragmentEnum.getButtonId());
         this.setView(view);
         return view;
     }
