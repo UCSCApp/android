@@ -11,11 +11,17 @@ public class Event extends BaseObject {
     private Date mDate;
     private String mDescription;
     private String mUrl;
+    private boolean mDefined;
 
     /**
      * Constructor
      */
-    public Event() {}
+    public Event() {
+        this.mName = "";
+        this.mDate = new Date("");
+        this.mDescription = "";
+        this.mUrl = "";
+    }
 
     protected void setName(String name) {
         this.mName = name;
@@ -33,6 +39,10 @@ public class Event extends BaseObject {
 
     protected void setUrl(String url) {
         this.mUrl = url;
+    }
+
+    protected void checkDefined() {
+        this.mDefined = !(mName.equals("") || mDescription.equals(""));
     }
 
     /**

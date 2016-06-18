@@ -41,7 +41,8 @@ public class EventListAdapter extends BaseListAdapter {
         name.setText(e.getName());
         date.setText(e.getDate().getString());
         desc.setText(e.getShortDescription());
-        new ImageHttpRequest(e.getUrl()).execute(image);
+        if (!e.getUrl().isEmpty()) new ImageHttpRequest(e.getUrl()).execute(image);
+        else image.setVisibility(View.INVISIBLE);
 
         return convertView;
     }

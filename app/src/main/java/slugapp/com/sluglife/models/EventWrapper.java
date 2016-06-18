@@ -29,5 +29,7 @@ public class EventWrapper extends Event {
         } catch (JSONException je) {
             je.printStackTrace();
         }
+
+        this.checkDefined();
     }
 }
