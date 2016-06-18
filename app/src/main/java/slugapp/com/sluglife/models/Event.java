@@ -15,13 +15,23 @@ public class Event extends BaseObject {
     /**
      * Constructor
      */
-    public Event(String name, String date, String description, String url) {
-        String[] dateParts = date.split("\\s+");
+    public Event() {}
 
+    protected void setName(String name) {
         this.mName = name;
+    }
+
+    protected void setDate(String date) {
+        String[] dateParts = date.split("\\s+");
         if (dateParts.length != 4) this.mDate = new Date(date);
         else this.mDate = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
+    }
+
+    protected void setDescription(String description) {
         this.mDescription = description;
+    }
+
+    protected void setUrl(String url) {
         this.mUrl = url;
     }
 

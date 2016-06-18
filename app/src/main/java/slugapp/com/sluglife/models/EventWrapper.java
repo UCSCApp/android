@@ -8,10 +8,26 @@ import org.json.JSONObject;
  */
 public class EventWrapper extends Event {
     public EventWrapper(JSONObject obj) throws JSONException {
-        super(
-                obj.getString("name"),
-                obj.getString("date"),
-                obj.getString("description"),
-                obj.getString("url"));
+        super();
+        try {
+            this.setName(obj.getString("name"));
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+        try {
+            this.setDate(obj.getString("date"));
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+        try {
+            this.setDescription(obj.getString("description"));
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+        try {
+            this.setUrl(obj.getString("url"));
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
     }
 }

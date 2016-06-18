@@ -1,12 +1,16 @@
 package slugapp.com.sluglife.fragments;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,11 +29,13 @@ import slugapp.com.sluglife.models.Event;
  * Created by isaiah on 6/23/2015.
  */
 public class EventListFragment extends BaseSwipeListFragment {
+    private View mView;
     private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
+        this.mView = view;
         this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
         this.setView(view, new EventListAdapter(this.mContext));
         this.onRefresh();
@@ -84,6 +90,17 @@ public class EventListFragment extends BaseSwipeListFragment {
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);
+                if (events.isEmpty()) {
+                    SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(R.id.swipe_container);
+                    list.setVisibility(View.GONE);
+                    TextView failed = (TextView) mView.findViewById(R.id.failed);
+                    failed.setVisibility(View.VISIBLE);
+                } else {
+                    SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(R.id.swipe_container);
+                    list.setVisibility(View.VISIBLE);
+                    TextView failed = (TextView) mView.findViewById(R.id.failed);
+                    failed.setVisibility(View.GONE);
+                }
                 ((BaseListAdapter) mAdapter).setData(events);
                 mSwipeLayout.setRefreshing(false);
                 refreshing = false;
@@ -91,7 +108,13 @@ public class EventListFragment extends BaseSwipeListFragment {
 
             @Override
             public void onError(Exception e) {
+                SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(R.id.swipe_container);
+                list.setVisibility(View.GONE);
+                TextView failed = (TextView) mView.findViewById(R.id.failed);
+                failed.setVisibility(View.VISIBLE);
                 mSwipeLayout.setRefreshing(false);
+                refreshing = false;
+                e.printStackTrace();
             }
         });
     }

@@ -12,7 +12,11 @@ public class EventListWrapper extends ArrayList<Event> {
     public EventListWrapper(JSONArray arr) throws JSONException {
         super(arr.length());
         for (int i = 0; i < arr.length(); ++i) {
-            add(new EventWrapper(arr.getJSONObject(i)));
+            try {
+                this.add(new EventWrapper(arr.getJSONObject(i)));
+            } catch (JSONException je) {
+                je.printStackTrace();
+            }
         }
     }
 }

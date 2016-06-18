@@ -5,6 +5,9 @@ import slugapp.com.sluglife.enums.MonthEnum;
 /**
  * Created by isayyuhh_s on 7/18/2015
  */
+
+// TODO: move date helper functions
+
 public class Date {
     private final static MonthEnum[] sMonths = MonthEnum.values();
 
