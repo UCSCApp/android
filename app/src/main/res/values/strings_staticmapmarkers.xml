@@ -4,23 +4,23 @@
     <string name="map_init_lng">-122.059972</string>
     <string name="map_init_zoom">15.0</string>
 
-    <string name="map_eight_oakes_title">College Eight / Oakes Dining Hall</string>
+    <string name="map_eight_oakes_title">College Eight &amp; Oakes</string>
     <string name="map_eight_oakes_lat">36.991694</string>
     <string name="map_eight_oakes_lng">-122.065386</string>
 
-    <string name="map_porter_kresge_title">Porter / Kresge Dining Hall</string>
+    <string name="map_porter_kresge_title">Porter &amp; Kresge</string>
     <string name="map_porter_kresge_lat">36.994269</string>
     <string name="map_porter_kresge_lng">-122.065944</string>
 
-    <string name="map_nine_ten_title">College Nine / College Ten Dining Hall</string>
+    <string name="map_nine_ten_title">College Nine &amp; College Ten</string>
     <string name="map_nine_ten_lat">37.000729</string>
     <string name="map_nine_ten_lng">-122.057771</string>
 
-    <string name="map_crown_merrill_title">Crown / Merrill Dining Hall</string>
+    <string name="map_crown_merrill_title">Crown &amp; Merrill</string>
     <string name="map_crown_merrill_lat">37.000112</string>
     <string name="map_crown_merrill_lng">-122.054417</string>
 
-    <string name="map_cowell_stevenson_title">Cowell / Stevenson Dining Hall</string>
+    <string name="map_cowell_stevenson_title">Cowell &amp; Stevenson</string>
     <string name="map_cowell_stevenson_lat">36.996808</string>
     <string name="map_cowell_stevenson_lng">-122.053036</string>
 
@@ -32,6 +32,6 @@
     <string name="map_sne_lat">36.999055</string>
     <string name="map_sne_lng">-122.060699</string>
 
-    <string name="map_markersnippet_dininghall">tap here to see more</string>
+    <string name="map_markersnippet_dininghall">dining hall snippet placeholder</string>
     <string name="map_markersnippet_library">library snippet placeholder</string>
 </resources>

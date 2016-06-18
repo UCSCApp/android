@@ -1,5 +1,7 @@
 package slugapp.com.sluglife.models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,21 +9,47 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.AttributeEnum;
+import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
 /**
  * Created by isayyuhh_s on 9/2/2015.
  */
-public class DiningHall {
-    private String mCollege;
+public class DiningHall extends Facility {
+    public static final int diningImage = R.drawable.dining_hall;
+
+    private String mName;
     private FoodMenu mBreakfast;
     private FoodMenu mLunch;
     private FoodMenu mDinner;
+    private LatLng latLng;
 
     public DiningHall() {
+        super(MarkerTypeEnum.DININGHALL);
         this.mBreakfast = new FoodMenu();
         this.mLunch = new FoodMenu();
         this.mDinner = new FoodMenu();
+    }
+
+    protected void addName(String name) {
+        this.mName = name;
+    }
+
+    protected void addCoordinates(String lat, String lng) throws JSONException {
+        this.latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+    }
+
+    protected void addBreakfast(JSONArray array) throws JSONException {
+        this.mBreakfast = this.addMenu(array);
+    }
+
+    protected void addLunch(JSONArray array) throws JSONException {
+        this.mLunch = this.addMenu(array);
+    }
+
+    protected void addDinner(JSONArray array) throws JSONException {
+        this.mDinner = this.addMenu(array);
     }
 
     private FoodMenu addMenu(JSONArray array) throws JSONException {
@@ -39,24 +67,12 @@ public class DiningHall {
         return menu;
     }
 
-    public void addCollege(String college) {
-        this.mCollege = college;
+    public String getName() {
+        return this.mName;
     }
 
-    public void addBreakfast(JSONArray array) throws JSONException {
-        this.mBreakfast = addMenu(array);
-    }
-
-    public void addLunch(JSONArray array) throws JSONException {
-        this.mLunch = addMenu(array);
-    }
-
-    public void addDinner(JSONArray array) throws JSONException {
-        this.mDinner = addMenu(array);
-    }
-
-    public String getCollege() {
-        return this.mCollege;
+    public LatLng getLatLng() {
+        return this.latLng;
     }
 
     public FoodMenu getBreakfast() {
@@ -70,5 +86,4 @@ public class DiningHall {
     public FoodMenu getDinner() {
         return this.mDinner;
     }
-
 }

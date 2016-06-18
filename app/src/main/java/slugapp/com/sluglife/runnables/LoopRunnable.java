@@ -12,11 +12,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
 import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.LoopHttpRequest;
+import slugapp.com.sluglife.models.Facility;
 import slugapp.com.sluglife.utils.LatLngInterpolator;
 import slugapp.com.sluglife.models.Loop;
 
@@ -24,11 +26,14 @@ import slugapp.com.sluglife.models.Loop;
  * Created by isayyuhh on 2/19/16
  */
 public class LoopRunnable implements Runnable {
+    private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
+    private static final float DURATION_IN_MS = 1000;
+
     private Context mContext;
     private GoogleMap mMap;
-    private List<Marker> mLoopList;
+    private HashMap<Loop, Marker> mLoopList;
 
-    public LoopRunnable(Context context, GoogleMap map, List<Marker> loopList) {
+    public LoopRunnable(Context context, GoogleMap map, HashMap<Loop, Marker> loopList) {
         this.mContext = context;
         this.mMap = map;
         this.mLoopList = loopList;
@@ -36,22 +41,15 @@ public class LoopRunnable implements Runnable {
 
     @Override
     public void run() {
-        new LoopHttpRequest(mContext).execute(new HttpCallback<List<Loop>>() {
+        new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<Loop>>() {
             @Override
             public void onSuccess(List<Loop> val) {
                 for (Loop loop : val) {
-                    boolean found = false;
-                    for (Marker marker : mLoopList) {
-                        if (String.valueOf(loop.getId()).compareTo(marker.getSnippet()) == 0) {
-                            animateMarker(marker, new LatLng(loop.getLat(), loop.getLng()),
-                                    new LatLngInterpolator.Linear());
-                            //marker.setPosition(new LatLng(loop.getLat(), loop.getLng()));
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        mLoopList.add(mMap.addMarker(new MarkerOptions()
+                    if (mLoopList.containsKey(loop))
+                        animateMarker(mLoopList.get(loop), new LatLng(loop.getLat(), loop.getLng()),
+                                new LatLngInterpolator.Linear());
+                    else {
+                        mLoopList.put(loop, mMap.addMarker(new MarkerOptions()
                                 .title(loop.getType())
                                 .snippet(String.valueOf(loop.getId()))
                                 .position(new LatLng(loop.getLat(), loop.getLng()))
@@ -62,6 +60,7 @@ public class LoopRunnable implements Runnable {
 
             @Override
             public void onError(Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -69,10 +68,8 @@ public class LoopRunnable implements Runnable {
     private void animateMarker(final Marker marker, final LatLng finalPosition,
                                final LatLngInterpolator latLngInterpolator) {
         final LatLng startPosition = marker.getPosition();
+        final long startTime = SystemClock.uptimeMillis();
         final Handler handler = new Handler();
-        final long start = SystemClock.uptimeMillis();
-        final Interpolator interpolator = new AccelerateDecelerateInterpolator();
-        final float durationInMs = 2000;
 
         handler.post(new Runnable() {
             long elapsed;
@@ -81,19 +78,15 @@ public class LoopRunnable implements Runnable {
 
             @Override
             public void run() {
-                // Calculate progress using interpolator
-                this.elapsed = SystemClock.uptimeMillis() - start;
-                this.t = this.elapsed / durationInMs;
-                this.v = interpolator.getInterpolation(this.t);
+                // Calculate progress using INTERPOLATOR
+                this.elapsed = SystemClock.uptimeMillis() - startTime;
+                this.t = this.elapsed / DURATION_IN_MS;
+                this.v = INTERPOLATOR.getInterpolation(this.t);
 
                 marker.setPosition(latLngInterpolator.interpolate(this.v, startPosition,
                         finalPosition));
 
-                // Repeat till progress is complete.
-                if (this.t < 1) {
-                    // Post again 16ms later.
-                    handler.postDelayed(this, 16);
-                }
+                if (this.t < 1) handler.postDelayed(this, 16);
             }
         });
     }

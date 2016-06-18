@@ -33,7 +33,7 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = this.getArguments();
-        this.mName = b.getString(getActivity().getString(R.string.key_name));
+        this.mName = b.getString(this.mContext.getString(R.string.key_name));
         this.mDiningHall = new DiningHall();
     }
 

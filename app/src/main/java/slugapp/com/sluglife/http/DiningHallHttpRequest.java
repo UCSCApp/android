@@ -15,7 +15,7 @@ import slugapp.com.sluglife.models.DiningHallWrapper;
  * Created by isayyuhh_s on 9/1/2015.
  */
 public class DiningHallHttpRequest extends BaseHttpRequest {
-    private Context mContext;
+    protected Context mContext;
 
     protected String mName;
 
