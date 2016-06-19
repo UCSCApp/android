@@ -29,8 +29,9 @@ public class Event extends BaseObject {
 
     protected void setDate(String date) {
         String[] dateParts = date.split("\\s+");
-        if (dateParts.length != 4) this.mDate = new Date(date);
-        else this.mDate = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
+        if (dateParts.length != 5) this.mDate = new Date(date);
+        else this.mDate = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3],
+                dateParts[4]);
     }
 
     protected void setDescription(String description) {

@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.enums.FragmentEnum;
+import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.models.BaseObject;
@@ -78,7 +79,7 @@ public class EventSearchListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onRefresh() {
-        new TestEventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
+        new EventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 search(vals);

@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         java.util.Date date = Calendar.getInstance().getTime();
         String month = new SimpleDateFormat("MM").format(date);
         String day = new SimpleDateFormat("dd").format(date);
+        String year = new SimpleDateFormat("yyyy").format(date);
         String hour = new SimpleDateFormat("hh").format(date);
         String tod = new SimpleDateFormat("aa").format(date);
         String todayMonth = MonthEnum.JANUARY.getVal();
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
             todayMonth = currMonth.getVal();
             break;
         }
-        return new Date(todayMonth, day, hour + tod, hour + tod);
+        return new Date(todayMonth, day, year, hour + tod, hour + tod);
     }
 
     /**

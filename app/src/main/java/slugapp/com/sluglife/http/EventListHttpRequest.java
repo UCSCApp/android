@@ -11,6 +11,7 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.Event;
+import slugapp.com.sluglife.models.EventListWrapper;
 import slugapp.com.sluglife.models.EventWrapper;
 
 /**
@@ -35,11 +36,7 @@ public class EventListHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    List<Event> eventList = new ArrayList<>(arr.length());
-                    for (int i = 0; i < arr.length(); ++i) {
-                        eventList.add(new EventWrapper(arr.getJSONObject(i)));
-                    }
-                    callback.onSuccess(eventList);
+                    callback.onSuccess(new EventListWrapper(arr));
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

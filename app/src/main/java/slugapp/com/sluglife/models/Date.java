@@ -15,6 +15,7 @@ public class Date {
     private boolean mDefined;
     private MonthEnum mMonth;
     private int mDay;
+    private int mYear;
     private int mStartTime;
     private int mEndTime;
     private String mStartTOD;
@@ -33,6 +34,10 @@ public class Date {
 
     public int getDay() {
         return this.mDay;
+    }
+
+    public int getYear() {
+        return this.mYear;
     }
 
     public int getStartTime() {
@@ -64,7 +69,8 @@ public class Date {
         this.mDefined = false;
     }
 
-    public Date(String newMonth, String newDay, String newStartTime, String newEndTime) {
+    public Date(String newMonth, String newDay, String newYear, String newStartTime,
+                String newEndTime) {
         this.mDefined = false;
 
         /** Month */
@@ -85,6 +91,11 @@ public class Date {
         if (!this.isInteger(day)) return;
         this.mDay = Integer.parseInt(day);
 
+        /** Year */
+        if (newYear.length() != 4) return;
+        if (!this.isInteger(newYear)) return;
+        this.mYear = Integer.parseInt(newYear);
+
         /** Start Time */
         if (newStartTime.length() < 3 || newStartTime.length() > 4) return;
         String startTime = newStartTime.substring(0, newStartTime.length() - 2);
@@ -102,7 +113,8 @@ public class Date {
         this.mEndTOD = endTOD;
 
         /** Date String */
-        this.mString = newMonth + " " + newDay + " | " + newStartTime + " - " + newEndTime;
+        this.mString = newMonth + " " + newDay +  " " + newYear + " | " + newStartTime + " - "
+                + newEndTime;
         this.mDefined = true;
     }
 
@@ -133,6 +145,7 @@ public class Date {
 
     private int compareDates(Date lhs, Date rhs) {
         int check;
+        if ((check = compInts(lhs.getYear(), rhs.getYear())) != 0) return check;
         if ((check = compMonths(lhs.getMonth(), rhs.getMonth())) != 0) return check;
         if ((check = compInts(lhs.getDay(), rhs.getDay())) != 0) return check;
         if ((check = compTODs(lhs.getStartTOD(), rhs.getStartTOD())) != 0) return check;

@@ -16,7 +16,7 @@
     <string name="api_dining_menu">/dining/menu</string>
 
     <!-- Api Events -->
-    <string name="api_event_list">/events</string>
+    <string name="api_event_list">/event</string>
 
     <!-- Api Map -->
     <string name="api_map_loops">/location/get</string>

@@ -25,7 +25,7 @@ public class EventWrapper extends Event {
             je.printStackTrace();
         }
         try {
-            this.setUrl(obj.getString("url"));
+            this.setUrl(obj.getString("image"));
         } catch (JSONException je) {
             je.printStackTrace();
         }
