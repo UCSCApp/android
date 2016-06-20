@@ -18,6 +18,7 @@ import slugapp.com.sluglife.models.EventWrapper;
  * Created by simba on 7/31/15.
  */
 public class EventListHttpRequest extends BaseHttpRequest {
+    protected Context mContext;
 
     public EventListHttpRequest(Context context) {
         super(Method.GET);
@@ -27,6 +28,7 @@ public class EventListHttpRequest extends BaseHttpRequest {
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_event_list);
 
+        this.mContext = context;
         this.createUrl(protocol, api, port, path, null);
     }
 
@@ -36,7 +38,7 @@ public class EventListHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    callback.onSuccess(new EventListWrapper(arr));
+                    callback.onSuccess(new EventListWrapper(mContext, arr));
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

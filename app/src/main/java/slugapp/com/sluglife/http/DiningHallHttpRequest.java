@@ -28,7 +28,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
         String path = context.getString(R.string.api_dining_menu);
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(context.getString(R.string.key_name), name);
+        params.put(context.getString(R.string.bundle_name), name);
 
         this.createUrl(protocol, api, port, path, params);
         this.mContext = context;

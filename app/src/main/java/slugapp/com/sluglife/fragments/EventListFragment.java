@@ -8,9 +8,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +20,6 @@ import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.models.BaseObject;
 import slugapp.com.sluglife.models.Event;
 
@@ -45,7 +42,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_toolbar, menu);
+        inflater.inflate(R.menu.toolbar_event_search, menu);
 
         // SearchView
         this.setSearchView(menu);
@@ -85,7 +82,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     @Override
     public void onRefresh() {
         refreshing = true;
-        new TestEventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
+        new EventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 Collections.sort(vals, new ListSort());

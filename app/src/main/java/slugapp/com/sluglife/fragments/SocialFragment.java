@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
-import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
@@ -26,7 +25,7 @@ public class SocialFragment extends BaseListFragment {
         super.onCreate(savedInstanceState);
 
         final SearchTimeline timeline = new SearchTimeline.Builder()
-                .query(this.mContext.getString(R.string.hashtag_ucsc))
+                .query(this.mContext.getString(R.string.social_hashtag_ucsc))
                 .build();
         this.adapter = new TweetTimelineListAdapter.Builder(this.mContext)
                 .setTimeline(timeline)

@@ -43,7 +43,7 @@ public class DiningLegendDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_dining_hall_legend, container);
+        View view = inflater.inflate(R.layout.dialog_dining_legend, container);
 
         this.getDialog().setTitle(this.mContext.getString(R.string.title_dininglegend));
         this.setList(view);

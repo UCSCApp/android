@@ -33,14 +33,14 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = this.getArguments();
-        this.mName = b.getString(this.mContext.getString(R.string.key_name));
+        this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
         this.mDiningHall = new DiningHall();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.pager_dining_hall, container, false);
+        View view = inflater.inflate(R.layout.viewpager_dining, container, false);
 
         this.setLayout(this.mName, this.fragmentEnum.getButtonId());
         this.setView(view);
@@ -90,7 +90,7 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.find_on_map_toolbar, menu);
+        inflater.inflate(R.menu.toolbar_dining_findonmap, menu);
     }
 
     @Override
@@ -138,8 +138,8 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
             DiningHallDetailFragment fragment = new DiningHallDetailFragment();
 
             Bundle b = new Bundle();
-            b.putString(mContext.getString(R.string.key_json), this.mCallback.getGson().toJson(menu));
-            b.putString(mContext.getString(R.string.key_name), mName);
+            b.putString(mContext.getString(R.string.bundle_json), this.mCallback.getGson().toJson(menu));
+            b.putString(mContext.getString(R.string.bundle_name), mName);
             fragment.setArguments(b);
 
             return fragment;

@@ -29,7 +29,7 @@ public class TestEventListHttpRequest extends EventListHttpRequest {
     public void execute(HttpCallback<List<Event>> callback) {
         try {
             JSONArray arr = new JSONArray(normal);
-            callback.onSuccess(new EventListWrapper(arr));
+            callback.onSuccess(new EventListWrapper(mContext, arr));
         } catch (JSONException je) {
             callback.onError(je);
         }

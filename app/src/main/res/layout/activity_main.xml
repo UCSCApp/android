@@ -8,7 +8,7 @@
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ColorPrimary"
+        android:background="@color/UcscBlue"
         android:gravity="center_horizontal"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:contentInsetEnd="0dp"
@@ -45,7 +45,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             android:layout_weight=".9"
-            android:background="@color/ColorPrimary"/>
+            android:background="@color/UcscBlue"/>
     </LinearLayout>
 </LinearLayout>
 

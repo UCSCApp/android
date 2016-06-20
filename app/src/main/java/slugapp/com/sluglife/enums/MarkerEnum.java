@@ -7,46 +7,6 @@ import slugapp.com.sluglife.R;
  */
 
 public enum MarkerEnum {
-    EIGHT_OAKES(
-            MarkerTypeEnum.DININGHALL,
-            R.string.map_eight_oakes_title,
-            R.string.map_eight_oakes_lat,
-            R.string.map_eight_oakes_lng,
-            R.string.map_markersnippet_dininghall,
-            R.drawable.dining_hall
-    ),
-    PORTER_KRESGE(
-            MarkerTypeEnum.DININGHALL,
-            R.string.map_porter_kresge_title,
-            R.string.map_porter_kresge_lat,
-            R.string.map_porter_kresge_lng,
-            R.string.map_markersnippet_dininghall,
-            R.drawable.dining_hall
-    ),
-    NINE_TEN(
-            MarkerTypeEnum.DININGHALL,
-            R.string.map_nine_ten_title,
-            R.string.map_nine_ten_lat,
-            R.string.map_nine_ten_lng,
-            R.string.map_markersnippet_dininghall,
-            R.drawable.dining_hall
-    ),
-    CROWN_MERRILL(
-            MarkerTypeEnum.DININGHALL,
-            R.string.map_crown_merrill_title,
-            R.string.map_crown_merrill_lat,
-            R.string.map_crown_merrill_lng,
-            R.string.map_markersnippet_dininghall,
-            R.drawable.dining_hall
-    ),
-    COWELL_STEVENSON(
-            MarkerTypeEnum.DININGHALL,
-            R.string.map_cowell_stevenson_title,
-            R.string.map_cowell_stevenson_lat,
-            R.string.map_cowell_stevenson_lng,
-            R.string.map_markersnippet_dininghall,
-            R.drawable.dining_hall
-    ),
     MCHENRY(
             MarkerTypeEnum.LIBRARY,
             R.string.map_mchenry_title,

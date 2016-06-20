@@ -47,14 +47,14 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
         super.onCreate(savedInstanceState);
 
         Bundle b = this.getArguments();
-        this.mName = b.getString(this.mContext.getString(R.string.key_name));
-        this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.key_json)), FoodMenu.class);
+        this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
+        this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), FoodMenu.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.detail_dining_hall, container, false);
+        View view = inflater.inflate(R.layout.detail_dining, container, false);
 
         this.setLayout(this.mName, this.fragmentEnum.getButtonId());
         this.setView(view);
@@ -129,14 +129,14 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag(mContext.getString(R.string.key_dialog));
+                Fragment prev = getFragmentManager().findFragmentByTag(mContext.getString(R.string.bundle_dialog));
 
                 if (prev != null) ft.remove(prev);
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
                 DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
-                dialog.show(ft, mContext.getString(R.string.key_dialog));
+                dialog.show(ft, mContext.getString(R.string.bundle_dialog));
             }
         });
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="map_init_lat">36.995231</string>
+    <string name="map_init_lng">-122.059972</string>
+    <string name="map_init_zoom">15.0</string>
+
+    <string name="map_mchenry_title">Mchenry Library</string>
+    <string name="map_mchenry_lat">36.996022</string>
+    <string name="map_mchenry_lng">-122.058897</string>
+
+    <string name="map_sne_title">Science and Engineering Library</string>
+    <string name="map_sne_lat">36.999055</string>
+    <string name="map_sne_lng">-122.060699</string>
+
+    <string name="map_markersnippet_library">library snippet placeholder</string>
+</resources>

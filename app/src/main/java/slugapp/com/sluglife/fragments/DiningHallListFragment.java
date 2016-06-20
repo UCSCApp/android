@@ -30,7 +30,7 @@ public class DiningHallListFragment extends BaseListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_dining_hall, container, false);
+        View view = inflater.inflate(R.layout.list_dining, container, false);
         this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
         this.setView(view, new DiningHallListAdapter(mContext));
         return view;
@@ -75,7 +75,7 @@ public class DiningHallListFragment extends BaseListFragment {
         String name = tv.getText().toString();
 
         Bundle b = new Bundle();
-        b.putString(this.mContext.getString(R.string.key_name), name);
+        b.putString(this.mContext.getString(R.string.bundle_name), name);
 
         DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
         fragment.setArguments(b);

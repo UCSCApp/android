@@ -38,7 +38,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/ColorPrimary"
+                    android:background="@color/UcscBlue"
                     android:padding="5dip"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip">

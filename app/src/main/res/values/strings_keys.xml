@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Json keys -->
-    <string name="key_breakfast">breakfast</string>
-    <string name="key_lunch">lunch</string>
-    <string name="key_dinner">dinner</string>
+    <string name="json_event_name">name</string>
+    <string name="json_event_date">date</string>
+    <string name="json_event_summary">summary</string>
+    <string name="json_event_image">image</string>
+
+    <string name="json_dining_breakfast">breakfast</string>
+    <string name="json_dining_lunch">lunch</string>
+    <string name="json_dining_dinner">dinner</string>
 
     <!-- Bundle keys -->
-    <string name="key_name">name</string>
-    <string name="key_json">json</string>
-    <string name="key_dialog">dialog</string>
+    <string name="bundle_name">name</string>
+    <string name="bundle_json">json</string>
+    <string name="bundle_dialog">dialog</string>
 </resources>
