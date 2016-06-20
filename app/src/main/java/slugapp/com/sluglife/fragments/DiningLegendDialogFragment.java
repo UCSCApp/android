@@ -37,6 +37,7 @@ public class DiningLegendDialogFragment extends DialogFragment {
 
     @Override
     public void onAttach(Activity activity) {
+        super.onAttach(activity);
         this.mContext = activity;
     }
 
