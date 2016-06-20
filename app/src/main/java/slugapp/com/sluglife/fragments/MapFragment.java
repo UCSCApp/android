@@ -47,7 +47,7 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
     private final static MarkerEnum[] sMarkerEnums = MarkerEnum.values();
-    private final static float DEFAULT_ZOOM = 15.5f;
+    private final static float DEFAULT_ZOOM = 15.0f;
     private final static float MAX_VISIBLE_ZOOM = 14.9f;
 
     private HashMap<Facility, Marker> mStaticMarkers;
@@ -234,11 +234,10 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
 
                 Bundle b = new Bundle();
-                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle()
-                        .replace(mContext.getString(R.string.dining_nameaddon), ""));
+                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle().replace(mContext.getString(R.string.dining_nameaddon), ""));
 
                 fragment.setArguments(b);
-                mCallback.setFragment(fragment);
+                this.mCallback.setFragment(fragment);
             }
         }
     }
@@ -267,16 +266,16 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         } else if (this.init) this.setInitialZoom(map);
         this.init = false;
     }
-    */
 
     private boolean foundMarker(String name, MarkerEnum currEnum, MarkerTypeEnum type) {
         return currEnum.getType() == type && this.mCallback.toStr(currEnum.getTitle()).contains(name);
     }
+    */
 
     private void setInitialZoom(GoogleMap map) {
         float lat = Float.valueOf(this.mCallback.toStr(R.string.map_init_lat));
         float lng = Float.valueOf(this.mCallback.toStr(R.string.map_init_lng));
-        float zoom = Float.valueOf(this.mCallback.toStr(R.string.map_init_zoom));
+        float zoom = DEFAULT_ZOOM;
 
         LatLng initLatLng = new LatLng(lat, lng);
 

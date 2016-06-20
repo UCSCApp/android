@@ -13,5 +13,6 @@
     <!-- Bundle keys -->
     <string name="bundle_name">name</string>
     <string name="bundle_json">json</string>
+    <string name="bundle_query">query</string>
     <string name="bundle_dialog">dialog</string>
 </resources>
