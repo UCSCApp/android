@@ -7,7 +7,7 @@ import slugapp.com.sluglife.http.BaseRequest;
 /**
  * Created by simba on 7/31/15.
  */
-public class SlugApp extends Application {
+public class SlugLifeApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

@@ -21,7 +21,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
-        android:name=".application.SlugApp"
+        android:name=".application.SlugLifeApplication"
         android:allowBackup="true"
         android:icon="@drawable/slugapp"
         android:label="@string/app_name"
