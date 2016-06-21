@@ -27,7 +27,7 @@ import slugapp.com.sluglife.models.Loop;
  */
 public class LoopRunnable implements Runnable {
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
-    private static final float DURATION_IN_MS = 1000;
+    private static final float DURATION_IN_MS = 2000;
 
     private Context mContext;
     private GoogleMap mMap;
@@ -45,10 +45,16 @@ public class LoopRunnable implements Runnable {
             @Override
             public void onSuccess(List<Loop> val) {
                 for (Loop loop : val) {
-                    if (mLoopList.containsKey(loop))
-                        animateMarker(mLoopList.get(loop), new LatLng(loop.getLat(), loop.getLng()),
-                                new LatLngInterpolator.Linear());
-                    else {
+                    boolean found = false;
+                    for (Marker marker : mLoopList.values()) {
+                        if (String.valueOf(loop.getId()).compareTo(marker.getSnippet()) == 0) {
+                            animateMarker(marker, new LatLng(loop.getLat(), loop.getLng()),
+                                    new LatLngInterpolator.Linear());
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
                         mLoopList.put(loop, mMap.addMarker(new MarkerOptions()
                                 .title(loop.getType())
                                 .snippet(String.valueOf(loop.getId()))
