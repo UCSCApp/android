@@ -41,8 +41,7 @@ public class EventListFragment extends BaseSwipeListFragment {
         View view = inflater.inflate(R.layout.list_event, container, false);
         this.mView = view;
 
-        String name = this.checkIfQueried();
-        this.setLayout(name, this.fragmentEnum.getButtonId());
+        this.setLayout(this.checkIfQueried(), this.fragmentEnum.getButtonId());
         this.setView(view, new EventListAdapter(this.mContext));
         this.onRefresh();
 

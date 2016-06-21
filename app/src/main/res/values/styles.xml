@@ -4,4 +4,11 @@
         <item name="colorPrimary">@color/UcscBlue</item>
         <item name="colorPrimaryDark">@color/UcscBlue</item>
     </style>
+
+    <style name="SearchBarTheme" parent="Theme.AppCompat.Light.NoActionBar"><!-- Used for the bottom line when not selected / focused
+-->
+        <item name="colorAccent">@color/UcscYellow</item>
+        <item name="colorControlNormal">@color/UcscYellow</item>
+-->
+    </style>
 </resources>

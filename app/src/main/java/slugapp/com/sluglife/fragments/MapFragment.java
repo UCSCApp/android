@@ -110,7 +110,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.setStaticMarkers(map);
         this.setMapListeners(map);
         this.setInitialZoom(map);
-        //this.checkIfFromFindOnMap(map);
     }
 
     protected void setView() {
@@ -241,36 +240,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
             }
         }
     }
-
-    /*
-    private void checkIfFromFindOnMap(GoogleMap map) {
-        Bundle b = this.getArguments();
-
-        if (b != null && b.containsKey(this.mContext.getString(R.string.bundle_name))) {
-            String name = b.getString(this.mContext.getString(R.string.bundle_name));
-            for (MarkerEnum currEnum : sMarkerEnums) {
-                if (this.foundMarker(name, currEnum, MarkerTypeEnum.DININGHALL)) {
-                    for (Marker marker : this.mStaticMarkers.values()) {
-                        String title = marker.getTitle();
-                        if (name != null && title.contains(name)) {
-                            float lat = Float.valueOf(this.mCallback.toStr(currEnum.getLat()));
-                            float lng = Float.valueOf(this.mCallback.toStr(currEnum.getLng()));
-                            LatLng latLng = new LatLng(lat, lng);
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
-                            marker.showInfoWindow();
-                        }
-                    }
-                    break;
-                }
-            }
-        } else if (this.init) this.setInitialZoom(map);
-        this.init = false;
-    }
-
-    private boolean foundMarker(String name, MarkerEnum currEnum, MarkerTypeEnum type) {
-        return currEnum.getType() == type && this.mCallback.toStr(currEnum.getTitle()).contains(name);
-    }
-    */
 
     private void setInitialZoom(GoogleMap map) {
         float lat = Float.valueOf(this.mCallback.toStr(R.string.map_init_lat));
