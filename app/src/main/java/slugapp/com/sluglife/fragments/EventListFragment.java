@@ -2,12 +2,18 @@ package slugapp.com.sluglife.fragments;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,39 +41,76 @@ public class EventListFragment extends BaseSwipeListFragment {
     private String query;
     private boolean queried;
 
+    private boolean searchShowing;
+    private View searchBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
-        this.mView = view;
 
-        this.setLayout(this.checkIfQueried(), this.fragmentEnum.getButtonId());
+        this.mView = view;
+        this.searchShowing = false;
+        this.searchBar = view.findViewById(R.id.search);
+
+        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
         this.setView(view, new EventListAdapter(this.mContext));
         this.onRefresh();
 
         return view;
     }
 
-    private String checkIfQueried() {
-        Bundle b = this.getArguments();
-        if (b != null && b.containsKey(this.mContext.getString(R.string.bundle_query))) {
-            this.queried = true;
-            this.query = b.getString(this.mContext.getString(R.string.bundle_query));
-            return "Search: \"" + this.query + "\"";
-        }
-        this.queried = false;
-        return this.fragmentEnum.getName();
+    @Override
+    protected void setView(View view, BaseAdapter adapter) {
+        super.setView(view, adapter);
+        final EditText searchEditText = (EditText) view.findViewById(R.id.search_edit_text);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                query = s.toString();
+                onRefresh();
+            }
+        });
+        ImageView searchCancel = (ImageView) view.findViewById(R.id.search_cancel);
+        searchCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchEditText.setText("");
+            }
+        });
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_event_search, menu);
-
-        // SearchView
-        this.setSearchView(menu);
     }
 
-    private void search(List<Event> val) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                if (!searchShowing) {
+                    this.searchBar.setVisibility(View.VISIBLE);
+                    this.searchShowing = true;
+                } else {
+                    this.searchBar.setVisibility(View.GONE);
+                    this.searchShowing = false;
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void doSearch(List<Event> val) {
         for (Iterator<Event> itor = val.iterator(); itor.hasNext(); ) {
             Event event = itor.next();
             StringTokenizer queryTokenizer = new StringTokenizer(this.query);
@@ -88,19 +131,6 @@ public class EventListFragment extends BaseSwipeListFragment {
             }
             if (found < max) itor.remove();
         }
-    }
-
-    @Override
-    protected void doSearch(String query) {
-        this.mCallback.hideKeyboard();
-
-        EventListFragment fragment = new EventListFragment();
-
-        Bundle b = new Bundle();
-        b.putString(this.mContext.getString(R.string.bundle_query), query);
-
-        fragment.setArguments(b);
-        this.mCallback.setFragment(fragment);
     }
 
     @Override
@@ -130,7 +160,7 @@ public class EventListFragment extends BaseSwipeListFragment {
         new EventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
-                if (queried) search(vals);
+                if (query != null) doSearch(vals);
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);

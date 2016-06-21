@@ -43,10 +43,6 @@ public class SocialFragment extends BaseListFragment {
     }
 
     @Override
-    protected void doSearch(String query) {
-    }
-
-    @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
         return 0;
     }
