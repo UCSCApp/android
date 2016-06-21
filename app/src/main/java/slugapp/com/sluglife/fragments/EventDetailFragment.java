@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.Event;
 import slugapp.com.sluglife.http.ImageHttpRequest;
+import slugapp.com.sluglife.models.FoodMenu;
 
 /**
  * Created by isaiah on 6/27/2015.
@@ -18,23 +20,31 @@ import slugapp.com.sluglife.http.ImageHttpRequest;
  * This file displays all of the contents for each individual mEvent.
  */
 public class EventDetailFragment extends BaseDetailFragment {
-    private Event mEvent;
     private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
+
+    private Event mEvent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getArguments();
-        this.mEvent = this.mCallback.getGson().fromJson(b.getString("json"), Event.class);
+        Bundle b = this.getArguments();
+
+        this.mEvent = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), Event.class);
+        this.mName = this.mEvent.getName();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_event, container, false);
-        this.setLayout(mEvent.getName(), fragmentEnum.getButtonId());
-        this.setView(view);
+
+        this.setDetailFragment(view, this.fragmentEnum, this.mName);
+
         return view;
+    }
+
+    @Override
+    protected void setFields(View view) {
     }
 
     @Override

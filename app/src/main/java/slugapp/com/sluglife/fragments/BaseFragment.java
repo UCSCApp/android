@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.Toast;
 
+import slugapp.com.sluglife.adapters.EventListAdapter;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.models.Date;
 
@@ -39,6 +43,18 @@ public abstract class BaseFragment extends Fragment {
         this.mCallback.setTitle(mTitle);
         this.mCallback.setButtons(mButtonId);
     }
+
+    protected void setFragment(View view, FragmentEnum fragmentEnum) {
+        this.setFields(view);
+        this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
+    }
+
+    protected void setFragment(View view, FragmentEnum fragmentEnum, String name) {
+        this.setFields(view);
+        this.setLayout(name, fragmentEnum.getButtonId());
+    }
+
+    protected abstract void setFields(View view);
 
     protected void setLayout(String title, int buttonId) {
         this.mTitle = title;

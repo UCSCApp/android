@@ -17,29 +17,27 @@ import slugapp.com.sluglife.models.BaseObject;
  * Created by isayyuhh on 6/12/16
  */
 public class SocialFragment extends BaseListFragment {
-    private TweetTimelineListAdapter adapter;
     private FragmentEnum fragmentEnum = FragmentEnum.SOCIAL;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        final SearchTimeline timeline = new SearchTimeline.Builder()
-                .query(this.mContext.getString(R.string.social_hashtag_ucsc))
-                .build();
-        this.adapter = new TweetTimelineListAdapter.Builder(this.mContext)
-                .setTimeline(timeline)
-                .build();
-    }
+    private SearchTimeline mTimeline;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_social, container, false);
 
-        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
-        this.setView(view, this.adapter);
+        this.setListFragment(view, this.fragmentEnum,
+                new TweetTimelineListAdapter.Builder(this.mContext)
+                .setTimeline(this.mTimeline)
+                .build());
 
         return view;
+    }
+
+    @Override
+    protected void setFields(View view) {
+        this.mTimeline = new SearchTimeline.Builder()
+                .query(this.mContext.getString(R.string.social_hashtag_ucsc))
+                .build();
     }
 
     @Override

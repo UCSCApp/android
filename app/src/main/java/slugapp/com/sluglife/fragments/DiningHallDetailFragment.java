@@ -38,17 +38,18 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
     private static final float TEXT_SIZE = 14.0f;
 
-    private String mName;
-    private FoodMenu mMenu;
     private FragmentEnum fragmentEnum = FragmentEnum.DINING;
+
+    private FoodMenu mFoodMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle b = this.getArguments();
+
+        this.mFoodMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), FoodMenu.class);
         this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
-        this.mMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), FoodMenu.class);
     }
 
     @Override
@@ -56,10 +57,13 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_dining, container, false);
 
-        this.setLayout(this.mName, this.fragmentEnum.getButtonId());
-        this.setView(view);
+        this.setDetailFragment(view, this.fragmentEnum, this.mName);
 
         return view;
+    }
+
+    @Override
+    protected void setFields(View view) {
     }
 
     @Override
@@ -72,7 +76,7 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
         dateTv.setText(date);
 
-        this.setMenu(view, this.mMenu, layout);
+        this.setMenu(view, this.mFoodMenu, layout);
         this.setLegendDialog(view);
     }
 
@@ -83,7 +87,6 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
 
             layout.setVisibility(View.GONE);
             failed.setVisibility(View.VISIBLE);
-
             return;
         }
 
@@ -139,6 +142,5 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
                 dialog.show(ft, mContext.getString(R.string.bundle_dialog));
             }
         });
-
     }
 }

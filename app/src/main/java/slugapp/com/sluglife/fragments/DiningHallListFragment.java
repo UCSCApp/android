@@ -25,15 +25,21 @@ import slugapp.com.sluglife.models.StringObject;
  * Created by isayyuhh_s on 9/1/2015
  */
 public class DiningHallListFragment extends BaseListFragment {
-    private List<BaseObject> diningHalls;
     private FragmentEnum fragmentEnum = FragmentEnum.DINING;
+
+    private List<BaseObject> mDiningHalls;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_dining, container, false);
-        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
-        this.setView(view, new DiningHallListAdapter(mContext));
+
+        this.setListFragment(view, this.fragmentEnum, new DiningHallListAdapter(this.mContext));
+
         return view;
+    }
+
+    @Override
+    protected void setFields(View view) {
     }
 
     @Override
@@ -41,13 +47,13 @@ public class DiningHallListFragment extends BaseListFragment {
         super.setView(view, adapter);
         final BaseListAdapter baseListAdapter = (BaseListAdapter) adapter;
 
-        this.diningHalls = new ArrayList<>();
+        this.mDiningHalls = new ArrayList<>();
         new DiningListHttpRequest(getActivity()).execute(new HttpCallback<List<String>>() {
             @Override
             public void onSuccess(List<String> vals) {
-                diningHalls = new ArrayList<>();
-                for (String val : vals) diningHalls.add(new StringObject(val));
-                baseListAdapter.setData(diningHalls);
+                mDiningHalls = new ArrayList<>();
+                for (String val : vals) mDiningHalls.add(new StringObject(val));
+                baseListAdapter.setData(mDiningHalls);
             }
 
             @Override

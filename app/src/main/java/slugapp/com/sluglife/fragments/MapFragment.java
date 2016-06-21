@@ -50,15 +50,14 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     private final static float DEFAULT_ZOOM = 15.0f;
     private final static float MAX_VISIBLE_ZOOM = 14.9f;
 
+    private FragmentEnum fragmentEnum = FragmentEnum.MAP;
+
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
     private ActivityCallback mCallback;
     private Context mContext;
     private String mTitle;
     private int mButtonId;
-    private FragmentEnum fragmentEnum = FragmentEnum.MAP;
-
-    private boolean init = true;
 
     @Override
     public void onAttach(Activity activity) {
@@ -78,8 +77,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
+        this.setFields();
         this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
-        this.setView();
 
         return view;
     }
@@ -112,7 +111,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.setInitialZoom(map);
     }
 
-    protected void setView() {
+    protected void setFields() {
         this.mStaticMarkers = new HashMap<>();
         this.mDynamicMarkers = new HashMap<>();
     }
@@ -208,7 +207,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                goToStatic(marker);
+                onClickStaticInfoWindow(marker);
             }
         });
 
@@ -223,7 +222,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         });
     }
 
-    private void goToStatic(Marker marker) {
+    private void onClickStaticInfoWindow(Marker marker) {
         Set<Map.Entry<Facility, Marker>> set = mStaticMarkers.entrySet();
         for (Map.Entry entry : set) {
             Facility facility = (Facility) entry.getKey();

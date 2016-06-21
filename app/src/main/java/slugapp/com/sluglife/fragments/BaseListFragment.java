@@ -8,6 +8,7 @@ import android.widget.ListView;
 import java.util.Comparator;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.BaseObject;
 
 /**
@@ -15,6 +16,11 @@ import slugapp.com.sluglife.models.BaseObject;
  */
 public abstract class BaseListFragment extends BaseFragment {
     protected BaseAdapter mAdapter;
+
+    protected void setListFragment(View view, FragmentEnum fragmentEnum, BaseAdapter adapter) {
+        this.setFragment(view, fragmentEnum);
+        this.setView(view, adapter);
+    }
 
     protected void setView(View view, BaseAdapter adapter) {
         this.mAdapter = adapter;
@@ -27,9 +33,6 @@ public abstract class BaseListFragment extends BaseFragment {
 
     protected abstract void onClick(AdapterView<?> parent, View view, int position, long id);
 
-    /*
-     * Sorts ArrayList<Event> By Dates
-     */
     protected class ListSort implements Comparator<BaseObject> {
         @Override
         public int compare(BaseObject lhs, BaseObject rhs) {

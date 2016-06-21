@@ -35,29 +35,33 @@ import slugapp.com.sluglife.models.Event;
  * Created by isaiah on 6/23/2015.
  */
 public class EventListFragment extends BaseSwipeListFragment {
-    private View mView;
     private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
-    private String query;
-    private boolean queried;
+    private View mView;
+    private View mSearchBar;
+    private String mQuery;
 
+    private boolean refreshing;
     private boolean searchShowing;
-    private View searchBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
 
-        this.mView = view;
-        this.searchShowing = false;
-        this.searchBar = view.findViewById(R.id.search);
-
-        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
-        this.setView(view, new EventListAdapter(this.mContext));
+        this.setListFragment(view, fragmentEnum, new EventListAdapter(this.mContext));
         this.onRefresh();
 
         return view;
+    }
+
+    @Override
+    protected void setFields(View view) {
+        this.mView = view;
+        this.mSearchBar = view.findViewById(R.id.search);
+
+        this.searchShowing = false;
+        this.refreshing = false;
     }
 
     @Override
@@ -75,7 +79,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                query = s.toString();
+                mQuery = s.toString();
                 onRefresh();
             }
         });
@@ -98,10 +102,10 @@ public class EventListFragment extends BaseSwipeListFragment {
         switch (item.getItemId()) {
             case R.id.search:
                 if (!searchShowing) {
-                    this.searchBar.setVisibility(View.VISIBLE);
+                    this.mSearchBar.setVisibility(View.VISIBLE);
                     this.searchShowing = true;
                 } else {
-                    this.searchBar.setVisibility(View.GONE);
+                    this.mSearchBar.setVisibility(View.GONE);
                     this.searchShowing = false;
                 }
                 return true;
@@ -113,7 +117,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     private void doSearch(List<Event> val) {
         for (Iterator<Event> itor = val.iterator(); itor.hasNext(); ) {
             Event event = itor.next();
-            StringTokenizer queryTokenizer = new StringTokenizer(this.query);
+            StringTokenizer queryTokenizer = new StringTokenizer(this.mQuery);
             int found = 0, max = queryTokenizer.countTokens();
             while (queryTokenizer.hasMoreTokens()) {
                 String query = queryTokenizer.nextToken();
@@ -138,11 +142,10 @@ public class EventListFragment extends BaseSwipeListFragment {
         return this.mCallback.getToday().compareEvents((Event) lhs, (Event) rhs);
     }
 
-    private boolean refreshing = false;
-
     @Override
     protected void onClick(AdapterView<?> parent, View view, int position, long id) {
         if (this.refreshing) return;
+
         Event e = (Event) parent.getItemAtPosition(position);
         String json = this.mCallback.getGson().toJson(e);
 
@@ -160,7 +163,7 @@ public class EventListFragment extends BaseSwipeListFragment {
         new EventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
-                if (query != null) doSearch(vals);
+                if (mQuery != null) doSearch(vals);
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);

@@ -18,26 +18,26 @@ import slugapp.com.sluglife.enums.FragmentEnum;
  */
 public class MapViewFragment extends BaseDetailFragment {
     private FragmentEnum fragmentEnum = FragmentEnum.MAP;
+
+    private View mSearchBar;
+
     private boolean searchShowing;
-    private View searchBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_map, container, false);
 
-        this.searchShowing = false;
-        this.searchBar = view.findViewById(R.id.search);
-
-        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
-        this.setView(view);
+        this.setDetailFragment(view, this.fragmentEnum);
 
         return view;
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_map_search, menu);
+    protected void setFields(View view) {
+        this.mSearchBar = view.findViewById(R.id.search);
+
+        this.searchShowing = false;
     }
 
     @Override
@@ -51,14 +51,19 @@ public class MapViewFragment extends BaseDetailFragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_map_search, menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
                 if (!searchShowing) {
-                    this.searchBar.setVisibility(View.VISIBLE);
+                    this.mSearchBar.setVisibility(View.VISIBLE);
                     this.searchShowing = true;
                 } else {
-                    this.searchBar.setVisibility(View.GONE);
+                    this.mSearchBar.setVisibility(View.GONE);
                     this.searchShowing = false;
                 }
                 return true;
