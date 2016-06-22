@@ -22,45 +22,6 @@ public class Date {
     private String mEndTOD;
 
     /**
-     * Getters
-     */
-    public String getString() {
-        return this.mString;
-    }
-
-    public MonthEnum getMonth() {
-        return this.mMonth;
-    }
-
-    public int getDay() {
-        return this.mDay;
-    }
-
-    public int getYear() {
-        return this.mYear;
-    }
-
-    public int getStartTime() {
-        return this.mStartTime;
-    }
-
-    public int getEndTime() {
-        return this.mEndTime;
-    }
-
-    public String getStartTOD() {
-        return this.mStartTOD;
-    }
-
-    public String getEndTOD() {
-        return this.mEndTOD;
-    }
-
-    public boolean isDefined() {
-        return this.mDefined;
-    }
-
-    /**
      * Constructor
      */
     public Date(String string) {
@@ -113,7 +74,7 @@ public class Date {
         this.mEndTOD = endTOD;
 
         /** Date String */
-        this.mString = newMonth + " " + newDay +  " " + newYear + " | " + newStartTime + " - "
+        this.mString = newMonth + " " + newDay +  ", " + newYear + " | " + newStartTime + " - "
                 + newEndTime;
         this.mDefined = true;
     }
@@ -168,5 +129,44 @@ public class Date {
 
     private int compInts(int lhs, int rhs) {
         return lhs - rhs;
+    }
+
+    /**
+     * Getters
+     */
+    public String getString() {
+        return this.mString;
+    }
+
+    public MonthEnum getMonth() {
+        return this.mMonth;
+    }
+
+    public int getDay() {
+        return this.mDay;
+    }
+
+    public int getYear() {
+        return this.mYear;
+    }
+
+    public int getStartTime() {
+        return this.mStartTime;
+    }
+
+    public int getEndTime() {
+        return this.mEndTime;
+    }
+
+    public String getStartTOD() {
+        return this.mStartTOD;
+    }
+
+    public String getEndTOD() {
+        return this.mEndTOD;
+    }
+
+    public boolean isDefined() {
+        return this.mDefined;
     }
 }

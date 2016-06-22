@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -149,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     public void setFragment(Fragment fragment) {
         this.mFragmentManager = this.getSupportFragmentManager();
         FragmentTransaction ft = this.mFragmentManager.beginTransaction();
-        ft.replace(R.id.listFragment, fragment);
+        ft.replace(R.id.view_fragment, fragment);
         if (!this.init) ft.addToBackStack(null);
         ft.commit();
         this.init = false;

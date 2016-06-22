@@ -7,7 +7,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 /**
  * Created by isayyuhh on 2/21/16.
  */
-public abstract class BaseDetailFragment extends BaseFragment {
+public abstract class BaseViewFragment extends BaseFragment {
     protected String mName;
 
     protected void setDetailFragment(View view, FragmentEnum fragmentEnum) {

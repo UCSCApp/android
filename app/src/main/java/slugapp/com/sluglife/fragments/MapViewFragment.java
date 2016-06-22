@@ -16,7 +16,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 /**
  * Created by isayyuhh on 6/20/16
  */
-public class MapViewFragment extends BaseDetailFragment {
+public class MapViewFragment extends BaseViewFragment {
     private FragmentEnum fragmentEnum = FragmentEnum.MAP;
 
     private View mSearchBar;

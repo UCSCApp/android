@@ -1,9 +1,11 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -83,13 +85,6 @@ public class EventListFragment extends BaseSwipeListFragment {
                 onRefresh();
             }
         });
-        ImageView searchCancel = (ImageView) view.findViewById(R.id.search_cancel);
-        searchCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchEditText.setText("");
-            }
-        });
     }
 
     @Override
@@ -152,7 +147,7 @@ public class EventListFragment extends BaseSwipeListFragment {
         Bundle b = new Bundle();
         b.putString(this.mContext.getString(R.string.bundle_json), json);
 
-        EventDetailFragment fragment = new EventDetailFragment();
+        EventViewFragment fragment = new EventViewFragment();
         fragment.setArguments(b);
         this.mCallback.setFragment(fragment);
     }

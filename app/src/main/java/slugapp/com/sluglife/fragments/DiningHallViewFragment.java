@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,7 +25,7 @@ import slugapp.com.sluglife.models.FoodMenu;
 /**
  * Created by isayyuhh_s on 8/8/2015
  */
-public class DiningHallDetailFragment extends BaseDetailFragment {
+public class DiningHallViewFragment extends BaseViewFragment {
     private static final int LINEAR_LAYOUT_PARAMS = 75;
 
     private static final int TABLE_ROW_INIT_WIDTH = 0;
@@ -77,12 +80,35 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
         dateTv.setText(date);
 
         this.setMenu(view, this.mFoodMenu, layout);
-        this.setLegendDialog(view);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_dining_legend, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dining_legend:
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
+
+                if (prev != null) ft.remove(prev);
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
+                dialog.show(ft, this.mContext.getString(R.string.bundle_dialog));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setMenu(View view, FoodMenu menu, TableLayout table) {
         if (menu.isEmpty()) {
-            LinearLayout layout = (LinearLayout) view.findViewById(R.id.table);
+            LinearLayout layout = (LinearLayout) view.findViewById(R.id.meal);
             TextView failed = (TextView) view.findViewById(R.id.failed);
 
             layout.setVisibility(View.GONE);
@@ -123,24 +149,5 @@ public class DiningHallDetailFragment extends BaseDetailFragment {
             row.addView(attributes, TABLE_COLUMN_ATTRIBUTES, rowParams);
             table.addView(row);
         }
-    }
-
-    private void setLegendDialog(View view) {
-        // set legend OnClickListener
-        ImageView legend = (ImageView) view.findViewById(R.id.legend);
-        legend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag(mContext.getString(R.string.bundle_dialog));
-
-                if (prev != null) ft.remove(prev);
-                ft.addToBackStack(null);
-
-                // Create and show the dialog.
-                DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
-                dialog.show(ft, mContext.getString(R.string.bundle_dialog));
-            }
-        });
     }
 }

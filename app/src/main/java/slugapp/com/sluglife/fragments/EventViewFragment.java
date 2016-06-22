@@ -6,20 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.Event;
 import slugapp.com.sluglife.http.ImageHttpRequest;
-import slugapp.com.sluglife.models.FoodMenu;
 
 /**
  * Created by isaiah on 6/27/2015.
  * <p/>
  * This file displays all of the contents for each individual mEvent.
  */
-public class EventDetailFragment extends BaseDetailFragment {
+public class EventViewFragment extends BaseViewFragment {
     private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     private Event mEvent;

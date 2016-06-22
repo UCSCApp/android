@@ -20,7 +20,7 @@ import slugapp.com.sluglife.models.FoodMenu;
 /**
  * Created by isayyuhh on 6/3/16.
  */
-public class DiningHallViewPagerFragment extends BaseDetailFragment {
+public class DiningHallViewPagerFragment extends BaseViewFragment {
     private FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     private String mName;
@@ -109,7 +109,7 @@ public class DiningHallViewPagerFragment extends BaseDetailFragment {
                     break;
             }
 
-            DiningHallDetailFragment fragment = new DiningHallDetailFragment();
+            DiningHallViewFragment fragment = new DiningHallViewFragment();
 
             Bundle b = new Bundle();
             b.putString(mContext.getString(R.string.bundle_json), this.mCallback.getGson().toJson(menu));

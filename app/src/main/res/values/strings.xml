@@ -5,6 +5,6 @@
     <string name="title_dininglegend">Legend</string>
     <string name="dining_nameaddon">\u0020Dining Hall</string>
 
-    <string name="failed_dininghallrequest">No dining information available for this time :(</string>
+    <string name="failed_dininghallrequest">No dining information available.</string>
 </resources>
 
