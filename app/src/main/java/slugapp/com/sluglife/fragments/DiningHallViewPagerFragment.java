@@ -69,8 +69,8 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     }
 
     private int getTimeOfDay() {
-        int currentTime = this.mToday.getStartTime();
-        String currentTOD = this.mToday.getStartTOD().toLowerCase();
+        int currentTime = this.mToday.startTime;
+        String currentTOD = this.mToday.startTOD.toLowerCase();
 
         if ((currentTime == 12 || currentTime < 11) && currentTOD.compareTo("am") == 0) {
             return 0;
@@ -99,13 +99,13 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
             switch (position) {
                 default:
                 case 0:
-                    menu = mDiningHall.getBreakfast();
+                    menu = mDiningHall.breakfast;
                     break;
                 case 1:
-                    menu = mDiningHall.getLunch();
+                    menu = mDiningHall.lunch;
                     break;
                 case 2:
-                    menu = mDiningHall.getDinner();
+                    menu = mDiningHall.dinner;
                     break;
             }
 

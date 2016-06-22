@@ -116,7 +116,7 @@ public class EventListFragment extends BaseSwipeListFragment {
             int found = 0, max = queryTokenizer.countTokens();
             while (queryTokenizer.hasMoreTokens()) {
                 String query = queryTokenizer.nextToken();
-                StringTokenizer stringTokenizer = new StringTokenizer(event.getName());
+                StringTokenizer stringTokenizer = new StringTokenizer(event.name);
                 while (stringTokenizer.hasMoreTokens()) {
                     String current = stringTokenizer.nextToken();
                     if (query.length() < current.length()) {

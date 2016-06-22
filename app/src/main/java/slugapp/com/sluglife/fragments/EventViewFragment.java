@@ -29,7 +29,7 @@ public class EventViewFragment extends BaseViewFragment {
         Bundle b = this.getArguments();
 
         this.mEvent = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), Event.class);
-        this.mName = this.mEvent.getName();
+        this.mName = this.mEvent.name;
     }
 
     @Override
@@ -53,20 +53,20 @@ public class EventViewFragment extends BaseViewFragment {
         TextView description = (TextView) view.findViewById(R.id.description);
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
-        if (mEvent.getDate().isDefined()) {
-            String dayString = "When: " + mEvent.getDate().getMonth().getVal() + " " +
-                    mEvent.getDate().getDay();
-            String startString = "Starts: " + String.valueOf(mEvent.getDate().getStartTime()) +
-                    mEvent.getDate().getStartTOD();
-            String endString = "Ends: " + String.valueOf(mEvent.getDate().getEndTime()) +
-                    mEvent.getDate().getEndTOD();
+        if (mEvent.date.defined) {
+            String dayString = "When: " + mEvent.date.month.getVal() + " " +
+                    mEvent.date.day;
+            String startString = "Starts: " + String.valueOf(mEvent.date.startTime) +
+                    mEvent.date.startTOD;
+            String endString = "Ends: " + String.valueOf(mEvent.date.endTime) +
+                    mEvent.date.endTOD;
 
             day.setText(dayString);
             start.setText(startString);
             end.setText(endString);
-        } else day.setText("When: " + mEvent.getDate().getString());
+        } else day.setText("When: " + mEvent.date.string);
 
-        description.setText(mEvent.getDescription());
-        new ImageHttpRequest(mEvent.getUrl()).execute(image);
+        description.setText(mEvent.summary);
+        new ImageHttpRequest(mEvent.image).execute(image);
     }
 }

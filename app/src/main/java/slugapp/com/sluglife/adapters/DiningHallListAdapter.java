@@ -27,7 +27,7 @@ public class DiningHallListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(id, null);
         }
 
-        String diningHall = ((StringObject) this.getItem(position)).getString();
+        String diningHall = ((StringObject) this.getItem(position)).string;
         TextView tv = (TextView) convertView.findViewById(R.id.name);
         tv.setText(diningHall);
 

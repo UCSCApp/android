@@ -73,8 +73,8 @@ public class DiningHallViewFragment extends BaseViewFragment {
     protected void setView(final View view) {
         final TextView dateTv = (TextView) view.findViewById(R.id.date);
 
-        String date = this.mCallback.getToday().getMonth() + " " +
-                this.mCallback.getToday().getDay();
+        String date = this.mCallback.getToday().month + " " +
+                this.mCallback.getToday().day;
         TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
 
         dateTv.setText(date);
@@ -130,13 +130,13 @@ public class DiningHallViewFragment extends BaseViewFragment {
             rowParams.setMargins(TABLE_ROW_LEFT, TABLE_ROW_TOP, TABLE_ROW_RIGHT, TABLE_ROW_BOTTOM);
 
             // food name
-            name.setText(food.getName());
+            name.setText(food.name);
             name.setTextColor(Color.BLACK);
             name.setTextSize(TEXT_SIZE);
 
             // food attributes
             attributes.setOrientation(LinearLayout.HORIZONTAL);
-            for (AttributeEnum attribute : food.getAttributes()) {
+            for (AttributeEnum attribute : food.attributes) {
                 ImageView icon = new ImageView(this.mContext);
 
                 icon.setLayoutParams(iconParams);

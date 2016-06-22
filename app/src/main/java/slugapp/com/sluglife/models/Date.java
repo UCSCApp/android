@@ -9,40 +9,40 @@ import slugapp.com.sluglife.enums.MonthEnum;
 // TODO: move date helper functions
 
 public class Date {
-    private final static MonthEnum[] sMonths = MonthEnum.values();
+    private final static MonthEnum[] months = MonthEnum.values();
 
-    private String mString;
-    private boolean mDefined;
-    private MonthEnum mMonth;
-    private int mDay;
-    private int mYear;
-    private int mStartTime;
-    private int mEndTime;
-    private String mStartTOD;
-    private String mEndTOD;
+    public String string;
+    public boolean defined;
+    public MonthEnum month;
+    public int day;
+    public int year;
+    public int startTime;
+    public int endTime;
+    public String startTOD;
+    public String endTOD;
 
     /**
      * Constructor
      */
     public Date(String string) {
-        this.mString = string;
-        this.mMonth = null;
-        this.mDefined = false;
+        this.string = string;
+        this.month = null;
+        this.defined = false;
     }
 
     public Date(String newMonth, String newDay, String newYear, String newStartTime,
                 String newEndTime) {
-        this.mDefined = false;
+        this.defined = false;
 
         /** Month */
-        for (MonthEnum currMonth : sMonths) {
+        for (MonthEnum currMonth : months) {
             String month = currMonth.getVal();
             if (month.compareTo(newMonth) == 0) {
-                this.mMonth = currMonth;
+                this.month = currMonth;
                 break;
             }
         }
-        if (this.mMonth == null) return;
+        if (this.month == null) return;
 
         /** Day */
         String day;
@@ -50,33 +50,33 @@ public class Date {
         else if (newDay.length() < 3) day = newDay;
         else day = newDay.substring(0, newDay.length() - 2);
         if (!this.isInteger(day)) return;
-        this.mDay = Integer.parseInt(day);
+        this.day = Integer.parseInt(day);
 
         /** Year */
         if (newYear.length() != 4) return;
         if (!this.isInteger(newYear)) return;
-        this.mYear = Integer.parseInt(newYear);
+        this.year = Integer.parseInt(newYear);
 
         /** Start Time */
         if (newStartTime.length() < 3 || newStartTime.length() > 4) return;
         String startTime = newStartTime.substring(0, newStartTime.length() - 2);
         String startTOD = newStartTime.substring(newStartTime.length() - 2, newStartTime.length());
         if (!this.isInteger(startTime)) return;
-        this.mStartTime = Integer.parseInt(startTime);
-        this.mStartTOD = startTOD;
+        this.startTime = Integer.parseInt(startTime);
+        this.startTOD = startTOD;
 
         /** End Time */
         if (newEndTime.length() < 3 || newEndTime.length() > 4) return;
         String endTime = newEndTime.substring(0, newEndTime.length() - 2);
         String endTOD = newEndTime.substring(newEndTime.length() - 2, newEndTime.length());
         if (!this.isInteger(endTime)) return;
-        this.mEndTime = Integer.parseInt(endTime);
-        this.mEndTOD = endTOD;
+        this.endTime = Integer.parseInt(endTime);
+        this.endTOD = endTOD;
 
         /** Date String */
-        this.mString = newMonth + " " + newDay +  ", " + newYear + " | " + newStartTime + " - "
+        this.string = newMonth + " " + newDay +  ", " + newYear + " | " + newStartTime + " - "
                 + newEndTime;
-        this.mDefined = true;
+        this.defined = true;
     }
 
     /**
@@ -97,22 +97,22 @@ public class Date {
      * Date Compare Functions
      */
     public int compareEvents(Event lhs, Event rhs) {
-        if (!lhs.getDate().isDefined()) return 1;
-        else if (!rhs.getDate().isDefined()) return -1;
-        int check = compareDates(lhs.getDate(), rhs.getDate());
-        if (check == 0) check = lhs.getName().compareTo(rhs.getName());
+        if (!lhs.date.defined) return 1;
+        else if (!rhs.date.defined) return -1;
+        int check = this.compareDates(lhs.date, rhs.date);
+        if (check == 0) check = lhs.name.compareTo(rhs.name);
         return check;
     }
 
     private int compareDates(Date lhs, Date rhs) {
         int check;
-        if ((check = compInts(lhs.getYear(), rhs.getYear())) != 0) return check;
-        if ((check = compMonths(lhs.getMonth(), rhs.getMonth())) != 0) return check;
-        if ((check = compInts(lhs.getDay(), rhs.getDay())) != 0) return check;
-        if ((check = compTODs(lhs.getStartTOD(), rhs.getStartTOD())) != 0) return check;
-        if ((check = compInts(lhs.getStartTime(), rhs.getStartTime())) != 0) return check;
-        if ((check = compTODs(lhs.getEndTOD(), rhs.getEndTOD())) != 0) return check;
-        return compInts(lhs.getEndTime(), rhs.getEndTime());
+        if ((check = this.compInts(lhs.year, rhs.year)) != 0) return check;
+        if ((check = this.compMonths(lhs.month, rhs.month)) != 0) return check;
+        if ((check = this.compInts(lhs.day, rhs.day)) != 0) return check;
+        if ((check = this.compTODs(lhs.startTOD, rhs.startTOD)) != 0) return check;
+        if ((check = this.compInts(lhs.startTime, rhs.startTime)) != 0) return check;
+        if ((check = this.compTODs(lhs.endTOD, rhs.endTOD)) != 0) return check;
+        return this.compInts(lhs.endTime, rhs.endTime);
     }
 
     private int compMonths(MonthEnum lhs, MonthEnum rhs) {
@@ -129,44 +129,5 @@ public class Date {
 
     private int compInts(int lhs, int rhs) {
         return lhs - rhs;
-    }
-
-    /**
-     * Getters
-     */
-    public String getString() {
-        return this.mString;
-    }
-
-    public MonthEnum getMonth() {
-        return this.mMonth;
-    }
-
-    public int getDay() {
-        return this.mDay;
-    }
-
-    public int getYear() {
-        return this.mYear;
-    }
-
-    public int getStartTime() {
-        return this.mStartTime;
-    }
-
-    public int getEndTime() {
-        return this.mEndTime;
-    }
-
-    public String getStartTOD() {
-        return this.mStartTOD;
-    }
-
-    public String getEndTOD() {
-        return this.mEndTOD;
-    }
-
-    public boolean isDefined() {
-        return this.mDefined;
     }
 }

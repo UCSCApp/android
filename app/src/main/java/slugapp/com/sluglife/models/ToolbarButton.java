@@ -42,6 +42,6 @@ public class ToolbarButton extends ImageButton {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        setOnClickListener(onClickListener);
+        this.setOnClickListener(onClickListener);
     }
 }

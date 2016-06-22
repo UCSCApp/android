@@ -151,10 +151,10 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                                 @Override
                                 public void onSuccess(DiningHall val) {
                                     mStaticMarkers.put(val, map.addMarker(new MarkerOptions()
-                                            .title(val.getName() + mContext.getString(
+                                            .title(val.name + mContext.getString(
                                                     R.string.dining_nameaddon))
                                             .snippet("Tap to view dining menu")
-                                            .position(val.getLatLng())
+                                            .position(val.latLng)
                                             .icon(mCallback.toBitMap(DiningHall.diningImage))));
                                 }
 

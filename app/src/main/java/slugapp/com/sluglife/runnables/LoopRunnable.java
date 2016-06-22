@@ -47,8 +47,8 @@ public class LoopRunnable implements Runnable {
                 for (Loop loop : val) {
                     boolean found = false;
                     for (Marker marker : mLoopList.values()) {
-                        if (String.valueOf(loop.getId()).compareTo(marker.getSnippet()) == 0) {
-                            animateMarker(marker, new LatLng(loop.getLat(), loop.getLng()),
+                        if (String.valueOf(loop.id).compareTo(marker.getSnippet()) == 0) {
+                            animateMarker(marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
                             found = true;
                             break;
@@ -56,9 +56,9 @@ public class LoopRunnable implements Runnable {
                     }
                     if (!found) {
                         mLoopList.put(loop, mMap.addMarker(new MarkerOptions()
-                                .title(loop.getType())
-                                .snippet(String.valueOf(loop.getId()))
-                                .position(new LatLng(loop.getLat(), loop.getLng()))
+                                .title(loop.type)
+                                .snippet(String.valueOf(loop.id))
+                                .position(new LatLng(loop.lat, loop.lng))
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus))));
                     }
                 }

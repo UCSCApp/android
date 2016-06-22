@@ -19,21 +19,21 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 public class DiningHall extends Facility {
     public static final int diningImage = R.drawable.dining_hall;
 
-    private String mName;
-    private FoodMenu mBreakfast;
-    private FoodMenu mLunch;
-    private FoodMenu mDinner;
-    private LatLng latLng;
+    public String name;
+    public FoodMenu breakfast;
+    public FoodMenu lunch;
+    public FoodMenu dinner;
+    public LatLng latLng;
 
     public DiningHall() {
         super(MarkerTypeEnum.DININGHALL);
-        this.mBreakfast = new FoodMenu();
-        this.mLunch = new FoodMenu();
-        this.mDinner = new FoodMenu();
+        this.breakfast = new FoodMenu();
+        this.lunch = new FoodMenu();
+        this.dinner = new FoodMenu();
     }
 
     protected void addName(String name) {
-        this.mName = name;
+        this.name = name;
     }
 
     protected void addCoordinates(String lat, String lng) throws JSONException {
@@ -41,15 +41,15 @@ public class DiningHall extends Facility {
     }
 
     protected void addBreakfast(JSONArray array) throws JSONException {
-        this.mBreakfast = this.addMenu(array);
+        this.breakfast = this.addMenu(array);
     }
 
     protected void addLunch(JSONArray array) throws JSONException {
-        this.mLunch = this.addMenu(array);
+        this.lunch = this.addMenu(array);
     }
 
     protected void addDinner(JSONArray array) throws JSONException {
-        this.mDinner = this.addMenu(array);
+        this.dinner = this.addMenu(array);
     }
 
     private FoodMenu addMenu(JSONArray array) throws JSONException {
@@ -65,25 +65,5 @@ public class DiningHall extends Facility {
             menu.add(new Food(name, attributes));
         }
         return menu;
-    }
-
-    public String getName() {
-        return this.mName;
-    }
-
-    public LatLng getLatLng() {
-        return this.latLng;
-    }
-
-    public FoodMenu getBreakfast() {
-        return this.mBreakfast;
-    }
-
-    public FoodMenu getLunch() {
-        return this.mLunch;
-    }
-
-    public FoodMenu getDinner() {
-        return this.mDinner;
     }
 }
