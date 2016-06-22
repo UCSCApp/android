@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the top toolbar
      */
     private void setTopToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.top_toolbar);
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.top_toolbar);
         this.setSupportActionBar(toolbar);
         if (this.getSupportActionBar() != null) {
             this.getSupportActionBar().setDisplayShowTitleEnabled(false);
