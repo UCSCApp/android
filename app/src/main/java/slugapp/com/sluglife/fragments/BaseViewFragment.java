@@ -10,12 +10,12 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 public abstract class BaseViewFragment extends BaseFragment {
     protected String mName;
 
-    protected void setDetailFragment(View view, FragmentEnum fragmentEnum) {
+    protected void setViewFragment(View view, FragmentEnum fragmentEnum) {
         this.setFragment(view, fragmentEnum);
         this.setView(view);
     }
 
-    protected void setDetailFragment(View view, FragmentEnum fragmentEnum, String name) {
+    protected void setViewFragment(View view, FragmentEnum fragmentEnum, String name) {
         this.setFragment(view, fragmentEnum, name);
         this.setView(view);
     }

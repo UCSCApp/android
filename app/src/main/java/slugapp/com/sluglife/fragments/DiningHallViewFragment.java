@@ -41,7 +41,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     private static final float TEXT_SIZE = 14.0f;
 
-    private FragmentEnum fragmentEnum = FragmentEnum.DINING;
+    private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     private FoodMenu mFoodMenu;
 
@@ -60,7 +60,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_dining, container, false);
 
-        this.setDetailFragment(view, this.fragmentEnum, this.mName);
+        this.setViewFragment(view, fragmentEnum, this.mName);
 
         return view;
     }

@@ -1,11 +1,9 @@
 package slugapp.com.sluglife.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ import slugapp.com.sluglife.models.Event;
  * Created by isaiah on 6/23/2015.
  */
 public class EventListFragment extends BaseSwipeListFragment {
-    private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
+    private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     private View mView;
     private View mSearchBar;
@@ -108,6 +105,8 @@ public class EventListFragment extends BaseSwipeListFragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    // TODO: change StringTokenizer to String.split
 
     private void doSearch(List<Event> val) {
         for (Iterator<Event> itor = val.iterator(); itor.hasNext(); ) {

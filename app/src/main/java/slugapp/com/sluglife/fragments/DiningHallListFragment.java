@@ -25,21 +25,23 @@ import slugapp.com.sluglife.models.StringObject;
  * Created by isayyuhh_s on 9/1/2015
  */
 public class DiningHallListFragment extends BaseListFragment {
-    private FragmentEnum fragmentEnum = FragmentEnum.DINING;
+    private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     private List<BaseObject> mDiningHalls;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_dining, container, false);
 
-        this.setListFragment(view, this.fragmentEnum, new DiningHallListAdapter(this.mContext));
+        this.setListFragment(view, fragmentEnum, new DiningHallListAdapter(this.mContext));
 
         return view;
     }
 
     @Override
     protected void setFields(View view) {
+        this.mDiningHalls = new ArrayList<>();
     }
 
     @Override
@@ -47,7 +49,6 @@ public class DiningHallListFragment extends BaseListFragment {
         super.setView(view, adapter);
         final BaseListAdapter baseListAdapter = (BaseListAdapter) adapter;
 
-        this.mDiningHalls = new ArrayList<>();
         new DiningListHttpRequest(getActivity()).execute(new HttpCallback<List<String>>() {
             @Override
             public void onSuccess(List<String> vals) {

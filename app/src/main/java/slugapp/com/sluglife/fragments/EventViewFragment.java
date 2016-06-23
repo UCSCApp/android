@@ -18,7 +18,7 @@ import slugapp.com.sluglife.http.ImageHttpRequest;
  * This file displays all of the contents for each individual mEvent.
  */
 public class EventViewFragment extends BaseViewFragment {
-    private FragmentEnum fragmentEnum = FragmentEnum.EVENT;
+    private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
     private Event mEvent;
 
@@ -36,7 +36,7 @@ public class EventViewFragment extends BaseViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_event, container, false);
 
-        this.setDetailFragment(view, this.fragmentEnum, this.mName);
+        this.setViewFragment(view, fragmentEnum, this.mName);
 
         return view;
     }
@@ -53,20 +53,23 @@ public class EventViewFragment extends BaseViewFragment {
         TextView description = (TextView) view.findViewById(R.id.description);
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
-        if (mEvent.date.defined) {
-            String dayString = "When: " + mEvent.date.month.getVal() + " " +
-                    mEvent.date.day;
-            String startString = "Starts: " + String.valueOf(mEvent.date.startTime) +
-                    mEvent.date.startTOD;
-            String endString = "Ends: " + String.valueOf(mEvent.date.endTime) +
-                    mEvent.date.endTOD;
+        if (this.mEvent.date.defined) {
+            String dayString = "When: " + this.mEvent.date.month.getVal() + " " +
+                    this.mEvent.date.day;
+            String startString = "Starts: " + String.valueOf(this.mEvent.date.startTime) +
+                    this.mEvent.date.startTOD;
+            String endString = "Ends: " + String.valueOf(this.mEvent.date.endTime) +
+                    this.mEvent.date.endTOD;
 
             day.setText(dayString);
             start.setText(startString);
             end.setText(endString);
-        } else day.setText("When: " + mEvent.date.string);
+        } else {
+            String dayString = "When: " + this.mEvent.date.string;
+            day.setText(dayString);
+        }
 
-        description.setText(mEvent.summary);
-        new ImageHttpRequest(mEvent.image).execute(image);
+        description.setText(this.mEvent.summary);
+        new ImageHttpRequest(this.mEvent.image).execute(image);
     }
 }

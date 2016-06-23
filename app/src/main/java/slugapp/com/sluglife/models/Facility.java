@@ -5,7 +5,7 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 /**
  * Created by isayyuhh on 6/17/16.
  */
-public class Facility {
+public class Facility extends BaseObject {
     private MarkerTypeEnum mType;
 
     public Facility(MarkerTypeEnum type) {

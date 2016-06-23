@@ -46,11 +46,11 @@ import slugapp.com.sluglife.enums.MarkerEnum;
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
-    private final static MarkerEnum[] sMarkerEnums = MarkerEnum.values();
-    private final static float DEFAULT_ZOOM = 15.0f;
-    private final static float MAX_VISIBLE_ZOOM = 14.9f;
+    private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
+    private static final float DEFAULT_ZOOM = 15.0f;
+    private static final float MAX_VISIBLE_ZOOM = 14.9f;
 
-    private FragmentEnum fragmentEnum = FragmentEnum.MAP;
+    private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
 
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
@@ -78,7 +78,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
         this.setFields();
-        this.setLayout(this.fragmentEnum.getName(), this.fragmentEnum.getButtonId());
+        this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
 
         return view;
     }

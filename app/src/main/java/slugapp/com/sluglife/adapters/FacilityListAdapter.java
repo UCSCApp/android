@@ -12,10 +12,10 @@ import slugapp.com.sluglife.models.StringObject;
 /**
  * Created by isayyuhh_s on 8/29/2015.
  */
-public class DiningHallListAdapter extends BaseListAdapter {
-    private static final int id = R.layout.item_dining;
+public class FacilityListAdapter extends BaseListAdapter {
+    private static final int id = R.layout.item_facility;
 
-    public DiningHallListAdapter(Context context) {
+    public FacilityListAdapter(Context context) {
         super(context, id);
     }
 
@@ -23,13 +23,13 @@ public class DiningHallListAdapter extends BaseListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.mContext.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+                            Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(id, null);
         }
 
-        String diningHallItem = ((StringObject) this.getItem(position)).string;
+        String facilityItem = ((StringObject) this.getItem(position)).string;
         TextView tv = (TextView) convertView.findViewById(R.id.name);
-        tv.setText(diningHallItem);
+        tv.setText(facilityItem);
 
         return convertView;
     }

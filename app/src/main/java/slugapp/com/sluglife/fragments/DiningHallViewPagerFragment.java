@@ -21,7 +21,7 @@ import slugapp.com.sluglife.models.FoodMenu;
  * Created by isayyuhh on 6/3/16.
  */
 public class DiningHallViewPagerFragment extends BaseViewFragment {
-    private FragmentEnum fragmentEnum = FragmentEnum.DINING;
+    private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
     private String mName;
     private DiningHall mDiningHall;
@@ -31,7 +31,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.viewpager_dining, container, false);
 
-        this.setDetailFragment(view, this.fragmentEnum, this.mName);
+        this.setViewFragment(view, fragmentEnum, this.mName);
 
         return view;
     }
@@ -67,6 +67,8 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
             }
         });
     }
+
+    // TODO: move to date object
 
     private int getTimeOfDay() {
         int currentTime = this.mToday.startTime;
