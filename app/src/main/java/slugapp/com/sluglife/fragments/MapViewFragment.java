@@ -99,6 +99,8 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.filter:
+                return true;
             case R.id.search:
                 if (!this.searchShowing) {
                     this.mSearchBar.setVisibility(View.VISIBLE);

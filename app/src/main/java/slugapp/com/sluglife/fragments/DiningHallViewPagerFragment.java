@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -84,6 +88,30 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
             return 2;
         }
         return 0;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_dining_legend, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dining_legend:
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
+
+                if (prev != null) ft.remove(prev);
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
+                dialog.show(ft, this.mContext.getString(R.string.bundle_dialog));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class DiningPagerAdapter extends FragmentStatePagerAdapter {

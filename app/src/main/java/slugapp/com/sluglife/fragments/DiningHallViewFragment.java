@@ -82,30 +82,6 @@ public class DiningHallViewFragment extends BaseViewFragment {
         this.setMenu(view, this.mFoodMenu, layout);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_dining_legend, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.dining_legend:
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
-
-                if (prev != null) ft.remove(prev);
-                ft.addToBackStack(null);
-
-                // Create and show the dialog.
-                DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
-                dialog.show(ft, this.mContext.getString(R.string.bundle_dialog));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     private void setMenu(View view, FoodMenu menu, TableLayout table) {
         if (menu.isEmpty()) {
             LinearLayout layout = (LinearLayout) view.findViewById(R.id.meal);
