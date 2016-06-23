@@ -58,7 +58,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.detail_dining, container, false);
+        View view = inflater.inflate(R.layout.view_dining, container, false);
 
         this.setViewFragment(view, fragmentEnum, this.mName);
 

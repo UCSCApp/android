@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,14 +14,9 @@ import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
-import slugapp.com.sluglife.adapters.DiningHallListAdapter;
 import slugapp.com.sluglife.adapters.FacilityListAdapter;
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.http.DiningListHttpRequest;
-import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
-import slugapp.com.sluglife.models.FoodMenu;
-import slugapp.com.sluglife.models.StringObject;
 
 /**
  * Created by isayyuhh_s on 9/1/2015

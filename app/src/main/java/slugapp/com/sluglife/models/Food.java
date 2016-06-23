@@ -7,7 +7,7 @@ import slugapp.com.sluglife.enums.AttributeEnum;
 /**
  * Created by isayyuhh_s on 9/2/2015.
  */
-public class Food {
+public class Food extends BaseObject {
     public String name;
     public List<AttributeEnum> attributes;
 

@@ -12,10 +12,10 @@ import slugapp.com.sluglife.models.StringObject;
 /**
  * Created by isayyuhh_s on 8/29/2015
  */
-public class DiningHallListAdapter extends BaseListAdapter {
+public class DiningListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_dining;
 
-    public DiningHallListAdapter(Context context) {
+    public DiningListAdapter(Context context) {
         super(context, id);
     }
 
