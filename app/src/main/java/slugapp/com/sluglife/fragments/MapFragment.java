@@ -10,6 +10,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -137,8 +138,11 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     public void setStaticMarkers(final GoogleMap map) {
-        this.setDiningHallMarkers(map);
-        this.setLibraryMarkers(map);
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        int bin = sharedPref.getInt("checkbox", 0b00);
+
+        if ((bin & 0b01) != 0b00) this.setDiningHallMarkers(map);
+        if ((bin & 0b10) != 0b00) this.setLibraryMarkers(map);
     }
 
     private void setDiningHallMarkers(final GoogleMap map) {

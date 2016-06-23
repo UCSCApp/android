@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dip">
+
+    <CheckBox
+        android:id="@+id/checkbox_dining_halls"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <CheckBox
+        android:id="@+id/checkbox_libraries"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/checkbox_dining_halls" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="@string/title_dining_legend"
+        android:id="@+id/textview_dining_halls"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dip"
+        android:layout_marginStart="8dip"
+        android:layout_toLeftOf="@id/checkbox_dining_halls"
+        android:layout_toStartOf="@id/checkbox_dining_halls"
+        android:gravity="center_vertical"
+        android:text="Dining Halls"
         android:textColor="@android:color/black"
-        android:padding="8dip"/>
+        android:textSize="16sp" />
 
-    <LinearLayout
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dip"/>
-</LinearLayout>
+    <TextView
+        android:id="@+id/textview_libraries"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_below="@id/textview_dining_halls"
+        android:layout_marginLeft="8dip"
+        android:layout_marginStart="8dip"
+        android:layout_toLeftOf="@id/checkbox_libraries"
+        android:layout_toStartOf="@id/checkbox_libraries"
+        android:gravity="center_vertical"
+        android:text="Libraries"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+</RelativeLayout>
