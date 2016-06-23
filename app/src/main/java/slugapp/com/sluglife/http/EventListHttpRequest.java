@@ -5,14 +5,12 @@ import android.content.Context;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.Event;
 import slugapp.com.sluglife.models.EventListWrapper;
-import slugapp.com.sluglife.models.EventWrapper;
 
 /**
  * Created by simba on 7/31/15.
@@ -24,7 +22,7 @@ public class EventListHttpRequest extends BaseHttpRequest {
         super(Method.GET);
 
         String protocol = context.getString(R.string.http);
-        String api = context.getString(R.string.slugapp_api);
+        String api = context.getString(R.string.sluglife_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_event_list);
 

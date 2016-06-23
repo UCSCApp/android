@@ -1,7 +1,5 @@
 package slugapp.com.sluglife.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
@@ -16,7 +14,7 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.AttributeEnum;
 
 /**
- * Created by isayyuhh on 9/23/2015.
+ * Created by isayyuhh on 9/23/2015
  */
 public class DiningLegendDialogFragment extends DialogFragment {
     private static final int LINEAR_LAYOUT_PARAMS = 75;
@@ -33,20 +31,11 @@ public class DiningLegendDialogFragment extends DialogFragment {
 
     private static final float TEXT_SIZE = 14.0f;
 
-    private Context mContext;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mContext = activity;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_dining_legend, container);
 
-        this.getDialog().setTitle(this.mContext.getString(R.string.title_dininglegend));
         this.setList(view);
 
         return view;

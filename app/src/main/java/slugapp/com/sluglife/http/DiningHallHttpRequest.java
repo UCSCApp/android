@@ -23,7 +23,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
         super(BaseHttpRequest.Method.GET);
 
         String protocol = context.getString(R.string.http);
-        String api = context.getString(R.string.slugapp_api);
+        String api = context.getString(R.string.sluglife_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_dining_menu);
 

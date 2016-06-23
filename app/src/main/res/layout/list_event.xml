@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="8dip"
-        android:text="No events available."
+        android:text="@string/no_event"
         android:textSize="16sp"
         android:visibility="gone" />
 </LinearLayout>

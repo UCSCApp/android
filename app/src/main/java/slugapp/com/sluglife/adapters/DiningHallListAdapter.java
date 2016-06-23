@@ -10,7 +10,7 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.models.StringObject;
 
 /**
- * Created by isayyuhh_s on 8/29/2015.
+ * Created by isayyuhh_s on 8/29/2015
  */
 public class DiningHallListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_dining;
@@ -28,9 +28,17 @@ public class DiningHallListAdapter extends BaseListAdapter {
         }
 
         String diningHallItem = ((StringObject) this.getItem(position)).string;
-        TextView tv = (TextView) convertView.findViewById(R.id.name);
-        tv.setText(diningHallItem);
+
+        ViewHolder holder = new ViewHolder();
+        holder.name =  (TextView) convertView.findViewById(R.id.name);
+        convertView.setTag(holder);
+
+        holder.name.setText(diningHallItem);
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        public TextView name;
     }
 }

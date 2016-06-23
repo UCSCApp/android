@@ -31,7 +31,7 @@ import slugapp.com.sluglife.models.BaseObject;
 import slugapp.com.sluglife.models.Event;
 
 /**
- * Created by isaiah on 6/23/2015.
+ * Created by isaiah on 6/23/2015
  */
 public class EventListFragment extends BaseSwipeListFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;

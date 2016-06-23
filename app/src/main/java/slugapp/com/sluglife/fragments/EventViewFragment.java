@@ -50,7 +50,7 @@ public class EventViewFragment extends BaseViewFragment {
         TextView day = (TextView) view.findViewById(R.id.day);
         TextView start = (TextView) view.findViewById(R.id.start);
         TextView end = (TextView) view.findViewById(R.id.end);
-        TextView description = (TextView) view.findViewById(R.id.description);
+        TextView description = (TextView) view.findViewById(R.id.summary);
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
         if (this.mEvent.date.defined) {

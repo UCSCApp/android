@@ -28,22 +28,33 @@ public class EventListAdapter extends BaseListAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater inflater =
-                    (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) this.mContext.getSystemService(
+                            Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(id, null);
         }
 
         Event e = (Event) getItem(position);
-        TextView name = (TextView) convertView.findViewById(R.id.name);
-        TextView date = (TextView) convertView.findViewById(R.id.date);
-        TextView desc = (TextView) convertView.findViewById(R.id.description);
-        ImageView image = (ImageView) convertView.findViewById(R.id.image);
-        name.setText(e.name);
-        date.setText(e.date.string);
-        desc.setText(e.getShortSummary());
-        if (!e.image.isEmpty()) new ImageHttpRequest(e.image).execute(image);
-        else image.setVisibility(View.INVISIBLE);
+
+        ViewHolder holder = new ViewHolder();
+        holder.name = (TextView) convertView.findViewById(R.id.name);
+        holder.date = (TextView) convertView.findViewById(R.id.date);
+        holder.summary = (TextView) convertView.findViewById(R.id.summary);
+        holder.image = (ImageView) convertView.findViewById(R.id.image);
+        convertView.setTag(holder);
+
+        holder.name.setText(e.name);
+        holder.date.setText(e.date.string);
+        holder.summary.setText(e.getShortSummary());
+        if (!e.image.isEmpty()) new ImageHttpRequest(e.image).execute(holder.image);
+        else holder.image.setVisibility(View.INVISIBLE);
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        public TextView name;
+        public TextView date;
+        public TextView summary;
+        public ImageView image;
     }
 }

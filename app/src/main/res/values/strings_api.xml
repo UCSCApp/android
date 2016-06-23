@@ -4,7 +4,7 @@
     <string name="http">http://</string>
 
     <!-- Api's -->
-    <string name="slugapp_api">ec2-52-10-36-144.us-west-2.compute.amazonaws.com</string>
+    <string name="sluglife_api">ec2-52-10-36-144.us-west-2.compute.amazonaws.com</string>
     <string name="bus_api">bts.ucsc.edu</string>
 
     <!-- Api Ports -->
