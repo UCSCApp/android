@@ -52,12 +52,7 @@ public class MapViewFragment extends BaseViewFragment {
 
     @Override
     protected void setView(final View view) {
-        MapFragment fragment = new MapFragment();
-
-        FragmentManager fm = this.getChildFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.map_view, fragment);
-        ft.commit();
+        this.setChildFragment(R.id.map_view, new MapFragment());
 
         this.mSearchEditText = (EditText) view.findViewById(R.id.search_edit_text);
         this.mSearchEditText.addTextChangedListener(new TextWatcher() {
@@ -80,17 +75,9 @@ public class MapViewFragment extends BaseViewFragment {
                     b.putString(mContext.getString(R.string.bundle_query), mQuery);
                     fragment.setArguments(b);
 
-                    FragmentManager fm = getChildFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.map_view, fragment);
-                    ft.commit();
+                    setChildFragment(R.id.map_view, fragment);
                 } else {
-                    MapFragment fragment = new MapFragment();
-
-                    FragmentManager fm = getChildFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.map_view, fragment);
-                    ft.commit();
+                    setChildFragment(R.id.map_view, new MapFragment());
                 }
             }
         });
@@ -105,12 +92,7 @@ public class MapViewFragment extends BaseViewFragment {
             editor.putInt(this.mContext.getString(R.string.bundle_markers), bin);
             editor.apply();
 
-            MapFragment fragment = new MapFragment();
-
-            FragmentManager fm = getChildFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.map_view, fragment);
-            ft.commit();
+            this.setChildFragment(R.id.map_view, new MapFragment());
         }
     }
 
@@ -128,23 +110,18 @@ public class MapViewFragment extends BaseViewFragment {
                     this.searchShowing = false;
                     this.mSearchEditText.setText("");
                 }
-                FragmentTransaction ft = this.getFragmentManager().beginTransaction();
-                Fragment prev = this.getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
-
-                if (prev != null) ft.remove(prev);
-                ft.addToBackStack(null);
 
                 SharedPreferences sharedPref = this.getActivity().getPreferences(
                         Context.MODE_PRIVATE);
-                int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0b00);
+                int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0);
 
                 Bundle b = new Bundle();
                 b.putInt(this.mContext.getString(R.string.bundle_markers), bin);
 
                 MapFilterDialogFragment dialog = new MapFilterDialogFragment();
-                dialog.setTargetFragment(this, 0);
                 dialog.setArguments(b);
-                dialog.show(ft, this.mContext.getString(R.string.bundle_dialog));
+
+                this.setDialogFragment(dialog);
                 return true;
             }
             case R.id.search: {
@@ -157,12 +134,7 @@ public class MapViewFragment extends BaseViewFragment {
                     this.mSearchEditText.setText("");
 
                     if (!this.mQuery.isEmpty()) {
-                        MapFragment fragment = new MapFragment();
-
-                        FragmentManager fm = this.getChildFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.replace(R.id.map_view, fragment);
-                        ft.commit();
+                        this.setChildFragment(R.id.map_view, new MapFragment());
                     }
                 }
                 return true;

@@ -179,29 +179,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get mToday's date
-     *
-     * @return Today's date
-     */
-    @Override
-    public Date getToday() {
-        java.util.Date date = Calendar.getInstance().getTime();
-        String month = new SimpleDateFormat("MM").format(date);
-        String day = new SimpleDateFormat("dd").format(date);
-        String year = new SimpleDateFormat("yyyy").format(date);
-        String hour = new SimpleDateFormat("hh").format(date);
-        String tod = new SimpleDateFormat("aa").format(date);
-        String todayMonth = MonthEnum.JANUARY.getVal();
-
-        for (MonthEnum currMonth : MonthEnum.values()) {
-            if (currMonth.getOrder() != Integer.valueOf(month)) continue;
-            todayMonth = currMonth.getVal();
-            break;
-        }
-        return new Date(todayMonth, day, year, hour + tod, hour + tod);
-    }
-
-    /**
      * Set new toolbar mTitle
      *
      * @param newTitle New toolbar mTitle

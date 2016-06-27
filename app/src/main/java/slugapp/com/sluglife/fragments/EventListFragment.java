@@ -28,6 +28,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
+import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Event;
 
 /**
@@ -133,7 +134,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
-        return this.mCallback.getToday().compareEvents((Event) lhs, (Event) rhs);
+        return Date.compareEvents((Event) lhs, (Event) rhs);
     }
 
     @Override

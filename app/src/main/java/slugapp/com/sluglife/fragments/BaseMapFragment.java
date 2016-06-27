@@ -18,6 +18,7 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
 public abstract class BaseMapFragment extends SupportMapFragment implements OnMapReadyCallback {
     protected ActivityCallback mCallback;
     protected Context mContext;
+
     private String mTitle;
     private int mButtonId;
 

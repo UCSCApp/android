@@ -37,13 +37,6 @@ public interface ActivityCallback {
     void hideKeyboard();
 
     /**
-     * Get mToday's date
-     *
-     * @return Today's date
-     */
-    Date getToday();
-
-    /**
      * Set new toolbar mTitle
      *
      * @param newTitle New toolbar mTitle

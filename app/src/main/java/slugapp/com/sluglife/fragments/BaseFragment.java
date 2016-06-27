@@ -3,10 +3,14 @@ package slugapp.com.sluglife.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Toast;
 
+import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
@@ -16,19 +20,17 @@ import slugapp.com.sluglife.models.Date;
  * Created by isayyuhh on 2/21/16
  */
 public abstract class BaseFragment extends Fragment {
-    private String mTitle;
-    private int mButtonId;
-
     protected ActivityCallback mCallback;
     protected Context mContext;
-    protected Date mToday;
+
+    private String mTitle;
+    private int mButtonId;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mCallback = (ActivityCallback) activity;
         this.mContext = activity;
-        this.mToday = this.mCallback.getToday();
     }
 
     @Override
@@ -59,5 +61,23 @@ public abstract class BaseFragment extends Fragment {
     protected void setLayout(String title, int buttonId) {
         this.mTitle = title;
         this.mButtonId = buttonId;
+    }
+
+    protected void setChildFragment(int containerId, Fragment fragment) {
+        FragmentManager fragmentManager = this.getChildFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(containerId, fragment);
+        ft.commit();
+    }
+
+    protected void setDialogFragment(DialogFragment dialogFragment) {
+        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        Fragment prev = this.getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
+
+        if (prev != null) ft.remove(prev);
+        ft.addToBackStack(null);
+
+        dialogFragment.setTargetFragment(this, 0);
+        dialogFragment.show(ft, this.mContext.getString(R.string.bundle_dialog));
     }
 }

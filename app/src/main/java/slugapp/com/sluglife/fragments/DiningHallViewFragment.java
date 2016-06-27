@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
+import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Food;
 import slugapp.com.sluglife.enums.AttributeEnum;
 import slugapp.com.sluglife.models.FoodMenu;
@@ -71,15 +72,11 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     @Override
     protected void setView(final View view) {
-        final TextView dateTv = (TextView) view.findViewById(R.id.date);
-
-        String date = this.mCallback.getToday().month + " " +
-                this.mCallback.getToday().day;
-        TableLayout layout = (TableLayout) view.findViewById(R.id.meal);
-
+        TextView dateTv = (TextView) view.findViewById(R.id.date);
+        String date = Date.getToday().month + " " + Date.getToday().day;
         dateTv.setText(date);
 
-        this.setMenu(view, this.mFoodMenu, layout);
+        this.setMenu(view, this.mFoodMenu, (TableLayout) view.findViewById(R.id.meal));
     }
 
     private void setMenu(View view, FoodMenu menu, TableLayout table) {

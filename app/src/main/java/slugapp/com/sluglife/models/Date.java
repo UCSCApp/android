@@ -1,5 +1,8 @@
 package slugapp.com.sluglife.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import slugapp.com.sluglife.enums.MonthEnum;
 
 /**
@@ -8,7 +11,7 @@ import slugapp.com.sluglife.enums.MonthEnum;
 
 // TODO: move date helper functions
 
-public class Date {
+public class Date extends BaseObject {
     private final static MonthEnum[] months = MonthEnum.values();
 
     public String string;
@@ -74,60 +77,67 @@ public class Date {
         this.endTOD = endTOD;
 
         /** Date String */
-        this.string = newMonth + " " + newDay +  ", " + newYear + " | " + newStartTime + " - "
+        this.string = newMonth + " " + newDay + ", " + newYear + " | " + newStartTime + " - "
                 + newEndTime;
         this.defined = true;
     }
 
-    /**
-     * Helper Functions
-     */
-    private boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return false;
-        } catch (NullPointerException e) {
-            return false;
+    public static Date getToday() {
+        java.util.Date date = Calendar.getInstance().getTime();
+        String numericalMonth = new SimpleDateFormat("MM").format(date);
+        String day = new SimpleDateFormat("dd").format(date);
+        String year = new SimpleDateFormat("yyyy").format(date);
+        String hour = new SimpleDateFormat("hh").format(date);
+        String tod = new SimpleDateFormat("aa").format(date);
+        String month = MonthEnum.JANUARY.getVal();
+
+        for (MonthEnum currMonth : MonthEnum.values()) {
+            if (currMonth.getOrder() != Integer.valueOf(numericalMonth)) continue;
+            month = currMonth.getVal();
+            break;
         }
-        return true;
+        return new Date(month, day, year, hour + tod, hour + tod);
     }
 
-    /**
-     * Date Compare Functions
-     */
-    public int compareEvents(Event lhs, Event rhs) {
+    public static int getCurrentTime() {
+        Date today = getToday();
+        if (today.startTOD.equals("am") && today.startTime == 12) return 0;
+        if (today.startTOD.equals("pm")) return today.startTime + 12;
+        else return today.startTime;
+    }
+
+    public static int compareEvents(Event lhs, Event rhs) {
         if (!lhs.date.defined) return 1;
         else if (!rhs.date.defined) return -1;
-        int check = this.compareDates(lhs.date, rhs.date);
+        int check = compareDates(lhs.date, rhs.date);
         if (check == 0) check = lhs.name.compareTo(rhs.name);
         return check;
     }
 
-    private int compareDates(Date lhs, Date rhs) {
+    private static int compareDates(Date lhs, Date rhs) {
         int check;
-        if ((check = this.compInts(lhs.year, rhs.year)) != 0) return check;
-        if ((check = this.compMonths(lhs.month, rhs.month)) != 0) return check;
-        if ((check = this.compInts(lhs.day, rhs.day)) != 0) return check;
-        if ((check = this.compTODs(lhs.startTOD, rhs.startTOD)) != 0) return check;
-        if ((check = this.compInts(lhs.startTime, rhs.startTime)) != 0) return check;
-        if ((check = this.compTODs(lhs.endTOD, rhs.endTOD)) != 0) return check;
-        return this.compInts(lhs.endTime, rhs.endTime);
+        if ((check = compInts(lhs.year, rhs.year)) != 0) return check;
+        if ((check = compMonths(lhs.month, rhs.month)) != 0) return check;
+        if ((check = compInts(lhs.day, rhs.day)) != 0) return check;
+        if ((check = compTODs(lhs.startTOD, rhs.startTOD)) != 0) return check;
+        if ((check = compInts(lhs.startTime, rhs.startTime)) != 0) return check;
+        if ((check = compTODs(lhs.endTOD, rhs.endTOD)) != 0) return check;
+        return compInts(lhs.endTime, rhs.endTime);
     }
 
-    private int compMonths(MonthEnum lhs, MonthEnum rhs) {
+    private static int compMonths(MonthEnum lhs, MonthEnum rhs) {
         if (lhs.getOrder() < rhs.getOrder()) return -1;
         else if (lhs.getOrder() > rhs.getOrder()) return 1;
         return 0;
     }
 
-    private int compTODs(String lhs, String rhs) {
+    private static int compTODs(String lhs, String rhs) {
         if (lhs.equals("am") && rhs.equals("pm")) return -1;
         else if (lhs.equals("pm") && rhs.equals("am")) return 1;
         return 0;
     }
 
-    private int compInts(int lhs, int rhs) {
+    private static int compInts(int lhs, int rhs) {
         return lhs - rhs;
     }
 }

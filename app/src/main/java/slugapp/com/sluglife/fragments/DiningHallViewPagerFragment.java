@@ -12,12 +12,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
+import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.DiningHall;
 import slugapp.com.sluglife.models.FoodMenu;
 
@@ -52,41 +54,33 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     protected void setView(final View view) {
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
                 new HttpCallback<DiningHall>() {
-            @Override
-            public void onSuccess(DiningHall val) {
-                mDiningHall = val;
-                ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
-                pager.setOffscreenPageLimit(2);
-                pager.setAdapter(new DiningPagerAdapter(mCallback, getChildFragmentManager()));
-                pager.setCurrentItem(getTimeOfDay());
-            }
+                    @Override
+                    public void onSuccess(DiningHall val) {
+                        mDiningHall = val;
+                        this.setPager((ViewPager) view.findViewById(R.id.pager));
+                    }
 
-            @Override
-            public void onError(Exception e) {
-                mDiningHall = new DiningHall();
-                ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
-                pager.setOffscreenPageLimit(2);
-                pager.setAdapter(new DiningPagerAdapter(mCallback, getChildFragmentManager()));
-                pager.setCurrentItem(getTimeOfDay());
-            }
-        });
+                    @Override
+                    public void onError(Exception e) {
+                        mDiningHall = new DiningHall();
+                        this.setPager((ViewPager) view.findViewById(R.id.pager));
+                    }
+
+                    private void setPager(ViewPager pager) {
+                        pager.setOffscreenPageLimit(2);
+                        pager.setAdapter(new DiningPagerAdapter(mCallback,
+                                getChildFragmentManager()));
+                        pager.setCurrentItem(getTimeOfDay());
+                    }
+                });
     }
 
-    // TODO: move to date object
-
     private int getTimeOfDay() {
-        int currentTime = this.mToday.startTime;
-        String currentTOD = this.mToday.startTOD.toLowerCase();
+        int currentTime = Date.getCurrentTime();
 
-        if ((currentTime == 12 || currentTime < 11) && currentTOD.compareTo("am") == 0) {
-            return 0;
-        } else if (currentTime == 11 && currentTOD.compareTo("am") == 0 ||
-                currentTime == 12 && currentTOD.compareTo("pm") == 0 ||
-                currentTime > 0 && currentTime < 5 && currentTOD.compareTo("pm") == 0) {
-            return 1;
-        } else if (currentTime >= 5 && currentTime < 12 && currentTOD.compareTo("pm") == 0) {
-            return 2;
-        }
+        if (currentTime >= 0 && currentTime < 11) return 0;
+        else if (currentTime >= 11 && currentTime < 17) return 1;
+        else if (currentTime >= 17 && currentTime < 24) return 2;
         return 0;
     }
 
@@ -99,15 +93,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dining_legend:
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
-
-                if (prev != null) ft.remove(prev);
-                ft.addToBackStack(null);
-
-                // Create and show the dialog.
-                DiningLegendDialogFragment dialog = new DiningLegendDialogFragment();
-                dialog.show(ft, this.mContext.getString(R.string.bundle_dialog));
+                this.setDialogFragment(new DiningLegendDialogFragment());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -116,7 +102,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
 
     private class DiningPagerAdapter extends FragmentStatePagerAdapter {
         private ActivityCallback mCallback;
-        private final String mTabTitles[] = new String[] { "Breakfast", "Lunch", "Dinner" };
+        private final String mTabTitles[] = new String[]{mContext.getString(R.string.title_dining_viewpager_breakfast), mContext.getString(R.string.title_dining_viewpager_lunch), mContext.getString(R.string.title_dining_viewpager_dinner)};
 
         public DiningPagerAdapter(ActivityCallback mCallback, FragmentManager fm) {
             super(fm);
