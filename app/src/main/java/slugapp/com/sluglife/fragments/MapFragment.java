@@ -50,79 +50,89 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
 import slugapp.com.sluglife.enums.MarkerEnum;
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
-public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
+public class MapFragment extends BaseMapFragment {
+    private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
+
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
     private static final float DEFAULT_ZOOM = 15.0f;
 
-    private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
-
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
-    private ActivityCallback mCallback;
-    private Context mContext;
-    private String mTitle;
-    private int mButtonId;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mCallback = (ActivityCallback) activity;
-        this.mContext = activity;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.setHasOptionsMenu(true);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
-        this.setFields();
-        this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
+        this.setMapFragment(view, fragmentEnum);
 
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        this.mCallback.setTitle(this.mTitle);
-        this.mCallback.setButtons(this.mButtonId);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        this.getMapAsync(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        this.removeDynamicMarkers();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap map) {
-        this.setDynamicMarkers(map);
-        this.setStaticMarkers(map);
-        this.setMapListeners(map);
-        this.setInitialZoom(map);
-    }
-
-    protected void setFields() {
+    protected void setFields(View view) {
         this.mStaticMarkers = new HashMap<>();
         this.mDynamicMarkers = new HashMap<>();
     }
 
-    protected void setLayout(String title, int buttonId) {
-        this.mTitle = title;
-        this.mButtonId = buttonId;
+    @Override
+    protected void setMarkers(GoogleMap googleMap) {
+        this.setDynamicMarkers(googleMap);
+        this.setStaticMarkers(googleMap);
+    }
+
+    @Override
+    protected void setMapListeners(final GoogleMap map) {
+        // OnMarkerClickListener
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                marker.showInfoWindow();
+                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                return false;
+            }
+        });
+
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                onClickStaticInfoWindow(marker);
+            }
+        });
+    }
+
+    @Override
+    protected void setInitialZoom(GoogleMap map) {
+        float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
+        float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
+        float zoom = DEFAULT_ZOOM;
+
+        LatLng initLatLng = new LatLng(lat, lng);
+
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
+        if (ActivityCompat.checkSelfPermission(
+                this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                        this.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        map.setMyLocationEnabled(true);
+    }
+
+    @Override
+    protected void clearData() {
+        for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
+        if (this.mCallback.getTimer() != null) this.mCallback.getTimer().cancel();
     }
 
     private void setDynamicMarkers(GoogleMap map) {
@@ -201,25 +211,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         }
     }
 
-    public void setMapListeners(final GoogleMap map) {
-        // OnMarkerClickListener
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                marker.showInfoWindow();
-                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-                return false;
-            }
-        });
-
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                onClickStaticInfoWindow(marker);
-            }
-        });
-    }
-
     private void onClickStaticInfoWindow(Marker marker) {
         Set<Map.Entry<Facility, Marker>> set = mStaticMarkers.entrySet();
         for (Map.Entry entry : set) {
@@ -236,37 +227,5 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 this.mCallback.setFragment(fragment);
             }
         }
-    }
-
-    private void setInitialZoom(GoogleMap map) {
-        float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
-        float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
-        float zoom = DEFAULT_ZOOM;
-
-        LatLng initLatLng = new LatLng(lat, lng);
-
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
-        if (ActivityCompat.checkSelfPermission(
-                this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(
-                this.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        map.setMyLocationEnabled(true);
-    }
-
-    private void removeDynamicMarkers() {
-        for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
-        if (this.mCallback.getTimer() != null) this.mCallback.getTimer().cancel();
     }
 }
