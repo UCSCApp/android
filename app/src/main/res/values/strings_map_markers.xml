@@ -12,5 +12,6 @@
     <string name="map_sne_lat">36.999055</string>
     <string name="map_sne_lng">-122.060699</string>
 
-    <string name="map_markersnippet_library">library snippet placeholder</string>
+    <string name="map_dining_snippet">Tap to view dining menu</string>
+    <string name="map_library_snippet">library snippet placeholder</string>
 </resources>

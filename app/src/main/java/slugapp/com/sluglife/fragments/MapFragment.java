@@ -9,7 +9,6 @@ package slugapp.com.sluglife.fragments;
 //
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,15 +18,11 @@ import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,7 +37,6 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
-import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.DiningHall;
 import slugapp.com.sluglife.models.Facility;
@@ -167,7 +161,7 @@ public class MapFragment extends BaseMapFragment {
                                     mStaticMarkers.put(val, map.addMarker(new MarkerOptions()
                                             .title(val.name + mContext.getString(
                                                     R.string.dining_nameaddon))
-                                            .snippet("Tap to view dining menu")
+                                            .snippet(mContext.getString(R.string.map_dining_snippet))
                                             .position(val.latLng)
                                             .icon(BitmapDescriptorFactory.fromResource(
                                                     DiningHall.diningImage))));
@@ -218,7 +212,7 @@ public class MapFragment extends BaseMapFragment {
                 DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
 
                 Bundle b = new Bundle();
-                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle().replace(mContext.getString(R.string.dining_nameaddon), ""));
+                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle().replace(this.mContext.getString(R.string.dining_nameaddon), ""));
 
                 fragment.setArguments(b);
                 this.mCallback.setFragment(fragment);

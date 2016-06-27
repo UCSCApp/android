@@ -12,7 +12,7 @@ public enum MarkerEnum {
             R.string.map_mchenry_title,
             R.string.map_mchenry_lat,
             R.string.map_mchenry_lng,
-            R.string.map_markersnippet_library,
+            R.string.map_library_snippet,
             R.drawable.library
     ),
     SNE(
@@ -20,7 +20,7 @@ public enum MarkerEnum {
             R.string.map_sne_title,
             R.string.map_sne_lat,
             R.string.map_sne_lng,
-            R.string.map_markersnippet_library,
+            R.string.map_library_snippet,
             R.drawable.library
     );
 
