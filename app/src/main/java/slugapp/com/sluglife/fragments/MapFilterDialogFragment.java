@@ -19,14 +19,7 @@ import slugapp.com.sluglife.R;
 /**
  * Created by isayyuhh on 9/23/2015
  */
-public class MapFilterDialogFragment extends DialogFragment {
-    private Context mContext;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mContext = activity;
-    }
+public class MapFilterDialogFragment extends BaseDialogFragment {
 
     @Override
     @NonNull
