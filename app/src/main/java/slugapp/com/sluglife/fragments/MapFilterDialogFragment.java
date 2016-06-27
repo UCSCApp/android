@@ -39,22 +39,31 @@ public class MapFilterDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater li = LayoutInflater.from(this.mContext);
         final View mapFilterView = li.inflate(R.layout.dialog_map_filter, null);
+        final CheckBox loopCheckBox = (CheckBox) mapFilterView.findViewById(
+                R.id.checkbox_loop_buses);
         final CheckBox diningCheckBox = (CheckBox) mapFilterView.findViewById(
                 R.id.checkbox_dining_halls);
         final CheckBox libraryCheckBox = (CheckBox) mapFilterView.findViewById(
                 R.id.checkbox_libraries);
+        final TextView loopTextView = (TextView) mapFilterView.findViewById(
+                R.id.textview_loop_buses);
         final TextView diningTextView = (TextView) mapFilterView.findViewById(
                 R.id.textview_dining_halls);
         final TextView libraryTextView = (TextView) mapFilterView.findViewById(
                 R.id.textview_libraries);
 
+        loopTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loopCheckBox.setChecked(!loopCheckBox.isChecked());
+            }
+        });
         diningTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diningCheckBox.setChecked(!diningCheckBox.isChecked());
             }
         });
-
         libraryTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +72,9 @@ public class MapFilterDialogFragment extends DialogFragment {
         });
 
         int pref = this.getArguments().getInt(this.mContext.getString(R.string.bundle_markers));
-        if ((pref & 0b01) != 0b00) diningCheckBox.setChecked(true);
-        if ((pref & 0b10) != 0b00) libraryCheckBox.setChecked(true);
+        if ((pref & 0b000001) != 0) loopCheckBox.setChecked(true);
+        if ((pref & 0b000100) != 0) diningCheckBox.setChecked(true);
+        if ((pref & 0b001000) != 0) libraryCheckBox.setChecked(true);
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Choose What Locations To Show")
@@ -74,9 +84,10 @@ public class MapFilterDialogFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        int bin = 0b00;
-                        if (diningCheckBox.isChecked()) bin = bin | 0b01;
-                        if (libraryCheckBox.isChecked()) bin = bin | 0b10;
+                        int bin = 0;
+                        if (loopCheckBox.isChecked()) bin = bin | 0b000001;
+                        if (diningCheckBox.isChecked()) bin = bin | 0b000100;
+                        if (libraryCheckBox.isChecked()) bin = bin | 0b001000;
 
                         Intent intent = new Intent();
                         intent.putExtra(mContext.getString(R.string.bundle_markers), bin);

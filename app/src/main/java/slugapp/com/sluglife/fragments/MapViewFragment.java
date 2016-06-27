@@ -99,7 +99,7 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
-            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0b00);
+            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0);
             SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(this.mContext.getString(R.string.bundle_markers), bin);

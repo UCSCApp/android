@@ -6,12 +6,20 @@
     android:padding="16dip">
 
     <CheckBox
-        android:id="@+id/checkbox_dining_halls"
+        android:id="@+id/checkbox_loop_buses"
         android:layout_width="36dip"
         android:layout_height="36dip"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
+
+    <CheckBox
+        android:id="@+id/checkbox_dining_halls"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/checkbox_loop_buses" />
 
     <CheckBox
         android:id="@+id/checkbox_libraries"
@@ -22,10 +30,24 @@
         android:layout_below="@id/checkbox_dining_halls" />
 
     <TextView
-        android:id="@+id/textview_dining_halls"
+        android:id="@+id/textview_loop_buses"
         android:layout_width="match_parent"
         android:layout_height="36dip"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dip"
+        android:layout_marginStart="8dip"
+        android:layout_toLeftOf="@id/checkbox_loop_buses"
+        android:layout_toStartOf="@id/checkbox_loop_buses"
+        android:gravity="center_vertical"
+        android:text="Loop Buses"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textview_dining_halls"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_below="@id/textview_loop_buses"
         android:layout_marginLeft="8dip"
         android:layout_marginStart="8dip"
         android:layout_toLeftOf="@id/checkbox_dining_halls"

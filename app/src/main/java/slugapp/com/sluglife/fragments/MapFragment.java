@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -77,8 +78,12 @@ public class MapFragment extends BaseMapFragment {
 
     @Override
     protected void setMarkers(GoogleMap googleMap) {
-        this.setDynamicMarkers(googleMap);
-        this.setStaticMarkers(googleMap);
+        SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
+        int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0b000000);
+
+        if ((bin & 0b000001) != 0) this.setLoopBusMarkers(googleMap);
+        if ((bin & 0b000100) != 0) this.setDiningHallMarkers(googleMap);
+        if ((bin & 0b001000) != 0) this.setLibraryMarkers(googleMap);
     }
 
     @Override
@@ -135,7 +140,7 @@ public class MapFragment extends BaseMapFragment {
         if (this.mCallback.getTimer() != null) this.mCallback.getTimer().cancel();
     }
 
-    private void setDynamicMarkers(GoogleMap map) {
+    private void setLoopBusMarkers(final GoogleMap map) {
         this.mDynamicMarkers = new HashMap<>();
 
         final Handler handler = new Handler();
@@ -148,14 +153,6 @@ public class MapFragment extends BaseMapFragment {
                 handler.post(runnable);
             }
         }, 0, 2000);
-    }
-
-    public void setStaticMarkers(final GoogleMap map) {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0b00);
-
-        if ((bin & 0b01) != 0b00) this.setDiningHallMarkers(map);
-        if ((bin & 0b10) != 0b00) this.setLibraryMarkers(map);
     }
 
     private void setDiningHallMarkers(final GoogleMap map) {
