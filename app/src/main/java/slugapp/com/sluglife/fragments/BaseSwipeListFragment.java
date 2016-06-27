@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.BaseAdapter;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.adapters.BaseListAdapter;
 
 /**
  * Created by isayyuhh on 2/21/16.

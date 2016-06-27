@@ -2,12 +2,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,10 +12,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.AttributeEnum;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Food;
-import slugapp.com.sluglife.enums.AttributeEnum;
 import slugapp.com.sluglife.models.FoodMenu;
 
 /**

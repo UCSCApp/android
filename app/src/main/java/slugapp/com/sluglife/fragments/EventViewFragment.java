@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.models.Event;
 import slugapp.com.sluglife.http.ImageHttpRequest;
+import slugapp.com.sluglife.models.Event;
 
 /**
  * Created by isaiah on 6/27/2015.

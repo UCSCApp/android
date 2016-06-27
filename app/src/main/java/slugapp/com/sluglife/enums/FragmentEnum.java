@@ -3,7 +3,6 @@ package slugapp.com.sluglife.enums;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.fragments.DiningHallListFragment;
 import slugapp.com.sluglife.fragments.EventListFragment;
-import slugapp.com.sluglife.fragments.MapFragment;
 import slugapp.com.sluglife.fragments.MapViewFragment;
 import slugapp.com.sluglife.fragments.SocialFragment;
 

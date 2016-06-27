@@ -8,13 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Toast;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
-import slugapp.com.sluglife.models.Date;
 
 /**
  * Created by isayyuhh on 2/21/16

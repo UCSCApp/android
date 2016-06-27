@@ -12,28 +12,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.gson.Gson;
-
-import java.lang.reflect.Constructor;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Timer;
-
-import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.enums.MonthEnum;
-import slugapp.com.sluglife.interfaces.ActivityCallback;
-import slugapp.com.sluglife.models.Date;
-import slugapp.com.sluglife.models.ToolbarButton;
-
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Timer;
+
 import io.fabric.sdk.android.Fabric;
+import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.enums.FragmentEnum;
+import slugapp.com.sluglife.interfaces.ActivityCallback;
+import slugapp.com.sluglife.models.ToolbarButton;
 
 /**
  * Created by isaiah on 6/27/2015.

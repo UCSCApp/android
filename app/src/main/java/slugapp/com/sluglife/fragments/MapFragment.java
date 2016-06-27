@@ -35,6 +35,8 @@ import java.util.TimerTask;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
+import slugapp.com.sluglife.enums.MarkerEnum;
+import slugapp.com.sluglife.enums.MarkerTypeEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
@@ -42,8 +44,6 @@ import slugapp.com.sluglife.models.DiningHall;
 import slugapp.com.sluglife.models.Facility;
 import slugapp.com.sluglife.models.Loop;
 import slugapp.com.sluglife.runnables.LoopRunnable;
-import slugapp.com.sluglife.enums.MarkerEnum;
-import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
 public class MapFragment extends BaseMapFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;

@@ -1,16 +1,10 @@
 package slugapp.com.sluglife.interfaces;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.gson.Gson;
 
-import java.util.List;
 import java.util.Timer;
-
-import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.models.Date;
 
 /**
  * Created by isayyuhh_s on 8/3/2015.

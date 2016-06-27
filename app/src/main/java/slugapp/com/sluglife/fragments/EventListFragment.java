@@ -17,9 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
