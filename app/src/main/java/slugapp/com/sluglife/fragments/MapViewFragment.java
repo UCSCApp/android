@@ -99,10 +99,10 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
-            int bin = data.getIntExtra("checkbox", 0b00);
+            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0b00);
             SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("checkbox", bin);
+            editor.putInt(this.mContext.getString(R.string.bundle_markers), bin);
             editor.apply();
 
             MapFragment fragment = new MapFragment();
@@ -123,17 +123,23 @@ public class MapViewFragment extends BaseViewFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.filter: {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
+                if (searchShowing) {
+                    this.mSearchBar.setVisibility(View.GONE);
+                    this.searchShowing = false;
+                    this.mSearchEditText.setText("");
+                }
+                FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+                Fragment prev = this.getFragmentManager().findFragmentByTag(this.mContext.getString(R.string.bundle_dialog));
 
                 if (prev != null) ft.remove(prev);
                 ft.addToBackStack(null);
 
-                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                int bin = sharedPref.getInt("checkbox", 0b00);
+                SharedPreferences sharedPref = this.getActivity().getPreferences(
+                        Context.MODE_PRIVATE);
+                int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0b00);
 
                 Bundle b = new Bundle();
-                b.putInt("checkbox", bin);
+                b.putInt(this.mContext.getString(R.string.bundle_markers), bin);
 
                 MapFilterDialogFragment dialog = new MapFilterDialogFragment();
                 dialog.setTargetFragment(this, 0);

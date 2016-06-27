@@ -43,8 +43,26 @@ public class MapFilterDialogFragment extends DialogFragment {
                 R.id.checkbox_dining_halls);
         final CheckBox libraryCheckBox = (CheckBox) mapFilterView.findViewById(
                 R.id.checkbox_libraries);
+        final TextView diningTextView = (TextView) mapFilterView.findViewById(
+                R.id.textview_dining_halls);
+        final TextView libraryTextView = (TextView) mapFilterView.findViewById(
+                R.id.textview_libraries);
 
-        int pref = this.getArguments().getInt("checkbox");
+        diningTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                diningCheckBox.setChecked(!diningCheckBox.isChecked());
+            }
+        });
+
+        libraryTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                libraryCheckBox.setChecked(!libraryCheckBox.isChecked());
+            }
+        });
+
+        int pref = this.getArguments().getInt(this.mContext.getString(R.string.bundle_markers));
         if ((pref & 0b01) != 0b00) diningCheckBox.setChecked(true);
         if ((pref & 0b10) != 0b00) libraryCheckBox.setChecked(true);
 
@@ -61,7 +79,7 @@ public class MapFilterDialogFragment extends DialogFragment {
                         if (libraryCheckBox.isChecked()) bin = bin | 0b10;
 
                         Intent intent = new Intent();
-                        intent.putExtra("checkbox", bin);
+                        intent.putExtra(mContext.getString(R.string.bundle_markers), bin);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, intent);
                     }
                 })

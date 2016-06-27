@@ -8,11 +8,14 @@ package slugapp.com.sluglife.fragments;
 //  Copyright (c) 2015 UCSC Android. All rights reserved.
 //
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +52,6 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
     private static final float DEFAULT_ZOOM = 15.0f;
-    private static final float MAX_VISIBLE_ZOOM = 14.9f;
 
     private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
 
@@ -139,7 +141,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
     public void setStaticMarkers(final GoogleMap map) {
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        int bin = sharedPref.getInt("checkbox", 0b00);
+        int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0b00);
 
         if ((bin & 0b01) != 0b00) this.setDiningHallMarkers(map);
         if ((bin & 0b10) != 0b00) this.setLibraryMarkers(map);
@@ -214,16 +216,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 onClickStaticInfoWindow(marker);
             }
         });
-
-        // OnCameraChangeListener
-        map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-            @Override
-            public void onCameraChange(CameraPosition cameraPosition) {
-                for (Marker marker : mStaticMarkers.values()) {
-                    marker.setVisible(cameraPosition.zoom > MAX_VISIBLE_ZOOM);
-                }
-            }
-        });
     }
 
     private void onClickStaticInfoWindow(Marker marker) {
@@ -253,7 +245,22 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
         map.getUiSettings().setZoomControlsEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
-        //map.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(
+                this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                this.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        map.setMyLocationEnabled(true);
     }
 
     private void removeDynamicMarkers() {
