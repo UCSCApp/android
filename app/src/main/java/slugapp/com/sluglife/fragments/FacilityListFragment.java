@@ -42,14 +42,13 @@ public class FacilityListFragment extends BaseSwipeListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_facility, container, false);
 
-        this.setListFragment(view, fragmentEnum, new FacilityListAdapter(this.mContext));
-        this.onRefresh();
+        this.setSwipeListFragment(view, fragmentEnum, new FacilityListAdapter(this.mContext));
 
         return view;
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setSwipeListFields(View view) {
         this.mView = view;
         this.mFacilities = new ArrayList<>();
     }
@@ -65,17 +64,18 @@ public class FacilityListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    protected void onClick(AdapterView<?> parent, View view, int position, long id) {
+    protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
     }
 
     @Override
-    public void onRefresh() {
+    public void onSwipeListRefresh() {
         ((BaseListAdapter) mAdapter).setData(mFacilities);
         SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(
                 R.id.swipe_container);
         list.setVisibility(View.GONE);
         TextView failed = (TextView) mView.findViewById(R.id.failed);
         failed.setVisibility(View.VISIBLE);
-        mSwipeLayout.setRefreshing(false);
+
+        stopRefreshing();
     }
 }

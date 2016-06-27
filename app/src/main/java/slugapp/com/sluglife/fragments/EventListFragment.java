@@ -40,7 +40,6 @@ public class EventListFragment extends BaseSwipeListFragment {
     private View mSearchBar;
     private String mQuery;
 
-    private boolean refreshing;
     private boolean searchShowing;
 
     @Override
@@ -48,24 +47,23 @@ public class EventListFragment extends BaseSwipeListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_event, container, false);
 
-        this.setListFragment(view, fragmentEnum, new EventListAdapter(this.mContext));
-        this.onRefresh();
+        this.setSwipeListFragment(view, fragmentEnum, new EventListAdapter(this.mContext));
 
         return view;
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setSwipeListFields(View view) {
         this.mView = view;
         this.mSearchBar = view.findViewById(R.id.search);
 
         this.searchShowing = false;
-        this.refreshing = false;
     }
 
     @Override
     protected void setView(View view, BaseAdapter adapter) {
         super.setView(view, adapter);
+
         final EditText searchEditText = (EditText) view.findViewById(R.id.search_edit_text);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,26 +104,13 @@ public class EventListFragment extends BaseSwipeListFragment {
         }
     }
 
-    // TODO: implement better search algorithm
-
-    private void doSearch(List<Event> events) {
-        for (Event event : events) {
-            if (event.name.toLowerCase().contains(this.mQuery.toLowerCase())) continue;
-            events.remove(event);
-        }
-    }
-
     @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
         return Date.compareEvents((Event) lhs, (Event) rhs);
     }
 
-    // TODO: move refreshing variable to BaseSwipeListFragment
-
     @Override
-    protected void onClick(AdapterView<?> parent, View view, int position, long id) {
-        if (this.refreshing) return;
-
+    protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
         Event e = (Event) parent.getItemAtPosition(position);
         String json = this.mCallback.getGson().toJson(e);
 
@@ -138,8 +123,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    public void onRefresh() {
-        this.refreshing = true;
+    public void onSwipeListRefresh() {
         new EventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
@@ -161,8 +145,8 @@ public class EventListFragment extends BaseSwipeListFragment {
                     failed.setVisibility(View.GONE);
                 }
                 ((BaseListAdapter) mAdapter).setData(events);
-                mSwipeLayout.setRefreshing(false);
-                refreshing = false;
+
+                stopRefreshing();
             }
 
             @Override
@@ -172,11 +156,19 @@ public class EventListFragment extends BaseSwipeListFragment {
                 list.setVisibility(View.GONE);
                 TextView failed = (TextView) mView.findViewById(R.id.failed);
                 failed.setVisibility(View.VISIBLE);
-                mSwipeLayout.setRefreshing(false);
-                refreshing = false;
-                e.printStackTrace();
+
+                stopRefreshing();
             }
         });
+    }
+
+    // TODO: implement better search algorithm
+
+    private void doSearch(List<Event> events) {
+        for (Event event : events) {
+            if (event.name.toLowerCase().contains(this.mQuery.toLowerCase())) continue;
+            events.remove(event);
+        }
     }
 }
 
