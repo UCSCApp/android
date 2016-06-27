@@ -41,6 +41,10 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     }
 
     @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    @Override
     protected void setFields(View view) {
         Bundle b = this.getArguments();
 

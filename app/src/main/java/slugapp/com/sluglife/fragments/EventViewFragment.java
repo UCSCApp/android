@@ -23,16 +23,6 @@ public class EventViewFragment extends BaseViewFragment {
     private Event mEvent;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle b = this.getArguments();
-
-        this.mEvent = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), Event.class);
-        this.mName = this.mEvent.name;
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_event, container, false);
@@ -40,6 +30,12 @@ public class EventViewFragment extends BaseViewFragment {
         this.setViewFragment(view, fragmentEnum, this.mName);
 
         return view;
+    }
+
+    @Override
+    protected void setArgumentFields(Bundle b) {
+        this.mEvent = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), Event.class);
+        this.mName = this.mEvent.name;
     }
 
     @Override

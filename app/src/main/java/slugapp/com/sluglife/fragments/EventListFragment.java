@@ -53,6 +53,10 @@ public class EventListFragment extends BaseSwipeListFragment {
     }
 
     @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    @Override
     protected void setSwipeListFields(View view) {
         this.mView = view;
         this.mSearchBar = view.findViewById(R.id.search);

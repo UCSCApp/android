@@ -40,6 +40,10 @@ public class DiningHallListFragment extends BaseListFragment {
     }
 
     @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    @Override
     protected void setFields(View view) {
         this.mDiningHalls = new ArrayList<>();
     }

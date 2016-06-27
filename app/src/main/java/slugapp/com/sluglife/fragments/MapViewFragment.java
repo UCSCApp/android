@@ -40,6 +40,10 @@ public class MapViewFragment extends BaseViewFragment {
     }
 
     @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    @Override
     protected void setFields(View view) {
         this.mSearchBar = view.findViewById(R.id.search);
 

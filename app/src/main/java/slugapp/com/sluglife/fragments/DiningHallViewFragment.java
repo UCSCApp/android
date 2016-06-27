@@ -42,16 +42,6 @@ public class DiningHallViewFragment extends BaseViewFragment {
     private FoodMenu mFoodMenu;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle b = this.getArguments();
-
-        this.mFoodMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), FoodMenu.class);
-        this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_dining, container, false);
@@ -59,6 +49,12 @@ public class DiningHallViewFragment extends BaseViewFragment {
         this.setViewFragment(view, fragmentEnum, this.mName);
 
         return view;
+    }
+
+    @Override
+    protected void setArgumentFields(Bundle b) {
+        this.mFoodMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), FoodMenu.class);
+        this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
     }
 
     @Override

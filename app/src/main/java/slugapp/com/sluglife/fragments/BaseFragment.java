@@ -24,11 +24,10 @@ public abstract class BaseFragment extends Fragment {
     private String mTitle;
     private int mButtonId;
 
-    // TODO: create abstract bundle function
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         this.mCallback = (ActivityCallback) activity;
         this.mContext = activity;
     }
@@ -36,12 +35,16 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.setHasOptionsMenu(true);
+
+        this.setArgumentFields(getArguments());
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         this.mCallback.setTitle(mTitle);
         this.mCallback.setButtons(mButtonId);
     }
@@ -90,6 +93,8 @@ public abstract class BaseFragment extends Fragment {
         editor.putInt(key, value);
         editor.apply();
     }
+
+    protected abstract void setArgumentFields(Bundle b);
 
     protected abstract void setFields(View view);
 }

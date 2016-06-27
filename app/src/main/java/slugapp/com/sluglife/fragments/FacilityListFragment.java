@@ -29,15 +29,6 @@ public class FacilityListFragment extends BaseSwipeListFragment {
     private List<BaseObject> mFacilities;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle b = this.getArguments();
-
-        this.mQuery = b.getString(this.mContext.getString(R.string.bundle_query));
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_facility, container, false);
@@ -45,6 +36,11 @@ public class FacilityListFragment extends BaseSwipeListFragment {
         this.setSwipeListFragment(view, fragmentEnum, new FacilityListAdapter(this.mContext));
 
         return view;
+    }
+
+    @Override
+    protected void setArgumentFields(Bundle b) {
+        this.mQuery = b.getString(this.mContext.getString(R.string.bundle_query));
     }
 
     @Override

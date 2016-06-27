@@ -34,6 +34,10 @@ public class SocialFragment extends BaseListFragment {
     }
 
     @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    @Override
     protected void setFields(View view) {
     }
 
