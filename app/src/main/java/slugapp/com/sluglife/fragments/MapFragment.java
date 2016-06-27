@@ -25,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -161,7 +162,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                                                     R.string.dining_nameaddon))
                                             .snippet("Tap to view dining menu")
                                             .position(val.latLng)
-                                            .icon(mCallback.toBitMap(DiningHall.diningImage))));
+                                            .icon(BitmapDescriptorFactory.fromResource(
+                                                    DiningHall.diningImage))));
                                 }
 
                                 @Override
@@ -181,14 +183,14 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
     private void setLibraryMarkers(final GoogleMap map) {
         for (MarkerEnum currEnum : sMarkerEnums) {
-            double lat = Double.valueOf(this.mCallback.toStr(currEnum.getLat()));
-            double lng = Double.valueOf(this.mCallback.toStr(currEnum.getLng()));
+            double lat = Double.valueOf(this.mContext.getString(currEnum.getLat()));
+            double lng = Double.valueOf(this.mContext.getString(currEnum.getLng()));
 
-            String title = this.mCallback.toStr(currEnum.getTitle());
-            String snippet = this.mCallback.toStr(currEnum.getSnippet());
+            String title = this.mContext.getString(currEnum.getTitle());
+            String snippet = this.mContext.getString(currEnum.getSnippet());
             LatLng latLng = new LatLng(lat, lng);
             if (currEnum.getType() != MarkerTypeEnum.LIBRARY) continue;
-            BitmapDescriptor bitmap = this.mCallback.toBitMap(currEnum.getIcon());
+            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.getIcon());
 
             this.mStaticMarkers.put(new Facility(MarkerTypeEnum.LIBRARY),
                     map.addMarker(new MarkerOptions()
@@ -237,8 +239,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     private void setInitialZoom(GoogleMap map) {
-        float lat = Float.valueOf(this.mCallback.toStr(R.string.map_init_lat));
-        float lng = Float.valueOf(this.mCallback.toStr(R.string.map_init_lng));
+        float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
+        float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
         float zoom = DEFAULT_ZOOM;
 
         LatLng initLatLng = new LatLng(lat, lng);

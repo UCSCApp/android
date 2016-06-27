@@ -18,20 +18,6 @@ import slugapp.com.sluglife.models.Date;
 public interface ActivityCallback {
 
     /**
-     * Get list of tab fragments
-     *
-     * @return List of tab fragments
-     */
-    List<FragmentEnum> getFragments();
-
-    /**
-     * Get current fragment manager
-     *
-     * @return Current fragment manager
-     */
-    FragmentManager fm();
-
-    /**
      * Sets the current fragment
      *
      * @param fragment Fragment to set
@@ -77,27 +63,9 @@ public interface ActivityCallback {
     Timer getTimer();
 
     /**
-     * Get resource string
-     *
-     * @param id Id of resource
-     * @return String
-     */
-    String toStr(int id);
-
-    /**
-     * Get resource bitmap
-     *
-     * @param id Id of bitmap
-     * @return Bitmap
-     */
-    BitmapDescriptor toBitMap(int id);
-
-    /**
      * Get Gson
      *
      * @return Gson
      */
     Gson getGson();
-
-    Fragment getTabFragment(FragmentEnum fragmentEnum);
 }

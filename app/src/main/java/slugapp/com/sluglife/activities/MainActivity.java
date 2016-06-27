@@ -43,9 +43,6 @@ import io.fabric.sdk.android.Fabric;
  */
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
-    private static final String TWITTER_KEY = "FOdauNUahweKi8Zy5XmTc1bC5";
-    private static final String TWITTER_SECRET = "sGe6KKgVB8eTmkGgEqcfAhSyKXwlBOvy5CJOcipIWE0V0Ay0bF";
-
     private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
 
@@ -59,11 +56,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
-
         this.setContentView(R.layout.activity_main);
+
         this.setFields();
         this.setTopToolbar();
         this.setBottomToolbar();
@@ -71,11 +65,16 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Initializes the main activity's fields
+     * Initializes the activity's fields
      */
     private void setFields() {
-        this.init = true;
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(this.getString(R.string.social_key),
+                this.getString(R.string.social_secret));
+        Fabric.with(this, new Twitter(authConfig));
+
         this.mGson = new Gson();
+
+        this.init = true;
     }
 
     /**
@@ -119,23 +118,19 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get list of tab sTabFragments
+     * Gets the fragment instance form the given fragment enum
      *
-     * @return List of tab sTabFragments
+     * @param fragmentEnum Fragment enum
+     * @return Fragment from fragment enum
      */
-    @Override
-    public List<FragmentEnum> getFragments() {
-        return sTabFragments;
-    }
-
-    /**
-     * Get current fragment manager
-     *
-     * @return Current fragment manager
-     */
-    @Override
-    public FragmentManager fm() {
-        return mFragmentManager;
+    private Fragment getTabFragment(FragmentEnum fragmentEnum) {
+        try {
+            Class<?> fragmentClass = fragmentEnum.getFragment();
+            Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
+            return (Fragment) fragmentConstructor.newInstance();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -235,28 +230,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get resource string
-     *
-     * @param id Id of resource
-     * @return String
-     */
-    @Override
-    public String toStr(int id) {
-        return this.getResources().getString(id);
-    }
-
-    /**
-     * Get resource bitmap
-     *
-     * @param id Id of bitmap
-     * @return Bitmap
-     */
-    @Override
-    public BitmapDescriptor toBitMap(int id) {
-        return BitmapDescriptorFactory.fromResource(id);
-    }
-
-    /**
      * Get Gson
      *
      * @return Gson
@@ -264,22 +237,5 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     public Gson getGson() {
         return this.mGson;
-    }
-
-    /**
-     * Gets the fragment instance form the given fragment enum
-     *
-     * @param fragmentEnum Fragment enum
-     * @return Fragment from fragment enum
-     */
-    @Override
-    public Fragment getTabFragment(FragmentEnum fragmentEnum) {
-        try {
-            Class<?> fragmentClass = fragmentEnum.getFragment();
-            Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
-            return (Fragment) fragmentConstructor.newInstance();
-        } catch (Exception e) {
-            return null;
-        }
     }
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Secret keys -->
+    <string name="social_key">FOdauNUahweKi8Zy5XmTc1bC5</string>
+    <string name="social_secret">sGe6KKgVB8eTmkGgEqcfAhSyKXwlBOvy5CJOcipIWE0V0Ay0bF</string>
+
     <!-- Json keys -->
     <string name="json_event_name">name</string>
     <string name="json_event_date">date</string>
