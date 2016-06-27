@@ -34,8 +34,11 @@ public class Event extends BaseObject {
         this.defined = !(this.name.equals("") || this.summary.equals(""));
     }
 
+    public String getShortName() {
+        return this.name.length() > 100 ? this.name.substring(0, 100) + "..." : this.name;
+    }
+
     public String getShortSummary() {
-        return this.summary.length() > 150 ? this.summary.substring(0, 150) +
-                "..." : this.summary;
+        return this.summary.length() > 150 ? this.summary.substring(0, 150) + "..." : this.summary;
     }
 }

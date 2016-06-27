@@ -24,6 +24,7 @@ import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
+import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
 import slugapp.com.sluglife.models.Date;

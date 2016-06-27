@@ -68,6 +68,8 @@ public class EventViewFragment extends BaseViewFragment {
         } else {
             String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.string;
             day.setText(dayString);
+            start.setVisibility(View.GONE);
+            end.setVisibility(View.GONE);
         }
 
         description.setText(this.mEvent.summary);

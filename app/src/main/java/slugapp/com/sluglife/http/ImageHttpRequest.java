@@ -7,7 +7,7 @@ import com.android.volley.toolbox.ImageLoader;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by simba on 8/1/15.
+ * Created by simba on 8/1/15
  */
 public class ImageHttpRequest extends BaseRequest {
     private String mUrl;
