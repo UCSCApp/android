@@ -1,13 +1,10 @@
 package slugapp.com.sluglife.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +17,8 @@ import slugapp.com.sluglife.R;
  * Created by isayyuhh on 9/23/2015
  */
 public class MapFilterDialogFragment extends BaseDialogFragment {
+
+    // TODO: find alternative to null
 
     @Override
     @NonNull
@@ -85,7 +84,6 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
                 // Negative Button
                 .setNegativeButton(this.mContext.getString(R.string.dialog_negative), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,	int which) {
-                        // Do something else
                     }
                 }).create();
     }

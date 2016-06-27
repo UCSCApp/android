@@ -33,7 +33,8 @@ public class EventViewFragment extends BaseViewFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_event, container, false);
 
         this.setViewFragment(view, fragmentEnum, this.mName);
@@ -54,18 +55,18 @@ public class EventViewFragment extends BaseViewFragment {
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
         if (this.mEvent.date.defined) {
-            String dayString = "When: " + this.mEvent.date.month.getVal() + " " +
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.getVal() + " " +
                     this.mEvent.date.day;
-            String startString = "Starts: " + String.valueOf(this.mEvent.date.startTime) +
+            String startString = this.mContext.getString(R.string.detail_event_start) + String.valueOf(this.mEvent.date.startTime) +
                     this.mEvent.date.startTOD;
-            String endString = "Ends: " + String.valueOf(this.mEvent.date.endTime) +
+            String endString = this.mContext.getString(R.string.detail_event_end) + String.valueOf(this.mEvent.date.endTime) +
                     this.mEvent.date.endTOD;
 
             day.setText(dayString);
             start.setText(startString);
             end.setText(endString);
         } else {
-            String dayString = "When: " + this.mEvent.date.string;
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.string;
             day.setText(dayString);
         }
 

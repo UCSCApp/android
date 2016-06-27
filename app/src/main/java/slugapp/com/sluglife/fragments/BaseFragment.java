@@ -26,6 +26,9 @@ public abstract class BaseFragment extends Fragment {
     private String mTitle;
     private int mButtonId;
 
+    // TODO: create abstract bundle function
+    // TODO: create SharedPreferences functions
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

@@ -9,7 +9,7 @@ import slugapp.com.sluglife.enums.MonthEnum;
  * Created by isayyuhh_s on 7/18/2015
  */
 
-// TODO: move date helper functions
+// TODO: implement saving military format time instead of saving "am" and "pm" strings
 
 public class Date extends BaseObject {
     private final static MonthEnum[] months = MonthEnum.values();

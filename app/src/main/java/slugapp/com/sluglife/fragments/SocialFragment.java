@@ -20,7 +20,8 @@ public class SocialFragment extends BaseListFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.SOCIAL;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_social, container, false);
 
         this.setListFragment(view, fragmentEnum, new TweetTimelineListAdapter.Builder(this.mContext)

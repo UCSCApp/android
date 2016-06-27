@@ -107,28 +107,12 @@ public class EventListFragment extends BaseSwipeListFragment {
         }
     }
 
-    // TODO: change StringTokenizer to String.split
+    // TODO: implement better search algorithm
 
-    private void doSearch(List<Event> val) {
-        for (Iterator<Event> itor = val.iterator(); itor.hasNext(); ) {
-            Event event = itor.next();
-            StringTokenizer queryTokenizer = new StringTokenizer(this.mQuery);
-            int found = 0, max = queryTokenizer.countTokens();
-            while (queryTokenizer.hasMoreTokens()) {
-                String query = queryTokenizer.nextToken();
-                StringTokenizer stringTokenizer = new StringTokenizer(event.name);
-                while (stringTokenizer.hasMoreTokens()) {
-                    String current = stringTokenizer.nextToken();
-                    if (query.length() < current.length()) {
-                        current = current.substring(0, query.length());
-                    }
-                    if (current.toLowerCase().equals(query.toLowerCase())) {
-                        found++;
-                        break;
-                    }
-                }
-            }
-            if (found < max) itor.remove();
+    private void doSearch(List<Event> events) {
+        for (Event event : events) {
+            if (event.name.toLowerCase().contains(this.mQuery.toLowerCase())) continue;
+            events.remove(event);
         }
     }
 
@@ -136,6 +120,8 @@ public class EventListFragment extends BaseSwipeListFragment {
     protected int doSort(BaseObject lhs, BaseObject rhs) {
         return Date.compareEvents((Event) lhs, (Event) rhs);
     }
+
+    // TODO: move refreshing variable to BaseSwipeListFragment
 
     @Override
     protected void onClick(AdapterView<?> parent, View view, int position, long id) {

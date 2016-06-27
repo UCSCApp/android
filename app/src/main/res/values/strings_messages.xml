@@ -18,4 +18,10 @@
     <string name="title_dining_viewpager_breakfast">Breakfast</string>
     <string name="title_dining_viewpager_lunch">Lunch</string>
     <string name="title_dining_viewpager_dinner">Dinner</string>
+
+    <!-- Details -->
+    <string name="detail_event_day">When:\u0020</string>
+    <string name="detail_event_start">Starts:\u0020</string>
+    <string name="detail_event_end">Ends:\u0020</string>
+    <string name="detail_map_dining_ending">\u0020Dining Hall</string>
 </resources>

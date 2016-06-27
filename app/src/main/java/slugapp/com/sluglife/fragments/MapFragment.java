@@ -160,7 +160,7 @@ public class MapFragment extends BaseMapFragment {
                                 public void onSuccess(DiningHall val) {
                                     mStaticMarkers.put(val, map.addMarker(new MarkerOptions()
                                             .title(val.name + mContext.getString(
-                                                    R.string.dining_nameaddon))
+                                                    R.string.detail_map_dining_ending))
                                             .snippet(mContext.getString(R.string.map_dining_snippet))
                                             .position(val.latLng)
                                             .icon(BitmapDescriptorFactory.fromResource(
@@ -212,7 +212,7 @@ public class MapFragment extends BaseMapFragment {
                 DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
 
                 Bundle b = new Bundle();
-                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle().replace(this.mContext.getString(R.string.dining_nameaddon), ""));
+                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), ""));
 
                 fragment.setArguments(b);
                 this.mCallback.setFragment(fragment);
