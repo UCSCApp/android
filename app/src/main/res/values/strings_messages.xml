@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 'No information' messages -->
     <string name="no_facility">No facility information available.</string>
     <string name="no_event">No event information available.</string>
     <string name="no_dining">No dining information available.</string>
+
+    <!-- Dialog messages -->
+    <string name="dialog_map_filter_title">Select what to show on the map:</string>
+    <string name="dialog_map_loop_buses">Loop Buses</string>
+    <string name="dialog_map_dining_halls">Dining Halls</string>
+    <string name="dialog_map_libraries">Libraries</string>
+    <string name="dialog_dining_legend_title">Legend</string>
+    <string name="dialog_positive">@android:string/ok</string>
+    <string name="dialog_negative">@android:string/cancel</string>
 </resources>

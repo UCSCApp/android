@@ -77,11 +77,11 @@ public class MapFilterDialogFragment extends DialogFragment {
         if ((pref & 0b001000) != 0) libraryCheckBox.setChecked(true);
 
         return new AlertDialog.Builder(getActivity())
-                .setTitle("Choose What Locations To Show")
+                .setTitle(this.mContext.getString(R.string.dialog_map_filter_title))
                 .setView(mapFilterView)
 
                 // Positive button
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(this.mContext.getString(R.string.dialog_positive), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                         int bin = 0;
@@ -96,7 +96,7 @@ public class MapFilterDialogFragment extends DialogFragment {
                 })
 
                 // Negative Button
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(this.mContext.getString(R.string.dialog_negative), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,	int which) {
                         // Do something else
                     }

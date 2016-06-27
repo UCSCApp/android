@@ -39,7 +39,7 @@
         android:layout_toLeftOf="@id/checkbox_loop_buses"
         android:layout_toStartOf="@id/checkbox_loop_buses"
         android:gravity="center_vertical"
-        android:text="Loop Buses"
+        android:text="@string/dialog_map_loop_buses"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -53,7 +53,7 @@
         android:layout_toLeftOf="@id/checkbox_dining_halls"
         android:layout_toStartOf="@id/checkbox_dining_halls"
         android:gravity="center_vertical"
-        android:text="Dining Halls"
+        android:text="@string/dialog_map_dining_halls"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
         android:layout_toLeftOf="@id/checkbox_libraries"
         android:layout_toStartOf="@id/checkbox_libraries"
         android:gravity="center_vertical"
-        android:text="Libraries"
+        android:text="@string/dialog_map_libraries"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 </RelativeLayout>
