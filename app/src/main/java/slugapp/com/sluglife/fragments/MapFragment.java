@@ -72,8 +72,7 @@ public class MapFragment extends BaseMapFragment {
 
     @Override
     protected void setMarkers(GoogleMap googleMap) {
-        SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
-        int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0b000000);
+        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
 
         if ((bin & 0b000001) != 0) this.setLoopBusMarkers(googleMap);
         if ((bin & 0b000100) != 0) this.setDiningHallMarkers(googleMap);
@@ -116,8 +115,7 @@ public class MapFragment extends BaseMapFragment {
                 ActivityCompat.checkSelfPermission(
                         this.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
+            // TODO: Consider calling ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)

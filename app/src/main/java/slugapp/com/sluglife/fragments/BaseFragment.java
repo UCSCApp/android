@@ -2,6 +2,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,6 @@ public abstract class BaseFragment extends Fragment {
     private int mButtonId;
 
     // TODO: create abstract bundle function
-    // TODO: create SharedPreferences functions
 
     @Override
     public void onAttach(Activity activity) {
@@ -56,8 +56,6 @@ public abstract class BaseFragment extends Fragment {
         this.setLayout(name, fragmentEnum.getButtonId());
     }
 
-    protected abstract void setFields(View view);
-
     protected void setLayout(String title, int buttonId) {
         this.mTitle = title;
         this.mButtonId = buttonId;
@@ -80,4 +78,18 @@ public abstract class BaseFragment extends Fragment {
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(ft, this.mContext.getString(R.string.bundle_dialog));
     }
+
+    protected int getSharedPrefInt(String key, int defaultValue) {
+        SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getInt(key, defaultValue);
+    }
+
+    protected void putSharedPrefInt(String key, int value) {
+        SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
+    protected abstract void setFields(View view);
 }

@@ -83,11 +83,8 @@ public class MapViewFragment extends BaseViewFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
             int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0);
-            SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt(this.mContext.getString(R.string.bundle_markers), bin);
-            editor.apply();
 
+            this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
             this.setChildFragment(R.id.map_view, new MapFragment());
         }
     }
@@ -107,9 +104,7 @@ public class MapViewFragment extends BaseViewFragment {
                     this.mSearchEditText.setText("");
                 }
 
-                SharedPreferences sharedPref = this.getActivity().getPreferences(
-                        Context.MODE_PRIVATE);
-                int bin = sharedPref.getInt(this.mContext.getString(R.string.bundle_markers), 0);
+                int bin = getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
 
                 Bundle b = new Bundle();
                 b.putInt(this.mContext.getString(R.string.bundle_markers), bin);

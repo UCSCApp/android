@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- TODO: Change to ListView to see if better performance -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

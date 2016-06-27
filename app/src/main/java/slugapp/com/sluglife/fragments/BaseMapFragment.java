@@ -2,6 +2,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -73,6 +74,11 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     protected void setLayout(String title, int buttonId) {
         this.mTitle = title;
         this.mButtonId = buttonId;
+    }
+
+    protected int getSharedPrefInt(String key, int defaultValue) {
+        SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getInt(key, defaultValue);
     }
 
     protected abstract void setFields(View view);
