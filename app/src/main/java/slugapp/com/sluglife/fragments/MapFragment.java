@@ -182,14 +182,14 @@ public class MapFragment extends BaseMapFragment {
 
     private void setLibraryMarkers(final GoogleMap map) {
         for (MarkerEnum currEnum : sMarkerEnums) {
-            double lat = Double.valueOf(this.mContext.getString(currEnum.getLat()));
-            double lng = Double.valueOf(this.mContext.getString(currEnum.getLng()));
+            double lat = Double.valueOf(this.mContext.getString(currEnum.lat));
+            double lng = Double.valueOf(this.mContext.getString(currEnum.lng));
 
-            String title = this.mContext.getString(currEnum.getTitle());
-            String snippet = this.mContext.getString(currEnum.getSnippet());
+            String title = this.mContext.getString(currEnum.title);
+            String snippet = this.mContext.getString(currEnum.snippet);
             LatLng latLng = new LatLng(lat, lng);
-            if (currEnum.getType() != MarkerTypeEnum.LIBRARY) continue;
-            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.getIcon());
+            if (currEnum.type != MarkerTypeEnum.LIBRARY) continue;
+            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.icon);
 
             this.mStaticMarkers.put(new Facility(MarkerTypeEnum.LIBRARY),
                     map.addMarker(new MarkerOptions()

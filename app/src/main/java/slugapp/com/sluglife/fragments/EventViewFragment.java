@@ -51,7 +51,7 @@ public class EventViewFragment extends BaseViewFragment {
         ImageView image = (ImageView) view.findViewById(R.id.image);
 
         if (this.mEvent.date.defined) {
-            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.getVal() + " " +
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.month + " " +
                     this.mEvent.date.day;
             String startString = this.mContext.getString(R.string.detail_event_start) + String.valueOf(this.mEvent.date.startTime) +
                     this.mEvent.date.startTOD;

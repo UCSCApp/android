@@ -41,19 +41,11 @@ public enum MonthEnum {
             "December", 12
     );
 
-    private String month;
-    private int order;
+    public String month;
+    public int order;
 
     MonthEnum(String month, int order) {
         this.month = month;
         this.order = order;
-    }
-
-    public String getVal() {
-        return this.month;
-    }
-
-    public int getOrder() {
-        return this.order;
     }
 }

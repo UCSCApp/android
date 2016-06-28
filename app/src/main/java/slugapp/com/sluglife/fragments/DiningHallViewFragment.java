@@ -104,7 +104,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 ImageView icon = new ImageView(this.mContext);
 
                 icon.setLayoutParams(iconParams);
-                icon.setImageResource(attribute.getIcon());
+                icon.setImageResource(attribute.icon);
                 attributes.addView(icon);
             }
 

@@ -39,7 +39,7 @@ public class Date extends BaseObject {
 
         /** Month */
         for (MonthEnum currMonth : months) {
-            String month = currMonth.getVal();
+            String month = currMonth.month;
             if (month.compareTo(newMonth) == 0) {
                 this.month = currMonth;
                 break;
@@ -89,11 +89,11 @@ public class Date extends BaseObject {
         String year = new SimpleDateFormat("yyyy").format(date);
         String hour = new SimpleDateFormat("hh").format(date);
         String tod = new SimpleDateFormat("aa").format(date);
-        String month = MonthEnum.JANUARY.getVal();
+        String month = MonthEnum.JANUARY.month;
 
         for (MonthEnum currMonth : MonthEnum.values()) {
-            if (currMonth.getOrder() != Integer.valueOf(numericalMonth)) continue;
-            month = currMonth.getVal();
+            if (currMonth.order != Integer.valueOf(numericalMonth)) continue;
+            month = currMonth.month;
             break;
         }
         return new Date(month, day, year, hour + tod, hour + tod);
@@ -126,8 +126,8 @@ public class Date extends BaseObject {
     }
 
     private static int compMonths(MonthEnum lhs, MonthEnum rhs) {
-        if (lhs.getOrder() < rhs.getOrder()) return -1;
-        else if (lhs.getOrder() > rhs.getOrder()) return 1;
+        if (lhs.order < rhs.order) return -1;
+        else if (lhs.order > rhs.order) return 1;
         return 0;
     }
 

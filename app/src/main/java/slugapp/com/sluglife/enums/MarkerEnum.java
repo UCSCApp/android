@@ -24,12 +24,12 @@ public enum MarkerEnum {
             R.drawable.library
     );
 
-    private MarkerTypeEnum type;
-    private int title;
-    private int lat;
-    private int lng;
-    private int snippet;
-    private int icon;
+    public MarkerTypeEnum type;
+    public int title;
+    public int lat;
+    public int lng;
+    public int snippet;
+    public int icon;
 
     MarkerEnum(MarkerTypeEnum type, int title, int lat, int lng, int snippet, int icon) {
         this.title = title;
@@ -38,29 +38,5 @@ public enum MarkerEnum {
         this.lng = lng;
         this.snippet = snippet;
         this.icon = icon;
-    }
-
-    public MarkerTypeEnum getType() {
-        return this.type;
-    }
-
-    public int getTitle() {
-        return this.title;
-    }
-
-    public int getLat() {
-        return this.lat;
-    }
-
-    public int getLng() {
-        return this.lng;
-    }
-
-    public int getSnippet() {
-        return this.snippet;
-    }
-
-    public int getIcon() {
-        return this.icon;
     }
 }

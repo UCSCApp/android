@@ -38,7 +38,7 @@ public abstract class BaseFragment extends Fragment {
 
         this.setHasOptionsMenu(true);
 
-        this.setArgumentFields(getArguments());
+        this.setArgumentFields(this.getArguments());
     }
 
     @Override
@@ -51,12 +51,12 @@ public abstract class BaseFragment extends Fragment {
 
     protected void setFragment(View view, FragmentEnum fragmentEnum) {
         this.setFields(view);
-        this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
+        this.setLayout(fragmentEnum.name, fragmentEnum.buttonId);
     }
 
     protected void setFragment(View view, FragmentEnum fragmentEnum, String name) {
         this.setFields(view);
-        this.setLayout(name, fragmentEnum.getButtonId());
+        this.setLayout(name, fragmentEnum.buttonId);
     }
 
     protected void setLayout(String title, int buttonId) {

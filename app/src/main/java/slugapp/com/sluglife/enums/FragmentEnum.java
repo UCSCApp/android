@@ -15,31 +15,15 @@ public enum FragmentEnum {
     DINING(DiningHallListFragment.class, R.id.button_3, R.drawable.ic_dining, "Dining Halls"),
     SOCIAL(SocialFragment.class, R.id.button_4, R.drawable.ic_social, "Tweets");
 
-    private Class fragment;
-    private int buttonId;
-    private int imageId;
-    private String name;
+    public Class fragment;
+    public int buttonId;
+    public int imageId;
+    public String name;
 
     FragmentEnum(Class fragment, int buttonId, int imageId, String name) {
         this.fragment = fragment;
         this.buttonId = buttonId;
         this.imageId = imageId;
         this.name = name;
-    }
-
-    public Class getFragment() {
-        return this.fragment;
-    }
-
-    public int getButtonId() {
-        return this.buttonId;
-    }
-
-    public int getImageId() {
-        return this.imageId;
-    }
-
-    public String getName() {
-        return this.name;
     }
 }

@@ -40,7 +40,7 @@ public class ToolbarButton extends ImageButton {
         @Override
         public void onClick(View view) {
             for (FragmentEnum fragmentEnum : sTabFragments) {
-                if (view.getId() != fragmentEnum.getButtonId()) continue;
+                if (view.getId() != fragmentEnum.buttonId) continue;
                 mCallback.setFragment(getTabFragment(fragmentEnum));
             }
         }
@@ -54,7 +54,7 @@ public class ToolbarButton extends ImageButton {
 
     private Fragment getTabFragment(FragmentEnum fragmentEnum) {
         try {
-            Class<?> fragmentClass = fragmentEnum.getFragment();
+            Class<?> fragmentClass = fragmentEnum.fragment;
             Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
             return (Fragment) fragmentConstructor.newInstance();
         } catch (Exception e) {

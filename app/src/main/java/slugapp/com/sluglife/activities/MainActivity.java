@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         LinearLayout bottom = (LinearLayout) this.findViewById(R.id.bottom_toolbar);
         View child = this.getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
         for (FragmentEnum fragment : sTabFragments) {
-            this.setButton(child, fragment.getButtonId(), fragment.getImageId());
+            this.setButton(child, fragment.buttonId, fragment.imageId);
         }
         bottom.addView(child);
 
-        ToolbarButton startButton = (ToolbarButton) this.findViewById(sStartFragment.getButtonId());
+        ToolbarButton startButton = (ToolbarButton) this.findViewById(sStartFragment.buttonId);
         startButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
     }
 
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     private Fragment getTabFragment(FragmentEnum fragmentEnum) {
         try {
-            Class<?> fragmentClass = fragmentEnum.getFragment();
+            Class<?> fragmentClass = fragmentEnum.fragment;
             Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
             return (Fragment) fragmentConstructor.newInstance();
         } catch (Exception e) {
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     public void setButtons(int buttonId) {
         for (FragmentEnum fragment : sTabFragments) {
-            View button = this.findViewById(fragment.getButtonId());
+            View button = this.findViewById(fragment.buttonId);
             button.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.toggle_off));
         }
         View button = this.findViewById(buttonId);

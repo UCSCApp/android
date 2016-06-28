@@ -11,13 +11,9 @@ public enum LoopTypeEnum {
     LOOP_OUT_OF_SERVICE_AT_BARN_THEATER("LOOP OUT OF SERVICE AT BARN THEATER"),
     EAST_NIGHT_CORE("EAST NIGHT CORE");
 
+    public String string;
+
     LoopTypeEnum(String string) {
         this.string = string;
-    }
-
-    private String string;
-
-    public String getString() {
-        return this.string;
     }
 }

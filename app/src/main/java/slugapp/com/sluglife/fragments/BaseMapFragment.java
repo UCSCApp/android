@@ -68,7 +68,7 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
 
     protected void setMapFragment(View view, FragmentEnum fragmentEnum) {
         this.setFields(view);
-        this.setLayout(fragmentEnum.getName(), fragmentEnum.getButtonId());
+        this.setLayout(fragmentEnum.name, fragmentEnum.buttonId);
     }
 
     protected void setLayout(String title, int buttonId) {

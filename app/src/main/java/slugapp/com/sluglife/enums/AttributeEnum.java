@@ -17,19 +17,11 @@ public enum AttributeEnum {
     PORK("Pork", R.drawable.ic_pork),
     BEEF("Beef", R.drawable.ic_beef);
 
-    private int icon;
-    private String string;
+    public int icon;
+    public String string;
 
     AttributeEnum(String string, int icon) {
         this.icon = icon;
         this.string = string;
-    }
-
-    public int getIcon() {
-        return this.icon;
-    }
-
-    public String getString() {
-        return this.string;
     }
 }

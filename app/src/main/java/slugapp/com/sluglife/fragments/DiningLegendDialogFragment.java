@@ -64,12 +64,12 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
             // icon
             ImageView icon = new ImageView(this.mContext);
             icon.setLayoutParams(iconParams);
-            icon.setImageResource(AttributeEnum.values()[i].getIcon());
+            icon.setImageResource(AttributeEnum.values()[i].icon);
             ll.addView(icon);
 
             // text view
             TextView tv = new TextView(this.mContext);
-            tv.setText(AttributeEnum.values()[i].getString());
+            tv.setText(AttributeEnum.values()[i].string);
             tv.setTextColor(Color.BLACK);
             tv.setTextSize(TEXT_SIZE);
             tv.setLayoutParams(tvParams);
