@@ -45,8 +45,8 @@ public abstract class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        this.mCallback.setTitle(mTitle);
-        this.mCallback.setButtons(mButtonId);
+        this.mCallback.setTitle(this.mTitle);
+        this.mCallback.setButtons(this.mButtonId);
     }
 
     protected void setFragment(View view, FragmentEnum fragmentEnum) {
