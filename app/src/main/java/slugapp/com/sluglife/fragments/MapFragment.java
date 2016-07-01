@@ -9,8 +9,6 @@ package slugapp.com.sluglife.fragments;
 //
 
 import android.Manifest;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,7 +44,7 @@ import slugapp.com.sluglife.models.Loop;
 import slugapp.com.sluglife.runnables.LoopRunnable;
 
 public class MapFragment extends BaseMapFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
     private static final float DEFAULT_ZOOM = 15.0f;
@@ -59,7 +57,7 @@ public class MapFragment extends BaseMapFragment {
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
-        this.setMapFragment(view, fragmentEnum);
+        this.setMapFragment(view, FRAGMENT);
 
         return view;
     }

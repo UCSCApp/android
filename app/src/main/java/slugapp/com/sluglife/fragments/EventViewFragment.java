@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewEventBinding;
@@ -20,7 +18,7 @@ import slugapp.com.sluglife.models.Event;
  * This file displays all of the contents for each individual mEvent.
  */
 public class EventViewFragment extends BaseViewFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.EVENT;
 
     private ViewEventBinding mBinding;
     private Event mEvent;
@@ -32,7 +30,7 @@ public class EventViewFragment extends BaseViewFragment {
                 R.layout.view_event, container, false);
         View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, fragmentEnum, this.mName);
+        this.setViewFragment(view, container, FRAGMENT, this.mName);
 
         return view;
     }

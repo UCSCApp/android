@@ -26,7 +26,7 @@ import slugapp.com.sluglife.models.StringObject;
  * Created by isayyuhh_s on 9/1/2015
  */
 public class DiningHallListFragment extends BaseListFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.DINING;
 
     private ListDiningBinding mBinding;
     private List<BaseObject> mDiningHalls;
@@ -38,7 +38,7 @@ public class DiningHallListFragment extends BaseListFragment {
                 R.layout.list_dining, container, false);
         View view = this.mBinding.getRoot();
 
-        this.setListFragment(view, container, fragmentEnum, new DiningListAdapter(this.mContext));
+        this.setListFragment(view, container, FRAGMENT, new DiningListAdapter(this.mContext));
 
         return view;
     }

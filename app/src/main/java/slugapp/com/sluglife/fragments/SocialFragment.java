@@ -17,14 +17,14 @@ import slugapp.com.sluglife.models.BaseObject;
  * Created by isayyuhh on 6/12/16
  */
 public class SocialFragment extends BaseListFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.SOCIAL;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.SOCIAL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_social, container, false);
 
-        this.setListFragment(view, container, fragmentEnum, new TweetTimelineListAdapter.Builder(
+        this.setListFragment(view, container, FRAGMENT, new TweetTimelineListAdapter.Builder(
                 this.mContext)
                         .setTimeline(new SearchTimeline.Builder()
                                 .query(this.mContext.getString(R.string.social_hashtag_ucsc))

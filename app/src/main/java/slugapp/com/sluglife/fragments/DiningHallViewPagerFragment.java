@@ -15,23 +15,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewpagerDiningBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
-import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.DiningHall;
 import slugapp.com.sluglife.models.FoodMenu;
 
 /**
- * Created by isayyuhh on 6/3/16.
+ * Created by isayyuhh on 6/3/16
  */
 public class DiningHallViewPagerFragment extends BaseViewFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.DINING;
 
     private ViewpagerDiningBinding mBinding;
     private String mName;
@@ -44,7 +42,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                 R.layout.viewpager_dining, container, false);
         View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, fragmentEnum, this.mName);
+        this.setViewFragment(view, container, FRAGMENT, this.mName);
 
         return view;
     }

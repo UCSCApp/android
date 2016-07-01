@@ -24,6 +24,8 @@ import slugapp.com.sluglife.models.FoodMenu;
  * Created by isayyuhh_s on 8/8/2015
  */
 public class DiningHallViewFragment extends BaseViewFragment {
+    private static final FragmentEnum FRAGMENT = FragmentEnum.DINING;
+
     private static final int LINEAR_LAYOUT_PARAMS = 75;
 
     private static final int TABLE_ROW_INIT_WIDTH = 0;
@@ -39,8 +41,6 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     private static final float TEXT_SIZE = 14.0f;
 
-    private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
-
     private ViewDiningBinding mBinding;
     private FoodMenu mFoodMenu;
 
@@ -51,7 +51,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 R.layout.view_dining, container, false);
         View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, fragmentEnum, this.mName);
+        this.setViewFragment(view, container, FRAGMENT, this.mName);
 
         return view;
     }

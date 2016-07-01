@@ -1,8 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,7 +21,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
  * Created by isayyuhh on 6/20/16
  */
 public class MapViewFragment extends BaseViewFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
     private ViewMapBinding mBinding;
     private View mSearchBar;
@@ -39,7 +37,7 @@ public class MapViewFragment extends BaseViewFragment {
                 R.layout.view_map, container, false);
         View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, fragmentEnum);
+        this.setViewFragment(view, container, FRAGMENT);
 
         return view;
     }

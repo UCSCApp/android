@@ -2,7 +2,6 @@ package slugapp.com.sluglife.fragments;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +24,6 @@ import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.databinding.ListEventBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
-import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
 import slugapp.com.sluglife.models.Date;
@@ -36,7 +33,7 @@ import slugapp.com.sluglife.models.Event;
  * Created by isaiah on 6/23/2015
  */
 public class EventListFragment extends BaseSwipeListFragment {
-    private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;
+    private static final FragmentEnum FRAGMENT = FragmentEnum.EVENT;
 
     private ListEventBinding mBinding;
     private View mView;
@@ -52,7 +49,7 @@ public class EventListFragment extends BaseSwipeListFragment {
                 R.layout.list_event, container, false);
         View view = this.mBinding.getRoot();
 
-        this.setSwipeListFragment(view, container, fragmentEnum, new EventListAdapter(
+        this.setSwipeListFragment(view, container, FRAGMENT, new EventListAdapter(
                 this.mContext));
 
         return view;
