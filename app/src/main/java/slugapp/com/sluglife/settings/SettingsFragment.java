@@ -3,11 +3,10 @@ package slugapp.com.sluglife.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.github.machinarius.preferencefragment.PreferenceFragment;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
@@ -15,7 +14,7 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
 /**
  * Created by isayyuhh_s on 7/26/2015.
  */
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragmentCompat {
     private ActivityCallback mCallback;
     private Context mContext;
 
@@ -37,10 +36,13 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     @Override
+    public void onCreatePreferences(Bundle bundle, String s) {
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_settings, container, false);
-        //TextView tv = (TextView) view.findViewById(R.id.googleMaps_license);
-        //tv.setText(GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(mContext));
         this.mCallback.setTitle("SettingsFragment");
         return view;
     }
@@ -48,6 +50,5 @@ public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onStart() {
         super.onStart();
-        //mCallback.setButtons(R.id.settings_button);
     }
 }
