@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ViewEventBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.ImageHttpRequest;
 import slugapp.com.sluglife.models.Event;
@@ -20,14 +22,17 @@ import slugapp.com.sluglife.models.Event;
 public class EventViewFragment extends BaseViewFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
+    private ViewEventBinding mBinding;
     private Event mEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.view_event, container, false);
+        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+                R.layout.view_event, container, false);
+        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, fragmentEnum, this.mName);
+        this.setViewFragment(view, container, fragmentEnum, this.mName);
 
         return view;
     }
@@ -39,36 +44,29 @@ public class EventViewFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setFields(View view, ViewGroup container) {
     }
 
     @Override
     protected void setView(View view) {
-        TextView day = (TextView) view.findViewById(R.id.day);
-        TextView start = (TextView) view.findViewById(R.id.start);
-        TextView end = (TextView) view.findViewById(R.id.end);
-        TextView description = (TextView) view.findViewById(R.id.summary);
-        ImageView image = (ImageView) view.findViewById(R.id.image);
-
         if (this.mEvent.date.defined) {
-            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.month + " " +
-                    this.mEvent.date.day;
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.month + " " + this.mEvent.date.day;
             String startString = this.mContext.getString(R.string.detail_event_start) + String.valueOf(this.mEvent.date.startTime) +
                     this.mEvent.date.startTOD;
             String endString = this.mContext.getString(R.string.detail_event_end) + String.valueOf(this.mEvent.date.endTime) +
                     this.mEvent.date.endTOD;
 
-            day.setText(dayString);
-            start.setText(startString);
-            end.setText(endString);
+            this.mBinding.day.setText(dayString);
+            this.mBinding.start.setText(startString);
+            this.mBinding.end.setText(endString);
         } else {
             String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.string;
-            day.setText(dayString);
-            start.setVisibility(View.GONE);
-            end.setVisibility(View.GONE);
+            this.mBinding.day.setText(dayString);
+            this.mBinding.start.setVisibility(View.GONE);
+            this.mBinding.end.setVisibility(View.GONE);
         }
 
-        description.setText(this.mEvent.summary);
-        new ImageHttpRequest(this.mEvent.image).execute(image);
+        this.mBinding.summary.setText(this.mEvent.summary);
+        new ImageHttpRequest(this.mEvent.image).execute(this.mBinding.image);
     }
 }

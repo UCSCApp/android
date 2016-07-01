@@ -1,5 +1,7 @@
 package slugapp.com.sluglife.models;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -101,8 +103,10 @@ public class Date extends BaseObject {
 
     public static int getCurrentTime() {
         Date today = getToday();
-        if (today.startTOD.equals("am") && today.startTime == 12) return 0;
-        if (today.startTOD.equals("pm")) return today.startTime + 12;
+
+        if (today.startTOD.toLowerCase().equals("pm") && today.startTime == 12) return 12;
+        if (today.startTOD.toLowerCase().equals("am") && today.startTime == 12) return 0;
+        if (today.startTOD.toLowerCase().equals("pm")) return today.startTime + 12;
         else return today.startTime;
     }
 

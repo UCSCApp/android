@@ -1,6 +1,7 @@
 package slugapp.com.sluglife.fragments;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -17,8 +18,9 @@ import slugapp.com.sluglife.models.BaseObject;
 public abstract class BaseListFragment extends BaseFragment {
     protected BaseAdapter mAdapter;
 
-    protected void setListFragment(View view, FragmentEnum fragmentEnum, BaseAdapter adapter) {
-        this.setFragment(view, fragmentEnum);
+    protected void setListFragment(View view, ViewGroup container, FragmentEnum fragmentEnum,
+                                   BaseAdapter adapter) {
+        this.setFragment(view, container, fragmentEnum);
         this.setView(view, adapter);
     }
 

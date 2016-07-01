@@ -1,69 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/date"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingTop="10dip"
-            android:textColor="#000"
-            android:textSize="14sp" />
+            android:orientation="vertical">
 
-        <TableLayout
-            android:id="@+id/meal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="12dip"
-            android:stretchColumns="*">
-
-            <TableRow
+            <TextView
+                android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/UcscBlue"
-                android:padding="5dip"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip">
+                android:gravity="center_horizontal"
+                android:paddingTop="10dip"
+                android:textColor="#000"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/meal_title"
-                    android:layout_width="0dip"
+            <TableLayout
+                android:id="@+id/meal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
+                android:paddingTop="12dip"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Food"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:background="@color/UcscBlue"
+                    android:padding="5dip"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip">
 
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Nutrition"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-            </TableRow>
-        </TableLayout>
+                    <TextView
+                        android:id="@+id/meal_title"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Food"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/failed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="8dip"
-            android:text="@string/no_dining"
-            android:textSize="16sp"
-            android:visibility="gone" />
-    </LinearLayout>
-</ScrollView>
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Nutrition"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/failed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="8dip"
+                android:text="@string/no_dining"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

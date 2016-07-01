@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
@@ -22,6 +23,7 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.EventListAdapter;
+import slugapp.com.sluglife.databinding.ListEventBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.http.TestEventListHttpRequest;
@@ -36,6 +38,7 @@ import slugapp.com.sluglife.models.Event;
 public class EventListFragment extends BaseSwipeListFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.EVENT;
 
+    private ListEventBinding mBinding;
     private View mView;
     private View mSearchBar;
     private String mQuery;
@@ -45,9 +48,12 @@ public class EventListFragment extends BaseSwipeListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_event, container, false);
+        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+                R.layout.list_event, container, false);
+        View view = this.mBinding.getRoot();
 
-        this.setSwipeListFragment(view, fragmentEnum, new EventListAdapter(this.mContext));
+        this.setSwipeListFragment(view, container, fragmentEnum, new EventListAdapter(
+                this.mContext));
 
         return view;
     }
@@ -57,7 +63,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    protected void setSwipeListFields(View view) {
+    protected void setSwipeListFields(View view, ViewGroup container) {
         this.mView = view;
         this.mSearchBar = view.findViewById(R.id.search);
 
@@ -134,19 +140,10 @@ public class EventListFragment extends BaseSwipeListFragment {
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);
-                if (events.isEmpty()) {
-                    SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(
-                            R.id.swipe_container);
-                    list.setVisibility(View.GONE);
-                    TextView failed = (TextView) mView.findViewById(R.id.failed);
-                    failed.setVisibility(View.VISIBLE);
-                } else {
-                    SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(
-                            R.id.swipe_container);
-                    list.setVisibility(View.VISIBLE);
-                    TextView failed = (TextView) mView.findViewById(R.id.failed);
-                    failed.setVisibility(View.GONE);
-                }
+
+                mBinding.swipeContainer.setVisibility(events.isEmpty() ? View.GONE : View.VISIBLE);
+                mBinding.failed.setVisibility(events.isEmpty() ? View.VISIBLE : View.GONE);
+
                 ((BaseListAdapter) mAdapter).setData(events);
 
                 stopRefreshing();
@@ -154,11 +151,8 @@ public class EventListFragment extends BaseSwipeListFragment {
 
             @Override
             public void onError(Exception e) {
-                SwipeRefreshLayout list = (SwipeRefreshLayout) mView.findViewById(
-                        R.id.swipe_container);
-                list.setVisibility(View.GONE);
-                TextView failed = (TextView) mView.findViewById(R.id.failed);
-                failed.setVisibility(View.VISIBLE);
+                mBinding.swipeContainer.setVisibility(View.GONE);
+                mBinding.failed.setVisibility(View.VISIBLE);
 
                 stopRefreshing();
             }

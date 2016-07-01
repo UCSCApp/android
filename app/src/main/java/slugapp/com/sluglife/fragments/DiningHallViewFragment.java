@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ViewDiningBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.Date;
@@ -39,14 +41,17 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
+    private ViewDiningBinding mBinding;
     private FoodMenu mFoodMenu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.view_dining, container, false);
+        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+                R.layout.view_dining, container, false);
+        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, fragmentEnum, this.mName);
+        this.setViewFragment(view, container, fragmentEnum, this.mName);
 
         return view;
     }
@@ -58,25 +63,21 @@ public class DiningHallViewFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setFields(View view, ViewGroup container) {
     }
 
     @Override
     protected void setView(final View view) {
-        TextView dateTv = (TextView) view.findViewById(R.id.date);
         String date = Date.getToday().month + " " + Date.getToday().day;
-        dateTv.setText(date);
+        this.mBinding.date.setText(date);
 
-        this.setMenu(view, this.mFoodMenu, (TableLayout) view.findViewById(R.id.meal));
+        this.setMenu(this.mFoodMenu, this.mBinding.meal);
     }
 
-    private void setMenu(View view, FoodMenu menu, TableLayout table) {
+    private void setMenu(FoodMenu menu, TableLayout table) {
         if (menu.isEmpty()) {
-            LinearLayout layout = (LinearLayout) view.findViewById(R.id.meal);
-            TextView failed = (TextView) view.findViewById(R.id.failed);
-
-            layout.setVisibility(View.GONE);
-            failed.setVisibility(View.VISIBLE);
+            this.mBinding.meal.setVisibility(View.GONE);
+            this.mBinding.failed.setVisibility(View.VISIBLE);
             return;
         }
 

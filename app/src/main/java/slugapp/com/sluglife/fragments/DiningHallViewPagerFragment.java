@@ -1,5 +1,9 @@
 package slugapp.com.sluglife.fragments;
 
+//import android.databinding.DataBindingUtil;
+//import android.databinding.ViewDataBinding;
+
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,8 +15,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ViewpagerDiningBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
@@ -27,15 +33,18 @@ import slugapp.com.sluglife.models.FoodMenu;
 public class DiningHallViewPagerFragment extends BaseViewFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.DINING;
 
+    private ViewpagerDiningBinding mBinding;
     private String mName;
     private DiningHall mDiningHall;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.viewpager_dining, container, false);
+        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+                R.layout.viewpager_dining, container, false);
+        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, fragmentEnum, this.mName);
+        this.setViewFragment(view, container, fragmentEnum, this.mName);
 
         return view;
     }
@@ -45,7 +54,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setFields(View view, ViewGroup container) {
         Bundle b = this.getArguments();
 
         this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
@@ -59,19 +68,18 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                     @Override
                     public void onSuccess(DiningHall val) {
                         mDiningHall = val;
-                        this.setPager((ViewPager) view.findViewById(R.id.pager));
+                        this.setPager(mBinding.pager);
                     }
 
                     @Override
                     public void onError(Exception e) {
                         mDiningHall = new DiningHall();
-                        this.setPager((ViewPager) view.findViewById(R.id.pager));
+                        this.setPager(mBinding.pager);
                     }
 
                     private void setPager(ViewPager pager) {
                         pager.setOffscreenPageLimit(2);
-                        pager.setAdapter(new DiningPagerAdapter(mCallback,
-                                getChildFragmentManager()));
+                        pager.setAdapter(new DiningPagerAdapter(getChildFragmentManager()));
                         pager.setCurrentItem(getTimeOfDay());
                     }
                 });
@@ -103,12 +111,10 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     }
 
     private class DiningPagerAdapter extends FragmentStatePagerAdapter {
-        private ActivityCallback mCallback;
         private final String mTabTitles[] = new String[]{mContext.getString(R.string.title_dining_viewpager_breakfast), mContext.getString(R.string.title_dining_viewpager_lunch), mContext.getString(R.string.title_dining_viewpager_dinner)};
 
-        public DiningPagerAdapter(ActivityCallback mCallback, FragmentManager fm) {
+        public DiningPagerAdapter(FragmentManager fm) {
             super(fm);
-            this.mCallback = mCallback;
         }
 
         @Override

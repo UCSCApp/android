@@ -2,6 +2,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
@@ -17,10 +18,10 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
     protected boolean refreshing;
 
     @Override
-    protected void setFields(View view) {
+    protected void setFields(View view, ViewGroup container) {
         this.refreshing = false;
 
-        this.setSwipeListFields(view);
+        this.setSwipeListFields(view, container);
     }
 
     @Override
@@ -49,8 +50,9 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
         this.onSwipeListRefresh();
     }
 
-    protected void setSwipeListFragment(View view, FragmentEnum fragmentEnum, BaseAdapter adapter) {
-        this.setListFragment(view, fragmentEnum, adapter);
+    protected void setSwipeListFragment(View view, ViewGroup container, FragmentEnum fragmentEnum,
+                                        BaseAdapter adapter) {
+        this.setListFragment(view, container, fragmentEnum, adapter);
         this.onRefresh();
     }
 
@@ -59,7 +61,7 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
         this.refreshing = false;
     }
 
-    protected abstract void setSwipeListFields(View view);
+    protected abstract void setSwipeListFields(View view, ViewGroup container);
 
     protected abstract void onSwipeListItemClick(AdapterView<?> parent, View view, int position,
                                                  long id);

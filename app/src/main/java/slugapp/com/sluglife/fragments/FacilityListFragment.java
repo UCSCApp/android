@@ -33,7 +33,8 @@ public class FacilityListFragment extends BaseSwipeListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_facility, container, false);
 
-        this.setSwipeListFragment(view, fragmentEnum, new FacilityListAdapter(this.mContext));
+        this.setSwipeListFragment(view, container, fragmentEnum, new FacilityListAdapter(
+                this.mContext));
 
         return view;
     }
@@ -44,7 +45,7 @@ public class FacilityListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    protected void setSwipeListFields(View view) {
+    protected void setSwipeListFields(View view, ViewGroup container) {
         this.mView = view;
         this.mFacilities = new ArrayList<>();
     }

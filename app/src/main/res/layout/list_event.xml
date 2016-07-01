@@ -1,29 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?><!-- http://icons4android.com/icon/195 for activity_main icon--><!-- http://icons4android.com/icon/1629 for map icon--><!-- http://icons4android.com/icon/199 for settings icon--><!-- http://icons4android.com/icon/1199 for rss feed/social icon--><!-- This is the fragment  to be displayed for a section associated with a tab -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/include_search_bar" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/list"
+        <include layout="@layout/include_search_bar" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/failed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="8dip"
-        android:text="@string/no_event"
-        android:textSize="16sp"
-        android:visibility="gone" />
-</LinearLayout>
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/failed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="8dip"
+            android:text="@string/no_event"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</layout>

@@ -3,14 +3,19 @@ package slugapp.com.sluglife.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+//import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+//import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import slugapp.com.sluglife.R;
+//import slugapp.com.sluglife.adapters.DiningListAdapter;
+//import slugapp.com.sluglife.databinding.ListDiningBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 
@@ -49,13 +54,14 @@ public abstract class BaseFragment extends Fragment {
         this.mCallback.setButtons(this.mButtonId);
     }
 
-    protected void setFragment(View view, FragmentEnum fragmentEnum) {
-        this.setFields(view);
+    protected void setFragment(View view, ViewGroup container, FragmentEnum fragmentEnum) {
+        this.setFields(view, container);
         this.setLayout(fragmentEnum.name, fragmentEnum.buttonId);
     }
 
-    protected void setFragment(View view, FragmentEnum fragmentEnum, String name) {
-        this.setFields(view);
+    protected void setFragment(View view, ViewGroup container, FragmentEnum fragmentEnum,
+                               String name) {
+        this.setFields(view, container);
         this.setLayout(name, fragmentEnum.buttonId);
     }
 
@@ -96,5 +102,5 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void setArgumentFields(Bundle b);
 
-    protected abstract void setFields(View view);
+    protected abstract void setFields(View view, ViewGroup container);
 }

@@ -34,7 +34,7 @@ public class MapViewFragment extends BaseViewFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_map, container, false);
 
-        this.setViewFragment(view, fragmentEnum);
+        this.setViewFragment(view, container, fragmentEnum);
 
         return view;
     }
@@ -44,7 +44,7 @@ public class MapViewFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setFields(View view, ViewGroup container) {
         this.mSearchBar = view.findViewById(R.id.search);
 
         this.searchShowing = false;
