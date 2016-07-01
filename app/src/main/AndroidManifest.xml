@@ -36,7 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        
+        <meta-data android:name="com.samsung.android.sdk.multiwindow.enable" android:value="true"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="67908642b607a6a94cd9a24f46d5c9d2f49db751" />
