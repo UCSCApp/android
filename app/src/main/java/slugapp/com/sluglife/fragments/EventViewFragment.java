@@ -34,8 +34,8 @@ public class EventViewFragment extends BaseViewFragment {
 
     @Override
     protected void setArgumentFields(Bundle b) {
-        this.mEvent = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), Event.class);
-        this.mName = this.mEvent.name;
+        this.mEvent = (Event) b.getSerializable(this.mContext.getString(R.string.bundle_json));
+        if (this.mEvent != null) this.mName = this.mEvent.name;
     }
 
     @Override

@@ -48,11 +48,4 @@ public interface ActivityCallback {
      * @return Timer
      */
     Timer getTimer();
-
-    /**
-     * Get Gson
-     *
-     * @return Gson
-     */
-    Gson getGson();
 }

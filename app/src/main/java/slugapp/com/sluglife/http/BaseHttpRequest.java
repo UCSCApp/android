@@ -56,32 +56,6 @@ public abstract class BaseHttpRequest extends BaseRequest {
         queue().add(stringRequest);
     }
 
-    /*
-    protected void rawExecute(final HashMap<String, String> params, final HttpCallback<String> callback) {
-        StringRequest stringRequest = new StringRequest(
-                volleyMethod,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        callback.onSuccess(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        callback.onError(error);
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return params;
-            }
-        };
-        queue().add(stringRequest);
-    }
-    */
-
     public enum Method {
         POST(com.android.volley.Request.Method.POST),
         GET(com.android.volley.Request.Method.GET);

@@ -130,7 +130,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
             DiningHallViewFragment fragment = new DiningHallViewFragment();
 
             Bundle b = new Bundle();
-            b.putString(mContext.getString(R.string.bundle_json), this.mCallback.getGson().toJson(menu));
+            b.putSerializable(mContext.getString(R.string.bundle_json), menu);
             b.putString(mContext.getString(R.string.bundle_name), mName);
             fragment.setArguments(b);
 

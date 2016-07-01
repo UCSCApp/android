@@ -38,10 +38,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
 
-    private FragmentManager mFragmentManager;
     private TextView mTitle;
     private Timer mTimer;
-    private Gson mGson;
 
     private boolean init;
 
@@ -63,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         TwitterAuthConfig authConfig = new TwitterAuthConfig(this.getString(R.string.social_key),
                 this.getString(R.string.social_secret));
         Fabric.with(this, new Twitter(authConfig));
-
-        this.mGson = new Gson();
 
         this.init = true;
     }
@@ -132,8 +128,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setFragment(Fragment fragment) {
-        this.mFragmentManager = this.getSupportFragmentManager();
-        FragmentTransaction ft = this.mFragmentManager.beginTransaction();
+        FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.view_fragment, fragment);
         if (!this.init) ft.addToBackStack(null);
         ft.commit();
@@ -196,15 +191,5 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     public Timer getTimer() {
         return this.mTimer;
-    }
-
-    /**
-     * Get Gson
-     *
-     * @return Gson
-     */
-    @Override
-    public Gson getGson() {
-        return this.mGson;
     }
 }

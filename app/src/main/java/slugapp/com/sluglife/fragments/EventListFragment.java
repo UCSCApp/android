@@ -116,10 +116,9 @@ public class EventListFragment extends BaseSwipeListFragment {
     @Override
     protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
         Event e = (Event) parent.getItemAtPosition(position);
-        String json = this.mCallback.getGson().toJson(e);
 
         Bundle b = new Bundle();
-        b.putString(this.mContext.getString(R.string.bundle_json), json);
+        b.putSerializable(this.mContext.getString(R.string.bundle_json), e);
 
         EventViewFragment fragment = new EventViewFragment();
         fragment.setArguments(b);

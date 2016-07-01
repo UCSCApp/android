@@ -53,7 +53,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     @Override
     protected void setArgumentFields(Bundle b) {
-        this.mFoodMenu = this.mCallback.getGson().fromJson(b.getString(this.mContext.getString(R.string.bundle_json)), FoodMenu.class);
+        this.mFoodMenu = (FoodMenu) b.getSerializable(this.mContext.getString(R.string.bundle_json));
         this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
     }
 

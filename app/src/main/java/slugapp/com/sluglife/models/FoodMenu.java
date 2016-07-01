@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by isayyuhh_s on 9/2/2015.
  */
-public class FoodMenu {
+public class FoodMenu extends BaseObject {
     private List<Food> items;
 
     public FoodMenu() {
