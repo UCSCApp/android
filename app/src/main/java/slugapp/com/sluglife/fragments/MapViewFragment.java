@@ -3,6 +3,7 @@ package slugapp.com.sluglife.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ViewMapBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 
 /**
@@ -23,6 +25,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 public class MapViewFragment extends BaseViewFragment {
     private static final FragmentEnum fragmentEnum = FragmentEnum.MAP;
 
+    private ViewMapBinding mBinding;
     private View mSearchBar;
     private String mQuery;
     private EditText mSearchEditText;
@@ -32,7 +35,9 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.view_map, container, false);
+        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+                R.layout.view_map, container, false);
+        View view = this.mBinding.getRoot();
 
         this.setViewFragment(view, container, fragmentEnum);
 

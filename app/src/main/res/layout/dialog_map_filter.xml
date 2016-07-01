@@ -1,73 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dip">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBox
-        android:id="@+id/checkbox_loop_buses"
-        android:layout_width="36dip"
-        android:layout_height="36dip"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-
-    <CheckBox
-        android:id="@+id/checkbox_dining_halls"
-        android:layout_width="36dip"
-        android:layout_height="36dip"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/checkbox_loop_buses" />
-
-    <CheckBox
-        android:id="@+id/checkbox_libraries"
-        android:layout_width="36dip"
-        android:layout_height="36dip"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/checkbox_dining_halls" />
-
-    <TextView
-        android:id="@+id/textview_loop_buses"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="36dip"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="8dip"
-        android:layout_marginStart="8dip"
-        android:layout_toLeftOf="@id/checkbox_loop_buses"
-        android:layout_toStartOf="@id/checkbox_loop_buses"
-        android:gravity="center_vertical"
-        android:text="@string/dialog_map_loop_buses"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dip">
 
-    <TextView
-        android:id="@+id/textview_dining_halls"
-        android:layout_width="match_parent"
-        android:layout_height="36dip"
-        android:layout_below="@id/textview_loop_buses"
-        android:layout_marginLeft="8dip"
-        android:layout_marginStart="8dip"
-        android:layout_toLeftOf="@id/checkbox_dining_halls"
-        android:layout_toStartOf="@id/checkbox_dining_halls"
-        android:gravity="center_vertical"
-        android:text="@string/dialog_map_dining_halls"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        <CheckBox
+            android:id="@+id/checkbox_loop_buses"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
 
-    <TextView
-        android:id="@+id/textview_libraries"
-        android:layout_width="match_parent"
-        android:layout_height="36dip"
-        android:layout_below="@id/textview_dining_halls"
-        android:layout_marginLeft="8dip"
-        android:layout_marginStart="8dip"
-        android:layout_toLeftOf="@id/checkbox_libraries"
-        android:layout_toStartOf="@id/checkbox_libraries"
-        android:gravity="center_vertical"
-        android:text="@string/dialog_map_libraries"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/checkbox_dining_halls"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/checkbox_loop_buses" />
+
+        <CheckBox
+            android:id="@+id/checkbox_libraries"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/checkbox_dining_halls" />
+
+        <TextView
+            android:id="@+id/textview_loop_buses"
+            android:layout_width="match_parent"
+            android:layout_height="36dip"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/checkbox_loop_buses"
+            android:layout_toStartOf="@id/checkbox_loop_buses"
+            android:gravity="center_vertical"
+            android:text="@string/dialog_map_loop_buses"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textview_dining_halls"
+            android:layout_width="match_parent"
+            android:layout_height="36dip"
+            android:layout_below="@id/textview_loop_buses"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/checkbox_dining_halls"
+            android:layout_toStartOf="@id/checkbox_dining_halls"
+            android:gravity="center_vertical"
+            android:text="@string/dialog_map_dining_halls"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textview_libraries"
+            android:layout_width="match_parent"
+            android:layout_height="36dip"
+            android:layout_below="@id/textview_dining_halls"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/checkbox_libraries"
+            android:layout_toStartOf="@id/checkbox_libraries"
+            android:gravity="center_vertical"
+            android:text="@string/dialog_map_libraries"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</layout>
