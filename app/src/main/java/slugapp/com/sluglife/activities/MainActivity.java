@@ -1,9 +1,9 @@
 package slugapp.com.sluglife.activities;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -23,6 +22,7 @@ import java.util.Timer;
 
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ActivityMainBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.models.ToolbarButton;
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
 
+    private ActivityMainBinding mBinding;
     private TextView mTitle;
     private Timer mTimer;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_main);
+        this.mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         this.setFields();
         this.setTopToolbar();
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the activity's fields
      */
     private void setFields() {
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(this.getString(R.string.social_key),
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(
+                this.getString(R.string.social_key),
                 this.getString(R.string.social_secret));
         Fabric.with(this, new Twitter(authConfig));
 
@@ -69,20 +71,20 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the top toolbar
      */
     private void setTopToolbar() {
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.top_toolbar);
+        Toolbar toolbar = this.mBinding.topToolbar;
         this.setSupportActionBar(toolbar);
         if (this.getSupportActionBar() != null) {
             this.getSupportActionBar().setDisplayShowTitleEnabled(false);
             this.getSupportActionBar().setHomeButtonEnabled(true);
         }
-        this.mTitle = (TextView) findViewById(R.id.toolbar_title);
+        this.mTitle = this.mBinding.toolbarTitle;
     }
 
     /**
      * Initializes the bottom toolbar
      */
     private void setBottomToolbar() {
-        LinearLayout bottom = (LinearLayout) this.findViewById(R.id.bottom_toolbar);
+        LinearLayout bottom = this.mBinding.bottomToolbar;
         View child = this.getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
         for (FragmentEnum fragment : sTabFragments) {
             this.setButton(child, fragment.buttonId, fragment.imageId);

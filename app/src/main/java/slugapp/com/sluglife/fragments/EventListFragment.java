@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,8 +36,6 @@ public class EventListFragment extends BaseSwipeListFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.EVENT;
 
     private ListEventBinding mBinding;
-    private View mView;
-    private View mSearchBar;
     private String mQuery;
 
     private boolean searchShowing;
@@ -45,14 +43,13 @@ public class EventListFragment extends BaseSwipeListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.list_event, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setSwipeListFragment(view, container, FRAGMENT, new EventListAdapter(
-                this.mContext));
+        this.setSwipeListFragment(FRAGMENT, this.mBinding.list,
+                new EventListAdapter(this.mContext));
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -60,19 +57,17 @@ public class EventListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    protected void setSwipeListFields(View view, ViewGroup container) {
-        this.mView = view;
-        this.mSearchBar = view.findViewById(R.id.search);
+    protected void setSwipeListFields() {
+        this.mSwipeLayout = this.mBinding.swipeContainer;
 
         this.searchShowing = false;
     }
 
     @Override
-    protected void setView(View view, BaseAdapter adapter) {
-        super.setView(view, adapter);
+    protected void setView(ListView listView, BaseAdapter adapter) {
+        super.setView(listView, adapter);
 
-        final EditText searchEditText = (EditText) view.findViewById(R.id.search_edit_text);
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -99,10 +94,10 @@ public class EventListFragment extends BaseSwipeListFragment {
         switch (item.getItemId()) {
             case R.id.search:
                 if (!searchShowing) {
-                    this.mSearchBar.setVisibility(View.VISIBLE);
+                    this.mBinding.search.searchBar.setVisibility(View.VISIBLE);
                     this.searchShowing = true;
                 } else {
-                    this.mSearchBar.setVisibility(View.GONE);
+                    this.mBinding.search.searchBar.setVisibility(View.GONE);
                     this.searchShowing = false;
                 }
                 return true;
@@ -130,7 +125,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onSwipeListRefresh() {
-        new EventListHttpRequest(getActivity()).execute(new HttpCallback<List<Event>>() {
+        new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 if (mQuery != null) doSearch(vals);

@@ -47,13 +47,12 @@ public class DiningHallViewFragment extends BaseViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_dining, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, FRAGMENT, this.mName);
+        this.setViewFragment(FRAGMENT, this.mName);
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -63,11 +62,11 @@ public class DiningHallViewFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
+    protected void setFields() {
     }
 
     @Override
-    protected void setView(final View view) {
+    protected void setView() {
         String date = Date.getToday().month + " " + Date.getToday().day;
         this.mBinding.date.setText(date);
 

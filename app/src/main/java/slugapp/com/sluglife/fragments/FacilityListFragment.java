@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +32,13 @@ public class FacilityListFragment extends BaseSwipeListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.list_facility, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setSwipeListFragment(view, container, FRAGMENT, new FacilityListAdapter(
-                this.mContext));
+        this.setSwipeListFragment(FRAGMENT, this.mBinding.list,
+                new FacilityListAdapter(this.mContext));
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -47,13 +47,15 @@ public class FacilityListFragment extends BaseSwipeListFragment {
     }
 
     @Override
-    protected void setSwipeListFields(View view, ViewGroup container) {
+    protected void setSwipeListFields() {
+        this.mSwipeLayout = this.mBinding.swipeContainer;
+
         this.mFacilities = new ArrayList<>();
     }
 
     @Override
-    protected void setView(final View view, final BaseAdapter adapter) {
-        super.setView(view, adapter);
+    protected void setView(ListView listView, final BaseAdapter adapter) {
+        super.setView(listView, adapter);
     }
 
     @Override

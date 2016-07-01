@@ -1,14 +1,12 @@
 package slugapp.com.sluglife.fragments;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.Comparator;
 
-import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.BaseObject;
 
@@ -18,15 +16,14 @@ import slugapp.com.sluglife.models.BaseObject;
 public abstract class BaseListFragment extends BaseFragment {
     protected BaseAdapter mAdapter;
 
-    protected void setListFragment(View view, ViewGroup container, FragmentEnum fragmentEnum,
+    protected void setListFragment(FragmentEnum fragmentEnum, ListView listView,
                                    BaseAdapter adapter) {
-        this.setFragment(view, container, fragmentEnum);
-        this.setView(view, adapter);
+        this.setFragment(fragmentEnum);
+        this.setView(listView, adapter);
     }
 
-    protected void setView(View view, BaseAdapter adapter) {
+    protected void setView(ListView listView, BaseAdapter adapter) {
         this.mAdapter = adapter;
-        ListView listView = (ListView) view.findViewById(R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new ListItemListener());
     }

@@ -26,13 +26,12 @@ public class EventViewFragment extends BaseViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_event, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, FRAGMENT, this.mName);
+        this.setViewFragment(FRAGMENT, this.mName);
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -42,11 +41,11 @@ public class EventViewFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
+    protected void setFields() {
     }
 
     @Override
-    protected void setView(View view) {
+    protected void setView() {
         if (this.mEvent.date.defined) {
             String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.month + " " + this.mEvent.date.day;
             String startString = this.mContext.getString(R.string.detail_event_start) + String.valueOf(this.mEvent.date.startTime) +

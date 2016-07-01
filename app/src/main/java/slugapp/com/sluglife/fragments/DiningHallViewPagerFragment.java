@@ -38,29 +38,26 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.viewpager_dining, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, FRAGMENT, this.mName);
+        this.setViewFragment(FRAGMENT, this.mName);
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
     protected void setArgumentFields(Bundle b) {
+        this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
     }
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
-        Bundle b = this.getArguments();
-
-        this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
+    protected void setFields() {
         this.mDiningHall = new DiningHall();
     }
 
     @Override
-    protected void setView(final View view) {
+    protected void setView() {
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
                 new HttpCallback<DiningHall>() {
                     @Override

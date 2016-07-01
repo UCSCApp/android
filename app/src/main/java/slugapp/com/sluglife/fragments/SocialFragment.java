@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ListSocialBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.BaseObject;
 
@@ -19,19 +21,22 @@ import slugapp.com.sluglife.models.BaseObject;
 public class SocialFragment extends BaseListFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.SOCIAL;
 
+    private ListSocialBinding mBinding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_social, container, false);
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
+                R.layout.list_social, container, false);
 
-        this.setListFragment(view, container, FRAGMENT, new TweetTimelineListAdapter.Builder(
-                this.mContext)
+        this.setListFragment(FRAGMENT, this.mBinding.list,
+                new TweetTimelineListAdapter.Builder(this.mContext)
                         .setTimeline(new SearchTimeline.Builder()
                                 .query(this.mContext.getString(R.string.social_hashtag_ucsc))
                                 .build())
                         .build());
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -39,7 +44,7 @@ public class SocialFragment extends BaseListFragment {
     }
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
+    protected void setFields() {
     }
 
     @Override

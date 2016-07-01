@@ -6,7 +6,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_search_bar" />
+        <include
+            android:id="@+id/search"
+            layout="@layout/include_search_bar" />
 
         <FrameLayout
             android:id="@+id/map_view"

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,13 +35,12 @@ public class DiningHallListFragment extends BaseListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.list_dining, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setListFragment(view, container, FRAGMENT, new DiningListAdapter(this.mContext));
+        this.setListFragment(FRAGMENT, this.mBinding.list, new DiningListAdapter(this.mContext));
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -48,13 +48,13 @@ public class DiningHallListFragment extends BaseListFragment {
     }
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
+    protected void setFields() {
         this.mDiningHalls = new ArrayList<>();
     }
 
     @Override
-    protected void setView(final View view, final BaseAdapter adapter) {
-        super.setView(view, adapter);
+    protected void setView(ListView listView, final BaseAdapter adapter) {
+        super.setView(listView, adapter);
         final BaseListAdapter baseListAdapter = (BaseListAdapter) adapter;
 
         new DiningListHttpRequest(getActivity()).execute(new HttpCallback<List<String>>() {

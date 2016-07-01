@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.DialogDiningLegendBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
 
 /**
@@ -30,18 +32,20 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
 
     private static final float TEXT_SIZE = 14.0f;
 
+    private DialogDiningLegendBinding mBinding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_dining_legend, container);
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
+                R.layout.dialog_dining_legend, container, false);
 
-        this.setView(view);
+        this.setView();
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
-    private void setView(View view) {
-        LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
+    private void setView() {
         for (int i = 0; i < AttributeEnum.values().length; i++) {
             // legend params
             LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(
@@ -75,7 +79,7 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
             tv.setLayoutParams(tvParams);
             ll.addView(tv);
 
-            list.addView(ll);
+            this.mBinding.list.addView(ll);
         }
     }
 }

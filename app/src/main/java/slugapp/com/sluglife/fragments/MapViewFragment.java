@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewMapBinding;
@@ -24,22 +23,19 @@ public class MapViewFragment extends BaseViewFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
     private ViewMapBinding mBinding;
-    private View mSearchBar;
     private String mQuery;
-    private EditText mSearchEditText;
 
     private boolean searchShowing;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(),
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_map, container, false);
-        View view = this.mBinding.getRoot();
 
-        this.setViewFragment(view, container, FRAGMENT);
+        this.setViewFragment(FRAGMENT);
 
-        return view;
+        return this.mBinding.getRoot();
     }
 
     @Override
@@ -47,18 +43,15 @@ public class MapViewFragment extends BaseViewFragment {
     }
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
-        this.mSearchBar = view.findViewById(R.id.search);
-
+    protected void setFields() {
         this.searchShowing = false;
     }
 
     @Override
-    protected void setView(final View view) {
+    protected void setView() {
         this.setChildFragment(R.id.map_view, new MapFragment());
 
-        this.mSearchEditText = (EditText) view.findViewById(R.id.search_edit_text);
-        this.mSearchEditText.addTextChangedListener(new TextWatcher() {
+        this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -106,9 +99,9 @@ public class MapViewFragment extends BaseViewFragment {
         switch (item.getItemId()) {
             case R.id.filter: {
                 if (searchShowing) {
-                    this.mSearchBar.setVisibility(View.GONE);
+                    this.mBinding.search.searchBar.setVisibility(View.GONE);
                     this.searchShowing = false;
-                    this.mSearchEditText.setText("");
+                    this.mBinding.search.searchEditText.setText("");
                 }
 
                 int bin = getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
@@ -124,12 +117,12 @@ public class MapViewFragment extends BaseViewFragment {
             }
             case R.id.search: {
                 if (!this.searchShowing) {
-                    this.mSearchBar.setVisibility(View.VISIBLE);
+                    this.mBinding.search.searchBar.setVisibility(View.VISIBLE);
                     this.searchShowing = true;
                 } else {
-                    this.mSearchBar.setVisibility(View.GONE);
+                    this.mBinding.search.searchBar.setVisibility(View.GONE);
+                    this.mBinding.search.searchEditText.setText("");
                     this.searchShowing = false;
-                    this.mSearchEditText.setText("");
 
                     if (!this.mQuery.isEmpty()) {
                         this.setChildFragment(R.id.map_view, new MapFragment());

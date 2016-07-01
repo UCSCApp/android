@@ -2,15 +2,14 @@ package slugapp.com.sluglife.fragments;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
-import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 
 /**
- * Created by isayyuhh on 2/21/16.
+ * Created by isayyuhh on 2/21/16
  */
 public abstract class BaseSwipeListFragment extends BaseListFragment
         implements SwipeRefreshLayout.OnRefreshListener {
@@ -18,10 +17,10 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
     protected boolean refreshing;
 
     @Override
-    protected void setFields(View view, ViewGroup container) {
+    protected void setFields() {
         this.refreshing = false;
 
-        this.setSwipeListFields(view, container);
+        this.setSwipeListFields();
     }
 
     @Override
@@ -32,9 +31,8 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
     }
 
     @Override
-    protected void setView(View view, BaseAdapter adapter) {
-        super.setView(view, adapter);
-        this.mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+    protected void setView(ListView listView, BaseAdapter adapter) {
+        super.setView(listView, adapter);
         this.mSwipeLayout.setOnRefreshListener(this);
         this.mSwipeLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
@@ -50,9 +48,9 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
         this.onSwipeListRefresh();
     }
 
-    protected void setSwipeListFragment(View view, ViewGroup container, FragmentEnum fragmentEnum,
+    protected void setSwipeListFragment(FragmentEnum fragmentEnum, ListView listView,
                                         BaseAdapter adapter) {
-        this.setListFragment(view, container, fragmentEnum, adapter);
+        this.setListFragment(fragmentEnum, listView, adapter);
         this.onRefresh();
     }
 
@@ -61,7 +59,7 @@ public abstract class BaseSwipeListFragment extends BaseListFragment
         this.refreshing = false;
     }
 
-    protected abstract void setSwipeListFields(View view, ViewGroup container);
+    protected abstract void setSwipeListFields();
 
     protected abstract void onSwipeListItemClick(AdapterView<?> parent, View view, int position,
                                                  long id);

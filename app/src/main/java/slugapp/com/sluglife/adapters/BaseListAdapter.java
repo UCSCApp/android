@@ -17,6 +17,8 @@ import slugapp.com.sluglife.models.BaseObject;
 public abstract class BaseListAdapter extends ArrayAdapter<BaseObject> {
     protected Context mContext;
 
+    // TODO: do adapters with data binding
+
     public BaseListAdapter(Context context, int id) {
         super(context, id);
         this.mContext = context;
