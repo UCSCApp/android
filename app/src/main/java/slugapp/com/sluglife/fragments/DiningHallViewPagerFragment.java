@@ -129,23 +129,10 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
             super(fm);
         }
 
-        // TODO: clean up
-
         @Override
         public Fragment getItem(int position) {
-            FoodMenu menu;
-            switch (position) {
-                default:
-                case 0:
-                    menu = mDiningHall.breakfast;
-                    break;
-                case 1:
-                    menu = mDiningHall.lunch;
-                    break;
-                case 2:
-                    menu = mDiningHall.dinner;
-                    break;
-            }
+            FoodMenu menu = position == 2 ? mDiningHall.dinner : position == 1 ? mDiningHall.lunch :
+                    mDiningHall.breakfast;
 
             return DiningHallViewFragment.newInstance(mContext, mName, menu);
         }

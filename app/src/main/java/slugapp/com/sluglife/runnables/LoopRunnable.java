@@ -52,7 +52,6 @@ public class LoopRunnable implements Runnable {
             @Override
             public void onSuccess(List<Loop> val) {
                 if (val.isEmpty() && !noLoops) {
-                    // TODO: add to strings.xml
                     mCallback.showSnackBar(mContext.getString(R.string.no_map_loop));
                     noLoops = true;
                     return;

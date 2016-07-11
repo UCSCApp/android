@@ -32,5 +32,5 @@
     <string name="map_page_smith_lng">-122.0535511</string>
 
     <string name="map_dining_snippet">Tap to view dining menu</string>
-    <string name="map_library_snippet">library snippet placeholder</string>
+    <string name="map_library_snippet">Tap to view more information</string>
 </resources>
