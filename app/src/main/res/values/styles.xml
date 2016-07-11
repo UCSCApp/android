@@ -1,14 +1,14 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/UcscBlue</item>
-        <item name="colorPrimaryDark">@color/UcscBlueDark</item>
+        <item name="colorPrimary">@color/ucsc_blue</item>
+        <item name="colorPrimaryDark">@color/ucsc_blue_dark</item>
     </style>
 
     <style name="SearchBarTheme" parent="Theme.AppCompat.Light.NoActionBar"><!-- Used for the bottom line when not selected / focused
 -->
-        <item name="colorAccent">@color/UcscYellow</item>
-        <item name="colorControlNormal">@color/UcscYellow</item>
+        <item name="colorAccent">@color/ucsc_yellow</item>
+        <item name="colorControlNormal">@color/ucsc_yellow</item>
 -->
     </style>
 </resources>

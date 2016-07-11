@@ -88,12 +88,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
 
         for (FragmentEnum fragmentEnum : sTabFragments) {
             bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId,
-                    R.color.UcscBlue));
+                    R.color.ucsc_blue));
         }
 
-        bottom.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.UcscBlue));
+        bottom.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.ucsc_blue));
 
-        bottom.setAccentColor(ContextCompat.getColor(this, R.color.UcscYellow));
+        bottom.setAccentColor(ContextCompat.getColor(this, R.color.ucsc_yellow));
         bottom.setInactiveColor(Color.WHITE);
 
         bottom.setForceTint(true);
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         final Snackbar snackbar = Snackbar.make(this.mBinding.coordinatorLayout, text,
                 Snackbar.LENGTH_INDEFINITE);
 
-        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.UcscYellow));
+        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.ucsc_yellow));
 
         snackbar.setAction(this.getString(R.string.snackbar_dismiss), new View.OnClickListener() {
             @Override

@@ -87,7 +87,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                         pager.setAdapter(new DiningPagerAdapter(getChildFragmentManager()));
                         pager.setCurrentItem(getTimeOfDay());
                         mBinding.tabs.setSelectedTabIndicatorColor(getResources().getColor(
-                                R.color.UcscYellow));
+                                R.color.ucsc_yellow));
                         mBinding.tabs.setTabTextColors(Color.WHITE, Color.WHITE);
                         mBinding.tabs.setupWithViewPager(pager);
                     }

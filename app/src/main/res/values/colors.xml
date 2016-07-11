@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--<span style="font-size: x-small;"><?xml version="1.0" encoding="utf-8"?>-->
 <resources>
-    <color name="UcscBlue">#00458c</color>
-    <color name="UcscBlueDark">#003366</color>
-    <color name="UcscYellow">#F1B521</color>
+    <color name="ucsc_blue">#00458c</color>
+    <color name="ucsc_blue_dark">#003366</color>
+    <color name="ucsc_yellow">#F1B521</color>
 </resources>
