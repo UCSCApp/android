@@ -9,7 +9,7 @@ public abstract class BaseViewFragment extends BaseFragment {
     protected String mName;
 
     protected void setViewFragment(FragmentEnum fragmentEnum) {
-        this.setFragment(fragmentEnum);
+        this.setFragment(fragmentEnum.name);
         this.setView();
     }
 

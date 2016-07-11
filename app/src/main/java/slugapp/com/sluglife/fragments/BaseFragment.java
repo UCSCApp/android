@@ -46,11 +46,6 @@ public abstract class BaseFragment extends Fragment {
         this.mCallback.setTitle(this.mTitle);
     }
 
-    protected void setFragment(FragmentEnum fragmentEnum) {
-        this.setFields();
-        this.setLayout(fragmentEnum.name);
-    }
-
     protected void setFragment(String name) {
         this.setFields();
         this.setLayout(name);

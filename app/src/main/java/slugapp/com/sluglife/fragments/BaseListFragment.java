@@ -18,7 +18,7 @@ public abstract class BaseListFragment extends BaseFragment {
 
     protected void setListFragment(FragmentEnum fragmentEnum, ListView listView,
                                    BaseAdapter adapter) {
-        this.setFragment(fragmentEnum);
+        this.setFragment(fragmentEnum.name);
         this.setView(listView, adapter);
     }
 
