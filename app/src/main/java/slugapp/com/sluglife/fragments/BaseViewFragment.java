@@ -13,8 +13,8 @@ public abstract class BaseViewFragment extends BaseFragment {
         this.setView();
     }
 
-    protected void setViewFragment(String name) {
-        this.setFragment(name);
+    protected void setViewFragment() {
+        this.setFragment(this.mName);
         this.setView();
     }
 

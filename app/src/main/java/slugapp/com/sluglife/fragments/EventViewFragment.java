@@ -30,7 +30,7 @@ public class EventViewFragment extends BaseViewFragment {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_event, container, false);
 
-        this.setViewFragment(this.mName);
+        this.setViewFragment();
         this.mCallback.setUpEnabled(true);
 
         return this.mBinding.getRoot();

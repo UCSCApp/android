@@ -15,17 +15,17 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.FacilityListAdapter;
-import slugapp.com.sluglife.databinding.ListFacilityBinding;
+import slugapp.com.sluglife.databinding.ListMapFacilityBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.BaseObject;
 
 /**
  * Created by isayyuhh_s on 9/1/2015
  */
-public class FacilityListFragment extends BaseSwipeListFragment {
+public class MapFacilityListFragment extends BaseSwipeListFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
-    private ListFacilityBinding mBinding;
+    private ListMapFacilityBinding mBinding;
     private String mQuery;
     private List<BaseObject> mFacilities;
 
@@ -33,7 +33,7 @@ public class FacilityListFragment extends BaseSwipeListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
-                R.layout.list_facility, container, false);
+                R.layout.list_map_facility, container, false);
 
         this.setSwipeListFragment(FRAGMENT, this.mBinding.list,
                 new FacilityListAdapter(this.mContext));

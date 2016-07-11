@@ -48,7 +48,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_dining, container, false);
 
-        this.setViewFragment(this.mName);
+        this.setViewFragment();
 
         return this.mBinding.getRoot();
     }

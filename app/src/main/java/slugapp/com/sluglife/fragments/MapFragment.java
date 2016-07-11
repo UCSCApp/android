@@ -227,7 +227,16 @@ public class MapFragment extends BaseMapFragment {
                 DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
 
                 Bundle b = new Bundle();
-                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), ""));
+                b.putString(this.mContext.getString(R.string.bundle_name), marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), ""));
+
+                fragment.setArguments(b);
+                this.mCallback.setFragment(fragment);
+            }
+            else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
+                MapFacilityViewFragment fragment = new MapFacilityViewFragment();
+
+                Bundle b = new Bundle();
+                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle());
 
                 fragment.setArguments(b);
                 this.mCallback.setFragment(fragment);

@@ -65,7 +65,7 @@ public class MapViewFragment extends BaseViewFragment {
                 mQuery = s.toString();
 
                 if (!mQuery.isEmpty()) {
-                    FacilityListFragment fragment = new FacilityListFragment();
+                    MapFacilityListFragment fragment = new MapFacilityListFragment();
 
                     Bundle b = new Bundle();
                     b.putString(mContext.getString(R.string.bundle_query), mQuery);

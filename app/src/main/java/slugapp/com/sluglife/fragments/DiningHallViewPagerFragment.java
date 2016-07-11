@@ -36,7 +36,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.viewpager_dining, container, false);
 
-        this.setViewFragment(this.mName);
+        this.setViewFragment();
         this.mCallback.setUpEnabled(true);
 
         return this.mBinding.getRoot();
