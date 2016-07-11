@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewDiningBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
-import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Food;
 import slugapp.com.sluglife.models.FoodMenu;
 

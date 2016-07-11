@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.adapters.FacilityListAdapter;
-import slugapp.com.sluglife.databinding.ListMapFacilityBinding;
 import slugapp.com.sluglife.databinding.ViewMapFacilityBinding;
 
 /**

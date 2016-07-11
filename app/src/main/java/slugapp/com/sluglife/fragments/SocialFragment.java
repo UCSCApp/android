@@ -1,6 +1,5 @@
 package slugapp.com.sluglife.fragments;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;

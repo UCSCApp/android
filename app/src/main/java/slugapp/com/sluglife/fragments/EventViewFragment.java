@@ -4,15 +4,12 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewEventBinding;
-import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.ImageHttpRequest;
 import slugapp.com.sluglife.models.Event;
 

@@ -1,7 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
