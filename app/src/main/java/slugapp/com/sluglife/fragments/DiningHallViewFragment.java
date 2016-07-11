@@ -24,8 +24,6 @@ import slugapp.com.sluglife.models.FoodMenu;
  * Created by isayyuhh_s on 8/8/2015
  */
 public class DiningHallViewFragment extends BaseViewFragment {
-    private static final FragmentEnum FRAGMENT = FragmentEnum.DINING;
-
     private static final int LINEAR_LAYOUT_PARAMS = 75;
 
     private static final int TABLE_ROW_INIT_WIDTH = 0;
@@ -50,7 +48,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_dining, container, false);
 
-        this.setViewFragment(FRAGMENT, this.mName);
+        this.setViewFragment(this.mName);
 
         return this.mBinding.getRoot();
     }

@@ -30,8 +30,6 @@ import slugapp.com.sluglife.models.FoodMenu;
  * Created by isayyuhh on 6/3/16
  */
 public class DiningHallViewPagerFragment extends BaseViewFragment {
-    private static final FragmentEnum FRAGMENT = FragmentEnum.DINING;
-
     private ViewpagerDiningBinding mBinding;
     private String mName;
     private DiningHall mDiningHall;
@@ -42,7 +40,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.viewpager_dining, container, false);
 
-        this.setViewFragment(FRAGMENT, this.mName);
+        this.setViewFragment(this.mName);
 
         return this.mBinding.getRoot();
     }

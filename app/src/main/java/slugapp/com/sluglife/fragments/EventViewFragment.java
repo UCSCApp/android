@@ -18,8 +18,6 @@ import slugapp.com.sluglife.models.Event;
  * This file displays all of the contents for each individual mEvent.
  */
 public class EventViewFragment extends BaseViewFragment {
-    private static final FragmentEnum FRAGMENT = FragmentEnum.EVENT;
-
     private ViewEventBinding mBinding;
     private Event mEvent;
 
@@ -29,7 +27,7 @@ public class EventViewFragment extends BaseViewFragment {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
                 R.layout.view_event, container, false);
 
-        this.setViewFragment(FRAGMENT, this.mName);
+        this.setViewFragment(this.mName);
 
         return this.mBinding.getRoot();
     }

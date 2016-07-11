@@ -13,11 +13,6 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 
-//import android.databinding.DataBindingUtil;
-//import android.view.LayoutInflater;
-//import slugapp.com.sluglife.adapters.DiningListAdapter;
-//import slugapp.com.sluglife.databinding.ListDiningBinding;
-
 /**
  * Created by isayyuhh on 2/21/16
  */
@@ -26,7 +21,6 @@ public abstract class BaseFragment extends Fragment {
     protected Context mContext;
 
     private String mTitle;
-    private int mButtonId;
 
     @Override
     public void onAttach(Activity activity) {
@@ -57,7 +51,7 @@ public abstract class BaseFragment extends Fragment {
         this.setLayout(fragmentEnum.name);
     }
 
-    protected void setFragment(FragmentEnum fragmentEnum, String name) {
+    protected void setFragment(String name) {
         this.setFields();
         this.setLayout(name);
     }
