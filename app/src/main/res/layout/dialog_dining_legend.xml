@@ -6,21 +6,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- TODO: adjust title size -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="1dip"
             android:padding="8dip"
+            android:background="@color/ucsc_blue"
             android:text="@string/title_dining_dialog_legend"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <LinearLayout
             android:id="@+id/list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="8dip" />
+            android:paddingLeft="3dip"
+            android:paddingRight="3dip"
+            android:paddingBottom="8dip" />
     </LinearLayout>
 </layout>

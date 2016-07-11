@@ -3,6 +3,7 @@ package slugapp.com.sluglife.fragments;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
             // text view
             TextView tv = new TextView(this.mContext);
             tv.setText(AttributeEnum.values()[i].string);
-            tv.setTextColor(Color.BLACK);
+            tv.setTextColor(ContextCompat.getColor(mContext, R.color.ucsc_blue));
             tv.setTextSize(TEXT_SIZE);
             tv.setLayoutParams(tvParams);
             ll.addView(tv);
