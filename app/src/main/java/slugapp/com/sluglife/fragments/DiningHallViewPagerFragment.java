@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +22,6 @@ import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.DiningHall;
-import slugapp.com.sluglife.models.FoodMenu;
 
 /**
  * Created by isayyuhh on 6/3/16
@@ -86,7 +86,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                         pager.setOffscreenPageLimit(2);
                         pager.setAdapter(new DiningPagerAdapter(getChildFragmentManager()));
                         pager.setCurrentItem(getTimeOfDay());
-                        mBinding.tabs.setSelectedTabIndicatorColor(getResources().getColor(
+                        mBinding.tabs.setSelectedTabIndicatorColor(ContextCompat.getColor(mContext,
                                 R.color.ucsc_yellow));
                         mBinding.tabs.setTabTextColors(Color.WHITE, Color.WHITE);
                         mBinding.tabs.setupWithViewPager(pager);
@@ -131,10 +131,9 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
 
         @Override
         public Fragment getItem(int position) {
-            FoodMenu menu = position == 2 ? mDiningHall.dinner : position == 1 ? mDiningHall.lunch :
-                    mDiningHall.breakfast;
-
-            return DiningHallViewFragment.newInstance(mContext, mName, menu);
+            return DiningHallViewFragment.newInstance(mContext, mName,
+                    position == 2 ? mDiningHall.dinner : position == 1 ? mDiningHall.lunch :
+                                    mDiningHall.breakfast);
         }
 
         @Override
