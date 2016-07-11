@@ -10,7 +10,7 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.Event;
-import slugapp.com.sluglife.models.EventListWrapper;
+import slugapp.com.sluglife.models.WrapperEventList;
 
 /**
  * Created by simba on 7/31/15.
@@ -36,7 +36,7 @@ public class EventListHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    callback.onSuccess(new EventListWrapper(mContext, arr));
+                    callback.onSuccess(new WrapperEventList(mContext, arr));
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

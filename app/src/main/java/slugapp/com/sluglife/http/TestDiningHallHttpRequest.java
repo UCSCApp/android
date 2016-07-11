@@ -6,7 +6,7 @@ import org.json.JSONException;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.DiningHall;
-import slugapp.com.sluglife.models.DiningHallWrapper;
+import slugapp.com.sluglife.models.WrapperDiningHall;
 
 /**
  * Created by simba on 8/1/15.
@@ -24,7 +24,7 @@ public class TestDiningHallHttpRequest extends DiningHallHttpRequest {
     @Override
     public void execute(HttpCallback<DiningHall> callback) {
         try {
-            callback.onSuccess(new DiningHallWrapper(mContext, emptyString, this.mName));
+            callback.onSuccess(new WrapperDiningHall(mContext, emptyString, this.mName));
         } catch (JSONException je) {
             je.printStackTrace();
         }

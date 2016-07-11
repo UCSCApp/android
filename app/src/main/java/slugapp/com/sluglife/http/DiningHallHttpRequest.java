@@ -9,7 +9,7 @@ import java.util.HashMap;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.DiningHall;
-import slugapp.com.sluglife.models.DiningHallWrapper;
+import slugapp.com.sluglife.models.WrapperDiningHall;
 
 /**
  * Created by isayyuhh_s on 9/1/2015.
@@ -40,7 +40,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
             @Override
             public void onSuccess(String val) {
                 try {
-                    callback.onSuccess(new DiningHallWrapper(mContext, val, mName));
+                    callback.onSuccess(new WrapperDiningHall(mContext, val, mName));
                 } catch (JSONException je) {
                     je.printStackTrace();
                     callback.onError(je);

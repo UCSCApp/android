@@ -10,12 +10,12 @@ import java.util.ArrayList;
 /**
  * Created by simba on 8/1/15.
  */
-public class EventListWrapper extends ArrayList<Event> {
-    public EventListWrapper(Context context, JSONArray arr) throws JSONException {
+public class WrapperEventList extends ArrayList<Event> {
+    public WrapperEventList(Context context, JSONArray arr) throws JSONException {
         super(arr.length());
         for (int i = 0; i < arr.length(); ++i) {
             try {
-                this.add(new EventWrapper(context, arr.getJSONObject(i)));
+                this.add(new WrapperEvent(context, arr.getJSONObject(i)));
             } catch (JSONException je) {
                 je.printStackTrace();
             }

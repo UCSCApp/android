@@ -10,8 +10,8 @@ import slugapp.com.sluglife.R;
 /**
  * Created by isayyuhh_s on 9/2/2015
  */
-public class DiningHallWrapper extends DiningHall {
-    public DiningHallWrapper(Context context, String string, String name) throws JSONException {
+public class WrapperDiningHall extends DiningHall {
+    public WrapperDiningHall(Context context, String string, String name) throws JSONException {
         super();
         if (string.isEmpty()) return;
         JSONObject obj = new JSONObject(string);
