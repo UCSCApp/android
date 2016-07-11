@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Secret keys -->
+    <string name="map_roads_key">AIzaSyCrBxXjppwd7AiKb_pIW7Ax6C_C7Edm7JY</string>
     <string name="social_key">FOdauNUahweKi8Zy5XmTc1bC5</string>
     <string name="social_secret">sGe6KKgVB8eTmkGgEqcfAhSyKXwlBOvy5CJOcipIWE0V0Ay0bF</string>
 

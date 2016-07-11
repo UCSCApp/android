@@ -7,12 +7,12 @@ import slugapp.com.sluglife.fragments.MapViewFragment;
 import slugapp.com.sluglife.fragments.SocialFragment;
 
 /**
- * Created by isayyuhh on 3/16/16.
+ * Created by isayyuhh on 3/16/16
  */
 public enum FragmentEnum {
     MAP(MapViewFragment.class, 0, R.drawable.ic_map, "Map"),
     EVENT(EventListFragment.class, 1, R.drawable.ic_events, "Events"),
-    DINING(DiningHallListFragment.class, 2, R.drawable.ic_dining, "Dining Halls"),
+    DINING(DiningHallListFragment.class, 2, R.drawable.ic_dining, "Meals"),
     SOCIAL(SocialFragment.class, 3, R.drawable.ic_social, "Tweets");
 
     public Class fragment;

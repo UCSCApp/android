@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="map_init_lat">36.991339</string>
+    <string name="map_init_lat">36.993339</string>
     <string name="map_init_lng">-122.058972</string>
 
     <string name="map_mchenry_title">Mchenry Library</string>
@@ -10,6 +10,26 @@
     <string name="map_sne_title">Science and Engineering Library</string>
     <string name="map_sne_lat">36.999055</string>
     <string name="map_sne_lng">-122.060699</string>
+
+    <string name="map_oakes_title">Oakes Library</string>
+    <string name="map_oakes_lat">36.98985368</string>
+    <string name="map_oakes_lng">-122.0627618</string>
+
+    <string name="map_crown_title">Crown Library</string>
+    <string name="map_crown_lat">36.99978835</string>
+    <string name="map_crown_lng">-122.0548868</string>
+
+    <string name="map_merrill_title">Merrill Library</string>
+    <string name="map_merrill_lat">36.999358897169</string>
+    <string name="map_merrill_lng">-122.05332577229</string>
+
+    <string name="map_stevenson_title">Stevenson Library</string>
+    <string name="map_stevenson_lat">36.997153346231</string>
+    <string name="map_stevenson_lng">-122.05150723457</string>
+
+    <string name="map_page_smith_title">Page Smith Library</string>
+    <string name="map_page_smith_lat">36.99687611</string>
+    <string name="map_page_smith_lng">-122.0535511</string>
 
     <string name="map_dining_snippet">Tap to view dining menu</string>
     <string name="map_library_snippet">library snippet placeholder</string>
