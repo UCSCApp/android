@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
@@ -44,6 +43,13 @@ public abstract class BaseFragment extends Fragment {
         super.onStart();
 
         this.mCallback.setTitle(this.mTitle);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        
+        this.mCallback.setUpEnabled(false);
     }
 
     protected void setFragment(String name) {

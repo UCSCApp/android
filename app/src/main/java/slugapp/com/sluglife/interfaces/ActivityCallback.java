@@ -31,6 +31,13 @@ public interface ActivityCallback {
     void setTitle(String newTitle);
 
     /**
+     * Enables home up
+     *
+     * @param enabled If home up is enabled
+     */
+    void setUpEnabled(boolean enabled);
+
+    /**
      * Initializes Timer
      */
     void initTimer();

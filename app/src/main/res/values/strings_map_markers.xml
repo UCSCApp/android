@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="map_init_lat">36.995231</string>
-    <string name="map_init_lng">-122.059972</string>
-    <string name="map_init_zoom">15.0</string>
+    <string name="map_init_lat">36.991339</string>
+    <string name="map_init_lng">-122.058972</string>
 
     <string name="map_mchenry_title">Mchenry Library</string>
     <string name="map_mchenry_lat">36.996022</string>

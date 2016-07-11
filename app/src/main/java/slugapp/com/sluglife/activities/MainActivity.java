@@ -178,6 +178,18 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
+     * Enables home up
+     *
+     * @param enabled If home up is enabled
+     */
+    @Override
+    public void setUpEnabled(boolean enabled) {
+        if (this.getSupportActionBar() != null)  {
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(enabled);
+        }
+    }
+
+    /**
      * Initializes timer
      */
     @Override

@@ -1,8 +1,5 @@
 package slugapp.com.sluglife.fragments;
 
-//import android.databinding.DataBindingUtil;
-//import android.databinding.ViewDataBinding;
-
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,7 +16,6 @@ import android.view.ViewGroup;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewpagerDiningBinding;
-import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.Date;
@@ -41,6 +37,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                 R.layout.viewpager_dining, container, false);
 
         this.setViewFragment(this.mName);
+        this.mCallback.setUpEnabled(true);
 
         return this.mBinding.getRoot();
     }
@@ -100,6 +97,9 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                this.getFragmentManager().popBackStackImmediate();
+                return true;
             case R.id.dining_legend:
                 this.setDialogFragment(new DiningLegendDialogFragment());
                 return true;

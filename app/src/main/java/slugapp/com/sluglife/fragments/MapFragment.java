@@ -9,7 +9,11 @@ package slugapp.com.sluglife.fragments;
 //
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -17,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,7 +53,8 @@ public class MapFragment extends BaseMapFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
-    private static final float DEFAULT_ZOOM = 15.0f;
+    private static final float DEFAULT_ZOOM = 14.5f;
+    private static final float LOCATION_ZOOM = 15.0f;
 
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
@@ -117,8 +123,24 @@ public class MapFragment extends BaseMapFragment {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
         }
-        else map.setMyLocationEnabled(true);
+        else {
+            map.setMyLocationEnabled(true);
+            float[] distance = new float[3];
+            LocationManager locationManager = (LocationManager)this.getActivity()
+                    .getSystemService(Context.LOCATION_SERVICE);
+            Location location = locationManager.getLastKnownLocation(locationManager
+                    .getBestProvider(new Criteria(), false));
+            Location.distanceBetween(initLatLng.latitude, initLatLng.longitude,
+                    location.getLatitude(), location.getLongitude(), distance);
+            LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+            if (distance[0] < 1672.2233) {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
+            } else {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
+            }
+        }
     }
 
     @Override

@@ -3,6 +3,9 @@ package slugapp.com.sluglife.fragments;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,6 +31,7 @@ public class EventViewFragment extends BaseViewFragment {
                 R.layout.view_event, container, false);
 
         this.setViewFragment(this.mName);
+        this.mCallback.setUpEnabled(true);
 
         return this.mBinding.getRoot();
     }
@@ -63,5 +67,16 @@ public class EventViewFragment extends BaseViewFragment {
 
         this.mBinding.summary.setText(this.mEvent.summary);
         new ImageHttpRequest(this.mEvent.image).execute(this.mBinding.image);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.getFragmentManager().popBackStackImmediate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
