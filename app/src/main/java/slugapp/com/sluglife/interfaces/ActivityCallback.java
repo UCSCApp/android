@@ -24,6 +24,13 @@ public interface ActivityCallback {
     void hideKeyboard();
 
     /**
+     * Displays snackbar with text
+     *
+     * @param text text to display
+     */
+    void showSnackBar(String text);
+
+    /**
      * Set new toolbar mTitle
      *
      * @param newTitle New toolbar mTitle

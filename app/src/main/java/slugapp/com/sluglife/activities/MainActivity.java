@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -165,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
                 Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(view.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public void showSnackBar(String text) {
+        Snackbar.make(this.mBinding.coordinatorLayout, text, Snackbar.LENGTH_SHORT).show();
     }
 
     /**

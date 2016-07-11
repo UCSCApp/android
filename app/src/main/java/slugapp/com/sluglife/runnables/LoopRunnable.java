@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.LoopHttpRequest;
 import slugapp.com.sluglife.models.Facility;
@@ -31,12 +32,14 @@ public class LoopRunnable implements Runnable {
     private static final float DURATION_IN_MS = 2000;
 
     private Context mContext;
+    private ActivityCallback mCallback;
     private GoogleMap mMap;
     private HashMap<Loop, Marker> mLoopList;
     private boolean noLoops;
 
     public LoopRunnable(Context context, GoogleMap map, HashMap<Loop, Marker> loopList) {
         this.mContext = context;
+        this.mCallback = (ActivityCallback) context;
         this.mMap = map;
         this.mLoopList = loopList;
 
@@ -50,8 +53,7 @@ public class LoopRunnable implements Runnable {
             public void onSuccess(List<Loop> val) {
                 if (val.isEmpty() && !noLoops) {
                     // TODO: add to strings.xml
-                    Toast.makeText(mContext, "No loops available at the moment.",
-                            Toast.LENGTH_SHORT).show();
+                    mCallback.showSnackBar("No loops available at the moment.");
                     noLoops = true;
                     return;
                 }
