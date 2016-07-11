@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,16 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     private ViewpagerDiningBinding mBinding;
     private String mName;
     private DiningHall mDiningHall;
+
+    public static DiningHallViewPagerFragment newInstance(Context context, String name) {
+        DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
+
+        Bundle b = new Bundle();
+        b.putString(context.getString(R.string.bundle_name), name);
+        fragment.setArguments(b);
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,6 +129,8 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
             super(fm);
         }
 
+        // TODO: clean up
+
         @Override
         public Fragment getItem(int position) {
             FoodMenu menu;
@@ -134,14 +147,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                     break;
             }
 
-            DiningHallViewFragment fragment = new DiningHallViewFragment();
-
-            Bundle b = new Bundle();
-            b.putSerializable(mContext.getString(R.string.bundle_json), menu);
-            b.putString(mContext.getString(R.string.bundle_name), mName);
-            fragment.setArguments(b);
-
-            return fragment;
+            return DiningHallViewFragment.newInstance(mContext, mName, menu);
         }
 
         @Override

@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,6 +42,17 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     private ViewDiningBinding mBinding;
     private FoodMenu mFoodMenu;
+
+    public static DiningHallViewFragment newInstance(Context context, String name, FoodMenu menu) {
+        DiningHallViewFragment fragment = new DiningHallViewFragment();
+
+        Bundle b = new Bundle();
+        b.putString(context.getString(R.string.bundle_name), name);
+        b.putSerializable(context.getString(R.string.bundle_json), menu);
+        fragment.setArguments(b);
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

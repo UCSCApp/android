@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,16 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
     private ListMapFacilityBinding mBinding;
     private String mQuery;
     private List<BaseObject> mFacilities;
+
+    public static MapFacilityListFragment newInstance(Context context, String query) {
+        MapFacilityListFragment fragment = new MapFacilityListFragment();
+
+        Bundle b = new Bundle();
+        b.putString(context.getString(R.string.bundle_query), query);
+        fragment.setArguments(b);
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

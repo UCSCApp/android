@@ -32,6 +32,10 @@ public class DiningHallListFragment extends BaseListFragment {
     private ListDiningBinding mBinding;
     private List<BaseObject> mDiningHalls;
 
+    public static DiningHallListFragment newInstance() {
+        return new DiningHallListFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,11 +86,6 @@ public class DiningHallListFragment extends BaseListFragment {
         TextView tv = (TextView) view.findViewById(R.id.name);
         String name = tv.getText().toString();
 
-        Bundle b = new Bundle();
-        b.putString(this.mContext.getString(R.string.bundle_name), name);
-
-        DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
-        fragment.setArguments(b);
-        this.mCallback.setFragment(fragment);
+        this.mCallback.setFragment(DiningHallViewPagerFragment.newInstance(this.mContext, name));
     }
 }

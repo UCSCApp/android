@@ -11,7 +11,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.models.BaseObject;
 
 /**
- * Created by isayyuhh on 2/21/16.
+ * Created by isayyuhh on 2/21/16
  */
 public abstract class BaseListFragment extends BaseFragment {
     protected BaseAdapter mAdapter;

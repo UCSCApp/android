@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -26,6 +27,10 @@ public class MapViewFragment extends BaseViewFragment {
     private String mQuery;
 
     private boolean searchShowing;
+
+    public static MapFacilityListFragment newInstance() {
+        return new MapFacilityListFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,13 +70,8 @@ public class MapViewFragment extends BaseViewFragment {
                 mQuery = s.toString();
 
                 if (!mQuery.isEmpty()) {
-                    MapFacilityListFragment fragment = new MapFacilityListFragment();
-
-                    Bundle b = new Bundle();
-                    b.putString(mContext.getString(R.string.bundle_query), mQuery);
-                    fragment.setArguments(b);
-
-                    setChildFragment(R.id.map_view, fragment);
+                    setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
+                            mQuery));
                 } else {
                     setChildFragment(R.id.map_view, new MapFragment());
                 }
@@ -125,7 +125,7 @@ public class MapViewFragment extends BaseViewFragment {
                     this.searchShowing = false;
 
                     if (!this.mQuery.isEmpty()) {
-                        this.setChildFragment(R.id.map_view, new MapFragment());
+                        this.setChildFragment(R.id.map_view, MapFragment.newInstance());
                     }
                 }
                 return true;

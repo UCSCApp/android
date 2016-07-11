@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,10 @@ public class MapFragment extends BaseMapFragment {
 
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
+
+    public static MapFragment newInstance() {
+        return new MapFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -224,22 +229,12 @@ public class MapFragment extends BaseMapFragment {
 
             if (!((Marker) entry.getValue()).getTitle().equals(marker.getTitle())) continue;
             if (facility.isType(MarkerTypeEnum.DININGHALL)) {
-                DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
-
-                Bundle b = new Bundle();
-                b.putString(this.mContext.getString(R.string.bundle_name), marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), ""));
-
-                fragment.setArguments(b);
-                this.mCallback.setFragment(fragment);
+                this.mCallback.setFragment(DiningHallViewPagerFragment.newInstance(this.mContext,
+                        marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), "")));
             }
             else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
-                MapFacilityViewFragment fragment = new MapFacilityViewFragment();
-
-                Bundle b = new Bundle();
-                b.putString(mContext.getString(R.string.bundle_name), marker.getTitle());
-
-                fragment.setArguments(b);
-                this.mCallback.setFragment(fragment);
+                this.mCallback.setFragment(MapFacilityViewFragment.newInstance(this.mContext,
+                        marker.getTitle()));
             }
         }
     }

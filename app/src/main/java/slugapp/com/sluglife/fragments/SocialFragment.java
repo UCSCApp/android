@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,10 @@ public class SocialFragment extends BaseListFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.SOCIAL;
 
     private ListSocialBinding mBinding;
+
+    public static SocialFragment newInstance() {
+        return new SocialFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

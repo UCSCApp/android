@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,6 +40,10 @@ public class EventListFragment extends BaseSwipeListFragment {
     private String mQuery;
 
     private boolean searchShowing;
+
+    public static EventListFragment newInstance() {
+        return new EventListFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,14 +118,8 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Event e = (Event) parent.getItemAtPosition(position);
-
-        Bundle b = new Bundle();
-        b.putSerializable(this.mContext.getString(R.string.bundle_json), e);
-
-        EventViewFragment fragment = new EventViewFragment();
-        fragment.setArguments(b);
-        this.mCallback.setFragment(fragment);
+        this.mCallback.setFragment(EventViewFragment.newInstance(this.mContext,
+                (Event) parent.getItemAtPosition(position)));
     }
 
     @Override

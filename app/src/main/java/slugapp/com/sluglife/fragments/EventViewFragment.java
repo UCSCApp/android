@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,16 @@ import slugapp.com.sluglife.models.Event;
 public class EventViewFragment extends BaseViewFragment {
     private ViewEventBinding mBinding;
     private Event mEvent;
+
+    public static EventViewFragment newInstance(Context context, Event event) {
+        EventViewFragment fragment = new EventViewFragment();
+
+        Bundle b = new Bundle();
+        b.putSerializable(context.getString(R.string.bundle_json), event);
+        fragment.setArguments(b);
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
