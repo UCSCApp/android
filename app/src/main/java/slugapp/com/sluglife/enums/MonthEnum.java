@@ -1,7 +1,7 @@
 package slugapp.com.sluglife.enums;
 
 /**
- * Created by isayyuhh on 2/21/16.
+ * Created by isayyuhh on 2/21/16
  */
 public enum MonthEnum {
     JANUARY(

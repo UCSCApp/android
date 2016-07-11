@@ -3,7 +3,7 @@ package slugapp.com.sluglife.enums;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by isayyuhh on 9/24/2015.
+ * Created by isayyuhh on 9/24/2015
  */
 public enum AttributeEnum {
     EGGS("Eggs", R.drawable.ic_egg),

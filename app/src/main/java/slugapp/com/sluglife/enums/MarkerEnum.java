@@ -3,7 +3,7 @@ package slugapp.com.sluglife.enums;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by isayyuhh on 2/21/16.
+ * Created by isayyuhh on 2/21/16
  */
 
 public enum MarkerEnum {
