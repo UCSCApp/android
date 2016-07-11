@@ -4,6 +4,7 @@
     <string name="no_facility">No facility information available.</string>
     <string name="no_event">No event information available.</string>
     <string name="no_dining">No dining information available.</string>
+    <string name="no_map_loop">No loops available at the moment.</string>
 
     <!-- Dialog messages -->
     <string name="dialog_map_loop_buses">Loop Buses</string>

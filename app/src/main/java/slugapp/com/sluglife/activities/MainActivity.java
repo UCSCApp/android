@@ -168,9 +168,26 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    /**
+     * Displays snackbar with text
+     *
+     * @param text text to display
+     */
     @Override
     public void showSnackBar(String text) {
-        Snackbar.make(this.mBinding.coordinatorLayout, text, Snackbar.LENGTH_SHORT).show();
+        final Snackbar snackbar = Snackbar.make(this.mBinding.coordinatorLayout, text,
+                Snackbar.LENGTH_INDEFINITE);
+
+        snackbar.setActionTextColor(this.getResources().getColor(R.color.UcscYellow));
+
+        snackbar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+
+        snackbar.show();
     }
 
     /**
@@ -190,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void setUpEnabled(boolean enabled) {
-        if (this.getSupportActionBar() != null)  {
+        if (this.getSupportActionBar() != null) {
             this.getSupportActionBar().setDisplayHomeAsUpEnabled(enabled);
         }
     }

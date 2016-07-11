@@ -53,7 +53,7 @@ public class LoopRunnable implements Runnable {
             public void onSuccess(List<Loop> val) {
                 if (val.isEmpty() && !noLoops) {
                     // TODO: add to strings.xml
-                    mCallback.showSnackBar("No loops available at the moment.");
+                    mCallback.showSnackBar(mContext.getString(R.string.no_map_loop));
                     noLoops = true;
                     return;
                 }
