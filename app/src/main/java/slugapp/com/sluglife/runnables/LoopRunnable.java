@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -32,11 +33,14 @@ public class LoopRunnable implements Runnable {
     private Context mContext;
     private GoogleMap mMap;
     private HashMap<Loop, Marker> mLoopList;
+    private boolean noLoops;
 
     public LoopRunnable(Context context, GoogleMap map, HashMap<Loop, Marker> loopList) {
         this.mContext = context;
         this.mMap = map;
         this.mLoopList = loopList;
+
+        this.noLoops = false;
     }
 
     @Override
@@ -44,6 +48,13 @@ public class LoopRunnable implements Runnable {
         new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<Loop>>() {
             @Override
             public void onSuccess(List<Loop> val) {
+                if (val.isEmpty() && !noLoops) {
+                    // TODO: add to strings.xml
+                    Toast.makeText(mContext, "No loops available at the moment.",
+                            Toast.LENGTH_SHORT).show();
+                    noLoops = true;
+                    return;
+                }
                 for (Loop loop : val) {
                     boolean found = false;
                     for (Marker marker : mLoopList.values()) {
@@ -61,6 +72,7 @@ public class LoopRunnable implements Runnable {
                                 .position(new LatLng(loop.lat, loop.lng))
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus))));
                     }
+                    noLoops = false;
                 }
             }
 
