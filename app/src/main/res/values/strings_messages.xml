@@ -16,6 +16,12 @@
     <!-- Snackbar actions -->
     <string name="snackbar_dismiss">Dismiss</string>
 
+    <!-- Tabs -->
+    <string name="tab_map">Map</string>
+    <string name="tab_event">Events</string>
+    <string name="tab_dining">Meals</string>
+    <string name="tab_social">Tweets</string>
+
     <!-- Titles -->
     <string name="title_map_dialog_filter">Select what to show on the map:</string>
     <string name="title_dining_dialog_legend">Legend</string>

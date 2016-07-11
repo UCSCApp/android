@@ -10,17 +10,17 @@ import slugapp.com.sluglife.fragments.SocialFragment;
  * Created by isayyuhh on 3/16/16
  */
 public enum FragmentEnum {
-    MAP(MapViewFragment.class, 0, R.drawable.ic_map, "Map"),
-    EVENT(EventListFragment.class, 1, R.drawable.ic_events, "Events"),
-    DINING(DiningHallListFragment.class, 2, R.drawable.ic_dining, "Meals"),
-    SOCIAL(SocialFragment.class, 3, R.drawable.ic_social, "Tweets");
+    MAP(MapViewFragment.class, 0, R.drawable.ic_map, R.string.tab_map),
+    EVENT(EventListFragment.class, 1, R.drawable.ic_events, R.string.tab_event),
+    DINING(DiningHallListFragment.class, 2, R.drawable.ic_dining, R.string.tab_dining),
+    SOCIAL(SocialFragment.class, 3, R.drawable.ic_social, R.string.tab_social);
 
     public Class fragment;
     public int position;
     public int imageId;
-    public String name;
+    public int name;
 
-    FragmentEnum(Class fragment, int position, int imageId, String name) {
+    FragmentEnum(Class fragment, int position, int imageId, int name) {
         this.fragment = fragment;
         this.position = position;
         this.imageId = imageId;

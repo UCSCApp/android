@@ -52,9 +52,18 @@ public abstract class BaseFragment extends Fragment {
         this.mCallback.setUpEnabled(false);
     }
 
+    protected void setFragment(int name) {
+        this.setFields();
+        this.setLayout(name);
+    }
+
     protected void setFragment(String name) {
         this.setFields();
         this.setLayout(name);
+    }
+
+    protected void setLayout(int title) {
+        this.mTitle = this.mContext.getString(title);
     }
 
     protected void setLayout(String title) {

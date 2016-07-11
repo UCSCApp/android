@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         AHBottomNavigation bottom = this.mBinding.bottomToolbar;
 
         for (FragmentEnum fragmentEnum : sTabFragments) {
-            bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId));
+            bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId,
+                    R.color.UcscBlue));
         }
 
         bottom.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.UcscBlue));
