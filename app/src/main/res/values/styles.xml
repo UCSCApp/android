@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/UcscBlue</item>
-        <item name="colorPrimaryDark">@color/UcscBlue</item>
+        <item name="colorPrimaryDark">@color/UcscBlueDark</item>
     </style>
 
     <style name="SearchBarTheme" parent="Theme.AppCompat.Light.NoActionBar"><!-- Used for the bottom line when not selected / focused

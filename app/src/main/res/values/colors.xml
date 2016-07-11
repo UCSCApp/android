@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--<span style="font-size: x-small;"><?xml version="1.0" encoding="utf-8"?>-->
 <resources>
     <color name="UcscBlue">#00458c</color>
+    <color name="UcscBlueDark">#003366</color>
     <color name="UcscYellow">#F1B521</color>
-    <color name="UcscBlueBland">#607d8b</color>
-    <color name="White">#FFFFFF</color>
-</resources><!--</span>-->
+</resources>

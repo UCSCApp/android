@@ -65,21 +65,14 @@ public class DiningHallViewFragment extends BaseViewFragment {
 
     @Override
     protected void setView() {
-        String date = Date.getToday().month + " " + Date.getToday().day;
-        this.mBinding.date.setText(date);
-
-        this.setMenu(this.mFoodMenu, this.mBinding.meal);
-    }
-
-    private void setMenu(FoodMenu menu, TableLayout table) {
-        if (menu.isEmpty()) {
+        if (this.mFoodMenu.isEmpty()) {
             this.mBinding.meal.setVisibility(View.GONE);
             this.mBinding.failed.setVisibility(View.VISIBLE);
             return;
         }
 
         // for each food item
-        for (Food food : menu.getItems()) {
+        for (Food food : this.mFoodMenu.getItems()) {
             TableRow row = new TableRow(this.mContext);
             TextView name = new TextView(this.mContext);
             LinearLayout attributes = new LinearLayout(this.mContext);
@@ -109,7 +102,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
             // set params
             row.addView(name, TABLE_COLUMN_FOOD, rowParams);
             row.addView(attributes, TABLE_COLUMN_ATTRIBUTES, rowParams);
-            table.addView(row);
+            this.mBinding.meal.addView(row);
         }
     }
 }

@@ -13,12 +13,17 @@
     <string name="dialog_positive">@android:string/ok</string>
     <string name="dialog_negative">@android:string/cancel</string>
 
+    <!-- Snackbar actions -->
+    <string name="snackbar_dismiss">Dismiss</string>
+
     <!-- Titles -->
     <string name="title_map_dialog_filter">Select what to show on the map:</string>
     <string name="title_dining_dialog_legend">Legend</string>
     <string name="title_dining_viewpager_breakfast">Breakfast</string>
     <string name="title_dining_viewpager_lunch">Lunch</string>
     <string name="title_dining_viewpager_dinner">Dinner</string>
+    <string name="title_dining_view_food">Food</string>
+    <string name="title_dining_view_nutrition">Nutrition</string>
 
     <!-- Details -->
     <string name="detail_event_day">When:\u0020</string>

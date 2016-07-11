@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -86,13 +87,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         AHBottomNavigation bottom = this.mBinding.bottomToolbar;
 
         for (FragmentEnum fragmentEnum : sTabFragments) {
-            bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId,
-                    R.color.UcscBlue));
+            bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId));
         }
 
-        bottom.setDefaultBackgroundColor(this.getResources().getColor(R.color.UcscBlue));
+        bottom.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.UcscBlue));
 
-        bottom.setAccentColor(this.getResources().getColor(R.color.UcscYellow));
+        bottom.setAccentColor(ContextCompat.getColor(this, R.color.UcscYellow));
         bottom.setInactiveColor(Color.WHITE);
 
         bottom.setForceTint(true);
@@ -178,9 +178,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         final Snackbar snackbar = Snackbar.make(this.mBinding.coordinatorLayout, text,
                 Snackbar.LENGTH_INDEFINITE);
 
-        snackbar.setActionTextColor(this.getResources().getColor(R.color.UcscYellow));
+        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.UcscYellow));
 
-        snackbar.setAction("Dismiss", new View.OnClickListener() {
+        snackbar.setAction(this.getString(R.string.snackbar_dismiss), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();

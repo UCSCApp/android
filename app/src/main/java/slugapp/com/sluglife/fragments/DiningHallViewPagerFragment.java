@@ -54,6 +54,9 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
 
     @Override
     protected void setView() {
+        String date = Date.getToday().month + " " + Date.getToday().day;
+        this.mBinding.date.setText(date);
+
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
                 new HttpCallback<DiningHall>() {
                     @Override
