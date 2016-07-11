@@ -14,14 +14,13 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
- * Created by isayyuhh on 6/26/16.
+ * Created by isayyuhh on 6/26/16
  */
 public abstract class BaseMapFragment extends SupportMapFragment implements OnMapReadyCallback {
     protected ActivityCallback mCallback;
     protected Context mContext;
 
     private String mTitle;
-    private int mButtonId;
 
     @Override
     public void onAttach(Activity activity) {
@@ -43,7 +42,6 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         super.onStart();
 
         this.mCallback.setTitle(this.mTitle);
-        this.mCallback.setButtons(this.mButtonId);
     }
 
     @Override
@@ -68,12 +66,11 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
 
     protected void setMapFragment(View view, FragmentEnum fragmentEnum) {
         this.setFields(view);
-        this.setLayout(fragmentEnum.name, fragmentEnum.buttonId);
+        this.setLayout(fragmentEnum.name);
     }
 
-    protected void setLayout(String title, int buttonId) {
+    protected void setLayout(String title) {
         this.mTitle = title;
-        this.mButtonId = buttonId;
     }
 
     protected int getSharedPrefInt(String key, int defaultValue) {

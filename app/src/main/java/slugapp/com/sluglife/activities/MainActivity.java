@@ -2,16 +2,19 @@ package slugapp.com.sluglife.activities;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -25,7 +28,6 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ActivityMainBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
-import slugapp.com.sluglife.models.ToolbarButton;
 
 /**
  * Created by isaiah on 6/27/2015.
@@ -42,29 +44,25 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private TextView mTitle;
     private Timer mTimer;
 
-    private boolean init;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         this.setFields();
         this.setTopToolbar();
         this.setBottomToolbar();
-        this.setFragment(this.getTabFragment(sStartFragment));
+        this.setTabFragment(this.getTabFragment(sStartFragment));
     }
 
     /**
      * Initializes the activity's fields
      */
     private void setFields() {
+        this.mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(
                 this.getString(R.string.social_key),
                 this.getString(R.string.social_secret));
         Fabric.with(this, new Twitter(authConfig));
-
-        this.init = true;
     }
 
     /**
@@ -84,27 +82,31 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the bottom toolbar
      */
     private void setBottomToolbar() {
-        LinearLayout bottom = this.mBinding.bottomToolbar;
-        View child = this.getLayoutInflater().inflate(R.layout.toolbar_bottom, bottom, false);
-        for (FragmentEnum fragment : sTabFragments) {
-            this.setButton(child, fragment.buttonId, fragment.imageId);
+        AHBottomNavigation bottom = this.mBinding.bottomToolbar;
+
+        for (FragmentEnum fragmentEnum : sTabFragments) {
+            bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId,
+                    R.color.UcscBlue));
         }
-        bottom.addView(child);
 
-        ToolbarButton startButton = (ToolbarButton) this.findViewById(sStartFragment.buttonId);
-        startButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
-    }
+        bottom.setDefaultBackgroundColor(this.getResources().getColor(R.color.UcscBlue));
 
-    /**
-     * Sets bottom toolbar button
-     *
-     * @param child    Child view
-     * @param buttonId Id of button
-     * @param imageId  Id of image
-     */
-    private void setButton(View child, int buttonId, int imageId) {
-        ToolbarButton button = (ToolbarButton) child.findViewById(buttonId);
-        button.setImageResource(imageId);
+        bottom.setAccentColor(this.getResources().getColor(R.color.UcscYellow));
+        bottom.setInactiveColor(Color.WHITE);
+
+        bottom.setForceTint(true);
+        bottom.setForceTitlesDisplay(true);
+
+        bottom.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                for (FragmentEnum fragmentEnum : sTabFragments) {
+                    if (position != fragmentEnum.position) continue;
+                    setTabFragment(getTabFragment(fragmentEnum));
+                }
+                return true;
+            }
+        });
     }
 
     /**
@@ -124,6 +126,22 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
+     * Sets the current tab fragment
+     *
+     * @param fragment Fragment to set
+     */
+    private void setTabFragment(Fragment fragment) {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(0);
+            fragmentManager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.view_fragment, fragment);
+        ft.commit();
+    }
+
+    /**
      * Sets the current fragment
      *
      * @param fragment Fragment to set
@@ -132,24 +150,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     public void setFragment(Fragment fragment) {
         FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.view_fragment, fragment);
-        if (!this.init) ft.addToBackStack(null);
+        ft.addToBackStack(null);
         ft.commit();
-        this.init = false;
-    }
-
-    /**
-     * Set bottom toolbar buttons
-     *
-     * @param buttonId Id of button to set
-     */
-    @Override
-    public void setButtons(int buttonId) {
-        for (FragmentEnum fragment : sTabFragments) {
-            View button = this.findViewById(fragment.buttonId);
-            button.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.toggle_off));
-        }
-        View button = this.findViewById(buttonId);
-        button.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.toggle_on));
     }
 
     /**
@@ -157,20 +159,18 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     public void hideKeyboard() {
-        // Check if no view has focus:
         View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+        if (view == null) return;
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(view.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**
-     * Set new toolbar mTitle
+     * Set new toolbar title
      *
-     * @param newTitle New toolbar mTitle
+     * @param newTitle New toolbar title
      */
     @Override
     public void setTitle(String newTitle) {
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Initializes Timer
+     * Initializes timer
      */
     @Override
     public void initTimer() {
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get mTimer
+     * Get timer
      *
      * @return Timer
      */

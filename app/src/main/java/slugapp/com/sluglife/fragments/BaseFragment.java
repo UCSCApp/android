@@ -50,23 +50,20 @@ public abstract class BaseFragment extends Fragment {
         super.onStart();
 
         this.mCallback.setTitle(this.mTitle);
-        this.mCallback.setButtons(this.mButtonId);
     }
 
     protected void setFragment(FragmentEnum fragmentEnum) {
         this.setFields();
-        this.setLayout(fragmentEnum.name, fragmentEnum.buttonId);
+        this.setLayout(fragmentEnum.name);
     }
 
-    protected void setFragment(FragmentEnum fragmentEnum,
-                               String name) {
+    protected void setFragment(FragmentEnum fragmentEnum, String name) {
         this.setFields();
-        this.setLayout(name, fragmentEnum.buttonId);
+        this.setLayout(name);
     }
 
-    protected void setLayout(String title, int buttonId) {
+    protected void setLayout(String title) {
         this.mTitle = title;
-        this.mButtonId = buttonId;
     }
 
     protected void setChildFragment(int containerId, Fragment fragment) {

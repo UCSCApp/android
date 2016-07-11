@@ -4,6 +4,7 @@ package slugapp.com.sluglife.fragments;
 //import android.databinding.ViewDataBinding;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -76,6 +77,10 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                         pager.setOffscreenPageLimit(2);
                         pager.setAdapter(new DiningPagerAdapter(getChildFragmentManager()));
                         pager.setCurrentItem(getTimeOfDay());
+                        mBinding.tabs.setSelectedTabIndicatorColor(getResources().getColor(
+                                R.color.UcscYellow));
+                        mBinding.tabs.setTabTextColors(Color.WHITE, Color.WHITE);
+                        mBinding.tabs.setupWithViewPager(pager);
                     }
                 });
     }

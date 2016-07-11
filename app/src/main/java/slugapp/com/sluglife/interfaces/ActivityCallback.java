@@ -19,13 +19,6 @@ public interface ActivityCallback {
     void setFragment(Fragment fragment);
 
     /**
-     * Set bottom toolbar buttons
-     *
-     * @param buttonId Id of button to set
-     */
-    void setButtons(int buttonId);
-
-    /**
      * Hide soft keyboard
      */
     void hideKeyboard();

@@ -3,7 +3,7 @@ package slugapp.com.sluglife.fragments;
 import slugapp.com.sluglife.enums.FragmentEnum;
 
 /**
- * Created by isayyuhh on 2/21/16.
+ * Created by isayyuhh on 2/21/16
  */
 public abstract class BaseViewFragment extends BaseFragment {
     protected String mName;
