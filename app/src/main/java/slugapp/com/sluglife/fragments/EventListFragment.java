@@ -25,10 +25,8 @@ import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.databinding.ListEventBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
-import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
-import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Event;
 
 /**
@@ -125,10 +123,10 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onSwipeListRefresh() {
-        new TestEventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
+        new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
-                doSearch(vals);
+                evaluateQuery(vals);
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);
@@ -151,7 +149,7 @@ public class EventListFragment extends BaseSwipeListFragment {
         });
     }
 
-    private void doSearch(List<Event> events) {
+    private void evaluateQuery(List<Event> events) {
         ListIterator<Event> iterator = events.listIterator();
         while (iterator.hasNext()) {
             Event event = iterator.next();

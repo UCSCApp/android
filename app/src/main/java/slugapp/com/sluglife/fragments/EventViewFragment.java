@@ -48,7 +48,7 @@ public class EventViewFragment extends BaseViewFragment {
     @Override
     protected void setArgumentFields(Bundle b) {
         this.mEvent = (Event) b.getSerializable(this.mContext.getString(R.string.bundle_json));
-        if (this.mEvent != null) this.mName = this.mEvent.name;
+        if (this.mEvent != null) this.mName = this.mEvent.getTitleName();
     }
 
     @Override
@@ -62,20 +62,15 @@ public class EventViewFragment extends BaseViewFragment {
         if (date.defined) {
             String dayString = this.mContext.getString(R.string.detail_event_day) + date.getDateString();
             String startString = this.mContext.getString(R.string.detail_event_start) + date.getTimeString();
-            /*
-            String endString = this.mContext.getString(R.string.detail_event_end) + String.valueOf(this.mEvent.date.endTime) +
-                    this.mEvent.date.endTOD;
-            */
 
+            this.mBinding.title.setText(this.mEvent.name);
             this.mBinding.day.setText(dayString);
-            this.mBinding.start.setText(startString);
-            this.mBinding.end.setVisibility(View.GONE);
-            //this.mBinding.end.setText(endString);
+            this.mBinding.time.setText(startString);
         } else {
             String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getDateString();
+            this.mBinding.title.setText(this.mEvent.name);
             this.mBinding.day.setText(dayString);
-            this.mBinding.start.setVisibility(View.GONE);
-            this.mBinding.end.setVisibility(View.GONE);
+            this.mBinding.time.setVisibility(View.GONE);
         }
 
         this.mBinding.summary.setText(this.mEvent.summary);

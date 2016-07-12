@@ -45,6 +45,10 @@ public class Event extends BaseObject {
         return this.summary.length() > 150 ? this.summary.substring(0, 150) + "..." : this.summary;
     }
 
+    public String getTitleName() {
+        return this.name.length() > 25 ? this.name.substring(0, 25) + "..." : this.name;
+    }
+
     public static int compareEvents(Event lhs, Event rhs) {
         if (!lhs.date.defined) return 1;
         if (!rhs.date.defined) return -1;

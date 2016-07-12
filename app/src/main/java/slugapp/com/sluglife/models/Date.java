@@ -97,7 +97,8 @@ public class Date extends BaseObject {
 
     public String getTimeString() {
         if (!this.defined) return this.string;
-        return String.valueOf(this.hour % 12) + (this.hour % 12 == Calendar.AM ? "am" : "pm");
+        String time = String.valueOf(this.hour % 12 != 0 ? this.hour % 12 : 12);
+        return time + (this.hour % 12 == Calendar.AM ? "am" : "pm");
     }
 
     public String getFullString() {
