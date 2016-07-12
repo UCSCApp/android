@@ -1,6 +1,5 @@
 package slugapp.com.sluglife.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -41,7 +40,7 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     public void onStart() {
         super.onStart();
 
-        this.mCallback.setTitle(this.mTitle);
+        this.mCallback.setToolbarTitle(this.mTitle);
     }
 
     @Override

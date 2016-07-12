@@ -4,13 +4,13 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -24,18 +24,20 @@ import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import io.fabric.sdk.android.Fabric;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ActivityMainBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
+import slugapp.com.sluglife.runnables.LoopRunnable;
 
 /**
- * Created by isaiah on 6/27/2015.
+ * Created by isaiah on 6/27/2015
  * <p/>
- * This file contains the MainActivity. It handles all of the pages of the app in the form of
- * Fragments, and contains Top and Bottom Toolbars.
+ * This file contains the main activity. It handles all of the pages of the app in the form of
+ * fragments, and contains top and bottom Toolbars.
  */
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private TextView mTitle;
     private Timer mTimer;
 
+    /**
+     * Activity's onCreate method
+     *
+     * @param savedInstanceState Saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +68,17 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     private void setFields() {
         this.mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(
+
+        Fabric.with(this, new Twitter(new TwitterAuthConfig(
                 this.getString(R.string.social_key),
-                this.getString(R.string.social_secret));
-        Fabric.with(this, new Twitter(authConfig));
+                this.getString(R.string.social_secret))));
     }
 
     /**
      * Initializes the top toolbar
      */
     private void setTopToolbar() {
-        Toolbar toolbar = this.mBinding.topToolbar;
-        this.setSupportActionBar(toolbar);
+        this.setSupportActionBar(this.mBinding.topToolbar);
         if (this.getSupportActionBar() != null) {
             this.getSupportActionBar().setDisplayShowTitleEnabled(false);
             this.getSupportActionBar().setHomeButtonEnabled(true);
@@ -112,10 +118,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Gets the fragment instance form the given fragment enum
+     * Gets the fragment instance form the given tab fragment
      *
      * @param fragmentEnum Fragment enum
-     * @return Fragment from fragment enum
+     * @return Tab fragment
      */
     private Fragment getTabFragment(FragmentEnum fragmentEnum) {
         try {
@@ -123,14 +129,15 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
             Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
             return (Fragment) fragmentConstructor.newInstance();
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
 
     /**
-     * Sets the current tab fragment
+     * Sets the given tab fragment
      *
-     * @param fragment Fragment to set
+     * @param fragment Tab fragment to set
      */
     private void setTabFragment(Fragment fragment) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
@@ -144,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Sets the current fragment
+     * Sets the given fragment
      *
      * @param fragment Fragment to set
      */
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Hide soft keyboard
+     * Hides soft keyboard
      */
     @Override
     public void hideKeyboard() {
@@ -172,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     /**
      * Displays snackbar with text
      *
-     * @param text text to display
+     * @param text Text to display
      */
     @Override
     public void showSnackBar(String text) {
@@ -180,31 +187,29 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
                 Snackbar.LENGTH_INDEFINITE);
 
         snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.ucsc_yellow));
-
         snackbar.setAction(this.getString(R.string.snackbar_dismiss), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();
             }
         });
-
         snackbar.show();
     }
 
     /**
-     * Set new toolbar title
+     * Sets new toolbar title
      *
-     * @param newTitle New toolbar title
+     * @param text New toolbar title
      */
     @Override
-    public void setTitle(String newTitle) {
-        this.mTitle.setText(newTitle);
+    public void setToolbarTitle(String text) {
+        this.mTitle.setText(text);
     }
 
     /**
-     * Enables home up
+     * Sets toolbar's home up enabled
      *
-     * @param enabled If home up is enabled
+     * @param enabled If toolbar's home up is enabled
      */
     @Override
     public void setUpEnabled(boolean enabled) {
@@ -222,12 +227,29 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Get timer
+     * Schedules timer given a handler, a runnable, a delay time, and a time period
      *
-     * @return Timer
+     * @param handler  Handler that handles process
+     * @param runnable Runnable that runs process
+     * @param delay    Delay time
+     * @param period   Period of time
      */
     @Override
-    public Timer getTimer() {
-        return this.mTimer;
+    public void scheduleTimer(final Handler handler, final LoopRunnable runnable, long delay,
+                              int period) {
+        this.mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(runnable);
+            }
+        }, delay, period);
+    }
+
+    /**
+     * Cancels timer if active
+     */
+    @Override
+    public void cancelTimer() {
+        if (this.mTimer != null) this.mTimer.cancel();
     }
 }

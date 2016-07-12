@@ -41,7 +41,7 @@ public abstract class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        this.mCallback.setTitle(this.mTitle);
+        this.mCallback.setToolbarTitle(this.mTitle);
     }
 
     @Override

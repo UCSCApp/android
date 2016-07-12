@@ -49,10 +49,19 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
 
 public class MapFragment extends BaseMapFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
-
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
+
+    private static final long MAP_DELAY = 0;
+    private static final int MAP_PERIOD = 2000;
+    private static final float SCHOOL_RADIUS = 1672.2233f;
     private static final float DEFAULT_ZOOM = 14.5f;
     private static final float LOCATION_ZOOM = 15.0f;
+
+    private static final int LOOP_MASK = 0b000001;
+    private static final int DINING_HALL_MASK = 0b000100;
+    private static final int LIBRARY_MASK = 0b001000;
+
+    public static final int DEFAULT_MASK = 0b000000;
 
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
@@ -79,11 +88,12 @@ public class MapFragment extends BaseMapFragment {
 
     @Override
     protected void setMarkers(GoogleMap googleMap) {
-        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
+        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers),
+                DEFAULT_MASK);
 
-        if ((bin & 0b000001) != 0) this.setLoopBusMarkers(googleMap);
-        if ((bin & 0b000100) != 0) this.setDiningHallMarkers(googleMap);
-        if ((bin & 0b001000) != 0) this.setLibraryMarkers(googleMap);
+        if ((bin & LOOP_MASK) != 0) this.setLoopBusMarkers(googleMap);
+        if ((bin & DINING_HALL_MASK) != 0) this.setDiningHallMarkers(googleMap);
+        if ((bin & LIBRARY_MASK) != 0) this.setLibraryMarkers(googleMap);
     }
 
     @Override
@@ -137,7 +147,7 @@ public class MapFragment extends BaseMapFragment {
             Location.distanceBetween(initLatLng.latitude, initLatLng.longitude,
                     location.getLatitude(), location.getLongitude(), distance);
             LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-            if (distance[0] < 1672.2233) {
+            if (distance[0] < SCHOOL_RADIUS) {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
             } else {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
@@ -148,22 +158,17 @@ public class MapFragment extends BaseMapFragment {
     @Override
     protected void clearData() {
         for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
-        if (this.mCallback.getTimer() != null) this.mCallback.getTimer().cancel();
+        this.mCallback.cancelTimer();
     }
 
     private void setLoopBusMarkers(final GoogleMap map) {
         this.mDynamicMarkers = new HashMap<>();
 
         final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(mContext, map, this.mDynamicMarkers);
+        final LoopRunnable runnable = new LoopRunnable(this.mContext, map, this.mDynamicMarkers);
 
         this.mCallback.initTimer();
-        this.mCallback.getTimer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(runnable);
-            }
-        }, 0, 2000);
+        this.mCallback.scheduleTimer(handler, runnable, MAP_DELAY, MAP_PERIOD);
     }
 
     private void setDiningHallMarkers(final GoogleMap map) {

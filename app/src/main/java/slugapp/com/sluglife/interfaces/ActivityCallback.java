@@ -1,12 +1,16 @@
 package slugapp.com.sluglife.interfaces;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 
-import java.util.Timer;
+import slugapp.com.sluglife.runnables.LoopRunnable;
 
 /**
- * Created by isayyuhh_s on 8/3/2015
+ * Created by isaiah on 8/3/2015
+ * <p/>
+ * This file contains a callback for fragments to communicate with its activity.
  */
+
 public interface ActivityCallback {
 
     /**
@@ -17,40 +21,48 @@ public interface ActivityCallback {
     void setFragment(Fragment fragment);
 
     /**
-     * Hide soft keyboard
+     * Hides soft keyboard
      */
     void hideKeyboard();
 
     /**
      * Displays snackbar with text
      *
-     * @param text text to display
+     * @param text Text to display
      */
     void showSnackBar(String text);
 
     /**
-     * Set new toolbar mTitle
+     * Sets new toolbar title
      *
-     * @param newTitle New toolbar mTitle
+     * @param text New toolbar title
      */
-    void setTitle(String newTitle);
+    void setToolbarTitle(String text);
 
     /**
-     * Enables home up
+     * Sets toolbar's home up enabled
      *
-     * @param enabled If home up is enabled
+     * @param enabled If toolbar's home up is enabled
      */
     void setUpEnabled(boolean enabled);
 
     /**
-     * Initializes Timer
+     * Initializes timer
      */
     void initTimer();
 
     /**
-     * Get timer
+     * Schedules timer given a handler, a runnable, a delay time, and a time period
      *
-     * @return Timer
+     * @param handler  Handler that handles process
+     * @param runnable Runnable that runs process
+     * @param delay    Delay time
+     * @param period   Period of time
      */
-    Timer getTimer();
+    void scheduleTimer(final Handler handler, final LoopRunnable runnable, long delay, int period);
+
+    /**
+     * Cancels timer if active
+     */
+    void cancelTimer();
 }

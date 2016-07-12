@@ -43,7 +43,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_settings, container, false);
-        this.mCallback.setTitle("SettingsFragment");
+        this.mCallback.setToolbarTitle("SettingsFragment");
         return view;
     }
 
