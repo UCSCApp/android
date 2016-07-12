@@ -73,7 +73,7 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
 
             // text view
             TextView tv = new TextView(this.mContext);
-            tv.setText(AttributeEnum.values()[i].string);
+            tv.setText(AttributeEnum.values()[i].name);
             tv.setTextColor(ContextCompat.getColor(mContext, R.color.ucsc_blue));
             tv.setTextSize(TEXT_SIZE);
             tv.setLayoutParams(tvParams);

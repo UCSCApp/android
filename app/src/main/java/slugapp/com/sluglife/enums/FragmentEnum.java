@@ -8,6 +8,8 @@ import slugapp.com.sluglife.fragments.SocialFragment;
 
 /**
  * Created by isayyuhh on 3/16/16
+ * <p/>
+ * This file contains an enum containing information about tab fragments.
  */
 public enum FragmentEnum {
     MAP(MapViewFragment.class, 0, R.drawable.ic_map, R.string.tab_map),
@@ -20,6 +22,14 @@ public enum FragmentEnum {
     public int imageId;
     public int name;
 
+    /**
+     * Constructor
+     *
+     * @param fragment Tab fragment
+     * @param position Position of tab fragment on tab
+     * @param imageId Resource of tab image
+     * @param name Name of tab
+     */
     FragmentEnum(Class fragment, int position, int imageId, int name) {
         this.fragment = fragment;
         this.position = position;

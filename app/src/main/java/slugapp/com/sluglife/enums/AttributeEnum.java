@@ -4,6 +4,8 @@ import slugapp.com.sluglife.R;
 
 /**
  * Created by isayyuhh on 9/24/2015
+ * <p/>
+ * This file contains an enum containing information about dining hall attributes.
  */
 public enum AttributeEnum {
     EGGS("Eggs", R.drawable.ic_egg),
@@ -18,10 +20,18 @@ public enum AttributeEnum {
     BEEF("Beef", R.drawable.ic_beef);
 
     public int icon;
-    public String string;
+    public String name;
 
-    AttributeEnum(String string, int icon) {
+    // TODO: change name to resource
+
+    /**
+     * Constructor
+     *
+     * @param name Name of attribute
+     * @param icon Resource of attribute image
+     */
+    AttributeEnum(String name, int icon) {
         this.icon = icon;
-        this.string = string;
+        this.name = name;
     }
 }

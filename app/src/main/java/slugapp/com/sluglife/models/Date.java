@@ -32,7 +32,7 @@ public class Date extends BaseObject {
         this.defined = false;
 
         for (MonthEnum currMonth : months) {
-            if (currMonth.order != month) continue;
+            if (currMonth.number != month) continue;
             this.month = currMonth;
             break;
         }
@@ -84,7 +84,7 @@ public class Date extends BaseObject {
         this.hour = Integer.parseInt(hour);
         this.hour += this.hour % 12 == Calendar.AM ? 0 : 12;
 
-        this.value = year + (this.month.order * 0.01) + (this.day * 0.0001);
+        this.value = year + (this.month.number * 0.01) + (this.day * 0.0001);
 
         this.defined = true;
     }

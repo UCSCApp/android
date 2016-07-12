@@ -4,8 +4,9 @@ import slugapp.com.sluglife.R;
 
 /**
  * Created by isayyuhh on 2/21/16
+ * <p/>
+ * This file contains an enum containing information about map markers.
  */
-
 public enum MarkerEnum {
     MCHENRY(
             MarkerTypeEnum.LIBRARY,
@@ -71,6 +72,16 @@ public enum MarkerEnum {
     public int snippet;
     public int icon;
 
+    /**
+     * Constructor
+     *
+     * @param type Type of marker
+     * @param title Marker title
+     * @param lat Marker latitude
+     * @param lng Marker longitude
+     * @param snippet Marker snippet text
+     * @param icon Resource for marker image
+     */
     MarkerEnum(MarkerTypeEnum type, int title, int lat, int lng, int snippet, int icon) {
         this.title = title;
         this.type = type;

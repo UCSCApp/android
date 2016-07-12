@@ -2,6 +2,8 @@ package slugapp.com.sluglife.enums;
 
 /**
  * Created by isayyuhh on 2/21/16
+ * <p/>
+ * This file contains an enum containing information about months.
  */
 public enum MonthEnum {
     JANUARY(
@@ -42,10 +44,16 @@ public enum MonthEnum {
     );
 
     public String name;
-    public int order;
+    public int number;
 
-    MonthEnum(String name, int order) {
+    /**
+     * Constructor
+     *
+     * @param name Name of month
+     * @param number Numerical representation of month
+     */
+    MonthEnum(String name, int number) {
         this.name = name;
-        this.order = order;
+        this.number = number;
     }
 }
