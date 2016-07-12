@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -20,12 +19,13 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.LoopHttpRequest;
-import slugapp.com.sluglife.models.Facility;
 import slugapp.com.sluglife.utils.LatLngInterpolator;
 import slugapp.com.sluglife.models.Loop;
 
 /**
- * Created by isayyuhh on 2/19/16
+ * Created by isaiah on 2/19/16
+ * <p/>
+ * This file contains a runnable that periodically gathers loop data.
  */
 public class LoopRunnable implements Runnable {
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
@@ -34,21 +34,39 @@ public class LoopRunnable implements Runnable {
     private Context mContext;
     private ActivityCallback mCallback;
     private GoogleMap mMap;
-    private HashMap<Loop, Marker> mLoopList;
+    private HashMap<Loop, Marker> mLoopMap;
     private boolean noLoops;
 
-    public LoopRunnable(Context context, GoogleMap map, HashMap<Loop, Marker> loopList) {
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     * @param map     Google map
+     * @param loopMap Map containing loop information
+     */
+    public LoopRunnable(Context context, GoogleMap map, HashMap<Loop, Marker> loopMap) {
         this.mContext = context;
         this.mCallback = (ActivityCallback) context;
         this.mMap = map;
-        this.mLoopList = loopList;
+        this.mLoopMap = loopMap;
 
         this.noLoops = false;
     }
 
+    /**
+     * Runs runnable
+     */
     @Override
     public void run() {
         new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<Loop>>() {
+
+            // TODO: compare map to val to remove nonoperating loops
+
+            /**
+             * On request success
+             *
+             * @param val Loop object from request
+             */
             @Override
             public void onSuccess(List<Loop> val) {
                 if (val.isEmpty() && !noLoops) {
@@ -58,7 +76,7 @@ public class LoopRunnable implements Runnable {
                 }
                 for (Loop loop : val) {
                     boolean found = false;
-                    for (Marker marker : mLoopList.values()) {
+                    for (Marker marker : mLoopMap.values()) {
                         if (String.valueOf(loop.id).compareTo(marker.getSnippet()) == 0) {
                             animateMarker(marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
@@ -67,7 +85,7 @@ public class LoopRunnable implements Runnable {
                         }
                     }
                     if (!found) {
-                        mLoopList.put(loop, mMap.addMarker(new MarkerOptions()
+                        mLoopMap.put(loop, mMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
                                 .snippet(String.valueOf(loop.id))
                                 .position(new LatLng(loop.lat, loop.lng))
@@ -77,6 +95,11 @@ public class LoopRunnable implements Runnable {
                 }
             }
 
+            /**
+             * On request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 e.printStackTrace();
@@ -84,6 +107,13 @@ public class LoopRunnable implements Runnable {
         });
     }
 
+    /**
+     * Animates marker on google map
+     *
+     * @param marker             Marker
+     * @param finalPosition      Position to move to
+     * @param latLngInterpolator Interpolator to move marker
+     */
     private void animateMarker(final Marker marker, final LatLng finalPosition,
                                final LatLngInterpolator latLngInterpolator) {
         final LatLng startPosition = marker.getPosition();
@@ -95,6 +125,9 @@ public class LoopRunnable implements Runnable {
             float t;
             float v;
 
+            /**
+             * Runs runnable
+             */
             @Override
             public void run() {
                 // Calculate progress using INTERPOLATOR
