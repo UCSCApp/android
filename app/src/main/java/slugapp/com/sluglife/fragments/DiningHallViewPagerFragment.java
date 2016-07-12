@@ -94,7 +94,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                 this.getFragmentManager().popBackStackImmediate();
                 return true;
             case R.id.dining_legend:
-                this.setDialogFragment(new DiningLegendDialogFragment());
+                this.setDialogFragment(DiningLegendDialogFragment.newInstance());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

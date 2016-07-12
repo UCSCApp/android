@@ -139,7 +139,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 icon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setDialogFragment(new DiningLegendDialogFragment());
+                        setDialogFragment(DiningLegendDialogFragment.newInstance());
                     }
                 });
 

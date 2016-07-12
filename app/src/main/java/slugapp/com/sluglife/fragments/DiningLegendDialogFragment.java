@@ -15,7 +15,9 @@ import slugapp.com.sluglife.databinding.DialogDiningLegendBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
 
 /**
- * Created by isayyuhh on 9/23/2015
+ * Created by isaiah on 9/23/2015
+ * <p/>
+ * This file contains a dialog fragment that displays a legend of dining hall attributes.
  */
 public class DiningLegendDialogFragment extends BaseDialogFragment {
     private static final int LINEAR_LAYOUT_PARAMS = 75;
@@ -34,6 +36,23 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
 
     private DialogDiningLegendBinding mBinding;
 
+    /**
+     * Gets a new instance of fragment
+     *
+     * @return New instance of fragment
+     */
+    public static DiningLegendDialogFragment newInstance() {
+        return new DiningLegendDialogFragment();
+    }
+
+    /**
+     * Fragment's onCreateView method
+     *
+     * @param inflater           Layout inflater
+     * @param container          Container of fragment
+     * @param savedInstanceState Saved instance state
+     * @return Inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +64,9 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
         return this.mBinding.getRoot();
     }
 
+    /**
+     * Sets fragment view
+     */
     private void setView() {
         for (int i = 0; i < AttributeEnum.values().length; i++) {
             // legend params

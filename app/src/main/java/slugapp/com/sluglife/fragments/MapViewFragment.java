@@ -86,15 +86,9 @@ public class MapViewFragment extends BaseViewFragment {
                     this.mBinding.search.searchEditText.setText("");
                 }
 
-                int bin = getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
+                int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
+                this.setDialogFragment(MapFilterDialogFragment.newInstance(this.mContext, bin));
 
-                Bundle b = new Bundle();
-                b.putInt(this.mContext.getString(R.string.bundle_markers), bin);
-
-                MapFilterDialogFragment dialog = new MapFilterDialogFragment();
-                dialog.setArguments(b);
-
-                this.setDialogFragment(dialog);
                 return true;
             }
             case R.id.search: {
