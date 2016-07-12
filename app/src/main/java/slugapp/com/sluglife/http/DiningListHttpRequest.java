@@ -12,10 +12,17 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 
 /**
- * Created by isayyuhh_s on 9/1/2015.
+ * Created by isaiah on 9/1/2015
+ * <p/>
+ * This file contains an http request that gathers dining hall menu information.
  */
 public class DiningListHttpRequest extends BaseHttpRequest {
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     */
     public DiningListHttpRequest(Context context) {
         super(Method.GET);
 
@@ -27,8 +34,19 @@ public class DiningListHttpRequest extends BaseHttpRequest {
         this.createUrl(protocol, api, port, path, null);
     }
 
+    /**
+     * Executes http request
+     *
+     * @param callback Http callback
+     */
     public void execute(final HttpCallback<List<String>> callback) {
         rawExecute(new HttpCallback<String>() {
+
+            /**
+             * On http request success
+             *
+             * @param val Retrieved value
+             */
             @Override
             public void onSuccess(String val) {
                 try {
@@ -43,6 +61,11 @@ public class DiningListHttpRequest extends BaseHttpRequest {
                 }
             }
 
+            /**
+             * On http request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 callback.onError(e);

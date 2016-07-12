@@ -11,15 +11,34 @@ import slugapp.com.sluglife.interfaces.HttpCallback;
 
 /**
  * Created by simba on 7/31/15
+ * Edited by isaiah on 7/12/16
+ * <p/>
+ * This file contains a base http request class.
  */
 public abstract class BaseHttpRequest extends BaseRequest {
     protected String mUrl;
     private int mVolleyMethod;
 
+    /**
+     * Constructor
+     *
+     * @param method Http request method
+     */
     public BaseHttpRequest(Method method) {
         mVolleyMethod = method.method;
     }
 
+    // TODO: change strings to constants
+
+    /**
+     * Creates url by parts
+     *
+     * @param protocol Protocol
+     * @param api      Api
+     * @param port     Port
+     * @param path     Path
+     * @param params   Parameters
+     */
     protected void createUrl(String protocol, String api, String port, String path,
                              HashMap<String, String> params) {
         String fields = "";
@@ -28,25 +47,42 @@ public abstract class BaseHttpRequest extends BaseRequest {
             Set<String> set = params.keySet();
             boolean first = true;
             for (String param : set) {
-                if (! first) fields += "&";
+                if (!first) fields += "&";
                 fields += param + "=" + params.get(param);
                 first = false;
             }
         }
-        this.mUrl =  protocol + api + port + path + fields.replace(" ", "%20").replace("&", "%26");
+        this.mUrl = protocol + api + port + path + fields.replace(" ", "%20").replace("&", "%26");
     }
 
+    /**
+     * Executes http request
+     *
+     * @param callback Http callback
+     */
     protected void rawExecute(final HttpCallback<String> callback) {
         StringRequest stringRequest = new StringRequest(
                 this.mVolleyMethod,
                 this.mUrl,
                 new Response.Listener<String>() {
+
+                    /**
+                     * On response
+                     *
+                     * @param response String response
+                     */
                     @Override
                     public void onResponse(String response) {
                         callback.onSuccess(response);
                     }
                 },
                 new Response.ErrorListener() {
+
+                    /**
+                     * On error
+                     *
+                     * @param error Error response
+                     */
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         callback.onError(error);
@@ -56,12 +92,20 @@ public abstract class BaseHttpRequest extends BaseRequest {
         queue().add(stringRequest);
     }
 
+    /**
+     * Enum containing http request methods
+     */
     public enum Method {
         POST(com.android.volley.Request.Method.POST),
         GET(com.android.volley.Request.Method.GET);
 
         private int method;
 
+        /**
+         * Constructor
+         *
+         * @param method Http request method
+         */
         Method(int method) {
             this.method = method;
         }

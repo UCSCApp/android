@@ -14,10 +14,18 @@ import slugapp.com.sluglife.models.WrapperEventList;
 
 /**
  * Created by simba on 7/31/15
+ * Edited by isaiah on 9/1/2015
+ * <p/>
+ * This file contains an http request that gathers event information.
  */
 public class EventListHttpRequest extends BaseHttpRequest {
     protected Context mContext;
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     */
     public EventListHttpRequest(Context context) {
         super(Method.GET);
 
@@ -30,8 +38,19 @@ public class EventListHttpRequest extends BaseHttpRequest {
         this.createUrl(protocol, api, port, path, null);
     }
 
+    /**
+     * Executes http request
+     *
+     * @param callback Http callback
+     */
     public void execute(final HttpCallback<List<Event>> callback) {
         rawExecute(new HttpCallback<String>() {
+
+            /**
+             * On http request success
+             *
+             * @param val Retrieved value
+             */
             @Override
             public void onSuccess(String val) {
                 try {
@@ -42,6 +61,11 @@ public class EventListHttpRequest extends BaseHttpRequest {
                 }
             }
 
+            /**
+             * On http request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 callback.onError(e);

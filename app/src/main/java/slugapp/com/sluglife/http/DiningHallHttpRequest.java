@@ -12,13 +12,20 @@ import slugapp.com.sluglife.models.DiningHall;
 import slugapp.com.sluglife.models.WrapperDiningHall;
 
 /**
- * Created by isayyuhh_s on 9/1/2015.
+ * Created by isaiah on 9/1/2015
+ * <p/>
+ * This file contains an http request that gathers dining hall menu information.
  */
 public class DiningHallHttpRequest extends BaseHttpRequest {
     protected Context mContext;
-
     protected String mName;
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     * @param name    Dining hall name
+     */
     public DiningHallHttpRequest(Context context, String name) {
         super(BaseHttpRequest.Method.GET);
 
@@ -35,8 +42,19 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
         this.mName = name;
     }
 
+    /**
+     * Executes http request
+     *
+     * @param callback Http callback
+     */
     public void execute(final HttpCallback<DiningHall> callback) {
         this.rawExecute(new HttpCallback<String>() {
+
+            /**
+             * On http request success
+             *
+             * @param val Retrieved value
+             */
             @Override
             public void onSuccess(String val) {
                 try {
@@ -47,6 +65,11 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
                 }
             }
 
+            /**
+             * On http request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 callback.onError(e);

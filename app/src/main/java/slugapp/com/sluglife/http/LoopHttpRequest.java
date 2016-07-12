@@ -14,10 +14,18 @@ import slugapp.com.sluglife.models.Loop;
 import slugapp.com.sluglife.models.WrapperLoop;
 
 /**
- * Created by simba on 7/31/15.
+ * Created by simba on 7/31/15
+ * Edited by isaiah on 9/1/2015
+ * <p/>
+ * This file contains an http request that gathers loop bus information.
  */
 public class LoopHttpRequest extends BaseHttpRequest {
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     */
     public LoopHttpRequest(Context context) {
         super(Method.GET);
         String protocol = context.getString(R.string.http);
@@ -27,8 +35,19 @@ public class LoopHttpRequest extends BaseHttpRequest {
         this.createUrl(protocol, api, port, path, null);
     }
 
+    /**
+     * Executes http request
+     *
+     * @param callback Http callback
+     */
     public void execute(final HttpCallback<List<Loop>> callback) {
         rawExecute(new HttpCallback<String>() {
+
+            /**
+             * On http request success
+             *
+             * @param val Retrieved value
+             */
             @Override
             public void onSuccess(String val) {
                 try {
@@ -43,6 +62,11 @@ public class LoopHttpRequest extends BaseHttpRequest {
                 }
             }
 
+            /**
+             * On http request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 callback.onError(e);
