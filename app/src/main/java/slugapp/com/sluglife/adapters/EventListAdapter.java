@@ -19,7 +19,6 @@ import slugapp.com.sluglife.models.Event;
  * <p/>
  * This file contains an adapter that displays a list of events.
  */
-
 public class EventListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_event;
 

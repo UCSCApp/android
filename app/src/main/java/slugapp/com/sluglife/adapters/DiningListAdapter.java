@@ -14,7 +14,6 @@ import slugapp.com.sluglife.models.StringObject;
  * <p/>
  * This file contains an adapter that displays a list of dining halls.
  */
-
 public class DiningListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_dining;
 

@@ -39,7 +39,6 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
  * This file contains the main activity. It handles all of the pages of the app in the form of
  * fragments, and contains top and bottom Toolbars.
  */
-
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
     private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
