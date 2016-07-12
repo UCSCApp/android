@@ -17,12 +17,19 @@ import slugapp.com.sluglife.models.Event;
 /**
  * Created by isaiah on 6/27/2015.
  * <p/>
- * This file displays all of the contents for each individual mEvent.
+ * This file contains a view fragment that displays event information.
  */
 public class EventViewFragment extends BaseViewFragment {
     private ViewEventBinding mBinding;
     private Event mEvent;
 
+    /**
+     * Gets a new instance of fragment
+     *
+     * @param context Activity context
+     * @param event   Event
+     * @return New instance of fragment
+     */
     public static EventViewFragment newInstance(Context context, Event event) {
         EventViewFragment fragment = new EventViewFragment();
 
@@ -33,6 +40,14 @@ public class EventViewFragment extends BaseViewFragment {
         return fragment;
     }
 
+    /**
+     * Fragment's onCreateView method
+     *
+     * @param inflater           Layout inflater
+     * @param container          Container of fragment
+     * @param savedInstanceState Saved instance state
+     * @return Inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,16 +60,44 @@ public class EventViewFragment extends BaseViewFragment {
         return this.mBinding.getRoot();
     }
 
+    /**
+     * Does action on toolbar item click
+     *
+     * @param item Toolbar item
+     * @return Boolean if toolbar item is clicked
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.getFragmentManager().popBackStackImmediate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Sets fields from fragment arguments
+     *
+     * @param b Bundle from fragment arguments
+     */
     @Override
     protected void setArgumentFields(Bundle b) {
         this.mEvent = (Event) b.getSerializable(this.mContext.getString(R.string.bundle_json));
         if (this.mEvent != null) this.mName = this.mEvent.getTitleName();
     }
 
+    /**
+     * Sets fields
+     */
     @Override
     protected void setFields() {
     }
 
+    /**
+     * Sets fragment view
+     */
     @Override
     protected void setView() {
         Date date = this.mEvent.date;
@@ -75,16 +118,5 @@ public class EventViewFragment extends BaseViewFragment {
 
         this.mBinding.summary.setText(this.mEvent.summary);
         new ImageHttpRequest(this.mEvent.image).execute(this.mBinding.image);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.getFragmentManager().popBackStackImmediate();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

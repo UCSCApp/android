@@ -17,7 +17,9 @@ import slugapp.com.sluglife.databinding.ViewMapBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 
 /**
- * Created by isayyuhh on 6/20/16
+ * Created by isaiah on 6/20/16
+ * <p/>
+ * This file contains a view fragment that displays google map information.
  */
 public class MapViewFragment extends BaseViewFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
@@ -27,10 +29,23 @@ public class MapViewFragment extends BaseViewFragment {
 
     private boolean searchShowing;
 
-    public static MapFacilityListFragment newInstance() {
-        return new MapFacilityListFragment();
+    /**
+     * Gets a new instance of fragment
+     *
+     * @return New instance of fragment
+     */
+    public static MapViewFragment newInstance() {
+        return new MapViewFragment();
     }
 
+    /**
+     * Fragment's onCreateView method
+     *
+     * @param inflater           Layout inflater
+     * @param container          Container of fragment
+     * @param savedInstanceState Saved instance state
+     * @return Inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,57 +57,25 @@ public class MapViewFragment extends BaseViewFragment {
         return this.mBinding.getRoot();
     }
 
-    @Override
-    protected void setArgumentFields(Bundle b) {
-    }
-
-    @Override
-    protected void setFields() {
-        this.searchShowing = false;
-    }
-
-    @Override
-    protected void setView() {
-        this.setChildFragment(R.id.map_view, new MapFragment());
-
-        this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mQuery = s.toString();
-
-                if (!mQuery.isEmpty()) {
-                    setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
-                            mQuery));
-                } else {
-                    setChildFragment(R.id.map_view, new MapFragment());
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0) {
-            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0);
-
-            this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
-            this.setChildFragment(R.id.map_view, new MapFragment());
-        }
-    }
-
+    /**
+     * Fragment's onCreateOptionsMenu method
+     *
+     * @param menu     Menu
+     * @param inflater View inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_map_search, menu);
     }
 
+    // TODO: match with events search
+
+    /**
+     * Does action on toolbar item click
+     *
+     * @param item Toolbar item
+     * @return Boolean if toolbar item is clicked
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -132,5 +115,91 @@ public class MapViewFragment extends BaseViewFragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Fragment's onActivityResult method
+     *
+     * @param requestCode Request code
+     * @param resultCode  Result code
+     * @param data        Intent data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0) {
+            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0);
+
+            this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
+            this.setChildFragment(R.id.map_view, MapFragment.newInstance());
+        }
+    }
+
+    /**
+     * Sets fields from fragment arguments
+     *
+     * @param b Bundle from fragment arguments
+     */
+    @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    /**
+     * Sets fields
+     */
+    @Override
+    protected void setFields() {
+        this.searchShowing = false;
+    }
+
+    /**
+     * Sets fragment view
+     */
+    @Override
+    protected void setView() {
+        this.setChildFragment(R.id.map_view, MapFragment.newInstance());
+
+        this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
+
+            /**
+             * Before edit text changed
+             *
+             * @param s Edit text character sequence
+             * @param start Edit text start index
+             * @param count Edit text current length
+             * @param after Edit text length after change
+             */
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            /**
+             * On edit text changed
+             *
+             * @param s Edit text character sequence
+             * @param start Edit text start index
+             * @param before Edit text length before change
+             * @param count Edit text current length
+             */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            /**
+             * After edit text changed
+             *
+             * @param s Edit text character sequence
+             */
+            @Override
+            public void afterTextChanged(Editable s) {
+                mQuery = s.toString();
+
+                if (!mQuery.isEmpty()) {
+                    setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
+                            mQuery));
+                } else {
+                    setChildFragment(R.id.map_view, MapFragment.newInstance());
+                }
+            }
+        });
     }
 }

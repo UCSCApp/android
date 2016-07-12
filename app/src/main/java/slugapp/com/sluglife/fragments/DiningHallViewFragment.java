@@ -19,7 +19,10 @@ import slugapp.com.sluglife.models.Food;
 import slugapp.com.sluglife.models.FoodMenu;
 
 /**
- * Created by isayyuhh_s on 8/8/2015
+ * Created by isaiah on 8/8/2015
+ * <p/>
+ * This file contains a view fragment that displays dining hall food information for the given
+ * time of day.
  */
 public class DiningHallViewFragment extends BaseViewFragment {
     private static final int LINEAR_LAYOUT_PARAMS = 75;
@@ -40,6 +43,14 @@ public class DiningHallViewFragment extends BaseViewFragment {
     private ViewDiningBinding mBinding;
     private FoodMenu mFoodMenu;
 
+    /**
+     * Gets a new instance of fragment
+     *
+     * @param context Activity context
+     * @param name    Fragment name
+     * @param menu    Food menu
+     * @return New instance of fragment
+     */
     public static DiningHallViewFragment newInstance(Context context, String name, FoodMenu menu) {
         DiningHallViewFragment fragment = new DiningHallViewFragment();
 
@@ -51,6 +62,14 @@ public class DiningHallViewFragment extends BaseViewFragment {
         return fragment;
     }
 
+    /**
+     * Fragment's onCreateView method
+     *
+     * @param inflater           Layout inflater
+     * @param container          Container of fragment
+     * @param savedInstanceState Saved instance state
+     * @return Inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,16 +81,27 @@ public class DiningHallViewFragment extends BaseViewFragment {
         return this.mBinding.getRoot();
     }
 
+    /**
+     * Sets fields from fragment arguments
+     *
+     * @param b Bundle from fragment arguments
+     */
     @Override
     protected void setArgumentFields(Bundle b) {
         this.mFoodMenu = (FoodMenu) b.getSerializable(this.mContext.getString(R.string.bundle_json));
         this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
     }
 
+    /**
+     * Sets fields
+     */
     @Override
     protected void setFields() {
     }
 
+    /**
+     * Sets fragment view
+     */
     @Override
     protected void setView() {
         if (this.mFoodMenu.isEmpty()) {

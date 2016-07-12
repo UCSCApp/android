@@ -31,6 +31,8 @@ import slugapp.com.sluglife.models.Event;
 
 /**
  * Created by isaiah on 6/23/2015
+ * <p/>
+ * This file contains a list fragment that displays a list of events.
  */
 public class EventListFragment extends BaseSwipeListFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.EVENT;
@@ -40,10 +42,23 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     private boolean searchShowing;
 
+    /**
+     * Gets a new instance of fragment
+     *
+     * @return New instance of fragment
+     */
     public static EventListFragment newInstance() {
         return new EventListFragment();
     }
 
+    /**
+     * Fragment's onCreateView method
+     *
+     * @param inflater           Layout inflater
+     * @param container          Container of fragment
+     * @param savedInstanceState Saved instance state
+     * @return Inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,43 +71,23 @@ public class EventListFragment extends BaseSwipeListFragment {
         return this.mBinding.getRoot();
     }
 
-    @Override
-    protected void setArgumentFields(Bundle b) {
-    }
-
-    @Override
-    protected void setSwipeListFields() {
-        this.mSwipeLayout = this.mBinding.swipeContainer;
-
-        this.searchShowing = false;
-    }
-
-    @Override
-    protected void setView(ListView listView, BaseAdapter adapter) {
-        super.setView(listView, adapter);
-
-        this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mQuery = s.toString();
-                onRefresh();
-            }
-        });
-    }
-
+    /**
+     * Fragment's onCreateOptionsMenu method
+     *
+     * @param menu     Menu
+     * @param inflater View inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_event_search, menu);
     }
 
+    /**
+     * Does action on toolbar item click
+     *
+     * @param item Toolbar item
+     * @return Boolean if toolbar item is clicked
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -110,20 +105,112 @@ public class EventListFragment extends BaseSwipeListFragment {
         }
     }
 
+    /**
+     * Sets fields from fragment arguments
+     *
+     * @param b Bundle from fragment arguments
+     */
+    @Override
+    protected void setArgumentFields(Bundle b) {
+    }
+
+    /**
+     * Sets fields for swipe list fragment
+     */
+    @Override
+    protected void setSwipeListFields() {
+        this.mSwipeLayout = this.mBinding.swipeContainer;
+
+        this.searchShowing = false;
+    }
+
+    /**
+     * Sets fragment view
+     *
+     * @param listView List view
+     * @param adapter  List adapter
+     */
+    @Override
+    protected void setView(ListView listView, BaseAdapter adapter) {
+        super.setView(listView, adapter);
+
+        this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
+
+            /**
+             * Before edit text changed
+             *
+             * @param s Edit text character sequence
+             * @param start Edit text start index
+             * @param count Edit text current length
+             * @param after Edit text length after change
+             */
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            /**
+             * On edit text changed
+             *
+             * @param s Edit text character sequence
+             * @param start Edit text start index
+             * @param before Edit text length before change
+             * @param count Edit text current length
+             */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            /**
+             * After edit text changed
+             *
+             * @param s Edit text character sequence
+             */
+            @Override
+            public void afterTextChanged(Editable s) {
+                mQuery = s.toString();
+                onRefresh();
+            }
+        });
+    }
+
+    /**
+     * Sorts list
+     *
+     * @param lhs Left operand
+     * @param rhs Right operand
+     * @return Integer showing which order the operands are in
+     */
     @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
         return Event.compareEvents((Event) lhs, (Event) rhs);
     }
 
+    /**
+     * Does action on swipe list item click
+     *
+     * @param parent   Parent view of list item
+     * @param view     List item view
+     * @param position List item position
+     * @param id       Id of list item
+     */
     @Override
     protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
         this.mCallback.setFragment(EventViewFragment.newInstance(this.mContext,
                 (Event) parent.getItemAtPosition(position)));
     }
 
+    /**
+     * Does action on swipe list refresh
+     */
     @Override
     public void onSwipeListRefresh() {
         new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
+
+            /**
+             * On request success
+             *
+             * @param vals List of values from request
+             */
             @Override
             public void onSuccess(List<Event> vals) {
                 evaluateQuery(vals);
@@ -139,6 +226,11 @@ public class EventListFragment extends BaseSwipeListFragment {
                 stopRefreshing();
             }
 
+            /**
+             * On request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 mBinding.swipeContainer.setVisibility(View.GONE);
@@ -149,6 +241,11 @@ public class EventListFragment extends BaseSwipeListFragment {
         });
     }
 
+    /**
+     * Adjusts list based on query
+     *
+     * @param events List of events
+     */
     private void evaluateQuery(List<Event> events) {
         ListIterator<Event> iterator = events.listIterator();
         while (iterator.hasNext()) {

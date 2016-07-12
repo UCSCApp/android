@@ -1,13 +1,5 @@
 package slugapp.com.sluglife.fragments;
 
-//
-//  MapFragment.java
-//  SlugRoute
-//
-//  Created by Karol Josef Bustamante. <karoljosefb@gmail.com>
-//  Copyright (c) 2015 UCSC Android. All rights reserved.
-//
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -33,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimerTask;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
@@ -47,6 +38,12 @@ import slugapp.com.sluglife.models.Facility;
 import slugapp.com.sluglife.models.Loop;
 import slugapp.com.sluglife.runnables.LoopRunnable;
 
+/**
+ * Created by Karol Josef Bustamante. <karoljosefb@gmail.com>
+ * Edited by isaiah on 8/8/2015
+ * <p/>
+ * This file contains a google map fragment that displays a google map using the google map api.
+ */
 public class MapFragment extends BaseMapFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
@@ -66,10 +63,23 @@ public class MapFragment extends BaseMapFragment {
     private HashMap<Facility, Marker> mStaticMarkers;
     private HashMap<Loop, Marker> mDynamicMarkers;
 
+    /**
+     * Gets a new instance of fragment
+     *
+     * @return New instance of fragment
+     */
     public static MapFragment newInstance() {
         return new MapFragment();
     }
 
+    /**
+     * Fragment's onCreateView method
+     *
+     * @param inflater           Layout inflater
+     * @param container          Container of fragment
+     * @param savedInstanceState Saved instance state
+     * @return Inflated view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,12 +90,20 @@ public class MapFragment extends BaseMapFragment {
         return view;
     }
 
+    /**
+     * Sets fields
+     */
     @Override
     protected void setFields() {
         this.mStaticMarkers = new HashMap<>();
         this.mDynamicMarkers = new HashMap<>();
     }
 
+    /**
+     * Sets google map markers
+     *
+     * @param googleMap Google map
+     */
     @Override
     protected void setMarkers(GoogleMap googleMap) {
         int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers),
@@ -96,19 +114,24 @@ public class MapFragment extends BaseMapFragment {
         if ((bin & LIBRARY_MASK) != 0) this.setLibraryMarkers(googleMap);
     }
 
+    /**
+     * Sets google map listeners
+     *
+     * @param googleMap Google map
+     */
     @Override
-    protected void setMapListeners(final GoogleMap map) {
+    protected void setMapListeners(final GoogleMap googleMap) {
         // OnMarkerClickListener
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 marker.showInfoWindow();
-                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 return false;
             }
         });
 
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 onClickStaticInfoWindow(marker);
@@ -116,16 +139,21 @@ public class MapFragment extends BaseMapFragment {
         });
     }
 
+    /**
+     * Sets initial google map zoom
+     *
+     * @param googleMap Google map
+     */
     @Override
-    protected void setInitialZoom(GoogleMap map) {
+    protected void setInitialZoom(GoogleMap googleMap) {
         float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
         float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
         float zoom = DEFAULT_ZOOM;
 
         LatLng initLatLng = new LatLng(lat, lng);
 
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
         if (ActivityCompat.checkSelfPermission(
                 this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
@@ -135,12 +163,11 @@ public class MapFragment extends BaseMapFragment {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
-        }
-        else {
-            map.setMyLocationEnabled(true);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
+        } else {
+            googleMap.setMyLocationEnabled(true);
             float[] distance = new float[3];
-            LocationManager locationManager = (LocationManager)this.getActivity()
+            LocationManager locationManager = (LocationManager) this.getActivity()
                     .getSystemService(Context.LOCATION_SERVICE);
             Location location = locationManager.getLastKnownLocation(locationManager
                     .getBestProvider(new Criteria(), false));
@@ -148,39 +175,65 @@ public class MapFragment extends BaseMapFragment {
                     location.getLatitude(), location.getLongitude(), distance);
             LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
             if (distance[0] < SCHOOL_RADIUS) {
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
             } else {
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
             }
         }
     }
 
+    /**
+     * Clears google map data
+     */
     @Override
     protected void clearMapData() {
         for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
         this.mCallback.cancelTimer();
     }
 
-    private void setLoopBusMarkers(final GoogleMap map) {
+    /**
+     * Sets loop bus markers on google map
+     *
+     * @param googleMap Google map
+     */
+    private void setLoopBusMarkers(final GoogleMap googleMap) {
         this.mDynamicMarkers = new HashMap<>();
 
         final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(this.mContext, map, this.mDynamicMarkers);
+        final LoopRunnable runnable = new LoopRunnable(this.mContext, googleMap,
+                this.mDynamicMarkers);
 
         this.mCallback.initTimer();
         this.mCallback.scheduleTimer(handler, runnable, MAP_DELAY, MAP_PERIOD);
     }
 
-    private void setDiningHallMarkers(final GoogleMap map) {
+    /**
+     * Sets dining hall markers on google map
+     *
+     * @param googleMap Google map
+     */
+    private void setDiningHallMarkers(final GoogleMap googleMap) {
         new DiningListHttpRequest(this.mContext).execute(new HttpCallback<List<String>>() {
+
+            /**
+             * On request success
+             *
+             * @param vals List of values from request
+             */
             @Override
-            public void onSuccess(List<String> val) {
-                for (String diningHallName : val) {
+            public void onSuccess(List<String> vals) {
+                for (String diningHallName : vals) {
                     new DiningHallHttpRequest(mContext, diningHallName).execute(
                             new HttpCallback<DiningHall>() {
+
+                                /**
+                                 * On request success
+                                 *
+                                 * @param val Dining hall object from request
+                                 */
                                 @Override
                                 public void onSuccess(DiningHall val) {
-                                    mStaticMarkers.put(val, map.addMarker(new MarkerOptions()
+                                    mStaticMarkers.put(val, googleMap.addMarker(new MarkerOptions()
                                             .title(val.name + mContext.getString(
                                                     R.string.detail_map_dining_ending))
                                             .snippet(mContext.getString(R.string.map_dining_snippet))
@@ -189,6 +242,11 @@ public class MapFragment extends BaseMapFragment {
                                                     DiningHall.diningImage))));
                                 }
 
+                                /**
+                                 * On request error
+                                 *
+                                 * @param e Exception
+                                 */
                                 @Override
                                 public void onError(Exception e) {
                                     e.printStackTrace();
@@ -197,6 +255,11 @@ public class MapFragment extends BaseMapFragment {
                 }
             }
 
+            /**
+             * On request error
+             *
+             * @param e Exception
+             */
             @Override
             public void onError(Exception e) {
                 e.printStackTrace();
@@ -204,7 +267,12 @@ public class MapFragment extends BaseMapFragment {
         });
     }
 
-    private void setLibraryMarkers(final GoogleMap map) {
+    /**
+     * Sets library markers on google map
+     *
+     * @param googleMap Google map
+     */
+    private void setLibraryMarkers(final GoogleMap googleMap) {
         for (MarkerEnum currEnum : sMarkerEnums) {
             double lat = Double.valueOf(this.mContext.getString(currEnum.lat));
             double lng = Double.valueOf(this.mContext.getString(currEnum.lng));
@@ -216,7 +284,7 @@ public class MapFragment extends BaseMapFragment {
             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.icon);
 
             this.mStaticMarkers.put(new Facility(MarkerTypeEnum.LIBRARY),
-                    map.addMarker(new MarkerOptions()
+                    googleMap.addMarker(new MarkerOptions()
                             .title(title)
                             .snippet(snippet)
                             .position(latLng)
@@ -224,6 +292,11 @@ public class MapFragment extends BaseMapFragment {
         }
     }
 
+    /**
+     * Does action on google map marker info window click
+     *
+     * @param marker Google map marker
+     */
     private void onClickStaticInfoWindow(Marker marker) {
         Set<Map.Entry<Facility, Marker>> set = mStaticMarkers.entrySet();
         for (Map.Entry entry : set) {
@@ -233,8 +306,7 @@ public class MapFragment extends BaseMapFragment {
             if (facility.isType(MarkerTypeEnum.DININGHALL)) {
                 this.mCallback.setFragment(DiningHallViewPagerFragment.newInstance(this.mContext,
                         marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), "")));
-            }
-            else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
+            } else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
                 this.mCallback.setFragment(MapFacilityViewFragment.newInstance(this.mContext,
                         marker.getTitle()));
             }
