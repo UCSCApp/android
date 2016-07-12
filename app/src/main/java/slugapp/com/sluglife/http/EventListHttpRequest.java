@@ -13,7 +13,7 @@ import slugapp.com.sluglife.models.Event;
 import slugapp.com.sluglife.models.WrapperEventList;
 
 /**
- * Created by simba on 7/31/15.
+ * Created by simba on 7/31/15
  */
 public class EventListHttpRequest extends BaseHttpRequest {
     protected Context mContext;

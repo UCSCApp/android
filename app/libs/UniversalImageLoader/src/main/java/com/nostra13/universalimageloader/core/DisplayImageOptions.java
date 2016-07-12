@@ -393,7 +393,7 @@ public final class DisplayImageOptions {
 			return this;
 		}
 
-		/** Sets delay time before starting loading task. Default - no delay. */
+		/** Sets delay hour before starting loading task. Default - no delay. */
 		public Builder delayBeforeLoading(int delayInMillis) {
 			this.delayBeforeLoading = delayInMillis;
 			return this;

@@ -58,7 +58,7 @@ public enum ImageScaleType {
 	 * {@link android.graphics.Bitmap#createBitmap(android.graphics.Bitmap, int, int, int, int, android.graphics.Matrix, boolean)
 	 * Bitmap.createBitmap(...)}.<br />
 	 * <b>Cons:</b> Saves memory by keeping smaller Bitmap in memory cache (comparing with IN_SAMPLE... scale types)<br />
-	 * <b>Pros:</b> Requires more memory in one time for creation of result Bitmap.
+	 * <b>Pros:</b> Requires more memory in one hour for creation of result Bitmap.
 	 */
 	EXACTLY,
 	/**
@@ -72,7 +72,7 @@ public enum ImageScaleType {
 	 * {@link android.graphics.Bitmap#createBitmap(android.graphics.Bitmap, int, int, int, int, android.graphics.Matrix, boolean)
 	 * Bitmap.createBitmap(...)}.<br />
 	 * <b>Cons:</b> Saves memory by keeping smaller Bitmap in memory cache (comparing with IN_SAMPLE... scale types)<br />
-	 * <b>Pros:</b> Requires more memory in one time for creation of result Bitmap.
+	 * <b>Pros:</b> Requires more memory in one hour for creation of result Bitmap.
 	 */
 	EXACTLY_STRETCHED
 }

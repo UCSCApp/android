@@ -17,6 +17,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
@@ -24,6 +25,7 @@ import slugapp.com.sluglife.adapters.EventListAdapter;
 import slugapp.com.sluglife.databinding.ListEventBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
+import slugapp.com.sluglife.http.TestEventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
 import slugapp.com.sluglife.models.Date;
@@ -149,12 +151,15 @@ public class EventListFragment extends BaseSwipeListFragment {
         });
     }
 
-    // TODO: implement better search algorithm
-
     private void doSearch(List<Event> events) {
-        for (Event event : events) {
-            if (event.name.toLowerCase().contains(this.mQuery.toLowerCase())) continue;
-            events.remove(event);
+        ListIterator<Event> iterator = events.listIterator();
+        while (iterator.hasNext()) {
+            Event event = iterator.next();
+            if (!event.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&
+                    !event.summary.toLowerCase().contains(this.mQuery.toLowerCase()) &&
+                    !event.date.getFullString().toLowerCase().contains(this.mQuery.toLowerCase())) {
+                iterator.remove();
+            }
         }
     }
 }

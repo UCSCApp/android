@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * A cache that holds strong references to a limited number of Bitmaps. Each time a Bitmap is accessed, it is moved to
+ * A cache that holds strong references to a limited number of Bitmaps. Each hour a Bitmap is accessed, it is moved to
  * the head of a queue. When a Bitmap is added to a full cache, the Bitmap at the end of that queue is evicted and may
  * become eligible for garbage collection.<br />
  * <br />

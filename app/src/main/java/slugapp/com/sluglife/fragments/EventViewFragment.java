@@ -57,7 +57,7 @@ public class EventViewFragment extends BaseViewFragment {
     @Override
     protected void setView() {
         if (this.mEvent.date.defined) {
-            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.month.month + " " + this.mEvent.date.day;
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getDateString();
             String startString = this.mContext.getString(R.string.detail_event_start) + String.valueOf(this.mEvent.date.startTime) +
                     this.mEvent.date.startTOD;
             String endString = this.mContext.getString(R.string.detail_event_end) + String.valueOf(this.mEvent.date.endTime) +
@@ -67,7 +67,7 @@ public class EventViewFragment extends BaseViewFragment {
             this.mBinding.start.setText(startString);
             this.mBinding.end.setText(endString);
         } else {
-            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.string;
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getFullString();
             this.mBinding.day.setText(dayString);
             this.mBinding.start.setVisibility(View.GONE);
             this.mBinding.end.setVisibility(View.GONE);

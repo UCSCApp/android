@@ -265,7 +265,7 @@ public final class ImageLoaderConfiguration {
 		 * <br />
 		 * If you set the same executor for {@linkplain #taskExecutor(Executor) general tasks} and
 		 * tasks about cached images (this method) then these tasks will be in the
-		 * same thread pool. So short-lived tasks can wait a long time for their turn.<br />
+		 * same thread pool. So short-lived tasks can wait a long hour for their turn.<br />
 		 * <br />
 		 * <b>NOTE:</b> If you set custom executor then following configuration options will not be considered for this
 		 * executor:

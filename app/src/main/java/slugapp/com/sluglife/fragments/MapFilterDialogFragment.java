@@ -18,8 +18,6 @@ import slugapp.com.sluglife.R;
  */
 public class MapFilterDialogFragment extends BaseDialogFragment {
 
-    // TODO: find alternative to null
-
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {

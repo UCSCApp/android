@@ -41,7 +41,7 @@ public class UsingFreqLimitedMemoryCache extends LimitedMemoryCache {
 	/**
 	 * Contains strong references to stored objects (keys) and last object usage date (in milliseconds). If hard cache
 	 * size will exceed limit then object with the least frequently usage is deleted (but it continue exist at
-	 * {@link #softMap} and can be collected by GC at any time)
+	 * {@link #softMap} and can be collected by GC at any hour)
 	 */
 	private final Map<Bitmap, Integer> usingCounts = Collections.synchronizedMap(new HashMap<Bitmap, Integer>());
 

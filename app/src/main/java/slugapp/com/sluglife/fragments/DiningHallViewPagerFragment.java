@@ -65,8 +65,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
 
     @Override
     protected void setView() {
-        String date = Date.getToday().month + " " + Date.getToday().day;
-        this.mBinding.date.setText(date);
+        this.mBinding.date.setText(Date.getToday().getDateString());
 
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
                 new HttpCallback<DiningHall>() {
@@ -95,7 +94,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
     }
 
     private int getTimeOfDay() {
-        int currentTime = Date.getCurrentTime();
+        int currentTime = Date.getToday().hour;
 
         if (currentTime >= 0 && currentTime < 11) return 0;
         else if (currentTime >= 11 && currentTime < 17) return 1;

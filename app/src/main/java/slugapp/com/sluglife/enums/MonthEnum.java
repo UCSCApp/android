@@ -5,47 +5,47 @@ package slugapp.com.sluglife.enums;
  */
 public enum MonthEnum {
     JANUARY(
-            "January", 1
+            "January", 0
     ),
     FEBRUARY(
-            "February", 2
+            "February", 1
     ),
     MARCH(
-            "March", 3
+            "March", 2
     ),
     APRIL(
-            "April", 4
+            "April", 3
     ),
     MAY(
-            "May", 5
+            "May", 4
     ),
     JUNE(
-            "June", 6
+            "June", 5
     ),
     JULY(
-            "July", 7
+            "July", 6
     ),
     AUGUST(
-            "August", 8
+            "August", 7
     ),
     SEPTEMBER(
-            "September", 9
+            "September", 8
     ),
     OCTOBER(
-            "October", 10
+            "October", 9
     ),
     NOVEMBER(
-            "November", 11
+            "November", 10
     ),
     DECEMBER(
-            "December", 12
+            "December", 11
     );
 
-    public String month;
+    public String name;
     public int order;
 
-    MonthEnum(String month, int order) {
-        this.month = month;
+    MonthEnum(String name, int order) {
+        this.name = name;
         this.order = order;
     }
 }

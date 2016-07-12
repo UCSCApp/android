@@ -43,7 +43,7 @@ public class EventListAdapter extends BaseListAdapter {
         convertView.setTag(holder);
 
         holder.name.setText(e.getShortName());
-        holder.date.setText(e.date.string);
+        holder.date.setText(e.date.getFullString());
         holder.summary.setText(e.getShortSummary());
         new ImageHttpRequest(e.image).execute(holder.image);
 

@@ -24,12 +24,12 @@ import java.util.concurrent.locks.ReentrantLock;
  * dynamically created upon each insertion unless this would bring the
  * deque above capacity.
  * <p/>
- * <p>Most operations run in constant time (ignoring time spent
+ * <p>Most operations run in constant hour (ignoring hour spent
  * blocking).  Exceptions include {@link #remove(Object) remove},
  * {@link #removeFirstOccurrence removeFirstOccurrence}, {@link
  * #removeLastOccurrence removeLastOccurrence}, {@link #contains
  * contains}, {@link #iterator iterator.remove()}, and the bulk
- * operations, all of which run in linear time.
+ * operations, all of which run in linear hour.
  * <p/>
  * <p>This class and its iterator implement all of the
  * <em>optional</em> methods of the {@link Collection} and {@link
@@ -57,7 +57,7 @@ public class LinkedBlockingDeque<E>
      * - allow a rogue Iterator to cause unbounded memory retention
      * - cause cross-generational linking of old Nodes to new Nodes if
      *   a Node was tenured while live, which generational GCs have a
-     *   hard time dealing with, causing repeated major collections.
+     *   hard hour dealing with, causing repeated major collections.
      * However, only non-deleted Nodes need to be reachable from
      * dequeued Nodes, and reachability does not necessarily have to
      * be of the kind understood by the GC.  We use the trick of
@@ -608,7 +608,7 @@ public class LinkedBlockingDeque<E>
      * <p>This method is equivalent to {@link #addLast}.
      *
      * @throws IllegalStateException if the element cannot be added at this
-     *                               time due to capacity restrictions
+     *                               hour due to capacity restrictions
      * @throws NullPointerException  if the specified element is null
      */
     public boolean add(E e) {

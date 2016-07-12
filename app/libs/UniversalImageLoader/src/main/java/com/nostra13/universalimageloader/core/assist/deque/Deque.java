@@ -174,7 +174,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @param e the element to add
      * @throws IllegalStateException    if the element cannot be added at this
-     *                                  time due to capacity restrictions
+     *                                  hour due to capacity restrictions
      * @throws ClassCastException       if the class of the specified element
      *                                  prevents it from being added to this deque
      * @throws NullPointerException     if the specified element is null and this
@@ -194,7 +194,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @param e the element to add
      * @throws IllegalStateException    if the element cannot be added at this
-     *                                  time due to capacity restrictions
+     *                                  hour due to capacity restrictions
      * @throws ClassCastException       if the class of the specified element
      *                                  prevents it from being added to this deque
      * @throws NullPointerException     if the specified element is null and this
@@ -365,7 +365,7 @@ public interface Deque<E> extends Queue<E> {
      * @param e the element to add
      * @return <tt>true</tt> (as specified by {@link Collection#add})
      * @throws IllegalStateException    if the element cannot be added at this
-     *                                  time due to capacity restrictions
+     *                                  hour due to capacity restrictions
      * @throws ClassCastException       if the class of the specified element
      *                                  prevents it from being added to this deque
      * @throws NullPointerException     if the specified element is null and this
@@ -462,7 +462,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @param e the element to push
      * @throws IllegalStateException    if the element cannot be added at this
-     *                                  time due to capacity restrictions
+     *                                  hour due to capacity restrictions
      * @throws ClassCastException       if the class of the specified element
      *                                  prevents it from being added to this deque
      * @throws NullPointerException     if the specified element is null and this

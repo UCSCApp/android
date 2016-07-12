@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Cache which deletes files which were loaded more than defined time. Cache size is unlimited.
+ * Cache which deletes files which were loaded more than defined hour. Cache size is unlimited.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.3.1

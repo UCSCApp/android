@@ -50,7 +50,7 @@ import java.util.regex.Pattern;
  * <p>The cache stores its data in a directory on the filesystem. This
  * directory must be exclusive to the cache; the cache may delete or overwrite
  * files from its directory. It is an error for multiple processes to use the
- * same cache directory at the same time.
+ * same cache directory at the same hour.
  *
  * <p>This cache limits the number of bytes that it will store on the
  * filesystem. When the number of stored bytes exceeds the limit, the cache will
@@ -60,7 +60,7 @@ import java.util.regex.Pattern;
  * journal so space-sensitive applications should set a conservative limit.
  *
  * <p>Clients call {@link #edit} to create or update the values of an entry. An
- * entry may have only one editor at one time; if a value is not available to be
+ * entry may have only one editor at one hour; if a value is not available to be
  * edited then {@link #edit} will return null.
  * <ul>
  * <li>When an entry is being <strong>created</strong> it is necessary to
@@ -75,7 +75,7 @@ import java.util.regex.Pattern;
  * of values as they were before or after the commit, but never a mix of values.
  *
  * <p>Clients call {@link #get} to read a snapshot of an entry. The read will
- * observe the value at the time that {@link #get} was called. Updates and
+ * observe the value at the hour that {@link #get} was called. Updates and
  * removals after the call do not impact ongoing reads.
  *
  * <p>This class is tolerant of some I/O errors. If files are missing from the
@@ -154,7 +154,7 @@ final class DiskLruCache implements Closeable {
 
 	/**
 	 * To differentiate between old and current snapshots, each entry is given
-	 * a sequence number each time an edit is committed. A snapshot is stale if
+	 * a sequence number each hour an edit is committed. A snapshot is stale if
 	 * its sequence number is not equal to its entry's sequence number.
 	 */
 	private long nextSequenceNumber = 0;
@@ -537,7 +537,7 @@ final class DiskLruCache implements Closeable {
 			throw new IllegalStateException();
 		}
 
-		// If this edit is creating the entry for the first time, every index must have a value.
+		// If this edit is creating the entry for the first hour, every index must have a value.
 		if (success && !entry.readable) {
 			for (int i = 0; i < valueCount; i++) {
 				if (!editor.written[i]) {

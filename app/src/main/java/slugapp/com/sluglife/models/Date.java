@@ -1,8 +1,5 @@
 package slugapp.com.sluglife.models;
 
-import android.util.Log;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import slugapp.com.sluglife.enums.MonthEnum;
@@ -11,7 +8,7 @@ import slugapp.com.sluglife.enums.MonthEnum;
  * Created by isayyuhh_s on 7/18/2015
  */
 
-// TODO: implement saving military format time instead of saving "am" and "pm" strings
+// TODO: implement saving military format hour instead of saving "am" and "pm" strings
 
 public class Date extends BaseObject {
     private final static MonthEnum[] months = MonthEnum.values();
@@ -21,18 +18,48 @@ public class Date extends BaseObject {
     public MonthEnum month;
     public int day;
     public int year;
+    public int hour;
     public int startTime;
     public int endTime;
     public String startTOD;
     public String endTOD;
+    public double comparor;
 
     /**
-     * Constructor
+     * Constructors
      */
     public Date(String string) {
         this.string = string;
         this.month = null;
+        this.comparor = 0.0d;
         this.defined = false;
+    }
+
+    public Date(int month, int day, int year, int hour) {
+        this.defined = false;
+
+        for (MonthEnum currMonth : months) {
+            if (currMonth.order != month) continue;
+            this.month = currMonth;
+            break;
+        }
+
+        if (this.month == null) return;
+        if (day > 31) return;
+        if (hour < 0 || hour > 23) return;
+
+        this.day = day;
+        this.year = year;
+        this.hour = hour;
+
+        this.startTime = hour % 12;
+        this.endTime = hour % 12;
+        this.startTOD = hour / 12 == Calendar.AM ? "am" : "pm";
+        this.endTOD = hour / 12 == Calendar.AM ? "am" : "pm";
+
+        this.comparor = year + (month * 0.01) + (day * 0.0001) + (hour * 0.000001);
+
+        this.defined = true;
     }
 
     public Date(String newMonth, String newDay, String newYear, String newStartTime,
@@ -41,7 +68,7 @@ public class Date extends BaseObject {
 
         /** Month */
         for (MonthEnum currMonth : months) {
-            String month = currMonth.month;
+            String month = currMonth.name;
             if (month.compareTo(newMonth) == 0) {
                 this.month = currMonth;
                 break;
@@ -78,44 +105,48 @@ public class Date extends BaseObject {
         this.endTime = Integer.parseInt(endTime);
         this.endTOD = endTOD;
 
+        this.comparor = year + (this.month.order * 0.01) + (this.day * 0.0001);
+
         /** Date String */
-        this.string = newMonth + " " + newDay + ", " + newYear + " | " + newStartTime + " - "
-                + newEndTime;
+        this.string = newMonth + " " + newDay + ", " + newYear + " | " + newStartTime;
         this.defined = true;
     }
 
-    public static Date getToday() {
-        java.util.Date date = Calendar.getInstance().getTime();
-        String numericalMonth = new SimpleDateFormat("MM").format(date);
-        String day = new SimpleDateFormat("dd").format(date);
-        String year = new SimpleDateFormat("yyyy").format(date);
-        String hour = new SimpleDateFormat("hh").format(date);
-        String tod = new SimpleDateFormat("aa").format(date);
-        String month = MonthEnum.JANUARY.month;
-
-        for (MonthEnum currMonth : MonthEnum.values()) {
-            if (currMonth.order != Integer.valueOf(numericalMonth)) continue;
-            month = currMonth.month;
-            break;
-        }
-        return new Date(month, day, year, hour + tod, hour + tod);
+    public String getDateString() {
+        if (!this.defined) return this.string;
+        return String.valueOf(this.month.name) + " " + String.valueOf(this.day) + ", " +
+                String.valueOf(this.year);
     }
 
-    public static int getCurrentTime() {
-        Date today = getToday();
+    public String getFullString() {
+        if (!this.defined) return this.string;
+        return String.valueOf(this.month.name) + " " + String.valueOf(this.day) + ", " +
+                String.valueOf(this.year) + " | " + String.valueOf(this.startTime) +
+                (this.hour % 12 == Calendar.AM ? "am" : "pm");
+    }
 
-        if (today.startTOD.toLowerCase().equals("pm") && today.startTime == 12) return 12;
-        if (today.startTOD.toLowerCase().equals("am") && today.startTime == 12) return 0;
-        if (today.startTOD.toLowerCase().equals("pm")) return today.startTime + 12;
-        else return today.startTime;
+    public static Date getToday() {
+        Calendar calendar = Calendar.getInstance();
+
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        return new Date(month, day, year, hour);
     }
 
     public static int compareEvents(Event lhs, Event rhs) {
         if (!lhs.date.defined) return 1;
         else if (!rhs.date.defined) return -1;
-        int check = compareDates(lhs.date, rhs.date);
+        int check = compareDatesTemp(lhs.date, rhs.date);
         if (check == 0) check = lhs.name.compareTo(rhs.name);
         return check;
+    }
+
+    private static int compareDatesTemp(Date lhs, Date rhs) {
+        double result = compareDoubles(lhs.comparor, rhs.comparor);
+        return result < 0 ? -1 : result > 0 ? 1 : 0;
     }
 
     private static int compareDates(Date lhs, Date rhs) {
@@ -142,6 +173,10 @@ public class Date extends BaseObject {
     }
 
     private static int compInts(int lhs, int rhs) {
+        return lhs - rhs;
+    }
+
+    private static double compareDoubles(double lhs, double rhs) {
         return lhs - rhs;
     }
 }

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * one throws an exception, the second returns a special value (either
  * <tt>null</tt> or <tt>false</tt>, depending on the operation), the third
  * blocks the current thread indefinitely until the operation can succeed,
- * and the fourth blocks for only a given maximum time limit before giving
+ * and the fourth blocks for only a given maximum hour limit before giving
  * up.  These methods are summarized in the following table:
  * <p/>
  * <p/>
@@ -42,14 +42,14 @@ import java.util.concurrent.TimeUnit;
  * <td>{@link #addFirst addFirst(e)}</td>
  * <td>{@link #offerFirst offerFirst(e)}</td>
  * <td>{@link #putFirst putFirst(e)}</td>
- * <td>{@link #offerFirst offerFirst(e, time, unit)}</td>
+ * <td>{@link #offerFirst offerFirst(e, hour, unit)}</td>
  * </tr>
  * <tr>
  * <td><b>Remove</b></td>
  * <td>{@link #removeFirst removeFirst()}</td>
  * <td>{@link #pollFirst pollFirst()}</td>
  * <td>{@link #takeFirst takeFirst()}</td>
- * <td>{@link #pollFirst(long, TimeUnit) pollFirst(time, unit)}</td>
+ * <td>{@link #pollFirst(long, TimeUnit) pollFirst(hour, unit)}</td>
  * </tr>
  * <tr>
  * <td><b>Examine</b></td>
@@ -73,14 +73,14 @@ import java.util.concurrent.TimeUnit;
  * <td>{@link #addLast addLast(e)}</td>
  * <td>{@link #offerLast offerLast(e)}</td>
  * <td>{@link #putLast putLast(e)}</td>
- * <td>{@link #offerLast offerLast(e, time, unit)}</td>
+ * <td>{@link #offerLast offerLast(e, hour, unit)}</td>
  * </tr>
  * <tr>
  * <td><b>Remove</b></td>
  * <td>{@link #removeLast() removeLast()}</td>
  * <td>{@link #pollLast() pollLast()}</td>
  * <td>{@link #takeLast takeLast()}</td>
- * <td>{@link #pollLast(long, TimeUnit) pollLast(time, unit)}</td>
+ * <td>{@link #pollLast(long, TimeUnit) pollLast(hour, unit)}</td>
  * </tr>
  * <tr>
  * <td><b>Examine</b></td>
@@ -122,8 +122,8 @@ import java.util.concurrent.TimeUnit;
  * <td>{@link #putLast putLast(e)}</td>
  * </tr>
  * <tr>
- * <td>{@link #offer offer(e, time, unit)}</td>
- * <td>{@link #offerLast offerLast(e, time, unit)}</td>
+ * <td>{@link #offer offer(e, hour, unit)}</td>
+ * <td>{@link #offerLast offerLast(e, hour, unit)}</td>
  * </tr>
  * <tr>
  * <td ALIGN=CENTER COLSPAN = 2> <b>Remove</b></td>
@@ -141,8 +141,8 @@ import java.util.concurrent.TimeUnit;
  * <td>{@link #takeFirst() takeFirst()}</td>
  * </tr>
  * <tr>
- * <td>{@link #poll(long, TimeUnit) poll(time, unit)}</td>
- * <td>{@link #pollFirst(long, TimeUnit) pollFirst(time, unit)}</td>
+ * <td>{@link #poll(long, TimeUnit) poll(hour, unit)}</td>
+ * <td>{@link #pollFirst(long, TimeUnit) pollFirst(hour, unit)}</td>
  * </tr>
  * <tr>
  * <td ALIGN=CENTER COLSPAN = 2> <b>Examine</b></td>
@@ -272,7 +272,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
 
     /**
      * Inserts the specified element at the front of this deque,
-     * waiting up to the specified wait time if necessary for space to
+     * waiting up to the specified wait hour if necessary for space to
      * become available.
      *
      * @param e       the element to add
@@ -281,7 +281,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * @param unit    a <tt>TimeUnit</tt> determining how to interpret the
      *                <tt>timeout</tt> parameter
      * @return <tt>true</tt> if successful, or <tt>false</tt> if
-     * the specified waiting time elapses before space is available
+     * the specified waiting hour elapses before space is available
      * @throws InterruptedException     if interrupted while waiting
      * @throws ClassCastException       if the class of the specified element
      *                                  prevents it from being added to this deque
@@ -294,7 +294,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
 
     /**
      * Inserts the specified element at the end of this deque,
-     * waiting up to the specified wait time if necessary for space to
+     * waiting up to the specified wait hour if necessary for space to
      * become available.
      *
      * @param e       the element to add
@@ -303,7 +303,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * @param unit    a <tt>TimeUnit</tt> determining how to interpret the
      *                <tt>timeout</tt> parameter
      * @return <tt>true</tt> if successful, or <tt>false</tt> if
-     * the specified waiting time elapses before space is available
+     * the specified waiting hour elapses before space is available
      * @throws InterruptedException     if interrupted while waiting
      * @throws ClassCastException       if the class of the specified element
      *                                  prevents it from being added to this deque
@@ -334,7 +334,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
 
     /**
      * Retrieves and removes the first element of this deque, waiting
-     * up to the specified wait time if necessary for an element to
+     * up to the specified wait hour if necessary for an element to
      * become available.
      *
      * @param timeout how long to wait before giving up, in units of
@@ -342,7 +342,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * @param unit    a <tt>TimeUnit</tt> determining how to interpret the
      *                <tt>timeout</tt> parameter
      * @return the head of this deque, or <tt>null</tt> if the specified
-     * waiting time elapses before an element is available
+     * waiting hour elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
     E pollFirst(long timeout, TimeUnit unit)
@@ -350,7 +350,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
 
     /**
      * Retrieves and removes the last element of this deque, waiting
-     * up to the specified wait time if necessary for an element to
+     * up to the specified wait hour if necessary for an element to
      * become available.
      *
      * @param timeout how long to wait before giving up, in units of
@@ -358,7 +358,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * @param unit    a <tt>TimeUnit</tt> determining how to interpret the
      *                <tt>timeout</tt> parameter
      * @return the tail of this deque, or <tt>null</tt> if the specified
-     * waiting time elapses before an element is available
+     * waiting hour elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
     E pollLast(long timeout, TimeUnit unit)
@@ -459,7 +459,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
     /**
      * Inserts the specified element into the queue represented by this deque
      * (in other words, at the tail of this deque), waiting up to the
-     * specified wait time if necessary for space to become available.
+     * specified wait hour if necessary for space to become available.
      * <p/>
      * <p>This method is equivalent to
      * {@link #offerLast offerLast}.
@@ -516,13 +516,13 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
     /**
      * Retrieves and removes the head of the queue represented by this deque
      * (in other words, the first element of this deque), waiting up to the
-     * specified wait time if necessary for an element to become available.
+     * specified wait hour if necessary for an element to become available.
      * <p/>
      * <p>This method is equivalent to
      * {@link #pollFirst(long, TimeUnit) pollFirst}.
      *
      * @return the head of this deque, or <tt>null</tt> if the
-     * specified waiting time elapses before an element is available
+     * specified waiting hour elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
     E poll(long timeout, TimeUnit unit)
