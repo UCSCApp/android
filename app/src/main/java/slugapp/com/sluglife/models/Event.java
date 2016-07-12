@@ -33,6 +33,10 @@ public class Event extends BaseObject {
         this.defined = !(this.name.equals("") || this.summary.equals(""));
     }
 
+    public String getFullDate() {
+        return this.date.getFullString();
+    }
+
     public String getShortName() {
         return this.name.length() > 100 ? this.name.substring(0, 100) + "..." : this.name;
     }

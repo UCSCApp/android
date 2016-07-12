@@ -1,6 +1,7 @@
 package slugapp.com.sluglife.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.http.ImageHttpRequest;
+import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Event;
 
 /**
@@ -33,7 +35,7 @@ public class EventListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(id, null);
         }
 
-        Event e = (Event) getItem(position);
+        Event event = (Event) this.getItem(position);
 
         ViewHolder holder = new ViewHolder();
         holder.name = (TextView) convertView.findViewById(R.id.name);
@@ -42,10 +44,16 @@ public class EventListAdapter extends BaseListAdapter {
         holder.image = (ImageView) convertView.findViewById(R.id.image);
         convertView.setTag(holder);
 
-        holder.name.setText(e.getShortName());
-        holder.date.setText(e.date.getFullString());
-        holder.summary.setText(e.getShortSummary());
-        new ImageHttpRequest(e.image).execute(holder.image);
+        holder.name.setText(event.getShortName());
+        holder.date.setText(event.getFullDate());
+        holder.summary.setText(event.getShortSummary());
+        new ImageHttpRequest(event.image).execute(holder.image);
+
+        if (Date.compareDates(event.date, Date.getToday()) < 1) {
+            holder.name.setTextColor(Color.GRAY);
+            holder.date.setTextColor(Color.GRAY);
+            holder.summary.setTextColor(Color.GRAY);
+        }
 
         return convertView;
     }

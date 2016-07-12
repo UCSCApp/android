@@ -128,7 +128,7 @@ public class EventListFragment extends BaseSwipeListFragment {
         new TestEventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
-                if (mQuery != null) doSearch(vals);
+                doSearch(vals);
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
                 for (BaseObject val : vals) events.add(val);
@@ -155,7 +155,9 @@ public class EventListFragment extends BaseSwipeListFragment {
         ListIterator<Event> iterator = events.listIterator();
         while (iterator.hasNext()) {
             Event event = iterator.next();
-            if (!event.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&
+            if (!event.date.defined) iterator.remove();
+            else if (this.mQuery != null &&
+                    !event.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&
                     !event.summary.toLowerCase().contains(this.mQuery.toLowerCase()) &&
                     !event.date.getDateString().toLowerCase().contains(this.mQuery.toLowerCase())) {
                 iterator.remove();
