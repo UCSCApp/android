@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewEventBinding;
 import slugapp.com.sluglife.http.ImageHttpRequest;
-import slugapp.com.sluglife.models.Date;
-import slugapp.com.sluglife.models.Event;
+import slugapp.com.sluglife.models.DateObject;
+import slugapp.com.sluglife.models.EventObject;
 
 /**
  * Created by isaiah on 6/27/2015.
@@ -21,7 +21,7 @@ import slugapp.com.sluglife.models.Event;
  */
 public class EventViewFragment extends BaseViewFragment {
     private ViewEventBinding mBinding;
-    private Event mEvent;
+    private EventObject mEvent;
 
     /**
      * Gets a new instance of fragment
@@ -30,7 +30,7 @@ public class EventViewFragment extends BaseViewFragment {
      * @param event   Event
      * @return New instance of fragment
      */
-    public static EventViewFragment newInstance(Context context, Event event) {
+    public static EventViewFragment newInstance(Context context, EventObject event) {
         EventViewFragment fragment = new EventViewFragment();
 
         Bundle b = new Bundle();
@@ -84,7 +84,7 @@ public class EventViewFragment extends BaseViewFragment {
      */
     @Override
     protected void setArgumentFields(Bundle b) {
-        this.mEvent = (Event) b.getSerializable(this.mContext.getString(R.string.bundle_json));
+        this.mEvent = (EventObject) b.getSerializable(this.mContext.getString(R.string.bundle_json));
         if (this.mEvent != null) this.mName = this.mEvent.getTitleName();
     }
 
@@ -100,7 +100,7 @@ public class EventViewFragment extends BaseViewFragment {
      */
     @Override
     protected void setView() {
-        Date date = this.mEvent.date;
+        DateObject date = this.mEvent.date;
 
         if (date.defined) {
             String dayString = this.mContext.getString(R.string.detail_event_day) + date.getDateString();

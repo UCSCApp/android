@@ -8,13 +8,28 @@ import org.json.JSONObject;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by isayyuhh_s on 9/2/2015
+ * Created by isaiah on 9/2/2015
+ * <p/>
+ * This file contains a dining hall object wrapper.
  */
-public class WrapperDiningHall extends DiningHall {
-    public WrapperDiningHall(Context context, String string, String name) throws JSONException {
+public class DiningHallWrapper extends DiningHallObject {
+
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     * @param array   String of dining menu array
+     * @param name    Name of dining hall
+     * @throws JSONException
+     */
+    public DiningHallWrapper(Context context, String array, String name) throws JSONException {
         super();
-        if (string.isEmpty()) return;
-        JSONObject obj = new JSONObject(string);
+        if (array.isEmpty()) return;
+        JSONObject obj = new JSONObject(array);
+
+        // TODO: implement coordinates
+        // TODO: strings to constants
+
         /*
         try {
             this.addCoordinates(obj.getString("lat"), obj.getString("lng"));

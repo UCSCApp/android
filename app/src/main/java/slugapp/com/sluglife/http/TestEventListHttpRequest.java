@@ -8,8 +8,8 @@ import org.json.JSONException;
 import java.util.List;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.Event;
-import slugapp.com.sluglife.models.WrapperEventList;
+import slugapp.com.sluglife.models.EventObject;
+import slugapp.com.sluglife.models.EventListWrapper;
 
 /**
  * Created by simba on 8/1/15
@@ -44,10 +44,10 @@ public class TestEventListHttpRequest extends EventListHttpRequest {
      * @param callback Http callback
      */
     @Override
-    public void execute(HttpCallback<List<Event>> callback) {
+    public void execute(HttpCallback<List<EventObject>> callback) {
         try {
             JSONArray arr = new JSONArray(full);
-            callback.onSuccess(new WrapperEventList(this.mContext, arr));
+            callback.onSuccess(new EventListWrapper(this.mContext, arr));
         } catch (JSONException je) {
             callback.onError(je);
         }

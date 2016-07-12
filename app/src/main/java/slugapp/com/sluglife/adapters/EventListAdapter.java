@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.http.ImageHttpRequest;
-import slugapp.com.sluglife.models.Date;
-import slugapp.com.sluglife.models.Event;
+import slugapp.com.sluglife.models.DateObject;
+import slugapp.com.sluglife.models.EventObject;
 
 /**
  * Created by simba on 5/31/15
@@ -47,7 +47,7 @@ public class EventListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(id, null);
         }
 
-        Event event = (Event) this.getItem(position);
+        EventObject event = (EventObject) this.getItem(position);
 
         ViewHolder holder = new ViewHolder();
         holder.name = (TextView) convertView.findViewById(R.id.name);
@@ -61,7 +61,7 @@ public class EventListAdapter extends BaseListAdapter {
         holder.summary.setText(event.getShortSummary());
         new ImageHttpRequest(event.image).execute(holder.image);
 
-        if (Date.compareDates(event.date, Date.getToday()) < 1) {
+        if (DateObject.compareDates(event.date, DateObject.getToday()) < 1) {
             holder.name.setTextColor(Color.GRAY);
             holder.date.setTextColor(Color.GRAY);
             holder.summary.setTextColor(Color.GRAY);

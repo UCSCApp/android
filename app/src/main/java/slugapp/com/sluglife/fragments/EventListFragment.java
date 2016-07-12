@@ -27,7 +27,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
-import slugapp.com.sluglife.models.Event;
+import slugapp.com.sluglife.models.EventObject;
 
 /**
  * Created by isaiah on 6/23/2015
@@ -182,7 +182,7 @@ public class EventListFragment extends BaseSwipeListFragment {
      */
     @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
-        return Event.compareEvents((Event) lhs, (Event) rhs);
+        return EventObject.compareEvents((EventObject) lhs, (EventObject) rhs);
     }
 
     /**
@@ -196,7 +196,7 @@ public class EventListFragment extends BaseSwipeListFragment {
     @Override
     protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
         this.mCallback.setFragment(EventViewFragment.newInstance(this.mContext,
-                (Event) parent.getItemAtPosition(position)));
+                (EventObject) parent.getItemAtPosition(position)));
     }
 
     /**
@@ -204,7 +204,7 @@ public class EventListFragment extends BaseSwipeListFragment {
      */
     @Override
     public void onSwipeListRefresh() {
-        new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
+        new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<EventObject>>() {
 
             /**
              * On request success
@@ -212,7 +212,7 @@ public class EventListFragment extends BaseSwipeListFragment {
              * @param vals List of values from request
              */
             @Override
-            public void onSuccess(List<Event> vals) {
+            public void onSuccess(List<EventObject> vals) {
                 evaluateQuery(vals);
                 Collections.sort(vals, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
@@ -246,10 +246,10 @@ public class EventListFragment extends BaseSwipeListFragment {
      *
      * @param events List of events
      */
-    private void evaluateQuery(List<Event> events) {
-        ListIterator<Event> iterator = events.listIterator();
+    private void evaluateQuery(List<EventObject> events) {
+        ListIterator<EventObject> iterator = events.listIterator();
         while (iterator.hasNext()) {
-            Event event = iterator.next();
+            EventObject event = iterator.next();
             if (!event.date.defined) iterator.remove();
             else if (this.mQuery != null &&
                     !event.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&

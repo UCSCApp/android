@@ -33,9 +33,9 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.DiningHall;
-import slugapp.com.sluglife.models.Facility;
-import slugapp.com.sluglife.models.Loop;
+import slugapp.com.sluglife.models.DiningHallObject;
+import slugapp.com.sluglife.models.FacilityObject;
+import slugapp.com.sluglife.models.LoopObject;
 import slugapp.com.sluglife.runnables.LoopRunnable;
 
 /**
@@ -60,8 +60,8 @@ public class MapFragment extends BaseMapFragment {
 
     public static final int DEFAULT_MASK = 0b000000;
 
-    private HashMap<Facility, Marker> mStaticMarkers;
-    private HashMap<Loop, Marker> mDynamicMarkers;
+    private HashMap<FacilityObject, Marker> mStaticMarkers;
+    private HashMap<LoopObject, Marker> mDynamicMarkers;
 
     /**
      * Gets a new instance of fragment
@@ -224,7 +224,7 @@ public class MapFragment extends BaseMapFragment {
             public void onSuccess(List<String> vals) {
                 for (String diningHallName : vals) {
                     new DiningHallHttpRequest(mContext, diningHallName).execute(
-                            new HttpCallback<DiningHall>() {
+                            new HttpCallback<DiningHallObject>() {
 
                                 /**
                                  * On request success
@@ -232,14 +232,14 @@ public class MapFragment extends BaseMapFragment {
                                  * @param val Dining hall object from request
                                  */
                                 @Override
-                                public void onSuccess(DiningHall val) {
+                                public void onSuccess(DiningHallObject val) {
                                     mStaticMarkers.put(val, googleMap.addMarker(new MarkerOptions()
                                             .title(val.name + mContext.getString(
                                                     R.string.detail_map_dining_ending))
                                             .snippet(mContext.getString(R.string.map_dining_snippet))
                                             .position(val.latLng)
                                             .icon(BitmapDescriptorFactory.fromResource(
-                                                    DiningHall.diningImage))));
+                                                    DiningHallObject.diningImage))));
                                 }
 
                                 /**
@@ -283,7 +283,7 @@ public class MapFragment extends BaseMapFragment {
             if (currEnum.type != MarkerTypeEnum.LIBRARY) continue;
             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.icon);
 
-            this.mStaticMarkers.put(new Facility(MarkerTypeEnum.LIBRARY),
+            this.mStaticMarkers.put(new FacilityObject(MarkerTypeEnum.LIBRARY),
                     googleMap.addMarker(new MarkerOptions()
                             .title(title)
                             .snippet(snippet)
@@ -298,9 +298,9 @@ public class MapFragment extends BaseMapFragment {
      * @param marker Google map marker
      */
     private void onClickStaticInfoWindow(Marker marker) {
-        Set<Map.Entry<Facility, Marker>> set = mStaticMarkers.entrySet();
+        Set<Map.Entry<FacilityObject, Marker>> set = mStaticMarkers.entrySet();
         for (Map.Entry entry : set) {
-            Facility facility = (Facility) entry.getKey();
+            FacilityObject facility = (FacilityObject) entry.getKey();
 
             if (!((Marker) entry.getValue()).getTitle().equals(marker.getTitle())) continue;
             if (facility.isType(MarkerTypeEnum.DININGHALL)) {

@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.DiningHall;
-import slugapp.com.sluglife.models.WrapperDiningHall;
+import slugapp.com.sluglife.models.DiningHallObject;
+import slugapp.com.sluglife.models.DiningHallWrapper;
 
 /**
  * Created by isaiah on 9/1/2015
@@ -47,7 +47,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
      *
      * @param callback Http callback
      */
-    public void execute(final HttpCallback<DiningHall> callback) {
+    public void execute(final HttpCallback<DiningHallObject> callback) {
         this.rawExecute(new HttpCallback<String>() {
 
             /**
@@ -58,7 +58,7 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
             @Override
             public void onSuccess(String val) {
                 try {
-                    callback.onSuccess(new WrapperDiningHall(mContext, val, mName));
+                    callback.onSuccess(new DiningHallWrapper(mContext, val, mName));
                 } catch (JSONException je) {
                     je.printStackTrace();
                     callback.onError(je);

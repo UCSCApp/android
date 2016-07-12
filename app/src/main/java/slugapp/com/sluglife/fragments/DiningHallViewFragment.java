@@ -15,8 +15,8 @@ import android.widget.TextView;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewDiningBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
-import slugapp.com.sluglife.models.Food;
-import slugapp.com.sluglife.models.FoodMenu;
+import slugapp.com.sluglife.models.FoodObject;
+import slugapp.com.sluglife.models.FoodMenuObject;
 
 /**
  * Created by isaiah on 8/8/2015
@@ -41,7 +41,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
     private static final float TEXT_SIZE = 14.0f;
 
     private ViewDiningBinding mBinding;
-    private FoodMenu mFoodMenu;
+    private FoodMenuObject mFoodMenu;
 
     /**
      * Gets a new instance of fragment
@@ -51,7 +51,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
      * @param menu    Food menu
      * @return New instance of fragment
      */
-    public static DiningHallViewFragment newInstance(Context context, String name, FoodMenu menu) {
+    public static DiningHallViewFragment newInstance(Context context, String name, FoodMenuObject menu) {
         DiningHallViewFragment fragment = new DiningHallViewFragment();
 
         Bundle b = new Bundle();
@@ -88,7 +88,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
      */
     @Override
     protected void setArgumentFields(Bundle b) {
-        this.mFoodMenu = (FoodMenu) b.getSerializable(this.mContext.getString(R.string.bundle_json));
+        this.mFoodMenu = (FoodMenuObject) b.getSerializable(this.mContext.getString(R.string.bundle_json));
         this.mName = b.getString(this.mContext.getString(R.string.bundle_name));
     }
 
@@ -111,7 +111,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
         }
 
         // for each food item
-        for (Food food : this.mFoodMenu.getItems()) {
+        for (FoodObject food : this.mFoodMenu.getItems()) {
             TableRow row = new TableRow(this.mContext);
             TextView name = new TextView(this.mContext);
             LinearLayout attributes = new LinearLayout(this.mContext);

@@ -5,8 +5,8 @@ import android.content.Context;
 import org.json.JSONException;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.DiningHall;
-import slugapp.com.sluglife.models.WrapperDiningHall;
+import slugapp.com.sluglife.models.DiningHallObject;
+import slugapp.com.sluglife.models.DiningHallWrapper;
 
 /**
  * Created by simba on 8/1/15
@@ -36,9 +36,9 @@ public class TestDiningHallHttpRequest extends DiningHallHttpRequest {
      * @param callback Http callback
      */
     @Override
-    public void execute(HttpCallback<DiningHall> callback) {
+    public void execute(HttpCallback<DiningHallObject> callback) {
         try {
-            callback.onSuccess(new WrapperDiningHall(mContext, emptyString, this.mName));
+            callback.onSuccess(new DiningHallWrapper(mContext, emptyString, this.mName));
         } catch (JSONException je) {
             je.printStackTrace();
         }

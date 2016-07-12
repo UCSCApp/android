@@ -8,10 +8,21 @@ import org.json.JSONObject;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by simba on 7/31/15.
+ * Created by simba on 7/31/15
+ * Edited by isaiah on 3/16/16
+ * <p/>
+ * This file contains an event object wrapper.
  */
-public class WrapperEvent extends Event {
-    public WrapperEvent(Context context, JSONObject obj) throws JSONException {
+public class EventWrapper extends EventObject {
+
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     * @param obj     Json object
+     * @throws JSONException
+     */
+    public EventWrapper(Context context, JSONObject obj) throws JSONException {
         super();
         try {
             this.name = obj.getString(context.getString(R.string.json_event_name));
@@ -33,7 +44,5 @@ public class WrapperEvent extends Event {
         } catch (JSONException je) {
             je.printStackTrace();
         }
-
-        this.checkDefined();
     }
 }

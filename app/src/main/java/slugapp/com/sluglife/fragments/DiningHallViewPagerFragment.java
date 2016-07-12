@@ -20,8 +20,8 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewpagerDiningBinding;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.Date;
-import slugapp.com.sluglife.models.DiningHall;
+import slugapp.com.sluglife.models.DateObject;
+import slugapp.com.sluglife.models.DiningHallObject;
 
 /**
  * Created by isaiah on 6/3/16
@@ -31,7 +31,7 @@ import slugapp.com.sluglife.models.DiningHall;
 public class DiningHallViewPagerFragment extends BaseViewFragment {
     private ViewpagerDiningBinding mBinding;
     private String mName;
-    private DiningHall mDiningHall;
+    private DiningHallObject mDiningHall;
 
     /**
      * Gets a new instance of fragment
@@ -116,7 +116,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
      */
     @Override
     protected void setFields() {
-        this.mDiningHall = new DiningHall();
+        this.mDiningHall = new DiningHallObject();
     }
 
     /**
@@ -124,10 +124,10 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
      */
     @Override
     protected void setView() {
-        this.mBinding.date.setText(Date.getToday().getDateString());
+        this.mBinding.date.setText(DateObject.getToday().getDateString());
 
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
-                new HttpCallback<DiningHall>() {
+                new HttpCallback<DiningHallObject>() {
 
                     /**
                      * On request success
@@ -135,7 +135,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                      * @param val Dining hall object from request
                      */
                     @Override
-                    public void onSuccess(DiningHall val) {
+                    public void onSuccess(DiningHallObject val) {
                         mDiningHall = val;
                         this.setPager(mBinding.pager);
                     }
@@ -147,7 +147,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                      */
                     @Override
                     public void onError(Exception e) {
-                        mDiningHall = new DiningHall();
+                        mDiningHall = new DiningHallObject();
                         this.setPager(mBinding.pager);
                     }
 
@@ -174,7 +174,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
      * @return Gets tab index based on time of day
      */
     private int getTimeOfDay() {
-        int currentTime = Date.getToday().hour;
+        int currentTime = DateObject.getToday().hour;
 
         if (currentTime >= 0 && currentTime < 11) return 0;
         else if (currentTime >= 11 && currentTime < 17) return 1;

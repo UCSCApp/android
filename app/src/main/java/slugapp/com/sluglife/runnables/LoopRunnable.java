@@ -19,8 +19,8 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.LoopHttpRequest;
+import slugapp.com.sluglife.models.LoopObject;
 import slugapp.com.sluglife.utils.LatLngInterpolator;
-import slugapp.com.sluglife.models.Loop;
 
 /**
  * Created by isaiah on 2/19/16
@@ -34,7 +34,7 @@ public class LoopRunnable implements Runnable {
     private Context mContext;
     private ActivityCallback mCallback;
     private GoogleMap mMap;
-    private HashMap<Loop, Marker> mLoopMap;
+    private HashMap<LoopObject, Marker> mLoopMap;
     private boolean noLoops;
 
     /**
@@ -44,7 +44,7 @@ public class LoopRunnable implements Runnable {
      * @param map     Google map
      * @param loopMap Map containing loop information
      */
-    public LoopRunnable(Context context, GoogleMap map, HashMap<Loop, Marker> loopMap) {
+    public LoopRunnable(Context context, GoogleMap map, HashMap<LoopObject, Marker> loopMap) {
         this.mContext = context;
         this.mCallback = (ActivityCallback) context;
         this.mMap = map;
@@ -58,7 +58,7 @@ public class LoopRunnable implements Runnable {
      */
     @Override
     public void run() {
-        new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<Loop>>() {
+        new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<LoopObject>>() {
 
             // TODO: compare map to val to remove nonoperating loops
 
@@ -68,13 +68,13 @@ public class LoopRunnable implements Runnable {
              * @param val Loop object from request
              */
             @Override
-            public void onSuccess(List<Loop> val) {
+            public void onSuccess(List<LoopObject> val) {
                 if (val.isEmpty() && !noLoops) {
                     mCallback.showSnackBar(mContext.getString(R.string.no_map_loop));
                     noLoops = true;
                     return;
                 }
-                for (Loop loop : val) {
+                for (LoopObject loop : val) {
                     boolean found = false;
                     for (Marker marker : mLoopMap.values()) {
                         if (String.valueOf(loop.id).compareTo(marker.getSnippet()) == 0) {

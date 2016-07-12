@@ -10,8 +10,8 @@ import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.Loop;
-import slugapp.com.sluglife.models.WrapperLoop;
+import slugapp.com.sluglife.models.LoopObject;
+import slugapp.com.sluglife.models.LoopWrapper;
 
 /**
  * Created by simba on 7/31/15
@@ -40,7 +40,7 @@ public class LoopHttpRequest extends BaseHttpRequest {
      *
      * @param callback Http callback
      */
-    public void execute(final HttpCallback<List<Loop>> callback) {
+    public void execute(final HttpCallback<List<LoopObject>> callback) {
         rawExecute(new HttpCallback<String>() {
 
             /**
@@ -52,9 +52,9 @@ public class LoopHttpRequest extends BaseHttpRequest {
             public void onSuccess(String val) {
                 try {
                     JSONArray arr = new JSONArray(val);
-                    List<Loop> loopList = new ArrayList<>(arr.length());
+                    List<LoopObject> loopList = new ArrayList<>(arr.length());
                     for (int i = 0; i < arr.length(); ++i) {
-                        loopList.add(new WrapperLoop(arr.getJSONObject(i)));
+                        loopList.add(new LoopWrapper(arr.getJSONObject(i)));
                     }
                     callback.onSuccess(loopList);
                 } catch (JSONException je) {
