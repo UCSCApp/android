@@ -27,8 +27,8 @@ public enum FragmentEnum {
      *
      * @param fragment Tab fragment
      * @param position Position of tab fragment on tab
-     * @param imageId Resource of tab image
-     * @param name Name of tab
+     * @param imageId  Resource of tab image
+     * @param name     Name of tab
      */
     FragmentEnum(Class fragment, int position, int imageId, int name) {
         this.fragment = fragment;

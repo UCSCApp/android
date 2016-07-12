@@ -75,12 +75,12 @@ public enum MarkerEnum {
     /**
      * Constructor
      *
-     * @param type Type of marker
-     * @param title Marker title
-     * @param lat Marker latitude
-     * @param lng Marker longitude
+     * @param type    Type of marker
+     * @param title   Marker title
+     * @param lat     Marker latitude
+     * @param lng     Marker longitude
      * @param snippet Marker snippet text
-     * @param icon Resource for marker image
+     * @param icon    Resource for marker image
      */
     MarkerEnum(MarkerTypeEnum type, int title, int lat, int lng, int snippet, int icon) {
         this.title = title;

@@ -11,8 +11,7 @@ import slugapp.com.sluglife.models.BaseObject;
  * Created by simba on 5/31/15
  * Edited by isaiah on 6/27/2015
  * <p/>
- * This file is the base adapter for list views. It is abstract for inheritance of list views
- * to show objects inheriting the base object.
+ * This file is the base adapter for list views.
  */
 public abstract class BaseListAdapter extends ArrayAdapter<BaseObject> {
     protected Context mContext;

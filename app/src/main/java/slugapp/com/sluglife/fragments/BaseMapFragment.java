@@ -3,7 +3,6 @@ package slugapp.com.sluglife.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,6 +13,8 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
  * Created by isayyuhh on 6/26/16
+ * <p/>
+ * This file contains a base google map fragment class.
  */
 public abstract class BaseMapFragment extends SupportMapFragment implements OnMapReadyCallback {
     protected ActivityCallback mCallback;
@@ -21,6 +22,11 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
 
     private String mTitle;
 
+    /**
+     * Fragment's onAttach method
+     *
+     * @param context Activity context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -29,6 +35,11 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         this.mContext = context;
     }
 
+    /**
+     * Fragment's onCreate method
+     *
+     * @param savedInstanceState Saved instance state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +47,9 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         this.setHasOptionsMenu(true);
     }
 
+    /**
+     * Fragment's onStart method
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -43,6 +57,9 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         this.mCallback.setToolbarTitle(this.mTitle);
     }
 
+    /**
+     * Fragment's onResume method
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -50,12 +67,20 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         this.getMapAsync(this);
     }
 
+    /**
+     * Fragment's onStop method
+     */
     @Override
     public void onStop() {
         super.onStop();
-        this.clearData();
+        this.clearMapData();
     }
 
+    /**
+     * Sets google map when ready
+     *
+     * @param googleMap Google map
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.setMarkers(googleMap);
@@ -63,27 +88,65 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         this.setInitialZoom(googleMap);
     }
 
-    protected void setMapFragment(View view, FragmentEnum fragmentEnum) {
-        this.setFields(view);
+    /**
+     * Sets google map fragment
+     *
+     * @param fragmentEnum Fragment enum containing fragment information
+     */
+    protected void setMapFragment(FragmentEnum fragmentEnum) {
+        this.setFields();
         this.setLayout(fragmentEnum.name);
     }
 
+    /**
+     * Sets fragment layout
+     *
+     * @param title Name of fragment
+     */
     protected void setLayout(int title) {
         this.mTitle = this.mContext.getString(title);
     }
 
+    /**
+     * Get integer from shared preferences
+     *
+     * @param key          Shared preferences key
+     * @param defaultValue Default value if key not found
+     * @return Integer from shared preferences
+     */
     protected int getSharedPrefInt(String key, int defaultValue) {
         SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
         return sharedPref.getInt(key, defaultValue);
     }
 
-    protected abstract void setFields(View view);
+    /**
+     * Allows user to set fields
+     */
+    protected abstract void setFields();
 
+    /**
+     * Allows user to set markers
+     *
+     * @param googleMap Google map
+     */
     protected abstract void setMarkers(GoogleMap googleMap);
 
+    /**
+     * Allows user to set google map listeners
+     *
+     * @param googleMap Google map
+     */
     protected abstract void setMapListeners(GoogleMap googleMap);
 
+    /**
+     * Allows user to set initial google map zoom
+     *
+     * @param googleMap Google map
+     */
     protected abstract void setInitialZoom(GoogleMap googleMap);
 
-    protected abstract void clearData();
+    /**
+     * Allows user to clear map data
+     */
+    protected abstract void clearMapData();
 }

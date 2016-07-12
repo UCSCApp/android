@@ -75,13 +75,13 @@ public class MapFragment extends BaseMapFragment {
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
-        this.setMapFragment(view, FRAGMENT);
+        this.setMapFragment(FRAGMENT);
 
         return view;
     }
 
     @Override
-    protected void setFields(View view) {
+    protected void setFields() {
         this.mStaticMarkers = new HashMap<>();
         this.mDynamicMarkers = new HashMap<>();
     }
@@ -156,7 +156,7 @@ public class MapFragment extends BaseMapFragment {
     }
 
     @Override
-    protected void clearData() {
+    protected void clearMapData() {
         for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
         this.mCallback.cancelTimer();
     }

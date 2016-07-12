@@ -49,7 +49,7 @@ public enum MonthEnum {
     /**
      * Constructor
      *
-     * @param name Name of month
+     * @param name   Name of month
      * @param number Numerical representation of month
      */
     MonthEnum(String name, int number) {
