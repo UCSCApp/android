@@ -114,7 +114,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
-        return Date.compareEvents((Event) lhs, (Event) rhs);
+        return Event.compareEvents((Event) lhs, (Event) rhs);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class EventListFragment extends BaseSwipeListFragment {
 
     @Override
     public void onSwipeListRefresh() {
-        new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
+        new TestEventListHttpRequest(this.mContext).execute(new HttpCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> vals) {
                 if (mQuery != null) doSearch(vals);
@@ -157,7 +157,7 @@ public class EventListFragment extends BaseSwipeListFragment {
             Event event = iterator.next();
             if (!event.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&
                     !event.summary.toLowerCase().contains(this.mQuery.toLowerCase()) &&
-                    !event.date.getFullString().toLowerCase().contains(this.mQuery.toLowerCase())) {
+                    !event.date.getDateString().toLowerCase().contains(this.mQuery.toLowerCase())) {
                 iterator.remove();
             }
         }

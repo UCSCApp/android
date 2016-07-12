@@ -25,9 +25,8 @@ public class Event extends BaseObject {
 
     protected void setDate(String date) {
         String[] dateParts = date.split("\\s+");
-        if (dateParts.length != 5) this.date = new Date(date);
-        else this.date = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3],
-                dateParts[4]);
+        if (dateParts.length != 4 && dateParts.length != 5) this.date = new Date(date);
+        else this.date = new Date(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
     }
 
     protected void checkDefined() {
@@ -40,5 +39,15 @@ public class Event extends BaseObject {
 
     public String getShortSummary() {
         return this.summary.length() > 150 ? this.summary.substring(0, 150) + "..." : this.summary;
+    }
+
+    public static int compareEvents(Event lhs, Event rhs) {
+        if (!lhs.date.defined) return 1;
+        if (!rhs.date.defined) return -1;
+
+        int check = Date.compareDates(lhs.date, rhs.date);
+        if (check == 0) check = lhs.name.compareTo(rhs.name);
+
+        return check;
     }
 }

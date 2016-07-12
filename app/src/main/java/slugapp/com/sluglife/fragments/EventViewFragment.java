@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewEventBinding;
 import slugapp.com.sluglife.http.ImageHttpRequest;
+import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Event;
 
 /**
@@ -56,18 +57,22 @@ public class EventViewFragment extends BaseViewFragment {
 
     @Override
     protected void setView() {
-        if (this.mEvent.date.defined) {
-            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getDateString();
-            String startString = this.mContext.getString(R.string.detail_event_start) + String.valueOf(this.mEvent.date.startTime) +
-                    this.mEvent.date.startTOD;
+        Date date = this.mEvent.date;
+
+        if (date.defined) {
+            String dayString = this.mContext.getString(R.string.detail_event_day) + date.getDateString();
+            String startString = this.mContext.getString(R.string.detail_event_start) + date.getTimeString();
+            /*
             String endString = this.mContext.getString(R.string.detail_event_end) + String.valueOf(this.mEvent.date.endTime) +
                     this.mEvent.date.endTOD;
+            */
 
             this.mBinding.day.setText(dayString);
             this.mBinding.start.setText(startString);
-            this.mBinding.end.setText(endString);
+            this.mBinding.end.setVisibility(View.GONE);
+            //this.mBinding.end.setText(endString);
         } else {
-            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getFullString();
+            String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getDateString();
             this.mBinding.day.setText(dayString);
             this.mBinding.start.setVisibility(View.GONE);
             this.mBinding.end.setVisibility(View.GONE);
