@@ -1,6 +1,5 @@
 package slugapp.com.sluglife.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,11 +21,11 @@ public abstract class BaseFragment extends Fragment {
     private String mTitle;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-        this.mCallback = (ActivityCallback) activity;
-        this.mContext = activity;
+        this.mCallback = (ActivityCallback) context;
+        this.mContext = context;
     }
 
     @Override

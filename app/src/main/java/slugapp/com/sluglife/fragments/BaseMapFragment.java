@@ -23,11 +23,11 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     private String mTitle;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-        this.mCallback = (ActivityCallback) activity;
-        this.mContext = activity;
+        this.mCallback = (ActivityCallback) context;
+        this.mContext = context;
     }
 
     @Override
