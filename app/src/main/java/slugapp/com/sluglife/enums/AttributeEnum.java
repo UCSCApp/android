@@ -3,7 +3,7 @@ package slugapp.com.sluglife.enums;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by isayyuhh on 9/24/2015
+ * Created by isaiah on 9/24/2015
  * <p/>
  * This file contains an enum containing information about dining hall attributes.
  */

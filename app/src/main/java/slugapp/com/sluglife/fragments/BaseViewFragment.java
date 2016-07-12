@@ -3,7 +3,7 @@ package slugapp.com.sluglife.fragments;
 import slugapp.com.sluglife.enums.FragmentEnum;
 
 /**
- * Created by isayyuhh on 2/21/16
+ * Created by isaiah on 2/21/16
  * <p/>
  * This file contains a base view fragment class.
  */

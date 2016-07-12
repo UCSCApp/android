@@ -7,7 +7,7 @@ import slugapp.com.sluglife.fragments.MapViewFragment;
 import slugapp.com.sluglife.fragments.SocialFragment;
 
 /**
- * Created by isayyuhh on 3/16/16
+ * Created by isaiah on 3/16/16
  * <p/>
  * This file contains an enum containing information about tab fragments.
  */

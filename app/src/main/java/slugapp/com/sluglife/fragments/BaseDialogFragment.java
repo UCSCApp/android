@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v4.app.DialogFragment;
 
 /**
- * Created by isayyuhh on 6/27/16
+ * Created by isaiah on 6/27/16
  * <p/>
  * This file contains a base dialog fragment class.
  */

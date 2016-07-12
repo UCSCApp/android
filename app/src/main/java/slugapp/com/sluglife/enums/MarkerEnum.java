@@ -3,7 +3,7 @@ package slugapp.com.sluglife.enums;
 import slugapp.com.sluglife.R;
 
 /**
- * Created by isayyuhh on 2/21/16
+ * Created by isaiah on 2/21/16
  * <p/>
  * This file contains an enum containing information about map markers.
  */

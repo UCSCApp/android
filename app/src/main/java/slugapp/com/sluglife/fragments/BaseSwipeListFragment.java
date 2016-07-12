@@ -9,7 +9,7 @@ import android.widget.ListView;
 import slugapp.com.sluglife.enums.FragmentEnum;
 
 /**
- * Created by isayyuhh on 2/21/16
+ * Created by isaiah on 2/21/16
  * <p/>
  * This file contains a base swipe list fragment class.
  */

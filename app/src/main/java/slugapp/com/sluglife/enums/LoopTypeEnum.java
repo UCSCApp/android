@@ -1,7 +1,7 @@
 package slugapp.com.sluglife.enums;
 
 /**
- * Created by isayyuhh on 2/19/16
+ * Created by isaiah on 2/19/16
  * <p/>
  * This file contains an enum containing information about loop types.
  */

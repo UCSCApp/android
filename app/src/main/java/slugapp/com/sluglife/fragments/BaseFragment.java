@@ -12,7 +12,7 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
- * Created by isayyuhh on 2/21/16
+ * Created by isaiah on 2/21/16
  * <p/>
  * This file contains a base fragment class.
  */

@@ -12,7 +12,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
- * Created by isayyuhh on 6/26/16
+ * Created by isaiah on 6/26/16
  * <p/>
  * This file contains a base google map fragment class.
  */
