@@ -14,19 +14,32 @@ import slugapp.com.sluglife.models.Date;
 import slugapp.com.sluglife.models.Event;
 
 /**
- * Created by simba on 5/31/15.
+ * Created by simba on 5/31/15
+ * Edited by isaiah on 6/27/2015
  * <p/>
- * Edited by isaiah on 6/27/2015.
- * <p/>
- * This file is the Adapter for EventListFragment.java and displays each Event to the ListView.
+ * This file contains an adapter that displays a list of events.
  */
+
 public class EventListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_event;
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     */
     public EventListAdapter(Context context) {
         super(context, id);
     }
 
+    /**
+     * Gets view of item showing on screen
+     *
+     * @param position    Position of object on list
+     * @param convertView View of list item
+     * @param parent      Parent of list item view
+     * @return Inflated view with contents
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -58,6 +71,9 @@ public class EventListAdapter extends BaseListAdapter {
         return convertView;
     }
 
+    /**
+     * Class containing views in list item
+     */
     private static class ViewHolder {
         public TextView name;
         public TextView date;

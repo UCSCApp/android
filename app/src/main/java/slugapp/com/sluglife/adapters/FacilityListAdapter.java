@@ -10,15 +10,30 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.models.StringObject;
 
 /**
- * Created by isayyuhh_s on 8/29/2015
+ * Created by isaiah on 8/29/2015
+ * <p/>
+ * This file contains an adapter that displays a list of facilities.
  */
 public class FacilityListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_facility;
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     */
     public FacilityListAdapter(Context context) {
         super(context, id);
     }
 
+    /**
+     * Gets view of item showing on screen
+     *
+     * @param position    Position of object on list
+     * @param convertView View of list item
+     * @param parent      Parent of list item view
+     * @return Inflated view with contents
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -38,6 +53,9 @@ public class FacilityListAdapter extends BaseListAdapter {
         return convertView;
     }
 
+    /**
+     * Class containing views in list item
+     */
     private static class ViewHolder {
         public TextView name;
     }

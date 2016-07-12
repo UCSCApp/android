@@ -10,15 +10,31 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.models.StringObject;
 
 /**
- * Created by isayyuhh_s on 8/29/2015
+ * Created by isaiah on 8/29/2015
+ * <p/>
+ * This file contains an adapter that displays a list of dining halls.
  */
+
 public class DiningListAdapter extends BaseListAdapter {
     private static final int id = R.layout.item_dining;
 
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     */
     public DiningListAdapter(Context context) {
         super(context, id);
     }
 
+    /**
+     * Gets view of item showing on screen
+     *
+     * @param position    Position of object on list
+     * @param convertView View of list item
+     * @param parent      Parent of list item view
+     * @return Inflated view with contents
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -30,7 +46,7 @@ public class DiningListAdapter extends BaseListAdapter {
         String diningHallItem = ((StringObject) this.getItem(position)).string;
 
         ViewHolder holder = new ViewHolder();
-        holder.name =  (TextView) convertView.findViewById(R.id.name);
+        holder.name = (TextView) convertView.findViewById(R.id.name);
         convertView.setTag(holder);
 
         holder.name.setText(diningHallItem);
@@ -38,6 +54,9 @@ public class DiningListAdapter extends BaseListAdapter {
         return convertView;
     }
 
+    /**
+     * Class containing views in list item
+     */
     private static class ViewHolder {
         public TextView name;
     }
