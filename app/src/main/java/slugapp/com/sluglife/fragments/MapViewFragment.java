@@ -68,8 +68,6 @@ public class MapViewFragment extends BaseViewFragment {
         inflater.inflate(R.menu.toolbar_map_search, menu);
     }
 
-    // TODO: match with events search
-
     /**
      * Does action on toolbar item click
      *
@@ -120,7 +118,7 @@ public class MapViewFragment extends BaseViewFragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0) {
+        if (requestCode == DEFAULT) {
             int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), DEFAULT);
 
             this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);

@@ -57,17 +57,17 @@ public class DiningHallWrapper extends DiningHallObject {
         }
         this.addName(name);
         try {
-            this.addBreakfast(obj.getJSONArray(context.getString(R.string.json_dining_breakfast)));
+            this.addBreakfast(context, obj.getJSONArray(context.getString(R.string.json_dining_breakfast)));
         } catch (JSONException je) {
             je.printStackTrace();
         }
         try {
-            this.addLunch(obj.getJSONArray(context.getString(R.string.json_dining_lunch)));
+            this.addLunch(context, obj.getJSONArray(context.getString(R.string.json_dining_lunch)));
         } catch (JSONException je) {
             je.printStackTrace();
         }
         try {
-            this.addDinner(obj.getJSONArray(context.getString(R.string.json_dining_dinner)));
+            this.addDinner(context, obj.getJSONArray(context.getString(R.string.json_dining_dinner)));
         } catch (JSONException je) {
             je.printStackTrace();
         }

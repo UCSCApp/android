@@ -10,6 +10,13 @@ import slugapp.com.sluglife.enums.MonthEnum;
  * This file contains a date object.
  */
 public class DateObject extends BaseObject {
+    private static final int DAY_LOWER_LIMIT = 1;
+    private static final int DAY_UPPER_LIMIT = 31;
+    private static final int HOUR_LOWER_LIMIT = 0;
+    private static final int HOUR_UPPER_LIMIT = 23;
+    private static final int YEAR_LOWER_LIMIT = 0;
+    private static final int YEAR_UPPER_LIMIT = 9999;
+
     private final static MonthEnum[] months = MonthEnum.values();
 
     public String string;
@@ -48,12 +55,10 @@ public class DateObject extends BaseObject {
             break;
         }
 
-        // TODO: add date limit constants
-
         if (this.month == null) return;
-        if (day > 31) return;
-        if (hour < 0 || hour > 23) return;
-        if (year > 9999) return;
+        if (day < DAY_LOWER_LIMIT || day > DAY_UPPER_LIMIT) return;
+        if (hour < HOUR_LOWER_LIMIT || hour > HOUR_UPPER_LIMIT) return;
+        if (year < YEAR_LOWER_LIMIT || year > YEAR_UPPER_LIMIT) return;
 
         this.day = day;
         this.year = year;
@@ -116,6 +121,8 @@ public class DateObject extends BaseObject {
         return String.valueOf(this.month.name) + " " + String.valueOf(this.day) + ", " +
                 String.valueOf(this.year);
     }
+
+    //TODO: am pm
 
     /**
      * Gets string of date with time

@@ -1,7 +1,11 @@
 package slugapp.com.sluglife.models;
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import slugapp.com.sluglife.R;
 
 /**
  * Created by isaiah on 2/19/16
@@ -10,18 +14,17 @@ import org.json.JSONObject;
  */
 public class LoopWrapper extends LoopObject {
 
-    // TODO: strings to constants
-
     /**
      * Constructor
      *
+     * @param context Activity context
      * @param obj Json object
      * @throws JSONException
      */
-    public LoopWrapper(JSONObject obj) throws JSONException {
-        super(Integer.parseInt(obj.getString("id")),
-                Float.parseFloat(obj.getString("lat")),
-                Float.parseFloat(obj.getString("lon")),
-                obj.getString("type"));
+    public LoopWrapper(Context context, JSONObject obj) throws JSONException {
+        super(Integer.parseInt(obj.getString(context.getString(R.string.json_map_id))),
+                Float.parseFloat(obj.getString(context.getString(R.string.json_map_lat))),
+                Float.parseFloat(obj.getString(context.getString(R.string.json_map_lng))),
+                obj.getString(context.getString(R.string.json_map_type)));
     }
 }

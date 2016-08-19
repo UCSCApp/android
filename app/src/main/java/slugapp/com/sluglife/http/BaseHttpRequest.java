@@ -16,7 +16,16 @@ import slugapp.com.sluglife.interfaces.HttpCallback;
  * This file contains a base http request class.
  */
 public abstract class BaseHttpRequest extends BaseRequest {
+    private static final String EMPTY_STRING = "";
+    private static final String QUESTION_MARK = "?";
+    private static final String EQUALS = "=";
+    private static final String SPACE = " ";
+    private static final String SPACE_URL = "=";
+    private static final String AMPERSAND = "&";
+    private static final String AMPERSAND_URL = "=";
+
     protected String mUrl;
+
     private int mVolleyMethod;
 
     /**
@@ -27,8 +36,6 @@ public abstract class BaseHttpRequest extends BaseRequest {
     public BaseHttpRequest(Method method) {
         mVolleyMethod = method.method;
     }
-
-    // TODO: change strings to constants
 
     /**
      * Creates url by parts
@@ -41,18 +48,20 @@ public abstract class BaseHttpRequest extends BaseRequest {
      */
     protected void createUrl(String protocol, String api, String port, String path,
                              HashMap<String, String> params) {
-        String fields = "";
+        String fields = EMPTY_STRING;
         if (params != null) {
-            fields += "?";
+            fields += QUESTION_MARK;
             Set<String> set = params.keySet();
             boolean first = true;
             for (String param : set) {
-                if (!first) fields += "&";
-                fields += param + "=" + params.get(param);
+                if (!first) fields += AMPERSAND;
+                fields += param + EQUALS + params.get(param);
                 first = false;
             }
         }
-        this.mUrl = protocol + api + port + path + fields.replace(" ", "%20").replace("&", "%26");
+
+        this.mUrl = protocol + api + port + path + fields.replace(SPACE, SPACE_URL).replace(
+                AMPERSAND, AMPERSAND_URL);
     }
 
     /**

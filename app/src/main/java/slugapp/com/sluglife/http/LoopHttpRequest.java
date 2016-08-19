@@ -20,6 +20,9 @@ import slugapp.com.sluglife.models.LoopWrapper;
  * This file contains an http request that gathers loop bus information.
  */
 public class LoopHttpRequest extends BaseHttpRequest {
+    private Context mContext;
+
+    // TODO: adjust other requests
 
     /**
      * Constructor
@@ -28,6 +31,9 @@ public class LoopHttpRequest extends BaseHttpRequest {
      */
     public LoopHttpRequest(Context context) {
         super(Method.GET);
+
+        this.mContext = context;
+
         String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.bus_api);
         String port = context.getString(R.string.port8081);
@@ -54,7 +60,7 @@ public class LoopHttpRequest extends BaseHttpRequest {
                     JSONArray arr = new JSONArray(val);
                     List<LoopObject> loopList = new ArrayList<>(arr.length());
                     for (int i = 0; i < arr.length(); ++i) {
-                        loopList.add(new LoopWrapper(arr.getJSONObject(i)));
+                        loopList.add(new LoopWrapper(mContext, arr.getJSONObject(i)));
                     }
                     callback.onSuccess(loopList);
                 } catch (JSONException je) {

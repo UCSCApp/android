@@ -25,8 +25,6 @@ public class SocialFragment extends BaseListFragment {
 
     private ListSocialBinding mBinding;
 
-    // TODO: move layout id to static field
-
     /**
      * Gets a new instance of fragment
      *

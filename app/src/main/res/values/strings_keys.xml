@@ -14,6 +14,13 @@
     <string name="json_dining_breakfast">breakfast</string>
     <string name="json_dining_lunch">lunch</string>
     <string name="json_dining_dinner">dinner</string>
+    <string name="json_dining_food_name">name</string>
+    <string name="json_dining_food_attributes">attribs</string>
+
+    <string name="json_map_id">id</string>
+    <string name="json_map_lat">lat</string>
+    <string name="json_map_lng">lon</string>
+    <string name="json_map_type">type</string>
 
     <!-- Bundle keys -->
     <string name="bundle_name">name</string>
