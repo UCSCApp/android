@@ -13,7 +13,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
@@ -24,7 +26,7 @@ import slugapp.com.sluglife.utils.LatLngInterpolator;
 
 /**
  * Created by isaiah on 2/19/16
- * <p/>
+ * <p>
  * This file contains a runnable that periodically gathers loop data.
  */
 public class LoopRunnable implements Runnable {
@@ -60,24 +62,38 @@ public class LoopRunnable implements Runnable {
     public void run() {
         new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<LoopObject>>() {
 
-            // TODO: compare map to val to remove nonoperating loops
-
             /**
              * On request success
              *
-             * @param val Loop object from request
+             * @param vals Loop list from request
              */
             @Override
-            public void onSuccess(List<LoopObject> val) {
-                if (val.isEmpty() && !noLoops) {
+            public void onSuccess(List<LoopObject> vals) {
+                if (vals.isEmpty() && !noLoops) {
                     mCallback.showSnackBar(mContext.getString(R.string.no_map_loop));
                     noLoops = true;
                     return;
                 }
-                for (LoopObject loop : val) {
+
+                // Removes markers on map that disappear
+                Iterator<Map.Entry<LoopObject, Marker>> iterator = mLoopMap.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    boolean found = false;
+                    HashMap.Entry<LoopObject, Marker> entry = iterator.next();
+                    for (LoopObject loop : vals) {
+                        if (String.valueOf(loop.id).equals(entry.getValue().getSnippet())) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) iterator.remove();
+                }
+
+                // Adds new markers that are not currently shown
+                for (LoopObject loop : vals) {
                     boolean found = false;
                     for (Marker marker : mLoopMap.values()) {
-                        if (String.valueOf(loop.id).compareTo(marker.getSnippet()) == 0) {
+                        if (String.valueOf(loop.id).equals(marker.getSnippet())) {
                             animateMarker(marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
                             found = true;
