@@ -20,7 +20,7 @@ public abstract class BaseFragment extends Fragment {
     protected ActivityCallback mCallback;
     protected Context mContext;
 
-    private String mTitle;
+    private String title;
 
     /**
      * Fragment's onAttach method
@@ -56,7 +56,7 @@ public abstract class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        this.mCallback.setToolbarTitle(this.mTitle);
+        this.mCallback.setToolbarTitle(this.title);
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class BaseFragment extends Fragment {
      * @param title Name of fragment
      */
     protected void setLayout(int title) {
-        this.mTitle = this.mContext.getString(title);
+        this.title = this.mContext.getString(title);
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class BaseFragment extends Fragment {
      * @param title Name of fragment
      */
     protected void setLayout(String title) {
-        this.mTitle = title;
+        this.title = title;
     }
 
     /**

@@ -20,7 +20,7 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     protected ActivityCallback mCallback;
     protected Context mContext;
 
-    private String mTitle;
+    private String title;
 
     /**
      * Fragment's onAttach method
@@ -54,7 +54,7 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     public void onStart() {
         super.onStart();
 
-        this.mCallback.setToolbarTitle(this.mTitle);
+        this.mCallback.setToolbarTitle(this.title);
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
      * @param title Name of fragment
      */
     protected void setLayout(int title) {
-        this.mTitle = this.mContext.getString(title);
+        this.title = this.mContext.getString(title);
     }
 
     /**
