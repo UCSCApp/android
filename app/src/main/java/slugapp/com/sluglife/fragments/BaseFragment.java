@@ -17,6 +17,8 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
  * This file contains a base fragment class.
  */
 public abstract class BaseFragment extends Fragment {
+    protected static final int DEFAULT = 0;
+
     protected ActivityCallback mCallback;
     protected Context mContext;
 
@@ -140,12 +142,11 @@ public abstract class BaseFragment extends Fragment {
      * Get integer from shared preferences
      *
      * @param key          Shared preferences key
-     * @param defaultValue Default value if key not found
      * @return Integer from shared preferences
      */
-    protected int getSharedPrefInt(String key, int defaultValue) {
+    protected int getSharedPrefInt(String key) {
         SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
-        return sharedPref.getInt(key, defaultValue);
+        return sharedPref.getInt(key, DEFAULT);
     }
 
     /**

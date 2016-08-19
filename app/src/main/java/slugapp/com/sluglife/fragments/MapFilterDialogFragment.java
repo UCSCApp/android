@@ -4,27 +4,31 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.DialogMapFilterBinding;
 
 /**
  * Created by isaiah on 9/23/2015
- * <p/>
+ * <p>
  * This file contains a dialog fragment that allows the user to control which google map markers
  * appear on the google map.
  */
 public class MapFilterDialogFragment extends BaseDialogFragment {
+    private static final int DEFAULT = 0;
+    private static final int LOOP_BIN = 0b000001;
+    private static final int DINING_BIN = 0b000100;
+    private static final int LIBRARY_BIN = 0b001000;
 
-    // TODO: clean code
-    // TODO: create binary constants
-    // TODO: create checkbox enum
+    private DialogMapFilterBinding mBinding;
 
     /**
      * Gets a new instance of fragment
@@ -51,69 +55,25 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater li = LayoutInflater.from(this.mContext);
-        final View mapFilterView = li.inflate(R.layout.dialog_map_filter, null);
-        final CheckBox loopCheckBox = (CheckBox) mapFilterView.findViewById(
-                R.id.checkbox_loop_buses);
-        final CheckBox diningCheckBox = (CheckBox) mapFilterView.findViewById(
-                R.id.checkbox_dining_halls);
-        final CheckBox libraryCheckBox = (CheckBox) mapFilterView.findViewById(
-                R.id.checkbox_libraries);
-        final TextView loopTextView = (TextView) mapFilterView.findViewById(
-                R.id.textview_loop_buses);
-        final TextView diningTextView = (TextView) mapFilterView.findViewById(
-                R.id.textview_dining_halls);
-        final TextView libraryTextView = (TextView) mapFilterView.findViewById(
-                R.id.textview_libraries);
-
-        loopTextView.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * On click
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                loopCheckBox.setChecked(!loopCheckBox.isChecked());
-            }
-        });
-        diningTextView.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * On click
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                diningCheckBox.setChecked(!diningCheckBox.isChecked());
-            }
-        });
-        libraryTextView.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * On click
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                libraryCheckBox.setChecked(!libraryCheckBox.isChecked());
-            }
-        });
+        this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
+                R.layout.list_dining, (ViewGroup) this.mBinding.getRoot(), false);
 
         int pref = this.getArguments().getInt(this.mContext.getString(R.string.bundle_markers));
-        if ((pref & 0b000001) != 0) loopCheckBox.setChecked(true);
-        if ((pref & 0b000100) != 0) diningCheckBox.setChecked(true);
-        if ((pref & 0b001000) != 0) libraryCheckBox.setChecked(true);
+
+        this.setCheckBox(pref, LOOP_BIN, this.mBinding.checkboxLoopBuses,
+                this.mBinding.textviewLoopBuses);
+        this.setCheckBox(pref, DINING_BIN, this.mBinding.checkboxDiningHalls,
+                this.mBinding.textviewDiningHalls);
+        this.setCheckBox(pref, LIBRARY_BIN, this.mBinding.checkboxLibraries,
+                this.mBinding.textviewLibraries);
 
         return new AlertDialog.Builder(this.getActivity())
                 .setTitle(this.mContext.getString(R.string.title_map_dialog_filter))
-                .setView(mapFilterView)
+                .setView(this.mBinding.getRoot())
 
                 // Positive button
-                .setPositiveButton(this.mContext.getString(R.string.dialog_positive), new DialogInterface.OnClickListener() {
+                .setPositiveButton(this.mContext.getString(R.string.dialog_positive),
+                        new DialogInterface.OnClickListener() {
 
                     /**
                      * On positive button click
@@ -123,18 +83,20 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
                      */
                     public void onClick(DialogInterface dialog, int which) {
                         int bin = 0;
-                        if (loopCheckBox.isChecked()) bin = bin | 0b000001;
-                        if (diningCheckBox.isChecked()) bin = bin | 0b000100;
-                        if (libraryCheckBox.isChecked()) bin = bin | 0b001000;
+                        if (mBinding.checkboxLoopBuses.isChecked()) bin = bin | LOOP_BIN;
+                        if (mBinding.checkboxDiningHalls.isChecked()) bin = bin | DINING_BIN;
+                        if (mBinding.checkboxLibraries.isChecked()) bin = bin | LIBRARY_BIN;
 
                         Intent intent = new Intent();
                         intent.putExtra(mContext.getString(R.string.bundle_markers), bin);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, intent);
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), DEFAULT,
+                                intent);
                     }
                 })
 
                 // Negative Button
-                .setNegativeButton(this.mContext.getString(R.string.dialog_negative), new DialogInterface.OnClickListener() {
+                .setNegativeButton(this.mContext.getString(R.string.dialog_negative),
+                        new DialogInterface.OnClickListener() {
 
                     /**
                      * On negative button click
@@ -145,5 +107,28 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 }).create();
+    }
+
+    /**
+     * Sets checkbox and textview
+     *
+     * @param checkbox Checkbox
+     * @param textView Textview
+     */
+    private void setCheckBox(int pref, int bin, final CheckBox checkbox, TextView textView) {
+        if ((pref & bin) != DEFAULT) checkbox.setChecked(true);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * On click
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                checkbox.setChecked(!checkbox.isChecked());
+            }
+        });
     }
 }

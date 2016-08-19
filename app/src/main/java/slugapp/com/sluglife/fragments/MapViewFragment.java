@@ -86,7 +86,7 @@ public class MapViewFragment extends BaseViewFragment {
                     this.mBinding.search.searchEditText.setText("");
                 }
 
-                int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), 0);
+                int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers));
                 this.setDialogFragment(MapFilterDialogFragment.newInstance(this.mContext, bin));
 
                 return true;
@@ -121,7 +121,7 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
-            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), 0);
+            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), DEFAULT);
 
             this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
             this.setChildFragment(R.id.map_view, MapFragment.newInstance());
