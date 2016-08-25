@@ -20,9 +20,9 @@ public abstract class BaseHttpRequest extends BaseRequest {
     private static final String QUESTION_MARK = "?";
     private static final String EQUALS = "=";
     private static final String SPACE = " ";
-    private static final String SPACE_URL = "=";
+    private static final String SPACE_URL = "%20";
     private static final String AMPERSAND = "&";
-    private static final String AMPERSAND_URL = "=";
+    private static final String AMPERSAND_URL = "%26";
 
     protected String mUrl;
 

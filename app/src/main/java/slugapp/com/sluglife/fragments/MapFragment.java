@@ -60,6 +60,7 @@ public class MapFragment extends BaseMapFragment {
 
     public static final int DEFAULT_MASK = 0b000000;
 
+    private LoopRunnable runnable;
     private HashMap<FacilityObject, Marker> mStaticMarkers;
     private HashMap<LoopObject, Marker> mDynamicMarkers;
 
@@ -165,6 +166,11 @@ public class MapFragment extends BaseMapFragment {
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
         } else {
+            if (!this.isGPSEnabled()) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
+                return;
+            }
+
             googleMap.setMyLocationEnabled(true);
             float[] distance = new float[3];
             LocationManager locationManager = (LocationManager) this.getActivity()
@@ -189,6 +195,7 @@ public class MapFragment extends BaseMapFragment {
     protected void clearMapData() {
         for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
         this.mCallback.cancelTimer();
+        if (this.runnable != null) this.runnable.stop();
     }
 
     /**
@@ -200,7 +207,7 @@ public class MapFragment extends BaseMapFragment {
         this.mDynamicMarkers = new HashMap<>();
 
         final Handler handler = new Handler();
-        final LoopRunnable runnable = new LoopRunnable(this.mContext, googleMap,
+        this.runnable = new LoopRunnable(this.mContext, googleMap,
                 this.mDynamicMarkers);
 
         this.mCallback.initTimer();

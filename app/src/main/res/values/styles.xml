@@ -5,10 +5,12 @@
         <item name="colorPrimaryDark">@color/ucsc_blue_dark</item>
     </style>
 
-    <style name="SearchBarTheme" parent="Theme.AppCompat.Light.NoActionBar"><!-- Used for the bottom line when not selected / focused
--->
+    <style name="SearchBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/ucsc_yellow</item>
         <item name="colorControlNormal">@color/ucsc_yellow</item>
--->
+    </style>
+
+    <style name="TabTheme" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
     </style>
 </resources>

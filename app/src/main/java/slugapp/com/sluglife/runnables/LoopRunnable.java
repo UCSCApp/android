@@ -26,7 +26,7 @@ import slugapp.com.sluglife.utils.LatLngInterpolator;
 
 /**
  * Created by isaiah on 2/19/16
- * <p>
+ * <p/>
  * This file contains a runnable that periodically gathers loop data.
  */
 public class LoopRunnable implements Runnable {
@@ -38,6 +38,8 @@ public class LoopRunnable implements Runnable {
     private GoogleMap mMap;
     private HashMap<LoopObject, Marker> mLoopMap;
     private boolean noLoops;
+    private boolean noInternet;
+    private boolean running;
 
     /**
      * Constructor
@@ -53,6 +55,8 @@ public class LoopRunnable implements Runnable {
         this.mLoopMap = loopMap;
 
         this.noLoops = false;
+        this.noInternet = false;
+        this.running = true;
     }
 
     /**
@@ -60,6 +64,8 @@ public class LoopRunnable implements Runnable {
      */
     @Override
     public void run() {
+        if (!running) return;
+
         new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<LoopObject>>() {
 
             /**
@@ -69,8 +75,10 @@ public class LoopRunnable implements Runnable {
              */
             @Override
             public void onSuccess(List<LoopObject> vals) {
+                noInternet = false;
+
                 if (vals.isEmpty() && !noLoops) {
-                    mCallback.showSnackBar(mContext.getString(R.string.no_map_loop));
+                    mCallback.showSnackBar(mContext.getString(R.string.snackbar_map_no_loop));
                     noLoops = true;
                     return;
                 }
@@ -81,7 +89,7 @@ public class LoopRunnable implements Runnable {
                     boolean found = false;
                     HashMap.Entry<LoopObject, Marker> entry = iterator.next();
                     for (LoopObject loop : vals) {
-                        if (String.valueOf(loop.id).equals(entry.getValue().getSnippet())) {
+                        if (loop.id == entry.getKey().id) {
                             found = true;
                             break;
                         }
@@ -92,9 +100,9 @@ public class LoopRunnable implements Runnable {
                 // Adds new markers that are not currently shown
                 for (LoopObject loop : vals) {
                     boolean found = false;
-                    for (Marker marker : mLoopMap.values()) {
-                        if (String.valueOf(loop.id).equals(marker.getSnippet())) {
-                            animateMarker(marker, new LatLng(loop.lat, loop.lng),
+                    for (HashMap.Entry<LoopObject, Marker> entry : mLoopMap.entrySet()) {
+                        if (loop.id == entry.getKey().id) {
+                            animateMarker(entry.getValue(), new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
                             found = true;
                             break;
@@ -103,11 +111,9 @@ public class LoopRunnable implements Runnable {
                     if (!found) {
                         mLoopMap.put(loop, mMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
-                                .snippet(String.valueOf(loop.id))
                                 .position(new LatLng(loop.lat, loop.lng))
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus))));
                     }
-                    noLoops = false;
                 }
             }
 
@@ -118,9 +124,30 @@ public class LoopRunnable implements Runnable {
              */
             @Override
             public void onError(Exception e) {
+                if (!noInternet) {
+                    mCallback.showSnackBar(mContext.getString(R.string.snackbar_map_no_internet));
+                    noLoops = true;
+                    noInternet = true;
+                    return;
+                }
+
+                Iterator<Map.Entry<LoopObject, Marker>> iterator = mLoopMap.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    HashMap.Entry<LoopObject, Marker> entry = iterator.next();
+                    entry.getValue().remove();
+                    iterator.remove();
+                }
+
                 e.printStackTrace();
             }
         });
+    }
+
+    /**
+     * Stops runnable
+     */
+    public void stop() {
+        this.running = false;
     }
 
     /**

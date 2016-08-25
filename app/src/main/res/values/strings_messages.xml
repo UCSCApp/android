@@ -4,7 +4,6 @@
     <string name="no_facility">No facility information available.</string>
     <string name="no_event">No event information available.</string>
     <string name="no_dining">No dining information available.</string>
-    <string name="no_map_loop">No loops available at the moment.</string>
 
     <!-- Dialog messages -->
     <string name="dialog_map_loop_buses">Loop Buses</string>
@@ -15,6 +14,10 @@
 
     <!-- Snackbar actions -->
     <string name="snackbar_dismiss">Dismiss</string>
+    <string name="snackbar_event_no_internet">Check internet connection.</string>
+    <string name="snackbar_dining_no_internet">Check internet connection.</string>
+    <string name="snackbar_map_no_internet">Check internet connection.</string>
+    <string name="snackbar_map_no_loop">No loops available at the moment.</string>
 
     <!-- Tabs -->
     <string name="tab_map">Map</string>

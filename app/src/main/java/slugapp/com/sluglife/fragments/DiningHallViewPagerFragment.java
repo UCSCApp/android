@@ -168,6 +168,8 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
                 });
     }
 
+    // TODO: constants
+
     /**
      * Gets the current time of day from today's date
      *

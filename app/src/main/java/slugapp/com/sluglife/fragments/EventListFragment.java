@@ -233,6 +233,8 @@ public class EventListFragment extends BaseSwipeListFragment {
              */
             @Override
             public void onError(Exception e) {
+                mCallback.showSnackBar(mContext.getString(R.string.snackbar_event_no_internet));
+
                 mBinding.swipeContainer.setVisibility(View.GONE);
                 mBinding.failed.setVisibility(View.VISIBLE);
 

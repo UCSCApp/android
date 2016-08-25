@@ -56,7 +56,7 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
-                R.layout.list_dining, (ViewGroup) this.mBinding.getRoot(), false);
+                R.layout.dialog_map_filter, null, false);
 
         int pref = this.getArguments().getInt(this.mContext.getString(R.string.bundle_markers));
 

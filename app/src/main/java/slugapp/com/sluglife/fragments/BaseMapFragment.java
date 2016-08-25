@@ -2,6 +2,7 @@ package slugapp.com.sluglife.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -13,7 +14,7 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
  * Created by isaiah on 6/26/16
- * <p/>
+ * <p>
  * This file contains a base google map fragment class.
  */
 public abstract class BaseMapFragment extends SupportMapFragment implements OnMapReadyCallback {
@@ -73,6 +74,7 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     @Override
     public void onStop() {
         super.onStop();
+
         this.clearMapData();
     }
 
@@ -117,6 +119,17 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     protected int getSharedPrefInt(String key, int defaultValue) {
         SharedPreferences sharedPref = this.getActivity().getPreferences(Context.MODE_PRIVATE);
         return sharedPref.getInt(key, defaultValue);
+    }
+
+    /**
+     * Checks if gps is enabled
+     *
+     * @return If gps is enabled
+     */
+    protected boolean isGPSEnabled() {
+        LocationManager lm = (LocationManager)
+                this.mContext.getSystemService(Context.LOCATION_SERVICE);
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     /**
