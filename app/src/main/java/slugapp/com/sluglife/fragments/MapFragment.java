@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,8 @@ public class MapFragment extends BaseMapFragment {
 
     private LoopRunnable runnable;
     private HashMap<FacilityObject, Marker> mStaticMarkers;
-    private HashMap<LoopObject, Marker> mDynamicMarkers;
+    private List<LoopObject> mDynamicMarkers;
+    //private HashMap<LoopObject, Marker> mDynamicMarkers;
 
     /**
      * Gets a new instance of fragment
@@ -97,7 +99,7 @@ public class MapFragment extends BaseMapFragment {
     @Override
     protected void setFields() {
         this.mStaticMarkers = new HashMap<>();
-        this.mDynamicMarkers = new HashMap<>();
+        this.mDynamicMarkers = new ArrayList<>();
     }
 
     /**
@@ -193,7 +195,7 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     protected void clearMapData() {
-        for (Marker marker : this.mDynamicMarkers.values()) if (marker != null) marker.remove();
+        for (LoopObject loop : this.mDynamicMarkers) if (loop.marker != null) loop.marker.remove();
         this.mCallback.cancelTimer();
         if (this.runnable != null) this.runnable.stop();
     }
@@ -204,7 +206,7 @@ public class MapFragment extends BaseMapFragment {
      * @param googleMap Google map
      */
     private void setLoopBusMarkers(final GoogleMap googleMap) {
-        this.mDynamicMarkers = new HashMap<>();
+        this.mDynamicMarkers = new ArrayList<>();
 
         final Handler handler = new Handler();
         this.runnable = new LoopRunnable(this.mContext, googleMap,

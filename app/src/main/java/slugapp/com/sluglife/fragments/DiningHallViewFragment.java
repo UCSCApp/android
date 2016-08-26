@@ -136,6 +136,8 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 icon.setLayoutParams(iconParams);
                 icon.setImageResource(attribute.icon);
 
+                // TODO: only show individual attribute
+
                 icon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

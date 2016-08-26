@@ -1,6 +1,8 @@
 package slugapp.com.sluglife.runnables;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -35,8 +37,8 @@ public class LoopRunnable implements Runnable {
 
     private Context mContext;
     private ActivityCallback mCallback;
-    private GoogleMap mMap;
-    private HashMap<LoopObject, Marker> mLoopMap;
+    private GoogleMap mGoogleMap;
+    private List<LoopObject> mLoops;
     private boolean noLoops;
     private boolean noInternet;
     private boolean running;
@@ -46,13 +48,13 @@ public class LoopRunnable implements Runnable {
      *
      * @param context Activity context
      * @param map     Google map
-     * @param loopMap Map containing loop information
+     * @param loops Map containing loop information
      */
-    public LoopRunnable(Context context, GoogleMap map, HashMap<LoopObject, Marker> loopMap) {
+    public LoopRunnable(Context context, GoogleMap map, List<LoopObject> loops) {
         this.mContext = context;
         this.mCallback = (ActivityCallback) context;
-        this.mMap = map;
-        this.mLoopMap = loopMap;
+        this.mGoogleMap = map;
+        this.mLoops = loops;
 
         this.noLoops = false;
         this.noInternet = false;
@@ -84,12 +86,12 @@ public class LoopRunnable implements Runnable {
                 }
 
                 // Removes markers on map that disappear
-                Iterator<Map.Entry<LoopObject, Marker>> iterator = mLoopMap.entrySet().iterator();
+                Iterator<LoopObject> iterator = mLoops.iterator();
                 while (iterator.hasNext()) {
                     boolean found = false;
-                    HashMap.Entry<LoopObject, Marker> entry = iterator.next();
+                    LoopObject entry = iterator.next();
                     for (LoopObject loop : vals) {
-                        if (loop.id == entry.getKey().id) {
+                        if (loop.id == entry.id) {
                             found = true;
                             break;
                         }
@@ -100,19 +102,20 @@ public class LoopRunnable implements Runnable {
                 // Adds new markers that are not currently shown
                 for (LoopObject loop : vals) {
                     boolean found = false;
-                    for (HashMap.Entry<LoopObject, Marker> entry : mLoopMap.entrySet()) {
-                        if (loop.id == entry.getKey().id) {
-                            animateMarker(entry.getValue(), new LatLng(loop.lat, loop.lng),
+                    for (LoopObject object : mLoops) {
+                        if (loop.id == object.id) {
+                            animateMarker(object.marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
-                        mLoopMap.put(loop, mMap.addMarker(new MarkerOptions()
+                        loop.marker = mGoogleMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
                                 .position(new LatLng(loop.lat, loop.lng))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus))));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus)));
+                        mLoops.add(loop);
                     }
                 }
             }
@@ -124,17 +127,17 @@ public class LoopRunnable implements Runnable {
              */
             @Override
             public void onError(Exception e) {
-                if (!noInternet) {
+                if (!internetIsWorking() && !noInternet) {
                     mCallback.showSnackBar(mContext.getString(R.string.snackbar_map_no_internet));
                     noLoops = true;
                     noInternet = true;
                     return;
                 }
 
-                Iterator<Map.Entry<LoopObject, Marker>> iterator = mLoopMap.entrySet().iterator();
+                Iterator<LoopObject> iterator = mLoops.iterator();
                 while (iterator.hasNext()) {
-                    HashMap.Entry<LoopObject, Marker> entry = iterator.next();
-                    entry.getValue().remove();
+                    LoopObject entry = iterator.next();
+                    entry.marker.remove();
                     iterator.remove();
                 }
 
@@ -151,6 +154,18 @@ public class LoopRunnable implements Runnable {
     }
 
     /**
+     * Checks if internet is working
+     *
+     * @return If internet is working
+     */
+    private boolean internetIsWorking() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.mContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    /**
      * Animates marker on google map
      *
      * @param marker             Marker
@@ -164,9 +179,9 @@ public class LoopRunnable implements Runnable {
         final Handler handler = new Handler();
 
         handler.post(new Runnable() {
-            long elapsed;
-            float t;
-            float v;
+            private long elapsed;
+            private float t;
+            private float v;
 
             /**
              * Runs runnable

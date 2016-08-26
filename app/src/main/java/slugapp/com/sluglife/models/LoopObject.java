@@ -1,5 +1,8 @@
 package slugapp.com.sluglife.models;
 
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 /**
  * Created by isaiah on 2/19/16
  * <p/>
@@ -9,6 +12,7 @@ public class LoopObject {
     public int id;
     public float lat, lng;
     public String type;
+    public Marker marker;
 
     /**
      * Constructor
