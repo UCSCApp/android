@@ -157,28 +157,34 @@ public class MapFragment extends BaseMapFragment {
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
-        if (ActivityCompat.checkSelfPermission(
-                this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(
-                        this.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this.mContext,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this.mContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
         } else {
-            if (!this.isGPSEnabled()) {
+            LocationManager locationManager = (LocationManager) this.getActivity()
+                    .getSystemService(Context.LOCATION_SERVICE);
+
+            if (!this.isGPSEnabled(locationManager)) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
                 return;
             }
 
             googleMap.setMyLocationEnabled(true);
             float[] distance = new float[3];
-            LocationManager locationManager = (LocationManager) this.getActivity()
-                    .getSystemService(Context.LOCATION_SERVICE);
+
             Location location = locationManager.getLastKnownLocation(locationManager
                     .getBestProvider(new Criteria(), false));
+
+            if (location == null) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
+                return;
+            }
+
             Location.distanceBetween(initLatLng.latitude, initLatLng.longitude,
                     location.getLatitude(), location.getLongitude(), distance);
             LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());

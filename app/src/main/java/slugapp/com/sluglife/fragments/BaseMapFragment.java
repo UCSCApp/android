@@ -124,12 +124,11 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     /**
      * Checks if gps is enabled
      *
+     * @param locationManager Gps location manager
      * @return If gps is enabled
      */
-    protected boolean isGPSEnabled() {
-        LocationManager lm = (LocationManager)
-                this.mContext.getSystemService(Context.LOCATION_SERVICE);
-        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    protected boolean isGPSEnabled(LocationManager locationManager) {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     /**

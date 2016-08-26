@@ -110,8 +110,6 @@ public class DiningHallListFragment extends BaseListFragment {
              */
             @Override
             public void onError(Exception e) {
-                mCallback.showSnackBar(mContext.getString(R.string.snackbar_dining_no_internet));
-
                 mBinding.list.setVisibility(View.GONE);
                 mBinding.failed.setVisibility(View.VISIBLE);
             }
