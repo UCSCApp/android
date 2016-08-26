@@ -34,11 +34,14 @@ import slugapp.com.sluglife.utils.LatLngInterpolator;
 public class LoopRunnable implements Runnable {
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private static final float DURATION_IN_MS = 2000;
+    private static final float MAX_DURATION = 1;
+    private static final long DELAY = 16;
 
     private Context mContext;
     private ActivityCallback mCallback;
     private GoogleMap mGoogleMap;
     private List<LoopObject> mLoops;
+
     private boolean noLoops;
     private boolean noInternet;
     private boolean running;
@@ -79,6 +82,7 @@ public class LoopRunnable implements Runnable {
             public void onSuccess(List<LoopObject> vals) {
                 noInternet = false;
 
+                // If no loops available
                 if (vals.isEmpty() && !noLoops) {
                     mCallback.showSnackBar(mContext.getString(R.string.snackbar_map_no_loop));
                     noLoops = true;
@@ -89,9 +93,9 @@ public class LoopRunnable implements Runnable {
                 Iterator<LoopObject> iterator = mLoops.iterator();
                 while (iterator.hasNext()) {
                     boolean found = false;
-                    LoopObject entry = iterator.next();
+                    LoopObject loopObject = iterator.next();
                     for (LoopObject loop : vals) {
-                        if (loop.id == entry.id) {
+                        if (loop.id == loopObject.id) {
                             found = true;
                             break;
                         }
@@ -102,15 +106,16 @@ public class LoopRunnable implements Runnable {
                 // Adds new markers that are not currently shown
                 for (LoopObject loop : vals) {
                     boolean found = false;
-                    for (LoopObject object : mLoops) {
-                        if (loop.id == object.id) {
-                            animateMarker(object.marker, new LatLng(loop.lat, loop.lng),
+                    for (LoopObject loopObject : mLoops) {
+                        if (loop.id == loopObject.id) {
+                            animateMarker(loopObject.marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
+                        if (loop.marker != null) continue;
                         loop.marker = mGoogleMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
                                 .position(new LatLng(loop.lat, loop.lng))
@@ -136,8 +141,8 @@ public class LoopRunnable implements Runnable {
 
                 Iterator<LoopObject> iterator = mLoops.iterator();
                 while (iterator.hasNext()) {
-                    LoopObject entry = iterator.next();
-                    entry.marker.remove();
+                    LoopObject loopObject = iterator.next();
+                    loopObject.marker.remove();
                     iterator.remove();
                 }
 
@@ -196,7 +201,7 @@ public class LoopRunnable implements Runnable {
                 marker.setPosition(latLngInterpolator.interpolate(this.v, startPosition,
                         finalPosition));
 
-                if (this.t < 1) handler.postDelayed(this, 16);
+                if (this.t < MAX_DURATION) handler.postDelayed(this, DELAY);
             }
         });
     }

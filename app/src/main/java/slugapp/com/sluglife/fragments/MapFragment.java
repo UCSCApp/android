@@ -195,7 +195,12 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     protected void clearMapData() {
-        for (LoopObject loop : this.mDynamicMarkers) if (loop.marker != null) loop.marker.remove();
+        for (LoopObject loop : this.mDynamicMarkers) {
+            if (loop.marker != null) {
+                loop.marker.remove();
+                loop.marker = null;
+            }
+        }
         this.mCallback.cancelTimer();
         if (this.runnable != null) this.runnable.stop();
     }
