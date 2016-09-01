@@ -84,6 +84,8 @@ public class MapViewFragment extends BaseViewFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.filter: {
+                this.mCallback.hideKeyboard();
+
                 if (searchShowing) {
                     this.mBinding.search.searchBar.setVisibility(View.GONE);
                     this.searchShowing = false;

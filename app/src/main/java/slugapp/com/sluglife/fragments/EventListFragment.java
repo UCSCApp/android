@@ -93,10 +93,16 @@ public class EventListFragment extends BaseSwipeListFragment {
         switch (item.getItemId()) {
             case R.id.search:
                 if (!searchShowing) {
-                    this.mBinding.search.searchBar.setVisibility(View.VISIBLE);
+                    this.showViews(this.mBinding.search.searchBar);
+
+                    this.mCallback.showKeyboard(this.mBinding.search.searchEditText);
+
                     this.searchShowing = true;
                 } else {
-                    this.mBinding.search.searchBar.setVisibility(View.GONE);
+                    this.hideViews(this.mBinding.search.searchBar);
+
+                    this.mCallback.hideKeyboard();
+                    
                     this.searchShowing = false;
                 }
                 return true;
