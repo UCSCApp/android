@@ -45,6 +45,8 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.getMapAsync(this);
+
         this.setHasOptionsMenu(true);
     }
 
@@ -56,16 +58,6 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
         super.onStart();
 
         this.mCallback.setToolbarTitle(this.title);
-    }
-
-    /**
-     * Fragment's onResume method
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        this.getMapAsync(this);
     }
 
     /**

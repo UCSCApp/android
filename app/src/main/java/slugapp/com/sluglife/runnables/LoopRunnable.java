@@ -14,10 +14,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
@@ -39,10 +37,9 @@ public class LoopRunnable implements Runnable {
 
     private Context mContext;
     private ActivityCallback mCallback;
-    private GoogleMap mGoogleMap;
-    private List<LoopObject> mLoops;
 
-    private boolean noLoops;
+    private GoogleMap googleMap;
+    private List<LoopObject> loops;
     private boolean noInternet;
     private boolean running;
 
@@ -56,10 +53,9 @@ public class LoopRunnable implements Runnable {
     public LoopRunnable(Context context, GoogleMap map, List<LoopObject> loops) {
         this.mContext = context;
         this.mCallback = (ActivityCallback) context;
-        this.mGoogleMap = map;
-        this.mLoops = loops;
+        this.googleMap = map;
+        this.loops = loops;
 
-        this.noLoops = false;
         this.noInternet = false;
         this.running = true;
     }
@@ -69,32 +65,25 @@ public class LoopRunnable implements Runnable {
      */
     @Override
     public void run() {
-        if (!running) return;
+        if (!this.running) return;
 
         new LoopHttpRequest(this.mContext).execute(new HttpCallback<List<LoopObject>>() {
 
             /**
              * On request success
              *
-             * @param vals Loop list from request
+             * @param values Loop list from request
              */
             @Override
-            public void onSuccess(List<LoopObject> vals) {
+            public void onSuccess(List<LoopObject> values) {
                 noInternet = false;
 
-                // If no loops available
-                if (vals.isEmpty() && !noLoops) {
-                    mCallback.showSnackBar(mContext.getString(R.string.snackbar_map_no_loop));
-                    noLoops = true;
-                    return;
-                }
-
                 // Removes markers on map that disappear
-                Iterator<LoopObject> iterator = mLoops.iterator();
+                Iterator<LoopObject> iterator = loops.iterator();
                 while (iterator.hasNext()) {
                     boolean found = false;
                     LoopObject loopObject = iterator.next();
-                    for (LoopObject loop : vals) {
+                    for (LoopObject loop : values) {
                         if (loop.id == loopObject.id) {
                             found = true;
                             break;
@@ -104,9 +93,9 @@ public class LoopRunnable implements Runnable {
                 }
 
                 // Adds new markers that are not currently shown
-                for (LoopObject loop : vals) {
+                for (LoopObject loop : values) {
                     boolean found = false;
-                    for (LoopObject loopObject : mLoops) {
+                    for (LoopObject loopObject : loops) {
                         if (loop.id == loopObject.id) {
                             animateMarker(loopObject.marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
@@ -116,11 +105,11 @@ public class LoopRunnable implements Runnable {
                     }
                     if (!found) {
                         if (loop.marker != null) continue;
-                        loop.marker = mGoogleMap.addMarker(new MarkerOptions()
+                        loop.marker = googleMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
                                 .position(new LatLng(loop.lat, loop.lng))
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus)));
-                        mLoops.add(loop);
+                        loops.add(loop);
                     }
                 }
             }
@@ -134,12 +123,11 @@ public class LoopRunnable implements Runnable {
             public void onError(Exception e) {
                 if (!internetIsWorking() && !noInternet) {
                     mCallback.showSnackBar(mContext.getString(R.string.snackbar_map_no_internet));
-                    noLoops = true;
                     noInternet = true;
                     return;
                 }
 
-                Iterator<LoopObject> iterator = mLoops.iterator();
+                Iterator<LoopObject> iterator = loops.iterator();
                 while (iterator.hasNext()) {
                     LoopObject loopObject = iterator.next();
                     loopObject.marker.remove();

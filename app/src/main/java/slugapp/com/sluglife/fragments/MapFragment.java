@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.databinding.ViewMapBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.enums.MarkerEnum;
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
@@ -58,13 +59,11 @@ public class MapFragment extends BaseMapFragment {
     private static final int LOOP_MASK = 0b000001;
     private static final int DINING_HALL_MASK = 0b000100;
     private static final int LIBRARY_MASK = 0b001000;
-
-    public static final int DEFAULT_MASK = 0b000000;
+    public static final int DEFAULT_MASK = 0b001001;
 
     private LoopRunnable runnable;
-    private HashMap<FacilityObject, Marker> mStaticMarkers;
-    private List<LoopObject> mDynamicMarkers;
-    //private HashMap<LoopObject, Marker> mDynamicMarkers;
+    private HashMap<FacilityObject, Marker> staticMarkers;
+    private List<LoopObject> dynamicMarkers;
 
     /**
      * Gets a new instance of fragment
@@ -98,8 +97,8 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     protected void setFields() {
-        this.mStaticMarkers = new HashMap<>();
-        this.mDynamicMarkers = new ArrayList<>();
+        this.staticMarkers = new HashMap<>();
+        this.dynamicMarkers = new ArrayList<>();
     }
 
     /**
@@ -109,8 +108,7 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     protected void setMarkers(GoogleMap googleMap) {
-        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers),
-                DEFAULT_MASK);
+        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), DEFAULT_MASK);
 
         if ((bin & LOOP_MASK) != 0) this.setLoopBusMarkers(googleMap);
         if ((bin & DINING_HALL_MASK) != 0) this.setDiningHallMarkers(googleMap);
@@ -151,12 +149,11 @@ public class MapFragment extends BaseMapFragment {
     protected void setInitialZoom(GoogleMap googleMap) {
         float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
         float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
-        float zoom = DEFAULT_ZOOM;
 
         LatLng initLatLng = new LatLng(lat, lng);
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
         if (ActivityCompat.checkSelfPermission(this.mContext,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this.mContext,
@@ -164,7 +161,7 @@ public class MapFragment extends BaseMapFragment {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, zoom));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
         } else {
             LocationManager locationManager = (LocationManager) this.getActivity()
                     .getSystemService(Context.LOCATION_SERVICE);
@@ -201,7 +198,7 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     protected void clearMapData() {
-        for (LoopObject loop : this.mDynamicMarkers) {
+        for (LoopObject loop : this.dynamicMarkers) {
             if (loop.marker != null) {
                 loop.marker.remove();
                 loop.marker = null;
@@ -217,11 +214,11 @@ public class MapFragment extends BaseMapFragment {
      * @param googleMap Google map
      */
     private void setLoopBusMarkers(final GoogleMap googleMap) {
-        this.mDynamicMarkers = new ArrayList<>();
+        this.dynamicMarkers = new ArrayList<>();
 
         final Handler handler = new Handler();
         this.runnable = new LoopRunnable(this.mContext, googleMap,
-                this.mDynamicMarkers);
+                this.dynamicMarkers);
 
         this.mCallback.initTimer();
         this.mCallback.scheduleTimer(handler, runnable, MAP_DELAY, MAP_PERIOD);
@@ -253,7 +250,7 @@ public class MapFragment extends BaseMapFragment {
                                  */
                                 @Override
                                 public void onSuccess(DiningHallObject val) {
-                                    mStaticMarkers.put(val, googleMap.addMarker(new MarkerOptions()
+                                    staticMarkers.put(val, googleMap.addMarker(new MarkerOptions()
                                             .title(val.name + mContext.getString(
                                                     R.string.detail_map_dining_ending))
                                             .snippet(mContext.getString(R.string.map_dining_snippet))
@@ -303,7 +300,7 @@ public class MapFragment extends BaseMapFragment {
             if (currEnum.type != MarkerTypeEnum.LIBRARY) continue;
             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.icon);
 
-            this.mStaticMarkers.put(new FacilityObject(MarkerTypeEnum.LIBRARY),
+            this.staticMarkers.put(new FacilityObject(MarkerTypeEnum.LIBRARY),
                     googleMap.addMarker(new MarkerOptions()
                             .title(title)
                             .snippet(snippet)
@@ -318,7 +315,7 @@ public class MapFragment extends BaseMapFragment {
      * @param marker Google map marker
      */
     private void onClickStaticInfoWindow(Marker marker) {
-        Set<Map.Entry<FacilityObject, Marker>> set = mStaticMarkers.entrySet();
+        Set<Map.Entry<FacilityObject, Marker>> set = staticMarkers.entrySet();
         for (Map.Entry entry : set) {
             FacilityObject facility = (FacilityObject) entry.getKey();
 

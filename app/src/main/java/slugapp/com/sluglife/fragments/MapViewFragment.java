@@ -1,8 +1,10 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewMapBinding;
@@ -24,10 +27,13 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 public class MapViewFragment extends BaseViewFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
+    private static final int LOOP_MASK = 0b000001;
+
     private ViewMapBinding mBinding;
     private String mQuery;
 
     private boolean searchShowing;
+    private boolean resultsShowing;
 
     /**
      * Gets a new instance of fragment
@@ -91,17 +97,29 @@ public class MapViewFragment extends BaseViewFragment {
             }
             case R.id.search: {
                 if (!this.searchShowing) {
-                    this.mBinding.search.searchBar.setVisibility(View.VISIBLE);
-                    this.searchShowing = true;
-                } else {
-                    this.mBinding.search.searchBar.setVisibility(View.GONE);
-                    this.mBinding.search.searchEditText.setText("");
-                    this.searchShowing = false;
+                    this.showViews(this.mBinding.search.searchBar);
 
-                    if (!this.mQuery.isEmpty()) {
+                    this.mCallback.showKeyboard(this.mBinding.search.searchEditText);
+                } else {
+                    this.mCallback.hideKeyboard();
+
+                    this.hideViews(this.mBinding.search.searchBar);
+
+                    this.mBinding.search.searchEditText.setText("");
+
+                    if (this.resultsShowing) {
+                        this.resultsShowing = false;
+
                         this.setChildFragment(R.id.map_view, MapFragment.newInstance());
+
+                        int bin = getSharedPrefInt(mContext.getString(R.string.bundle_markers));
+                        if ((bin & LOOP_MASK) != DEFAULT) {
+                            showViews(mBinding.numberOfLoopsMsg, mBinding.numberOfLoops);
+                        }
                     }
                 }
+                this.searchShowing = !this.searchShowing;
+
                 return true;
             }
             default:
@@ -123,6 +141,12 @@ public class MapViewFragment extends BaseViewFragment {
 
             this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
             this.setChildFragment(R.id.map_view, MapFragment.newInstance());
+
+            if ((bin & LOOP_MASK) == DEFAULT) {
+                this.hideViews(this.mBinding.numberOfLoopsMsg, this.mBinding.numberOfLoops);
+            } else {
+                this.showViews(this.mBinding.numberOfLoopsMsg, this.mBinding.numberOfLoops);
+            }
         }
     }
 
@@ -141,6 +165,7 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     protected void setFields() {
         this.searchShowing = false;
+        this.resultsShowing = false;
     }
 
     /**
@@ -149,6 +174,11 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     protected void setView() {
         this.setChildFragment(R.id.map_view, MapFragment.newInstance());
+
+        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers));
+        if ((bin & LOOP_MASK) == DEFAULT) {
+            this.hideViews(this.mBinding.numberOfLoopsMsg, this.mBinding.numberOfLoops);
+        }
 
         this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
 
@@ -186,10 +216,12 @@ public class MapViewFragment extends BaseViewFragment {
                 mQuery = s.toString();
 
                 if (!mQuery.isEmpty()) {
+                    resultsShowing = true;
+
+                    hideViews(mBinding.numberOfLoopsMsg, mBinding.numberOfLoops);
+
                     setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
                             mQuery));
-                } else {
-                    setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
             }
         });

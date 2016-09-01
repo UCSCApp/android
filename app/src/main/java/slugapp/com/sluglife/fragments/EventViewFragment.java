@@ -113,7 +113,7 @@ public class EventViewFragment extends BaseViewFragment {
             String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.getDateString();
             this.mBinding.title.setText(this.mEvent.name);
             this.mBinding.day.setText(dayString);
-            this.mBinding.time.setVisibility(View.GONE);
+            this.hideViews(this.mBinding.time);
         }
 
         this.mBinding.summary.setText(this.mEvent.summary);

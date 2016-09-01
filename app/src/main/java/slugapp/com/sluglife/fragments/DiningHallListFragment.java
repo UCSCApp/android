@@ -110,8 +110,8 @@ public class DiningHallListFragment extends BaseListFragment {
              */
             @Override
             public void onError(Exception e) {
-                mBinding.list.setVisibility(View.GONE);
-                mBinding.failed.setVisibility(View.VISIBLE);
+                hideViews(mBinding.list);
+                showViews(mBinding.failed);
             }
         });
     }

@@ -2,6 +2,7 @@ package slugapp.com.sluglife.interfaces;
 
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import slugapp.com.sluglife.runnables.LoopRunnable;
 
@@ -24,6 +25,13 @@ public interface ActivityCallback {
      * Hides soft keyboard
      */
     void hideKeyboard();
+
+    /**
+     * Shows soft keyboard to focus on view
+     *
+     * @param view View for keyboard to focus
+     */
+    void showKeyboard(View view);
 
     /**
      * Displays snackbar with text

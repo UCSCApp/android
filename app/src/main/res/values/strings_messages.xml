@@ -14,8 +14,6 @@
 
     <!-- Snackbar actions -->
     <string name="snackbar_dismiss">Dismiss</string>
-    <string name="snackbar_event_no_internet">Check internet connection.</string>
-    <string name="snackbar_dining_no_internet">Check internet connection.</string>
     <string name="snackbar_map_no_internet">Check internet connection.</string>
     <string name="snackbar_map_no_loop">No loops available at the moment.</string>
 
@@ -39,4 +37,5 @@
     <string name="detail_event_start">Starts:\u0020</string>
     <string name="detail_event_end">Ends:\u0020</string>
     <string name="detail_map_dining_ending">\u0020Dining Hall</string>
+    <string name="detail_map_number_of_loops">Number of loop buses:</string>
 </resources>

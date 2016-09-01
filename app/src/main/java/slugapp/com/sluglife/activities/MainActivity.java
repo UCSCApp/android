@@ -176,6 +176,19 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
+     * Shows soft keyboard to focus on view
+     *
+     * @param view View for keyboard to focus
+     */
+    @Override
+    public void showKeyboard(View view) {
+        view.requestFocus();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    /**
      * Displays snackbar with text
      *
      * @param text Text to display

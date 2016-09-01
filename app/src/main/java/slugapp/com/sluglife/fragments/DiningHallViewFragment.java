@@ -105,8 +105,8 @@ public class DiningHallViewFragment extends BaseViewFragment {
     @Override
     protected void setView() {
         if (this.mFoodMenu.isEmpty()) {
-            this.mBinding.meal.setVisibility(View.GONE);
-            this.mBinding.failed.setVisibility(View.VISIBLE);
+            this.hideViews(this.mBinding.meal);
+            this.showViews(this.mBinding.failed);
             return;
         }
 
@@ -136,7 +136,7 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 icon.setLayoutParams(iconParams);
                 icon.setImageResource(attribute.icon);
 
-                // TODO: only show individual attribute
+                // TODO: only show individual attribute (or meal)
 
                 icon.setOnClickListener(new View.OnClickListener() {
                     @Override

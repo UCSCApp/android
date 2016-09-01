@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
@@ -160,6 +161,28 @@ public abstract class BaseFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
         editor.apply();
+    }
+
+    /**
+     * Hides multiple views
+     *
+     * @param views Views to hide
+     */
+    protected void hideViews(View... views) {
+        for (View view : views) {
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Show multiple views
+     *
+     * @param views Views to show
+     */
+    protected void showViews(View... views) {
+        for (View view : views) {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
