@@ -113,9 +113,6 @@ public class MapViewFragment extends BaseViewFragment {
                         this.setChildFragment(R.id.map_view, MapFragment.newInstance());
 
                         int bin = getSharedPrefInt(mContext.getString(R.string.bundle_markers));
-                        if ((bin & LOOP_MASK) != DEFAULT) {
-                            showViews(mBinding.numberOfLoopsMsg, mBinding.numberOfLoops);
-                        }
                     }
                 }
                 this.searchShowing = !this.searchShowing;
@@ -141,12 +138,6 @@ public class MapViewFragment extends BaseViewFragment {
 
             this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
             this.setChildFragment(R.id.map_view, MapFragment.newInstance());
-
-            if ((bin & LOOP_MASK) == DEFAULT) {
-                this.hideViews(this.mBinding.numberOfLoopsMsg, this.mBinding.numberOfLoops);
-            } else {
-                this.showViews(this.mBinding.numberOfLoopsMsg, this.mBinding.numberOfLoops);
-            }
         }
     }
 
@@ -174,11 +165,6 @@ public class MapViewFragment extends BaseViewFragment {
     @Override
     protected void setView() {
         this.setChildFragment(R.id.map_view, MapFragment.newInstance());
-
-        int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers));
-        if ((bin & LOOP_MASK) == DEFAULT) {
-            this.hideViews(this.mBinding.numberOfLoopsMsg, this.mBinding.numberOfLoops);
-        }
 
         this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
 
@@ -218,10 +204,10 @@ public class MapViewFragment extends BaseViewFragment {
                 if (!mQuery.isEmpty()) {
                     resultsShowing = true;
 
-                    hideViews(mBinding.numberOfLoopsMsg, mBinding.numberOfLoops);
-
                     setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
                             mQuery));
+                } else {
+                    setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
             }
         });

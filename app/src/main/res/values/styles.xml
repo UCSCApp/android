@@ -6,8 +6,8 @@
     </style>
 
     <style name="SearchBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorAccent">@color/ucsc_yellow</item>
-        <item name="colorControlNormal">@color/ucsc_yellow</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="TabTheme" parent="TextAppearance.Design.Tab">

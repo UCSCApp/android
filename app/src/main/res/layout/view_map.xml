@@ -1,43 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/search"
+            layout="@layout/include_search_bar" />
 
         <FrameLayout
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include
-                android:id="@+id/search"
-                layout="@layout/include_search_bar" />
-
-            <TextView
-                android:id="@+id/number_of_loops_msg"
-                android:text="@string/detail_map_number_of_loops"
-                android:textColor="@color/ucsc_blue"
-                android:layout_margin="3dip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/search"/>
-
-            <TextView
-                android:id="@+id/number_of_loops"
-                android:text="0"
-                android:textColor="@color/ucsc_blue"
-                android:layout_margin="3dip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/search"
-                android:layout_toRightOf="@id/number_of_loops_msg"
-                android:layout_toEndOf="@id/number_of_loops_msg"/>
-
-        </RelativeLayout>
-    </FrameLayout>
+    </LinearLayout>
 </layout>
