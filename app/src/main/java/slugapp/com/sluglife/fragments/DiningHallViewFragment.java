@@ -128,14 +128,6 @@ public class DiningHallViewFragment extends BaseViewFragment {
             name.setTextColor(Color.BLACK);
             name.setTextSize(TEXT_SIZE);
 
-            name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setDialogFragment(DiningFoodDialogFragment.newInstance(mContext,
-                            food));
-                }
-            });
-
             // Food attributes
             attributes.setOrientation(LinearLayout.HORIZONTAL);
             for (AttributeEnum attribute : food.attributes) {
@@ -144,18 +136,16 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 icon.setLayoutParams(iconParams);
                 icon.setImageResource(attribute.icon);
 
-                // TODO: only show individual attribute (or meal)
-
-                icon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setDialogFragment(DiningFoodDialogFragment.newInstance(mContext,
-                                food));
-                    }
-                });
-
                 attributes.addView(icon);
             }
+
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setDialogFragment(DiningFoodDialogFragment.newInstance(mContext,
+                            food));
+                }
+            });
 
             // Set params
             row.addView(name, TABLE_COLUMN_FOOD, rowParams);

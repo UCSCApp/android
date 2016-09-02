@@ -55,6 +55,11 @@ public class DiningFoodDialogFragment extends BaseDialogFragment {
         return fragment;
     }
 
+    /**
+     * Fragment's onCreate method
+     *
+     * @param savedInstanceState Saved instance state
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -87,40 +92,38 @@ public class DiningFoodDialogFragment extends BaseDialogFragment {
     private void setView() {
         this.mBinding.foodName.setText(food.name);
 
+        if (food.attributes.isEmpty()) this.mBinding.list.setVisibility(View.GONE);
+
         for (AttributeEnum attribute : food.attributes) {
-            // legend params
-            LinearLayout.LayoutParams llParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
                     LINEAR_LAYOUT_PARAMS,
                     LINEAR_LAYOUT_PARAMS);
-            LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
-            iconParams.setMargins(ICON_LEFT, ICON_TOP, ICON_RIGHT, ICON_BOTTOM);
-            tvParams.setMargins(TEXTVIEW_LEFT, TEXTVIEW_TOP, TEXTVIEW_RIGHT, TEXTVIEW_BOTTOM);
+            imageViewParams.setMargins(ICON_LEFT, ICON_TOP, ICON_RIGHT, ICON_BOTTOM);
+            textViewParams.setMargins(TEXTVIEW_LEFT, TEXTVIEW_TOP, TEXTVIEW_RIGHT, TEXTVIEW_BOTTOM);
 
-            // linear layout
-            LinearLayout ll = new LinearLayout(this.mContext);
-            ll.setLayoutParams(llParams);
-            ll.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout linearLayout = new LinearLayout(this.mContext);
+            linearLayout.setLayoutParams(linearLayoutParams);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            // icon
             ImageView icon = new ImageView(this.mContext);
-            icon.setLayoutParams(iconParams);
+            icon.setLayoutParams(imageViewParams);
             icon.setImageResource(attribute.icon);
-            ll.addView(icon);
+            linearLayout.addView(icon);
 
-            // text view
-            TextView tv = new TextView(this.mContext);
-            tv.setText(attribute.name);
-            tv.setTextColor(ContextCompat.getColor(this.mContext, R.color.ucsc_blue));
-            tv.setTextSize(TEXT_SIZE);
-            tv.setLayoutParams(tvParams);
-            ll.addView(tv);
+            TextView textView = new TextView(this.mContext);
+            textView.setText(attribute.name);
+            textView.setTextColor(ContextCompat.getColor(this.mContext, R.color.ucsc_blue));
+            textView.setTextSize(TEXT_SIZE);
+            textView.setLayoutParams(textViewParams);
+            linearLayout.addView(textView);
 
-            this.mBinding.list.addView(ll);
+            this.mBinding.list.addView(linearLayout);
         }
     }
 }
