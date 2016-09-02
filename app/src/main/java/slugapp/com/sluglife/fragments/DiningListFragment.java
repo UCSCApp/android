@@ -28,7 +28,7 @@ import slugapp.com.sluglife.models.StringObject;
  * <p/>
  * This file contains a list fragment that displays a list of dining halls.
  */
-public class DiningHallListFragment extends BaseListFragment {
+public class DiningListFragment extends BaseListFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.DINING;
 
     private ListDiningBinding mBinding;
@@ -39,8 +39,8 @@ public class DiningHallListFragment extends BaseListFragment {
      *
      * @return New instance of fragment
      */
-    public static DiningHallListFragment newInstance() {
-        return new DiningHallListFragment();
+    public static DiningListFragment newInstance() {
+        return new DiningListFragment();
     }
 
     /**
@@ -141,6 +141,6 @@ public class DiningHallListFragment extends BaseListFragment {
         TextView tv = (TextView) view.findViewById(R.id.name);
         String name = tv.getText().toString();
 
-        this.mCallback.setFragment(DiningHallViewPagerFragment.newInstance(this.mContext, name));
+        this.mCallback.setFragment(DiningViewPagerFragment.newInstance(this.mContext, name));
     }
 }

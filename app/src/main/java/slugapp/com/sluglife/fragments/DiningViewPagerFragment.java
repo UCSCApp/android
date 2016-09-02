@@ -28,7 +28,7 @@ import slugapp.com.sluglife.models.DiningHallObject;
  * <p/>
  * This file contains a viewpager fragment that displays dining hall food information.
  */
-public class DiningHallViewPagerFragment extends BaseViewFragment {
+public class DiningViewPagerFragment extends BaseViewFragment {
     private ViewpagerDiningBinding mBinding;
     private String mName;
     private DiningHallObject mDiningHall;
@@ -40,8 +40,8 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
      * @param name    Fragment name
      * @return New instance of fragment
      */
-    public static DiningHallViewPagerFragment newInstance(Context context, String name) {
-        DiningHallViewPagerFragment fragment = new DiningHallViewPagerFragment();
+    public static DiningViewPagerFragment newInstance(Context context, String name) {
+        DiningViewPagerFragment fragment = new DiningViewPagerFragment();
 
         Bundle b = new Bundle();
         b.putString(context.getString(R.string.bundle_name), name);
@@ -207,7 +207,7 @@ public class DiningHallViewPagerFragment extends BaseViewFragment {
          */
         @Override
         public Fragment getItem(int position) {
-            return DiningHallViewFragment.newInstance(mContext, mName,
+            return DiningViewFragment.newInstance(mContext, mName,
                     position == 2 ? mDiningHall.dinner : position == 1 ? mDiningHall.lunch :
                             mDiningHall.breakfast);
         }

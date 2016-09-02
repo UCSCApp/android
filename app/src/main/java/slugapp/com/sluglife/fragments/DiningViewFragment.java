@@ -24,7 +24,7 @@ import slugapp.com.sluglife.models.FoodMenuObject;
  * This file contains a view fragment that displays dining hall food information for the given
  * time of day.
  */
-public class DiningHallViewFragment extends BaseViewFragment {
+public class DiningViewFragment extends BaseViewFragment {
     private static final int LINEAR_LAYOUT_PARAMS = 75;
 
     private static final int TABLE_ROW_INIT_WIDTH = 0;
@@ -51,8 +51,8 @@ public class DiningHallViewFragment extends BaseViewFragment {
      * @param menu    Food menu
      * @return New instance of fragment
      */
-    public static DiningHallViewFragment newInstance(Context context, String name, FoodMenuObject menu) {
-        DiningHallViewFragment fragment = new DiningHallViewFragment();
+    public static DiningViewFragment newInstance(Context context, String name, FoodMenuObject menu) {
+        DiningViewFragment fragment = new DiningViewFragment();
 
         Bundle b = new Bundle();
         b.putString(context.getString(R.string.bundle_name), name);

@@ -22,10 +22,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
@@ -328,7 +325,7 @@ public class MapFragment extends BaseMapFragment {
         for (FacilityObject facility : staticMarkers) {
             if (!(facility.marker).getTitle().equals(marker.getTitle())) continue;
             if (facility.isType(MarkerTypeEnum.DININGHALL)) {
-                this.mCallback.setFragment(DiningHallViewPagerFragment.newInstance(this.mContext,
+                this.mCallback.setFragment(DiningViewPagerFragment.newInstance(this.mContext,
                         marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), EMPTY_STRING)));
             } else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
                 this.mCallback.setFragment(MapFacilityViewFragment.newInstance(this.mContext,
