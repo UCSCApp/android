@@ -1,9 +1,15 @@
 package slugapp.com.sluglife.fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,7 +20,7 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
 
 /**
  * Created by isaiah on 6/26/16
- * <p>
+ * <p/>
  * This file contains a base google map fragment class.
  */
 public abstract class BaseMapFragment extends SupportMapFragment implements OnMapReadyCallback {
@@ -114,13 +120,54 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
     }
 
     /**
+     * Checks if location permissions were accepted
+     *
+     * @return Boolean if location permissions were accepted
+     */
+    protected boolean isLocationPermitted() {
+        return ActivityCompat.checkSelfPermission(this.mContext,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this.mContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Requests location permissions
+     *
+     * @return Boolean if location permissions were accepted
+     */
+    protected void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(this.getActivity(), new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        }, 0);
+    }
+
+    /**
      * Checks if gps is enabled
      *
-     * @param locationManager Gps location manager
      * @return If gps is enabled
      */
-    protected boolean isGPSEnabled(LocationManager locationManager) {
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    protected boolean isGPSEnabled() {
+        int locationMode;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(this.mContext.getContentResolver(),
+                        Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        } else {
+            locationProviders = Settings.Secure.getString(this.mContext.getContentResolver(),
+                    Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
     }
 
     /**

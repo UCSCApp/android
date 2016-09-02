@@ -1,6 +1,7 @@
 package slugapp.com.sluglife.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -152,6 +153,7 @@ public class MapFragment extends BaseMapFragment {
      * @param googleMap Google map
      */
     @Override
+    @SuppressWarnings({"MissingPermission"})
     protected void setInitialZoom(GoogleMap googleMap) {
         float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
         float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
@@ -160,25 +162,17 @@ public class MapFragment extends BaseMapFragment {
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-        if (ActivityCompat.checkSelfPermission(this.mContext,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this.mContext,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this.getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+
+        if (!this.isGPSEnabled()) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-        } else {
-            LocationManager locationManager = (LocationManager) this.getActivity()
-                    .getSystemService(Context.LOCATION_SERVICE);
-
-            if (!this.isGPSEnabled(locationManager)) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-                return;
-            }
-
+        } else if (isLocationPermitted()) {
             googleMap.setMyLocationEnabled(true);
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
+            /*
             float[] distance = new float[3];
+            LocationManager locationManager = (LocationManager) this.getActivity()
+                .getSystemService(Context.LOCATION_SERVICE);
 
             Location location = locationManager.getLastKnownLocation(locationManager
                     .getBestProvider(new Criteria(), false));
@@ -196,6 +190,11 @@ public class MapFragment extends BaseMapFragment {
             } else {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
             }
+            */
+        } else {
+            requestLocationPermissions();
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
         }
     }
 
