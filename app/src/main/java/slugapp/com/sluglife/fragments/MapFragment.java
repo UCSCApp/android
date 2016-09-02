@@ -213,11 +213,11 @@ public class MapFragment extends BaseMapFragment {
             /**
              * On request success
              *
-             * @param vals List of values from request
+             * @param values List of values from request
              */
             @Override
-            public void onSuccess(List<String> vals) {
-                for (String diningHallName : vals) {
+            public void onSuccess(List<String> values) {
+                for (String diningHallName : values) {
                     new DiningHallHttpRequest(mContext, diningHallName).execute(
                             new HttpCallback<DiningHallObject>() {
 
