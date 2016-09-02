@@ -27,8 +27,6 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 public class MapViewFragment extends BaseViewFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
-    private static final int LOOP_MASK = 0b000001;
-
     private ViewMapBinding mBinding;
     private String mQuery;
 
@@ -86,8 +84,8 @@ public class MapViewFragment extends BaseViewFragment {
             case R.id.filter: {
                 this.mCallback.hideKeyboard();
 
-                if (searchShowing) {
-                    this.mBinding.search.searchBar.setVisibility(View.GONE);
+                if (this.searchShowing) {
+                    this.hideViews(this.mBinding.search.searchBar);
                     this.searchShowing = false;
                     this.mBinding.search.searchEditText.setText("");
                 }
@@ -105,16 +103,14 @@ public class MapViewFragment extends BaseViewFragment {
                 } else {
                     this.mCallback.hideKeyboard();
 
-                    this.hideViews(this.mBinding.search.searchBar);
+                    this.mBinding.search.searchEditText.setText(EMPTY_STRING);
 
-                    this.mBinding.search.searchEditText.setText("");
+                    this.hideViews(this.mBinding.search.searchBar);
 
                     if (this.resultsShowing) {
                         this.resultsShowing = false;
 
                         this.setChildFragment(R.id.map_view, MapFragment.newInstance());
-
-                        int bin = getSharedPrefInt(mContext.getString(R.string.bundle_markers));
                     }
                 }
                 this.searchShowing = !this.searchShowing;
@@ -208,7 +204,9 @@ public class MapViewFragment extends BaseViewFragment {
 
                     setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
                             mQuery));
-                } else {
+                } else if (resultsShowing) {
+                    resultsShowing = false;
+
                     setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
             }

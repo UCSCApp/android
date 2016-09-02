@@ -19,6 +19,7 @@ import slugapp.com.sluglife.interfaces.ActivityCallback;
  */
 public abstract class BaseFragment extends Fragment {
     protected static final int DEFAULT = 0;
+    protected static final String EMPTY_STRING = "";
 
     protected ActivityCallback mCallback;
     protected Context mContext;

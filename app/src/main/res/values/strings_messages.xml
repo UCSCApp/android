@@ -26,6 +26,7 @@
     <!-- Titles -->
     <string name="title_map_dialog_filter">Select what to show on the map:</string>
     <string name="title_dining_dialog_legend">Legend</string>
+    <string name="title_dining_dialog_food_name">Food</string>
     <string name="title_dining_viewpager_breakfast">Breakfast</string>
     <string name="title_dining_viewpager_lunch">Lunch</string>
     <string name="title_dining_viewpager_dinner">Dinner</string>

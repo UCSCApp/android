@@ -140,6 +140,13 @@ public class LoopRunnable implements Runnable {
     }
 
     /**
+     * Starts runnable
+     */
+    public void start() {
+        this.running = true;
+    }
+
+    /**
      * Stops runnable
      */
     public void stop() {

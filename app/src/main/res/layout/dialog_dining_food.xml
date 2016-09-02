@@ -7,15 +7,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/food_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="1dip"
             android:padding="8dip"
-            android:gravity="center_horizontal"
             android:background="@color/ucsc_blue"
-            android:text="@string/title_dining_dialog_legend"
+            android:text="@string/title_dining_dialog_food_name"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:id="@+id/list"
@@ -23,9 +23,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingLeft="3dip"
-            android:paddingStart="3dip"
-            android:paddingRight="6dip"
-            android:paddingEnd="6dip"
+            android:paddingRight="3dip"
             android:paddingBottom="8dip" />
     </LinearLayout>
 </layout>

@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.databinding.ViewMapBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.enums.MarkerEnum;
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
@@ -49,6 +48,7 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
 public class MapFragment extends BaseMapFragment {
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
     private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
+    private static final String EMPTY_STRING = "";
 
     private static final long MAP_DELAY = 0;
     private static final int MAP_PERIOD = 2000;
@@ -61,8 +61,8 @@ public class MapFragment extends BaseMapFragment {
     private static final int LIBRARY_MASK = 0b001000;
     public static final int DEFAULT_MASK = 0b001001;
 
-    private LoopRunnable runnable;
-    private HashMap<FacilityObject, Marker> staticMarkers;
+    private LoopRunnable loopRunnable;
+    private List<FacilityObject> staticMarkers;
     private List<LoopObject> dynamicMarkers;
 
     /**
@@ -93,11 +93,20 @@ public class MapFragment extends BaseMapFragment {
     }
 
     /**
+     * Fragment's onResume method
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (this.loopRunnable != null) this.loopRunnable.start();
+    }
+
+    /**
      * Sets fields
      */
     @Override
     protected void setFields() {
-        this.staticMarkers = new HashMap<>();
+        this.staticMarkers = new ArrayList<>();
         this.dynamicMarkers = new ArrayList<>();
     }
 
@@ -205,7 +214,7 @@ public class MapFragment extends BaseMapFragment {
             }
         }
         this.mCallback.cancelTimer();
-        if (this.runnable != null) this.runnable.stop();
+        if (this.loopRunnable != null) this.loopRunnable.stop();
     }
 
     /**
@@ -217,11 +226,11 @@ public class MapFragment extends BaseMapFragment {
         this.dynamicMarkers = new ArrayList<>();
 
         final Handler handler = new Handler();
-        this.runnable = new LoopRunnable(this.mContext, googleMap,
+        this.loopRunnable = new LoopRunnable(this.mContext, googleMap,
                 this.dynamicMarkers);
 
         this.mCallback.initTimer();
-        this.mCallback.scheduleTimer(handler, runnable, MAP_DELAY, MAP_PERIOD);
+        this.mCallback.scheduleTimer(handler, loopRunnable, MAP_DELAY, MAP_PERIOD);
     }
 
     /**
@@ -250,13 +259,14 @@ public class MapFragment extends BaseMapFragment {
                                  */
                                 @Override
                                 public void onSuccess(DiningHallObject val) {
-                                    staticMarkers.put(val, googleMap.addMarker(new MarkerOptions()
+                                    val.marker = googleMap.addMarker(new MarkerOptions()
                                             .title(val.name + mContext.getString(
                                                     R.string.detail_map_dining_ending))
                                             .snippet(mContext.getString(R.string.map_dining_snippet))
                                             .position(val.latLng)
                                             .icon(BitmapDescriptorFactory.fromResource(
-                                                    DiningHallObject.diningImage))));
+                                                    DiningHallObject.diningImage)));
+                                    staticMarkers.add(val);
                                 }
 
                                 /**
@@ -300,12 +310,12 @@ public class MapFragment extends BaseMapFragment {
             if (currEnum.type != MarkerTypeEnum.LIBRARY) continue;
             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.icon);
 
-            this.staticMarkers.put(new FacilityObject(MarkerTypeEnum.LIBRARY),
+            this.staticMarkers.add(new FacilityObject(MarkerTypeEnum.LIBRARY,
                     googleMap.addMarker(new MarkerOptions()
                             .title(title)
                             .snippet(snippet)
                             .position(latLng)
-                            .icon(bitmap)));
+                            .icon(bitmap))));
         }
     }
 
@@ -315,14 +325,11 @@ public class MapFragment extends BaseMapFragment {
      * @param marker Google map marker
      */
     private void onClickStaticInfoWindow(Marker marker) {
-        Set<Map.Entry<FacilityObject, Marker>> set = staticMarkers.entrySet();
-        for (Map.Entry entry : set) {
-            FacilityObject facility = (FacilityObject) entry.getKey();
-
-            if (!((Marker) entry.getValue()).getTitle().equals(marker.getTitle())) continue;
+        for (FacilityObject facility : staticMarkers) {
+            if (!(facility.marker).getTitle().equals(marker.getTitle())) continue;
             if (facility.isType(MarkerTypeEnum.DININGHALL)) {
                 this.mCallback.setFragment(DiningHallViewPagerFragment.newInstance(this.mContext,
-                        marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), "")));
+                        marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), EMPTY_STRING)));
             } else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
                 this.mCallback.setFragment(MapFacilityViewFragment.newInstance(this.mContext,
                         marker.getTitle()));

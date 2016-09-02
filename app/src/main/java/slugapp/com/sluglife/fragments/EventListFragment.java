@@ -96,15 +96,15 @@ public class EventListFragment extends BaseSwipeListFragment {
                     this.showViews(this.mBinding.search.searchBar);
 
                     this.mCallback.showKeyboard(this.mBinding.search.searchEditText);
-
-                    this.searchShowing = true;
                 } else {
-                    this.hideViews(this.mBinding.search.searchBar);
-
                     this.mCallback.hideKeyboard();
-                    
-                    this.searchShowing = false;
+
+                    this.mBinding.search.searchEditText.setText(EMPTY_STRING);
+
+                    this.hideViews(this.mBinding.search.searchBar);
                 }
+                this.searchShowing = !this.searchShowing;
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

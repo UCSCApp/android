@@ -1,5 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -11,15 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.databinding.DialogDiningLegendBinding;
+import slugapp.com.sluglife.databinding.DialogDiningFoodBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
+import slugapp.com.sluglife.models.FoodObject;
 
 /**
  * Created by isaiah on 9/23/2015
  * <p/>
  * This file contains a dialog fragment that displays a legend of dining hall attributes.
  */
-public class DiningLegendDialogFragment extends BaseDialogFragment {
+public class DiningFoodDialogFragment extends BaseDialogFragment {
     private static final int LINEAR_LAYOUT_PARAMS = 75;
 
     private static final int ICON_LEFT = 12;
@@ -34,15 +36,30 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
 
     private static final float TEXT_SIZE = 14.0f;
 
-    private DialogDiningLegendBinding mBinding;
+    private DialogDiningFoodBinding mBinding;
+
+    private FoodObject food;
 
     /**
      * Gets a new instance of fragment
      *
      * @return New instance of fragment
      */
-    public static DiningLegendDialogFragment newInstance() {
-        return new DiningLegendDialogFragment();
+    public static DiningFoodDialogFragment newInstance(Context context, FoodObject food) {
+        DiningFoodDialogFragment fragment = new DiningFoodDialogFragment();
+
+        Bundle b = new Bundle();
+        b.putSerializable(context.getString(R.string.bundle_json), food);
+        fragment.setArguments(b);
+
+        return fragment;
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle b = this.getArguments();
+        this.food = (FoodObject) b.getSerializable(this.mContext.getString(R.string.bundle_json));
     }
 
     /**
@@ -57,7 +74,7 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.mBinding = DataBindingUtil.inflate(this.getActivity().getLayoutInflater(),
-                R.layout.dialog_dining_legend, container, false);
+                R.layout.dialog_dining_food, container, false);
 
         this.setView();
 
@@ -68,7 +85,9 @@ public class DiningLegendDialogFragment extends BaseDialogFragment {
      * Sets fragment view
      */
     private void setView() {
-        for (AttributeEnum attribute : AttributeEnum.values()) {
+        this.mBinding.foodName.setText(food.name);
+
+        for (AttributeEnum attribute : food.attributes) {
             // legend params
             LinearLayout.LayoutParams llParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,

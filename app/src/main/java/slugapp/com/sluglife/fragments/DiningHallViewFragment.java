@@ -111,24 +111,32 @@ public class DiningHallViewFragment extends BaseViewFragment {
         }
 
         // for each food item
-        for (FoodObject food : this.mFoodMenu.getItems()) {
+        for (final FoodObject food : this.mFoodMenu.getItems()) {
             TableRow row = new TableRow(this.mContext);
             TextView name = new TextView(this.mContext);
             LinearLayout attributes = new LinearLayout(this.mContext);
 
-            // params
+            // Params
             LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(
                     LINEAR_LAYOUT_PARAMS, LINEAR_LAYOUT_PARAMS);
             TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TABLE_ROW_INIT_WIDTH,
                     TableRow.LayoutParams.WRAP_CONTENT, TABLE_ROW_INIT_WEIGHT);
             rowParams.setMargins(TABLE_ROW_LEFT, TABLE_ROW_TOP, TABLE_ROW_RIGHT, TABLE_ROW_BOTTOM);
 
-            // food name
+            // Food name
             name.setText(food.name);
             name.setTextColor(Color.BLACK);
             name.setTextSize(TEXT_SIZE);
 
-            // food attributes
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setDialogFragment(DiningFoodDialogFragment.newInstance(mContext,
+                            food));
+                }
+            });
+
+            // Food attributes
             attributes.setOrientation(LinearLayout.HORIZONTAL);
             for (AttributeEnum attribute : food.attributes) {
                 ImageView icon = new ImageView(this.mContext);
@@ -141,14 +149,15 @@ public class DiningHallViewFragment extends BaseViewFragment {
                 icon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setDialogFragment(DiningLegendDialogFragment.newInstance());
+                        setDialogFragment(DiningFoodDialogFragment.newInstance(mContext,
+                                food));
                     }
                 });
 
                 attributes.addView(icon);
             }
 
-            // set params
+            // Set params
             row.addView(name, TABLE_COLUMN_FOOD, rowParams);
             row.addView(attributes, TABLE_COLUMN_ATTRIBUTES, rowParams);
             this.mBinding.meal.addView(row);

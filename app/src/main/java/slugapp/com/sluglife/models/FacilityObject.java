@@ -12,8 +12,8 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
  * This file contains a facility object.
  */
 public class FacilityObject extends BaseObject {
-    private MarkerTypeEnum mType;
-    private Marker marker;
+    public MarkerTypeEnum type;
+    public Marker marker;
 
     /**
      * Constructor
@@ -21,7 +21,17 @@ public class FacilityObject extends BaseObject {
      * @param type Facility type
      */
     public FacilityObject(MarkerTypeEnum type) {
-        this.mType = type;
+        this.type = type;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param type Facility type
+     */
+    public FacilityObject(MarkerTypeEnum type, Marker marker) {
+        this.type = type;
+        this.marker = marker;
     }
 
     /**
@@ -31,6 +41,6 @@ public class FacilityObject extends BaseObject {
      * @return Boolean if facility is of facility type
      */
     public boolean isType(MarkerTypeEnum type) {
-        return this.mType == type;
+        return this.type == type;
     }
 }
