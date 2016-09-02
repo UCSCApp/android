@@ -161,40 +161,13 @@ public class MapFragment extends BaseMapFragment {
         LatLng initLatLng = new LatLng(lat, lng);
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
+
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
 
-        if (!this.isGPSEnabled()) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-        } else if (isLocationPermitted()) {
+        if (isLocationPermitted()) {
             googleMap.setMyLocationEnabled(true);
-
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-            /*
-            float[] distance = new float[3];
-            LocationManager locationManager = (LocationManager) this.getActivity()
-                .getSystemService(Context.LOCATION_SERVICE);
-
-            Location location = locationManager.getLastKnownLocation(locationManager
-                    .getBestProvider(new Criteria(), false));
-
-            if (location == null) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-                return;
-            }
-
-            Location.distanceBetween(initLatLng.latitude, initLatLng.longitude,
-                    location.getLatitude(), location.getLongitude(), distance);
-            LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-            if (distance[0] < SCHOOL_RADIUS) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
-            } else {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
-            }
-            */
         } else {
             requestLocationPermissions();
-
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
         }
     }
 
