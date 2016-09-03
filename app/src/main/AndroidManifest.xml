@@ -12,7 +12,6 @@
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="23"
         tools:overrideLibrary="com.facebook" />
 
     <uses-feature
