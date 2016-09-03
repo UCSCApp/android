@@ -1,10 +1,8 @@
 package slugapp.com.sluglife.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewMapBinding;
@@ -131,8 +128,8 @@ public class MapViewFragment extends BaseViewFragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == DEFAULT) {
-            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), DEFAULT);
+        if (requestCode == DEFAULT_REQUEST_CODE) {
+            int bin = data.getIntExtra(this.mContext.getString(R.string.bundle_markers), DEFAULT_REQUEST_CODE);
 
             this.putSharedPrefInt(this.mContext.getString(R.string.bundle_markers), bin);
             this.setChildFragment(R.id.map_view, MapFragment.newInstance());

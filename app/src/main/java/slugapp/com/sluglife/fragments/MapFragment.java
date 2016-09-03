@@ -170,7 +170,7 @@ public class MapFragment extends BaseMapFragment {
 
         if (isLocationPermitted()) {
             googleMap.setMyLocationEnabled(true);
-        } else {
+        } else if (isGPSEnabled()) {
             requestLocationPermissions();
         }
     }
@@ -198,12 +198,11 @@ public class MapFragment extends BaseMapFragment {
     private void setLoopBusMarkers(final GoogleMap googleMap) {
         this.dynamicMarkers = new ArrayList<>();
 
-        final Handler handler = new Handler();
         this.loopRunnable = new LoopRunnable(this.mContext, googleMap,
                 this.dynamicMarkers);
 
         this.mCallback.initTimer();
-        this.mCallback.scheduleTimer(loopRunnable, MAP_DELAY, MAP_PERIOD);
+        this.mCallback.scheduleTimer(this.loopRunnable, MAP_DELAY, MAP_PERIOD);
     }
 
     /**
