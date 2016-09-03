@@ -96,7 +96,11 @@ public class MapFragment extends BaseMapFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (this.loopRunnable != null) this.loopRunnable.start();
+        if (this.loopRunnable != null) {
+            this.mCallback.initTimer();
+            this.mCallback.scheduleTimer(loopRunnable, MAP_DELAY, MAP_PERIOD);
+            this.loopRunnable.start();
+        }
     }
 
     /**
@@ -199,7 +203,7 @@ public class MapFragment extends BaseMapFragment {
                 this.dynamicMarkers);
 
         this.mCallback.initTimer();
-        this.mCallback.scheduleTimer(handler, loopRunnable, MAP_DELAY, MAP_PERIOD);
+        this.mCallback.scheduleTimer(loopRunnable, MAP_DELAY, MAP_PERIOD);
     }
 
     /**

@@ -23,7 +23,7 @@ import slugapp.com.sluglife.databinding.DialogMapFilterBinding;
  * appear on the google map.
  */
 public class MapFilterDialogFragment extends BaseDialogFragment {
-    private static final int DEFAULT = 0;
+    private static final int DEFAULT = 0b000000;
     private static final int LOOP_BIN = 0b000001;
     private static final int DINING_BIN = 0b000100;
     private static final int LIBRARY_BIN = 0b001000;
@@ -37,13 +37,13 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
      * @return New instance of fragment
      */
     public static MapFilterDialogFragment newInstance(Context context, int bin) {
-        MapFilterDialogFragment dialog = new MapFilterDialogFragment();
+        MapFilterDialogFragment fragment = new MapFilterDialogFragment();
 
         Bundle b = new Bundle();
         b.putInt(context.getString(R.string.bundle_markers), bin);
-        dialog.setArguments(b);
+        fragment.setArguments(b);
 
-        return dialog;
+        return fragment;
     }
 
     /**

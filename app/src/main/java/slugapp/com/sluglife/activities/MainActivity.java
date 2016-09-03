@@ -241,14 +241,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     /**
      * Schedules timer given a handler, a runnable, a delay time, and a time period
      *
-     * @param handler  Handler that handles process
      * @param runnable Runnable that runs process
      * @param delay    Delay time
      * @param period   Period of time
      */
     @Override
-    public void scheduleTimer(final Handler handler, final LoopRunnable runnable, long delay,
+    public void scheduleTimer(final LoopRunnable runnable, long delay,
                               int period) {
+        final Handler handler = new Handler();
         this.mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {

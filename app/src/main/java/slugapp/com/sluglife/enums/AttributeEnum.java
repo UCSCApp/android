@@ -33,7 +33,7 @@ public enum AttributeEnum implements Serializable {
      * @param icon Resource of attribute image
      */
     AttributeEnum(String name, int icon) {
-        this.icon = icon;
         this.name = name;
+        this.icon = icon;
     }
 }
