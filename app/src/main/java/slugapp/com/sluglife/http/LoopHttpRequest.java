@@ -22,8 +22,6 @@ import slugapp.com.sluglife.models.LoopWrapper;
 public class LoopHttpRequest extends BaseHttpRequest {
     private Context mContext;
 
-    // TODO: adjust other requests
-
     /**
      * Constructor
      *
@@ -38,6 +36,7 @@ public class LoopHttpRequest extends BaseHttpRequest {
         String api = context.getString(R.string.bus_api);
         String port = context.getString(R.string.port8081);
         String path = context.getString(R.string.api_map_loops);
+
         this.createUrl(protocol, api, port, path, null);
     }
 
@@ -52,15 +51,15 @@ public class LoopHttpRequest extends BaseHttpRequest {
             /**
              * On http request success
              *
-             * @param val Retrieved value
+             * @param value Retrieved value
              */
             @Override
-            public void onSuccess(String val) {
+            public void onSuccess(String value) {
                 try {
-                    JSONArray arr = new JSONArray(val);
-                    List<LoopObject> loopList = new ArrayList<>(arr.length());
-                    for (int i = 0; i < arr.length(); ++i) {
-                        loopList.add(new LoopWrapper(mContext, arr.getJSONObject(i)));
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<LoopObject> loopList = new ArrayList<>(jsonArray.length());
+                    for (int i = 0; i < jsonArray.length(); ++i) {
+                        loopList.add(new LoopWrapper(mContext, jsonArray.getJSONObject(i)));
                     }
                     callback.onSuccess(loopList);
                 } catch (JSONException je) {

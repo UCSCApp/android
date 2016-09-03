@@ -29,12 +29,13 @@ public class EventListHttpRequest extends BaseHttpRequest {
     public EventListHttpRequest(Context context) {
         super(Method.GET);
 
+        this.mContext = context;
+
         String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.sluglife_api);
         String port = context.getString(R.string.port8080);
         String path = context.getString(R.string.api_event_list);
 
-        this.mContext = context;
         this.createUrl(protocol, api, port, path, null);
     }
 
@@ -49,13 +50,13 @@ public class EventListHttpRequest extends BaseHttpRequest {
             /**
              * On http request success
              *
-             * @param val Retrieved value
+             * @param value Retrieved value
              */
             @Override
-            public void onSuccess(String val) {
+            public void onSuccess(String value) {
                 try {
-                    JSONArray arr = new JSONArray(val);
-                    callback.onSuccess(new EventListWrapper(mContext, arr));
+                    JSONArray jsonArray = new JSONArray(value);
+                    callback.onSuccess(new EventListWrapper(mContext, jsonArray));
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

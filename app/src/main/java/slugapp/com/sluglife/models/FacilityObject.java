@@ -4,16 +4,13 @@ import com.google.android.gms.maps.model.Marker;
 
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
-//TODO: create abstract map object
-
 /**
  * Created by isaiah on 6/17/16
  * <p/>
  * This file contains a facility object.
  */
-public class FacilityObject extends BaseObject {
+public class FacilityObject extends BaseMarkerObject {
     public MarkerTypeEnum type;
-    public Marker marker;
 
     /**
      * Constructor

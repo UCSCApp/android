@@ -29,6 +29,9 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
     public DiningHallHttpRequest(Context context, String name) {
         super(BaseHttpRequest.Method.GET);
 
+        this.mContext = context;
+        this.mName = name;
+
         String protocol = context.getString(R.string.http);
         String api = context.getString(R.string.sluglife_api);
         String port = context.getString(R.string.port8080);
@@ -38,8 +41,6 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
         params.put(context.getString(R.string.bundle_name), name);
 
         this.createUrl(protocol, api, port, path, params);
-        this.mContext = context;
-        this.mName = name;
     }
 
     /**
@@ -53,12 +54,12 @@ public class DiningHallHttpRequest extends BaseHttpRequest {
             /**
              * On http request success
              *
-             * @param val Retrieved value
+             * @param value Retrieved value
              */
             @Override
-            public void onSuccess(String val) {
+            public void onSuccess(String value) {
                 try {
-                    callback.onSuccess(new DiningHallWrapper(mContext, val, mName));
+                    callback.onSuccess(new DiningHallWrapper(mContext, value, mName));
                 } catch (JSONException je) {
                     je.printStackTrace();
                     callback.onError(je);

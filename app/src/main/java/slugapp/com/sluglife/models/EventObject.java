@@ -1,5 +1,7 @@
 package slugapp.com.sluglife.models;
 
+import android.content.Context;
+
 /**
  * Created by simba on 5/31/15
  * Edited by isaiah on 3/16/16
@@ -12,10 +14,15 @@ public class EventObject extends BaseObject {
     public String summary;
     public String image;
 
+    private Context context;
+
     /**
      * Constructor
+     *
+     * @param context Activity context
      */
-    public EventObject() {
+    public EventObject(Context context) {
+        this.context = context;
         this.name = "";
         this.date = new DateObject("");
         this.summary = "";
@@ -57,7 +64,8 @@ public class EventObject extends BaseObject {
     protected void setDate(String date) {
         String[] dateParts = date.split("\\s+");
         if (dateParts.length != 4 && dateParts.length != 5) this.date = new DateObject(date);
-        else this.date = new DateObject(dateParts[0], dateParts[1], dateParts[2], dateParts[3]);
+        else this.date = new DateObject(this.context, dateParts[0], dateParts[1], dateParts[2],
+                dateParts[3]);
     }
 
     /**

@@ -29,6 +29,20 @@ import slugapp.com.sluglife.models.DiningHallObject;
  * This file contains a viewpager fragment that displays dining hall food information.
  */
 public class DiningViewPagerFragment extends BaseViewFragment {
+    private static final int BREAKFAST_START = 0;
+    private static final int BREAKFAST_END = 11;
+    private static final int BREAKFAST = 0;
+
+    private static final int LUNCH_START = 11;
+    private static final int LUNCH_END = 17;
+    private static final int LUNCH = 1;
+
+    private static final int DINNER_START = 17;
+    private static final int DINNER_END = 24;
+    private static final int DINNER = 2;
+
+    private static final int OFFSCREEN_PAGE_LIMIT = 2;
+
     private ViewpagerDiningBinding mBinding;
     private String mName;
     private DiningHallObject mDiningHall;
@@ -124,7 +138,7 @@ public class DiningViewPagerFragment extends BaseViewFragment {
      */
     @Override
     protected void setView() {
-        this.mBinding.date.setText(DateObject.getToday().getDateString());
+        this.mBinding.date.setText(DateObject.getToday(this.mContext).getDateString());
 
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
                 new HttpCallback<DiningHallObject>() {
@@ -132,11 +146,11 @@ public class DiningViewPagerFragment extends BaseViewFragment {
                     /**
                      * On request success
                      *
-                     * @param val Dining hall object from request
+                     * @param value Dining hall object from request
                      */
                     @Override
-                    public void onSuccess(DiningHallObject val) {
-                        mDiningHall = val;
+                    public void onSuccess(DiningHallObject value) {
+                        mDiningHall = value;
                         this.setPager(mBinding.pager);
                     }
 
@@ -157,7 +171,7 @@ public class DiningViewPagerFragment extends BaseViewFragment {
                      * @param pager Viewpager
                      */
                     private void setPager(ViewPager pager) {
-                        pager.setOffscreenPageLimit(2);
+                        pager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
                         pager.setAdapter(new DiningPagerAdapter(getChildFragmentManager()));
                         pager.setCurrentItem(getTimeOfDay());
                         mBinding.tabs.setSelectedTabIndicatorColor(ContextCompat.getColor(mContext,
@@ -168,20 +182,19 @@ public class DiningViewPagerFragment extends BaseViewFragment {
                 });
     }
 
-    // TODO: constants
-
     /**
      * Gets the current time of day from today's date
      *
      * @return Gets tab index based on time of day
      */
     private int getTimeOfDay() {
-        int currentTime = DateObject.getToday().hour;
+        int currentTime = DateObject.getToday(this.mContext).hour;
 
-        if (currentTime >= 0 && currentTime < 11) return 0;
-        else if (currentTime >= 11 && currentTime < 17) return 1;
-        else if (currentTime >= 17 && currentTime < 24) return 2;
-        return 0;
+        if (currentTime >= BREAKFAST_START && currentTime < BREAKFAST_END) return BREAKFAST;
+        else if (currentTime >= LUNCH_START && currentTime < LUNCH_END) return LUNCH;
+        else if (currentTime >= DINNER_START && currentTime < DINNER_END) return DINNER;
+
+        return BREAKFAST;
     }
 
     /**
@@ -208,8 +221,9 @@ public class DiningViewPagerFragment extends BaseViewFragment {
         @Override
         public Fragment getItem(int position) {
             return DiningViewFragment.newInstance(mContext, mName,
-                    position == 2 ? mDiningHall.dinner : position == 1 ? mDiningHall.lunch :
-                            mDiningHall.breakfast);
+                    position == DINNER ? mDiningHall.dinner
+                            : position == LUNCH ? mDiningHall.lunch
+                            : mDiningHall.breakfast);
         }
 
         /**

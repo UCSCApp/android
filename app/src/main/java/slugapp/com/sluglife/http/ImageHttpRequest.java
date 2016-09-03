@@ -24,6 +24,8 @@ public class ImageHttpRequest extends BaseRequest {
         this.mUrl = url;
     }
 
+    // TODO: change default
+
     /**
      * Executes http request
      *

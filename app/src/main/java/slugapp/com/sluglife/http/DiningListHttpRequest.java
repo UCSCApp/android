@@ -45,15 +45,15 @@ public class DiningListHttpRequest extends BaseHttpRequest {
             /**
              * On http request success
              *
-             * @param val Retrieved value
+             * @param value Retrieved value
              */
             @Override
-            public void onSuccess(String val) {
+            public void onSuccess(String value) {
                 try {
-                    JSONArray arr = new JSONArray(val);
-                    List<String> diningList = new ArrayList<>(arr.length());
-                    for (int i = 0; i < arr.length(); i++) {
-                        diningList.add(arr.getString(i));
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> diningList = new ArrayList<>(jsonArray.length());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        diningList.add(jsonArray.getString(i));
                     }
                     callback.onSuccess(diningList);
                 } catch (JSONException je) {

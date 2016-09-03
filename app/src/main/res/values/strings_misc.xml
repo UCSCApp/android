@@ -3,5 +3,16 @@
     <string name="action_settings">Settings</string>
     <string name="date_am">am</string>
     <string name="date_pm">pm</string>
+
+    <string name="dining_food_attribute_eggs">Eggs</string>
+    <string name="dining_food_attribute_milk">Milk</string>
+    <string name="dining_food_attribute_soy">Soy</string>
+    <string name="dining_food_attribute_veggie">Veggie</string>
+    <string name="dining_food_attribute_gluten_free">Gluten Free</string>
+    <string name="dining_food_attribute_vegan">Vegan</string>
+    <string name="dining_food_attribute_nuts">Nuts</string>
+    <string name="dining_food_attribute_fish">Fish</string>
+    <string name="dining_food_attribute_pork">Pork</string>
+    <string name="dining_food_attribute_beef">Beef</string>
 </resources>
 

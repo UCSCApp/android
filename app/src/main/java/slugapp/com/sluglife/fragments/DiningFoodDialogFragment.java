@@ -117,7 +117,7 @@ public class DiningFoodDialogFragment extends BaseDialogFragment {
             linearLayout.addView(icon);
 
             TextView textView = new TextView(this.mContext);
-            textView.setText(attribute.name);
+            textView.setText(this.mContext.getString(attribute.name));
             textView.setTextColor(ContextCompat.getColor(this.mContext, R.color.ucsc_blue));
             textView.setTextSize(TEXT_SIZE);
             textView.setLayoutParams(textViewParams);

@@ -8,11 +8,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * <p/>
  * This file contains a loop object.
  */
-public class LoopObject {
+public class LoopObject extends BaseMarkerObject {
     public int id;
-    public float lat, lng;
     public String type;
-    public Marker marker;
 
     /**
      * Constructor

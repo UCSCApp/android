@@ -25,15 +25,19 @@
 
     <!-- Titles -->
     <string name="title_map_dialog_filter">Select what to show on the map:</string>
+
     <string name="title_dining_dialog_legend">Legend</string>
     <string name="title_dining_dialog_food_name">Food</string>
+
     <string name="title_dining_viewpager_breakfast">Breakfast</string>
     <string name="title_dining_viewpager_lunch">Lunch</string>
     <string name="title_dining_viewpager_dinner">Dinner</string>
+
     <string name="title_dining_view_food">Food</string>
     <string name="title_dining_view_nutrition">Nutrition</string>
 
     <!-- Details -->
+    <string name="detail_event_date">\u0020at\u0020</string>
     <string name="detail_event_day">When:\u0020</string>
     <string name="detail_event_start">Starts:\u0020</string>
     <string name="detail_event_end">Ends:\u0020</string>

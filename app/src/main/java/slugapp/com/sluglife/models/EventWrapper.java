@@ -23,7 +23,7 @@ public class EventWrapper extends EventObject {
      * @throws JSONException
      */
     public EventWrapper(Context context, JSONObject obj) throws JSONException {
-        super();
+        super(context);
         try {
             this.name = obj.getString(context.getString(R.string.json_event_name));
         } catch (JSONException je) {

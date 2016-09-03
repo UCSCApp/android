@@ -1,7 +1,10 @@
 package slugapp.com.sluglife.models;
 
+import android.content.Context;
+
 import java.util.Calendar;
 
+import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.MonthEnum;
 
 /**
@@ -12,10 +15,24 @@ import slugapp.com.sluglife.enums.MonthEnum;
 public class DateObject extends BaseObject {
     private static final int DAY_LOWER_LIMIT = 1;
     private static final int DAY_UPPER_LIMIT = 31;
+
     private static final int HOUR_LOWER_LIMIT = 0;
     private static final int HOUR_UPPER_LIMIT = 23;
+
     private static final int YEAR_LOWER_LIMIT = 0;
     private static final int YEAR_UPPER_LIMIT = 9999;
+
+    private static final int LESS_THAN = -1;
+    private static final int GREATER_THAN = 1;
+    private static final int EQUAL = 1;
+
+    private static final int STANDARD_TIME_MODULUS = 12;
+
+    private static final int NOON_OR_MIDNIGHT_MILITARY = 0;
+    private static final int NOON_OR_MIDNIGHT_STANDARD = 12;
+
+    private static final String SPACE = " ";
+    private static final String COMMA = ", ";
 
     private final static MonthEnum[] months = MonthEnum.values();
 
@@ -26,6 +43,8 @@ public class DateObject extends BaseObject {
     public int year;
     public int hour;
     public double value;
+
+    private Context context;
 
     /**
      * Constructor
@@ -41,12 +60,14 @@ public class DateObject extends BaseObject {
     /**
      * Constructor
      *
-     * @param month Month
-     * @param day   Day
-     * @param year  Year
-     * @param hour  Hour
+     * @param context Activity context
+     * @param month   Month
+     * @param day     Day
+     * @param year    Year
+     * @param hour    Hour
      */
-    public DateObject(int month, int day, int year, int hour) {
+    public DateObject(Context context, int month, int day, int year, int hour) {
+        this.context = context;
         this.defined = false;
 
         for (MonthEnum currMonth : months) {
@@ -72,13 +93,17 @@ public class DateObject extends BaseObject {
     /**
      * Constructor
      *
-     * @param month Month
-     * @param day   Day
-     * @param year  Year
-     * @param hour  Hour
+     * @param context Activity context
+     * @param month   Month
+     * @param day     Day
+     * @param year    Year
+     * @param hour    Hour
      */
-    public DateObject(String month, String day, String year, String hour) {
+    public DateObject(Context context, String month, String day, String year, String hour) {
+        this.context = context;
         this.defined = false;
+
+        // TODO: CONSTANTS
 
         for (MonthEnum currMonth : months) {
             String newMonth = currMonth.name;
@@ -104,7 +129,7 @@ public class DateObject extends BaseObject {
         String newHour = hour.substring(0, hour.length() - 2);
         if (!this.isInteger(newHour)) return;
         this.hour = Integer.parseInt(newHour);
-        this.hour += this.hour % 12 == Calendar.AM ? 0 : 12;
+        this.hour += this.hour % STANDARD_TIME_MODULUS == Calendar.AM ? 0 : 12;
 
         this.value = this.year + (this.month.number * 0.01) + (this.day * 0.0001);
 
@@ -118,11 +143,9 @@ public class DateObject extends BaseObject {
      */
     public String getDateString() {
         if (!this.defined) return this.string;
-        return String.valueOf(this.month.name) + " " + String.valueOf(this.day) + ", " +
+        return String.valueOf(this.month.name) + SPACE + String.valueOf(this.day) + COMMA +
                 String.valueOf(this.year);
     }
-
-    //TODO: am pm
 
     /**
      * Gets string of date with time
@@ -131,8 +154,7 @@ public class DateObject extends BaseObject {
      */
     public String getTimeString() {
         if (!this.defined) return this.string;
-        String time = String.valueOf(this.hour % 12 != 0 ? this.hour % 12 : 12);
-        return time + (this.hour % 12 == Calendar.AM ? "am" : "pm");
+        return this.getStandardTimeString() + this.getStandardTimeOfDayString();
     }
 
     /**
@@ -142,7 +164,7 @@ public class DateObject extends BaseObject {
      */
     public String getFullString() {
         if (!this.defined) return this.string;
-        return this.getDateString() + " at " + this.getTimeString();
+        return this.getDateString() + this.context.getString(R.string.detail_event_date) + this.getTimeString();
     }
 
     /**
@@ -150,7 +172,7 @@ public class DateObject extends BaseObject {
      *
      * @return Today's date
      */
-    public static DateObject getToday() {
+    public static DateObject getToday(Context context) {
         Calendar calendar = Calendar.getInstance();
 
         int month = calendar.get(Calendar.MONTH);
@@ -158,7 +180,7 @@ public class DateObject extends BaseObject {
         int year = calendar.get(Calendar.YEAR);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-        return new DateObject(month, day, year, hour);
+        return new DateObject(context, month, day, year, hour);
     }
 
     /**
@@ -169,6 +191,25 @@ public class DateObject extends BaseObject {
      * @return Integer showing which order the operands are in
      */
     public static int compareDates(DateObject lhs, DateObject rhs) {
-        return lhs.value - rhs.value < 0 ? -1 : lhs.value - rhs.value > 0 ? 1 : 0;
+        return lhs.value < rhs.value ? LESS_THAN : lhs.value > rhs.value ? GREATER_THAN : EQUAL;
+    }
+
+    /**
+     * Gets time of day in standard time format
+     *
+     * @return Time of day in standard format
+     */
+    private String getStandardTimeOfDayString() {
+        return this.hour % STANDARD_TIME_MODULUS == Calendar.AM ? this.context.getString(R.string.date_am) : this.context.getString(R.string.date_pm);
+    }
+
+    /**
+     * Gets time in standard format
+     *
+     * @return Time in standard format
+     */
+    private String getStandardTimeString() {
+        return String.valueOf(this.hour % STANDARD_TIME_MODULUS != NOON_OR_MIDNIGHT_MILITARY
+                ? this.hour % STANDARD_TIME_MODULUS : NOON_OR_MIDNIGHT_STANDARD);
     }
 }
