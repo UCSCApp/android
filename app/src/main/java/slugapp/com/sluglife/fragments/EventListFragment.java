@@ -177,6 +177,19 @@ public class EventListFragment extends BaseSwipeListFragment {
                 onRefresh();
             }
         });
+
+        this.mBinding.search.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCallback.hideKeyboard();
+
+                mBinding.search.searchEditText.setText(EMPTY_STRING);
+
+                hideViews(mBinding.search.searchBar);
+
+                searchShowing = !searchShowing;
+            }
+        });
     }
 
     /**
@@ -215,17 +228,22 @@ public class EventListFragment extends BaseSwipeListFragment {
             /**
              * On request success
              *
-             * @param vals List of values from request
+             * @param values List of values from request
              */
             @Override
-            public void onSuccess(List<EventObject> vals) {
-                evaluateQuery(vals);
-                Collections.sort(vals, new ListSort());
+            public void onSuccess(List<EventObject> values) {
+                evaluateQuery(values);
+                Collections.sort(values, new ListSort());
                 List<BaseObject> events = new ArrayList<>();
-                for (BaseObject val : vals) events.add(val);
+                for (BaseObject val : values) events.add(val);
 
-                mBinding.swipeContainer.setVisibility(events.isEmpty() ? View.GONE : View.VISIBLE);
-                mBinding.failed.setVisibility(events.isEmpty() ? View.VISIBLE : View.GONE);
+                if (events.isEmpty()) {
+                    hideViews(mBinding.swipeContainer);
+                    showViews(mBinding.failed);
+                } else {
+                    hideViews(mBinding.failed);
+                    showViews(mBinding.swipeContainer);
+                }
 
                 ((BaseListAdapter) mAdapter).setData(events);
 
@@ -239,8 +257,8 @@ public class EventListFragment extends BaseSwipeListFragment {
              */
             @Override
             public void onError(Exception e) {
-                mBinding.swipeContainer.setVisibility(View.GONE);
-                mBinding.failed.setVisibility(View.VISIBLE);
+                hideViews(mBinding.swipeContainer);
+                showViews(mBinding.failed);
 
                 stopRefreshing();
             }

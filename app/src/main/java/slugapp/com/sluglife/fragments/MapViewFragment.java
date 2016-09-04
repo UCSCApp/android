@@ -5,12 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewMapBinding;
@@ -84,7 +86,7 @@ public class MapViewFragment extends BaseViewFragment {
                 if (this.searchShowing) {
                     this.hideViews(this.mBinding.search.searchBar);
                     this.searchShowing = false;
-                    this.mBinding.search.searchEditText.setText("");
+                    this.mBinding.search.searchEditText.setText(EMPTY_STRING);
                 }
 
                 int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers));
@@ -206,6 +208,24 @@ public class MapViewFragment extends BaseViewFragment {
 
                     setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
+            }
+        });
+
+        this.mBinding.search.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCallback.hideKeyboard();
+
+                mBinding.search.searchEditText.setText(EMPTY_STRING);
+
+                hideViews(mBinding.search.searchBar);
+
+                if (resultsShowing) {
+                    resultsShowing = false;
+
+                    setChildFragment(R.id.map_view, MapFragment.newInstance());
+                }
+                searchShowing = !searchShowing;
             }
         });
     }
