@@ -32,10 +32,10 @@ public class LoopHttpRequest extends BaseHttpRequest {
 
         this.mContext = context;
 
-        String protocol = context.getString(R.string.http);
-        String api = context.getString(R.string.bus_api);
-        String port = context.getString(R.string.port8081);
-        String path = context.getString(R.string.api_map_loops);
+        String protocol = context.getString(R.string.api_protocol_http);
+        String api = context.getString(R.string.api_loops);
+        String port = context.getString(R.string.api_port_8081);
+        String path = context.getString(R.string.api_loops_location);
 
         this.createUrl(protocol, api, port, path, null);
     }

@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Headers -->
+    <string name="api_triton_header">8e942960-1c0b-48be-a4cc-c50582f142d3</string>
+
     <!-- Protocols -->
-    <string name="http">http://</string>
-    <string name="https">https://</string>
+    <string name="api_protocol_http">http://</string>
+    <string name="api_protocol_https">https://</string>
 
     <!-- Api's -->
+    <string name="api_triton">triton.cloud</string>
+    <string name="api_loops">bts.ucsc.edu</string>
+
     <string name="sluglife_api">ec2-52-10-36-144.us-west-2.compute.amazonaws.com</string>
-    <string name="bus_api">bts.ucsc.edu</string>
     <string name="map_roads_api">roads.googleapis.com</string>
 
     <!-- Api Ports -->
-    <string name="port8080">:8080</string>
-    <string name="port8081">:8081</string>
+    <string name="api_port_8080">:8080</string>
+    <string name="api_port_8081">:8081</string>
 
     <!-- Api Dining -->
     <string name="api_dining_list">/dining</string>
     <string name="api_dining_menu">/dining/menu</string>
 
-    <!-- Api Events -->
-    <string name="api_event_list">/event</string>
+    <!-- Api Paths -->
+    <string name="api_loops_location">/location/get</string>
+    <string name="api_triton_get_events">/events/getEvents</string>
 
-    <!-- Api Map -->
-    <string name="api_map_loops">/location/get</string>
     <string name="api_map_roads">/v1/snapToRoads</string>
 </resources>

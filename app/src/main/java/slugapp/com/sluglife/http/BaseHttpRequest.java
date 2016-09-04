@@ -4,7 +4,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;
@@ -25,6 +27,7 @@ public abstract class BaseHttpRequest extends BaseRequest {
     private static final String AMPERSAND_URL = "%26";
 
     protected String mUrl;
+    protected String mHeader;
 
     private int mVolleyMethod;
 
@@ -34,7 +37,8 @@ public abstract class BaseHttpRequest extends BaseRequest {
      * @param method Http request method
      */
     public BaseHttpRequest(Method method) {
-        mVolleyMethod = method.method;
+        this.mVolleyMethod = method.method;
+        this.mHeader = EMPTY_STRING;
     }
 
     /**
@@ -97,7 +101,18 @@ public abstract class BaseHttpRequest extends BaseRequest {
                         callback.onError(error);
                     }
                 }
-        );
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> map = new HashMap<>();
+                if (!mHeader.isEmpty()) {
+                    map.put("X-Triton-App", mHeader);
+                    return map;
+                }
+
+                return Collections.emptyMap();
+            }
+        };
         queue().add(stringRequest);
     }
 

@@ -31,10 +31,12 @@ public class EventListHttpRequest extends BaseHttpRequest {
 
         this.mContext = context;
 
-        String protocol = context.getString(R.string.http);
-        String api = context.getString(R.string.sluglife_api);
-        String port = context.getString(R.string.port8080);
-        String path = context.getString(R.string.api_event_list);
+        this.mHeader = context.getString(R.string.api_triton_header);
+
+        String protocol = context.getString(R.string.api_protocol_http);
+        String api = context.getString(R.string.api_triton);
+        String port = context.getString(R.string.api_port_8081);;
+        String path = context.getString(R.string.api_triton_get_events);
 
         this.createUrl(protocol, api, port, path, null);
     }

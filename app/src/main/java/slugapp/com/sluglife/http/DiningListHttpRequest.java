@@ -26,9 +26,9 @@ public class DiningListHttpRequest extends BaseHttpRequest {
     public DiningListHttpRequest(Context context) {
         super(Method.GET);
 
-        String protocol = context.getString(R.string.http);
+        String protocol = context.getString(R.string.api_protocol_http);
         String api = context.getString(R.string.sluglife_api);
-        String port = context.getString(R.string.port8080);
+        String port = context.getString(R.string.api_port_8080);
         String path = context.getString(R.string.api_dining_list);
 
         this.createUrl(protocol, api, port, path, null);
