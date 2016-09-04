@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         this.setFields();

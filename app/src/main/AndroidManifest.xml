@@ -22,13 +22,14 @@
     <application
         android:name=".application.SlugLifeApplication"
         android:allowBackup="true"
-        android:icon="@drawable/slugapp"
+        android:icon="@drawable/slug_life_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name="slugapp.com.sluglife.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
