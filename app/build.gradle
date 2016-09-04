@@ -17,15 +17,16 @@ repositories {
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.0'
+    buildToolsVersion '24.0.2'
+
     dataBinding { enabled = true }
 
     defaultConfig {
         applicationId "slugapp.com.sluglife"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 9
-        versionName "0.2.4"
+        versionCode 10
+        versionName "0.2.5"
     }
     buildTypes {
         release {

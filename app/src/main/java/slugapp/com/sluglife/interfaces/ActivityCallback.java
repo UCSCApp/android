@@ -55,11 +55,6 @@ public interface ActivityCallback {
     void setUpEnabled(boolean enabled);
 
     /**
-     * Initializes timer
-     */
-    void initTimer();
-
-    /**
      * Schedules timer given a handler, a runnable, a delay time, and a time period
      *
      * @param runnable Runnable that runs process
