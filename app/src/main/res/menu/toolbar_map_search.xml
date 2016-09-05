@@ -5,7 +5,7 @@
     tools:mContext=".top_toolbar_MainActivity">
     <item
         android:id="@+id/filter"
-        android:icon="@android:drawable/ic_menu_compass"
+        android:icon="@drawable/ic_map_filter"
         android:orderInCategory="1"
         android:title="Filter"
         app:showAsAction="ifRoom" />

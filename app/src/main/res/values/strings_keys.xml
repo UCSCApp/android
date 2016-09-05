@@ -8,7 +8,7 @@
     <!-- Json keys -->
     <string name="json_event_name">name</string>
     <string name="json_event_date">date</string>
-    <string name="json_event_summary">summary</string>
+    <string name="json_event_summary">description</string>
     <string name="json_event_image">image</string>
 
     <string name="json_dining_breakfast">breakfast</string>
