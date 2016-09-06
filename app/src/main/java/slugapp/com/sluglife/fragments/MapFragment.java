@@ -158,11 +158,10 @@ public class MapFragment extends BaseMapFragment {
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
 
-        if (isLocationPermitted() && isGPSEnabled()) {
-            googleMap.setMyLocationEnabled(true);
-        } else if (!isLocationPermitted() && isGPSEnabled()) {
-            requestLocationPermissions();
-        }
+        if (!this.isGPSEnabled()) return;
+
+        if (this.isLocationPermitted()) googleMap.setMyLocationEnabled(true);
+        else this.requestLocationPermissions();
     }
 
     /**
