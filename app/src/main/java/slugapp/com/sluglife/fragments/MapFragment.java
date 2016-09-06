@@ -1,15 +1,6 @@
 package slugapp.com.sluglife.fragments;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,9 +158,9 @@ public class MapFragment extends BaseMapFragment {
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
 
-        if (isLocationPermitted()) {
+        if (isLocationPermitted() && isGPSEnabled()) {
             googleMap.setMyLocationEnabled(true);
-        } else if (isGPSEnabled()) {
+        } else if (!isLocationPermitted() && isGPSEnabled()) {
             requestLocationPermissions();
         }
     }
@@ -297,7 +288,7 @@ public class MapFragment extends BaseMapFragment {
     private void onClickStaticInfoWindow(Marker marker) {
         for (FacilityObject facility : staticMarkers) {
             if (!(facility.marker).getTitle().equals(marker.getTitle())) continue;
-            if (facility.isType(MarkerTypeEnum.DININGHALL)) {
+            if (facility.isType(MarkerTypeEnum.DINING_HALL)) {
                 this.mCallback.setFragment(DiningViewPagerFragment.newInstance(this.mContext,
                         marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), EMPTY_STRING)));
             } else if (facility.isType(MarkerTypeEnum.LIBRARY)) {

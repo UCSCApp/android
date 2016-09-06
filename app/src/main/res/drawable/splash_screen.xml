@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
 
-    <item android:drawable="@android:color/white" />
+    <item android:drawable="@color/grey" />
 
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/slug_life_icon_splash" />
+            android:src="@drawable/slug_life_icon_splash_3" />
     </item>
 </layer-list>

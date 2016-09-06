@@ -33,7 +33,7 @@ public class DiningHallObject extends FacilityObject {
      * Constructor
      */
     public DiningHallObject() {
-        super(MarkerTypeEnum.DININGHALL);
+        super(MarkerTypeEnum.DINING_HALL);
         this.breakfast = new FoodMenuObject();
         this.lunch = new FoodMenuObject();
         this.dinner = new FoodMenuObject();
