@@ -150,6 +150,7 @@ public class LoopRunnable implements Runnable {
      * Stops runnable
      */
     public void stop() {
+        this.loops.clear();
         this.running = false;
     }
 

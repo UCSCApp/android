@@ -88,7 +88,7 @@ public class MapFragment extends BaseMapFragment {
     public void onResume() {
         super.onResume();
         if (this.loopRunnable != null) {
-            this.mCallback.scheduleTimer(loopRunnable, MAP_DELAY, MAP_PERIOD);
+            this.mCallback.scheduleTimer(this.loopRunnable, MAP_DELAY, MAP_PERIOD);
             this.loopRunnable.start();
         }
     }

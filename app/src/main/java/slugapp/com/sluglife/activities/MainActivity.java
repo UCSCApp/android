@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,12 +41,14 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
  * fragments, and contains top and bottom Toolbars.
  */
 public class MainActivity extends AppCompatActivity implements ActivityCallback {
-    private static final List<FragmentEnum> sTabFragments = Arrays.asList(FragmentEnum.values());
-    private static final FragmentEnum sStartFragment = FragmentEnum.MAP;
+    private static final List<FragmentEnum> TAB_FRAGMENTS = Arrays.asList(FragmentEnum.values());
+    private static final FragmentEnum START_FRAGMENT = FragmentEnum.MAP;
 
     private ActivityMainBinding mBinding;
     private TextView mTitle;
     private Timer mTimer;
+
+    // TODO: remove all boilerplate code and boilerplate functions
 
     /**
      * Activity's onCreate method
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         this.setFields();
         this.setTopToolbar();
         this.setBottomToolbar();
-        this.setTabFragment(this.getTabFragment(sStartFragment));
+        this.setTabFragment(getTabFragment(START_FRAGMENT));
     }
 
     /**
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private void setBottomToolbar() {
         AHBottomNavigation bottom = this.mBinding.bottomToolbar;
 
-        for (FragmentEnum fragmentEnum : sTabFragments) {
+        for (FragmentEnum fragmentEnum : TAB_FRAGMENTS) {
             bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId,
                     R.color.ucsc_blue));
         }
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         bottom.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-                for (FragmentEnum fragmentEnum : sTabFragments) {
+                for (FragmentEnum fragmentEnum : TAB_FRAGMENTS) {
                     if (position != fragmentEnum.position) continue;
                     setTabFragment(getTabFragment(fragmentEnum));
                 }
@@ -123,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * @param fragmentEnum Fragment enum
      * @return Tab fragment
      */
-    private Fragment getTabFragment(FragmentEnum fragmentEnum) {
+    @Nullable
+    private static Fragment getTabFragment(FragmentEnum fragmentEnum) {
         try {
             Class<?> fragmentClass = fragmentEnum.fragment;
             Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
