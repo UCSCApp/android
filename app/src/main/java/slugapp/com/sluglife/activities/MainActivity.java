@@ -22,6 +22,7 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -44,11 +45,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private static final List<FragmentEnum> TAB_FRAGMENTS = Arrays.asList(FragmentEnum.values());
     private static final FragmentEnum START_FRAGMENT = FragmentEnum.MAP;
 
+    private static final int EMPTY = 0;
+    private static final int FIRST_FRAGMENT = 0;
+
     private ActivityMainBinding mBinding;
     private TextView mTitle;
     private Timer mTimer;
 
-    // TODO: remove all boilerplate code and boilerplate functions
+    // TODO: remove all boilerplate code and trainwrecks
 
     /**
      * Activity's onCreate method
@@ -72,9 +76,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private void setFields() {
         this.mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Fabric.with(this, new Twitter(new TwitterAuthConfig(
-                this.getString(R.string.social_key),
-                this.getString(R.string.social_secret))));
+        Fabric.with(this, new Twitter(
+                new TwitterAuthConfig(
+                        this.getString(R.string.social_key),
+                        this.getString(R.string.social_secret))
+        ));
     }
 
     /**
@@ -93,22 +99,22 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the bottom toolbar
      */
     private void setBottomToolbar() {
-        AHBottomNavigation bottom = this.mBinding.bottomToolbar;
+        AHBottomNavigation bottomToolbar = this.mBinding.bottomToolbar;
 
         for (FragmentEnum fragmentEnum : TAB_FRAGMENTS) {
-            bottom.addItem(new AHBottomNavigationItem(fragmentEnum.name, fragmentEnum.imageId,
-                    R.color.ucsc_blue));
+            bottomToolbar.addItem(new AHBottomNavigationItem(fragmentEnum.name,
+                    fragmentEnum.imageId, R.color.ucsc_blue));
         }
 
-        bottom.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.ucsc_blue));
+        bottomToolbar.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.ucsc_blue));
 
-        bottom.setAccentColor(ContextCompat.getColor(this, R.color.ucsc_yellow));
-        bottom.setInactiveColor(Color.WHITE);
+        bottomToolbar.setAccentColor(ContextCompat.getColor(this, R.color.ucsc_yellow));
+        bottomToolbar.setInactiveColor(Color.WHITE);
 
-        bottom.setForceTint(true);
-        bottom.setForceTitlesDisplay(true);
+        bottomToolbar.setForceTint(true);
+        bottomToolbar.setForceTitlesDisplay(true);
 
-        bottom.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+        bottomToolbar.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 for (FragmentEnum fragmentEnum : TAB_FRAGMENTS) {
@@ -132,8 +138,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
             Class<?> fragmentClass = fragmentEnum.fragment;
             Constructor<?> fragmentConstructor = fragmentClass.getConstructor();
             return (Fragment) fragmentConstructor.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException nsme) {
+            return null;
+        } catch (InstantiationException ie) {
+            return null;
+        } catch (IllegalAccessException iae) {
+            return null;
+        } catch (InvocationTargetException ite) {
             return null;
         }
     }
@@ -145,8 +156,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      */
     private void setTabFragment(Fragment fragment) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(0);
+        if (fragmentManager.getBackStackEntryCount() > EMPTY) {
+            FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(
+                    FIRST_FRAGMENT);
             fragmentManager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -194,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     /**
-     * Displays snackbar with text
+     * Displays snack bar with text
      *
      * @param text Text to display
      */

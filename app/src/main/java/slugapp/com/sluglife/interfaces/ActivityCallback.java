@@ -34,7 +34,7 @@ public interface ActivityCallback {
     void showKeyboard(View view);
 
     /**
-     * Displays snackbar with text
+     * Displays snack bar with text
      *
      * @param text Text to display
      */
