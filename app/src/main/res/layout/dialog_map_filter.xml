@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- TODO: make dynamic -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,7 +35,7 @@
 
         <TextView
             android:id="@+id/textview_loop_buses"
-            android:layout_width="match_parent"
+            android:layout_width="200dip"
             android:layout_height="36dip"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="8dip"
@@ -47,7 +49,7 @@
 
         <TextView
             android:id="@+id/textview_dining_halls"
-            android:layout_width="match_parent"
+            android:layout_width="200dip"
             android:layout_height="36dip"
             android:layout_below="@id/textview_loop_buses"
             android:layout_marginLeft="8dip"
@@ -61,7 +63,7 @@
 
         <TextView
             android:id="@+id/textview_libraries"
-            android:layout_width="match_parent"
+            android:layout_width="200dip"
             android:layout_height="36dip"
             android:layout_below="@id/textview_dining_halls"
             android:layout_marginLeft="8dip"
@@ -72,5 +74,41 @@
             android:text="@string/dialog_map_libraries"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/image_loop_buses"
+            android:layout_width="24dip"
+            android:layout_height="36dip"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/textview_loop_buses"
+            android:layout_toStartOf="@id/textview_loop_buses"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/loop_bus_legend" />
+
+        <ImageView
+            android:id="@+id/image_dining_halls"
+            android:layout_width="24dip"
+            android:layout_height="36dip"
+            android:layout_below="@id/image_loop_buses"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/textview_dining_halls"
+            android:layout_toStartOf="@id/textview_dining_halls"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/dining_hall_legend" />
+
+        <ImageView
+            android:id="@+id/image_libraries"
+            android:layout_width="24dip"
+            android:layout_height="36dip"
+            android:layout_below="@id/image_dining_halls"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/textview_libraries"
+            android:layout_toStartOf="@id/textview_libraries"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/library_legend" />
     </RelativeLayout>
 </layout>
