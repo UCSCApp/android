@@ -95,11 +95,11 @@ public class DiningListFragment extends BaseListFragment {
             /**
              * On request success
              *
-             * @param vals List of values from request
+             * @param values List of values from request
              */
             @Override
-            public void onSuccess(List<String> vals) {
-                for (String val : vals) mDiningHalls.add(new StringObject(val));
+            public void onSuccess(List<String> values) {
+                for (String val : values) mDiningHalls.add(new StringObject(val));
                 baseListAdapter.setData(mDiningHalls);
             }
 
