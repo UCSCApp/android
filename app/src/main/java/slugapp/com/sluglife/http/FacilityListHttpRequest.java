@@ -9,10 +9,8 @@ import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.EventListWrapper;
-import slugapp.com.sluglife.models.EventObject;
-import slugapp.com.sluglife.models.FacilityListWrapper;
-import slugapp.com.sluglife.models.FacilityObject;
+import slugapp.com.sluglife.wrappers.FacilityListWrapper;
+import slugapp.com.sluglife.objects.FacilityObject;
 
 /**
  * Created by simba on 9/14/16

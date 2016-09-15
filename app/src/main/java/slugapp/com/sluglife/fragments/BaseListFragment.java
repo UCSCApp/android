@@ -8,7 +8,7 @@ import android.widget.ListView;
 import java.util.Comparator;
 
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.models.BaseObject;
+import slugapp.com.sluglife.objects.BaseObject;
 
 /**
  * Created by isaiah on 2/21/16

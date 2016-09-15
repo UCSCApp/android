@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.models.StringObject;
+import slugapp.com.sluglife.objects.StringObject;
 
 /**
  * Created by isaiah on 8/29/2015

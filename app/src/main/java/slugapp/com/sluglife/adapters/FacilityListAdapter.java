@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.models.FacilityObject;
-import slugapp.com.sluglife.models.StringObject;
+import slugapp.com.sluglife.objects.FacilityObject;
 
 /**
  * Created by isaiah on 8/29/2015
@@ -59,6 +58,5 @@ public class FacilityListAdapter extends BaseListAdapter {
      */
     private static class ViewHolder {
         public TextView name;
-        public TextView description;
     }
 }

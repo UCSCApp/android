@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-import slugapp.com.sluglife.models.BaseObject;
+import slugapp.com.sluglife.objects.BaseObject;
 
 /**
  * Created by simba on 5/31/15

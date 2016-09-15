@@ -1,12 +1,12 @@
-package slugapp.com.sluglife.models;
+package slugapp.com.sluglife.wrappers;
 
 import android.content.Context;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.objects.FacilityObject;
 
 /**
  * Created by isaiah on 9/14/16

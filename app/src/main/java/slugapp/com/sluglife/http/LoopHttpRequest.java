@@ -10,8 +10,8 @@ import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.LoopObject;
-import slugapp.com.sluglife.models.LoopWrapper;
+import slugapp.com.sluglife.objects.LoopObject;
+import slugapp.com.sluglife.wrappers.LoopWrapper;
 
 /**
  * Created by simba on 7/31/15

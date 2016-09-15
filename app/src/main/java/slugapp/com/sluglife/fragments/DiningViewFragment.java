@@ -15,8 +15,8 @@ import android.widget.TextView;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewDiningBinding;
 import slugapp.com.sluglife.enums.AttributeEnum;
-import slugapp.com.sluglife.models.FoodObject;
-import slugapp.com.sluglife.models.FoodMenuObject;
+import slugapp.com.sluglife.objects.FoodObject;
+import slugapp.com.sluglife.objects.FoodMenuObject;
 
 /**
  * Created by isaiah on 8/8/2015

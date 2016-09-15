@@ -20,8 +20,8 @@ import slugapp.com.sluglife.databinding.ListDiningBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.BaseObject;
-import slugapp.com.sluglife.models.StringObject;
+import slugapp.com.sluglife.objects.BaseObject;
+import slugapp.com.sluglife.objects.StringObject;
 
 /**
  * Created by isaiah on 9/1/2015

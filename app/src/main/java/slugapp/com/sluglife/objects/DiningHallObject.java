@@ -1,4 +1,4 @@
-package slugapp.com.sluglife.models;
+package slugapp.com.sluglife.objects;
 
 import android.content.Context;
 
@@ -13,7 +13,6 @@ import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.AttributeEnum;
-import slugapp.com.sluglife.enums.MarkerTypeEnum;
 
 /**
  * Created by isaiah on 9/2/2015

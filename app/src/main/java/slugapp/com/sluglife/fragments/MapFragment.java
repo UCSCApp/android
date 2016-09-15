@@ -23,10 +23,10 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.BaseMarkerObject;
-import slugapp.com.sluglife.models.DiningHallObject;
-import slugapp.com.sluglife.models.FacilityObject;
-import slugapp.com.sluglife.models.LoopObject;
+import slugapp.com.sluglife.objects.BaseMarkerObject;
+import slugapp.com.sluglife.objects.DiningHallObject;
+import slugapp.com.sluglife.objects.FacilityObject;
+import slugapp.com.sluglife.objects.LoopObject;
 import slugapp.com.sluglife.runnables.LoopRunnable;
 
 /**

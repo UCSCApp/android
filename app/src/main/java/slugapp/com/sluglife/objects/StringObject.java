@@ -1,4 +1,4 @@
-package slugapp.com.sluglife.models;
+package slugapp.com.sluglife.objects;
 
 /**
  * Created by isaiah on 3/16/16

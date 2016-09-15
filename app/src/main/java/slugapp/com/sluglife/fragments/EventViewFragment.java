@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewEventBinding;
 import slugapp.com.sluglife.http.ImageHttpRequest;
-import slugapp.com.sluglife.models.DateObject;
-import slugapp.com.sluglife.models.EventObject;
+import slugapp.com.sluglife.objects.DateObject;
+import slugapp.com.sluglife.objects.EventObject;
 
 /**
  * Created by isaiah on 6/27/2015.

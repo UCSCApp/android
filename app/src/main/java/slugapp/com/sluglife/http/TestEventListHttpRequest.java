@@ -8,8 +8,8 @@ import org.json.JSONException;
 import java.util.List;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.EventObject;
-import slugapp.com.sluglife.models.EventListWrapper;
+import slugapp.com.sluglife.objects.EventObject;
+import slugapp.com.sluglife.wrappers.EventListWrapper;
 
 /**
  * Created by simba on 8/1/15

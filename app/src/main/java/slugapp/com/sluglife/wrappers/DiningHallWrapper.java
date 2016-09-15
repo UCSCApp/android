@@ -1,4 +1,4 @@
-package slugapp.com.sluglife.models;
+package slugapp.com.sluglife.wrappers;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.objects.DiningHallObject;
 
 /**
  * Created by isaiah on 9/2/2015

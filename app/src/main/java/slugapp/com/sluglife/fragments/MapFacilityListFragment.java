@@ -19,12 +19,10 @@ import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.FacilityListAdapter;
 import slugapp.com.sluglife.databinding.ListMapFacilityBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.http.FacilityListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.BaseObject;
-import slugapp.com.sluglife.models.EventObject;
-import slugapp.com.sluglife.models.FacilityObject;
+import slugapp.com.sluglife.objects.BaseObject;
+import slugapp.com.sluglife.objects.FacilityObject;
 
 /**
  * Created by isaiah on 9/1/2015

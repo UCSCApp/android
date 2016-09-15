@@ -5,8 +5,8 @@ import android.content.Context;
 import org.json.JSONException;
 
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.DiningHallObject;
-import slugapp.com.sluglife.models.DiningHallWrapper;
+import slugapp.com.sluglife.objects.DiningHallObject;
+import slugapp.com.sluglife.wrappers.DiningHallWrapper;
 
 /**
  * Created by simba on 8/1/15

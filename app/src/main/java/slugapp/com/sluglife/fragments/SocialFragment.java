@@ -13,7 +13,7 @@ import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ListSocialBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.models.BaseObject;
+import slugapp.com.sluglife.objects.BaseObject;
 
 /**
  * Created by isaiah on 6/12/16

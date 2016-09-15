@@ -1,21 +1,21 @@
-package slugapp.com.sluglife.models;
+package slugapp.com.sluglife.wrappers;
 
 import android.content.Context;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.objects.EventObject;
 
 /**
- * Created by isaiah on 9/14/16
+ * Created by simba on 8/1/15
+ * Edited by isaiah on 9/2/2015
  * <p/>
- * This file contains a facility object wrapper.
+ * This file contains an event object wrapper.
  */
-public class FacilityListWrapper extends ArrayList<FacilityObject> {
+public class EventListWrapper extends ArrayList<EventObject> {
 
     /**
      * Constructor
@@ -24,11 +24,11 @@ public class FacilityListWrapper extends ArrayList<FacilityObject> {
      * @param array   Json array
      * @throws JSONException
      */
-    public FacilityListWrapper(Context context, JSONArray array) throws JSONException {
+    public EventListWrapper(Context context, JSONArray array) throws JSONException {
         super(array.length());
         for (int i = 0; i < array.length(); ++i) {
             try {
-                this.add(new FacilityWrapper(context, array.getJSONObject(i)));
+                this.add(new EventWrapper(context, array.getJSONObject(i)));
             } catch (JSONException je) {
                 je.printStackTrace();
             }

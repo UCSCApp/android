@@ -20,8 +20,8 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewpagerDiningBinding;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.DateObject;
-import slugapp.com.sluglife.models.DiningHallObject;
+import slugapp.com.sluglife.objects.DateObject;
+import slugapp.com.sluglife.objects.DiningHallObject;
 
 /**
  * Created by isaiah on 6/3/16

@@ -1,7 +1,4 @@
-package slugapp.com.sluglife.models;
-
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+package slugapp.com.sluglife.objects;
 
 /**
  * Created by isaiah on 2/19/16

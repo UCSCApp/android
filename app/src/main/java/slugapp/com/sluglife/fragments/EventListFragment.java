@@ -26,8 +26,8 @@ import slugapp.com.sluglife.databinding.ListEventBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
-import slugapp.com.sluglife.models.BaseObject;
-import slugapp.com.sluglife.models.EventObject;
+import slugapp.com.sluglife.objects.BaseObject;
+import slugapp.com.sluglife.objects.EventObject;
 
 /**
  * Created by isaiah on 6/23/2015

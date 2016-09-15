@@ -21,7 +21,7 @@ import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.ActivityCallback;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.http.LoopHttpRequest;
-import slugapp.com.sluglife.models.LoopObject;
+import slugapp.com.sluglife.objects.LoopObject;
 import slugapp.com.sluglife.utils.LatLngInterpolator;
 
 /**

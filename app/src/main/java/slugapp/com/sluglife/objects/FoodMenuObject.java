@@ -1,4 +1,4 @@
-package slugapp.com.sluglife.models;
+package slugapp.com.sluglife.objects;
 
 import java.util.ArrayList;
 import java.util.Collections;
