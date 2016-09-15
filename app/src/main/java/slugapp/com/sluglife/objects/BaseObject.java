@@ -15,9 +15,26 @@ public abstract class BaseObject implements Serializable {
      * @param string String to be checked
      * @return Boolean if string can be converted to an integer
      */
-    protected boolean isInteger(String string) {
+    protected static boolean isInteger(String string) {
         try {
             int result = Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if string can be converted to an double
+     *
+     * @param string String to be checked
+     * @return Boolean if string can be converted to a double
+     */
+    protected static boolean isDouble(String string) {
+        try {
+            double result = Double.parseDouble(string);
         } catch (NumberFormatException e) {
             return false;
         } catch (NullPointerException e) {

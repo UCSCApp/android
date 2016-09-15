@@ -118,16 +118,16 @@ public class DateObject extends BaseObject {
         if (day.length() > 4) return;
         else if (day.length() < 3) newDay = day;
         else newDay = day.substring(0, day.length() - 2);
-        if (!this.isInteger(newDay)) return;
+        if (!isInteger(newDay)) return;
         this.day = Integer.parseInt(newDay);
 
         if (year.length() != 4) return;
-        if (!this.isInteger(year)) return;
+        if (!isInteger(year)) return;
         this.year = Integer.parseInt(year);
 
         if (hour.length() < 3 || hour.length() > 4) return;
         String newHour = hour.substring(0, hour.length() - 2);
-        if (!this.isInteger(newHour)) return;
+        if (!isInteger(newHour)) return;
         this.hour = Integer.parseInt(newHour);
         this.hour += this.hour % STANDARD_TIME_MODULUS == Calendar.AM ? 0 : 12;
 

@@ -1,6 +1,7 @@
 package slugapp.com.sluglife.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,9 @@ import java.util.List;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.enums.FragmentEnum;
-import slugapp.com.sluglife.enums.MarkerEnum;
-import slugapp.com.sluglife.enums.MarkerTypeEnum;
-import slugapp.com.sluglife.http.DiningHallHttpRequest;
-import slugapp.com.sluglife.http.DiningListHttpRequest;
+import slugapp.com.sluglife.http.FacilityListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.objects.BaseMarkerObject;
-import slugapp.com.sluglife.objects.DiningHallObject;
 import slugapp.com.sluglife.objects.FacilityObject;
 import slugapp.com.sluglife.objects.LoopObject;
 import slugapp.com.sluglife.runnables.LoopRunnable;
@@ -36,19 +33,18 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
  * This file contains a google map fragment that displays a google map using the google map api.
  */
 public class MapFragment extends BaseMapFragment {
+    // INSERT INTO locations VALUES(25, 'Page Smith Library', 'description', 'library', '36.99687611', '-122.0535511');
+
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
-    private static final MarkerEnum[] sMarkerEnums = MarkerEnum.values();
-    private static final String EMPTY_STRING = "";
 
     private static final long MAP_DELAY = 0;
     private static final int MAP_PERIOD = 2000;
-    private static final float SCHOOL_RADIUS = 1672.2233f;
     private static final float DEFAULT_ZOOM = 14.5f;
-    private static final float LOCATION_ZOOM = 15.0f;
+
+    private static final double INIT_LAT = 36.993339;
+    private static final double INIT_LNG = -122.058972;
 
     private static final int LOOP_MASK = 0b000001;
-    private static final int DINING_HALL_MASK = 0b000100;
-    private static final int LIBRARY_MASK = 0b001000;
     public static final int DEFAULT_MASK = 0b001001;
 
     private LoopRunnable loopRunnable;
@@ -112,9 +108,8 @@ public class MapFragment extends BaseMapFragment {
     protected void setMarkers(GoogleMap googleMap) {
         int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers), DEFAULT_MASK);
 
-        if ((bin & LOOP_MASK) != 0) this.setLoopBusMarkers(googleMap);
-        if ((bin & DINING_HALL_MASK) != 0) this.setDiningHallMarkers(googleMap);
-        if ((bin & LIBRARY_MASK) != 0) this.setLibraryMarkers(googleMap);
+        this.setLoopBusMarkers(googleMap, bin);
+        this.setStaticMarkers(googleMap, bin);
     }
 
     /**
@@ -124,20 +119,12 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     protected void setMapListeners(final GoogleMap googleMap) {
-        // OnMarkerClickListener
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 marker.showInfoWindow();
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 return false;
-            }
-        });
-
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                onClickStaticInfoWindow(marker);
             }
         });
     }
@@ -150,10 +137,7 @@ public class MapFragment extends BaseMapFragment {
     @Override
     @SuppressWarnings({"MissingPermission"})
     protected void setInitialZoom(GoogleMap googleMap) {
-        float lat = Float.valueOf(this.mContext.getString(R.string.map_init_lat));
-        float lng = Float.valueOf(this.mContext.getString(R.string.map_init_lng));
-
-        LatLng initLatLng = new LatLng(lat, lng);
+        LatLng initLatLng = new LatLng(INIT_LAT, INIT_LNG);
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
@@ -184,8 +168,11 @@ public class MapFragment extends BaseMapFragment {
      * Sets loop bus markers on google map
      *
      * @param googleMap Google map
+     * @param bin Binary number for map filter
      */
-    private void setLoopBusMarkers(final GoogleMap googleMap) {
+    private void setLoopBusMarkers(final GoogleMap googleMap, int bin) {
+        if ((bin & LOOP_MASK) == 0) return;
+
         this.dynamicMarkers = new ArrayList<>();
 
         this.loopRunnable = new LoopRunnable(this.mContext, googleMap,
@@ -195,12 +182,14 @@ public class MapFragment extends BaseMapFragment {
     }
 
     /**
-     * Sets dining hall markers on google map
+     * Sets static markers on google map
      *
      * @param googleMap Google map
+     * @param bin Binary number for map filter
      */
-    private void setDiningHallMarkers(final GoogleMap googleMap) {
-        new DiningListHttpRequest(this.mContext).execute(new HttpCallback<List<String>>() {
+    private void setStaticMarkers(final GoogleMap googleMap, final int bin) {
+        new FacilityListHttpRequest(this.mContext).execute(
+                new HttpCallback<List<FacilityObject>>() {
 
             /**
              * On request success
@@ -208,38 +197,23 @@ public class MapFragment extends BaseMapFragment {
              * @param values List of values from request
              */
             @Override
-            public void onSuccess(List<String> values) {
-                for (String diningHallName : values) {
-                    new DiningHallHttpRequest(mContext, diningHallName).execute(
-                            new HttpCallback<DiningHallObject>() {
+            public void onSuccess(List<FacilityObject> values) {
+                for (FacilityObject facility : values) {
+                    staticMarkers.add(facility);
 
-                                /**
-                                 * On request success
-                                 *
-                                 * @param val Dining hall object from request
-                                 */
-                                @Override
-                                public void onSuccess(DiningHallObject val) {
-                                    val.marker = googleMap.addMarker(new MarkerOptions()
-                                            .title(val.name + mContext.getString(
-                                                    R.string.detail_map_dining_ending))
-                                            .snippet(mContext.getString(R.string.map_dining_snippet))
-                                            .position(val.latLng)
-                                            .icon(BitmapDescriptorFactory.fromResource(
-                                                    DiningHallObject.diningImage)));
-                                    staticMarkers.add(val);
-                                }
+                    String title = facility.name;
+                    String snippet = facility.description;
+                    LatLng latLng = new LatLng(facility.lat, facility.lng);
 
-                                /**
-                                 * On request error
-                                 *
-                                 * @param e Exception
-                                 */
-                                @Override
-                                public void onError(Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                    BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(
+                            facility.type.markerImage);
+
+                    if ((bin & facility.type.mask) == 0) continue;
+                    facility.marker = googleMap.addMarker(new MarkerOptions()
+                            .title(title)
+                            .snippet(snippet)
+                            .position(latLng)
+                            .icon(bitmap));
                 }
             }
 
@@ -253,50 +227,5 @@ public class MapFragment extends BaseMapFragment {
                 e.printStackTrace();
             }
         });
-    }
-
-    /**
-     * Sets library markers on google map
-     *
-     * @param googleMap Google map
-     */
-    private void setLibraryMarkers(final GoogleMap googleMap) {
-        for (MarkerEnum currEnum : sMarkerEnums) {
-            double lat = Double.valueOf(this.mContext.getString(currEnum.lat));
-            double lng = Double.valueOf(this.mContext.getString(currEnum.lng));
-
-            String title = this.mContext.getString(currEnum.title);
-            String snippet = this.mContext.getString(currEnum.snippet);
-            LatLng latLng = new LatLng(lat, lng);
-            if (currEnum.type != MarkerTypeEnum.LIBRARY) continue;
-            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(currEnum.icon);
-
-            this.staticMarkers.add(new FacilityObject(MarkerTypeEnum.LIBRARY,
-                    googleMap.addMarker(new MarkerOptions()
-                            .title(title)
-                            .snippet(snippet)
-                            .position(latLng)
-                            .icon(bitmap))));
-        }
-    }
-
-    /**
-     * Does action on google map marker info window click
-     *
-     * @param marker Google map marker
-     */
-    private void onClickStaticInfoWindow(Marker marker) {
-        /*
-        for (BaseMarkerObject facility : staticMarkers) {
-            if (!(facility.marker).getTitle().equals(marker.getTitle())) continue;
-            if (facility.isType(MarkerTypeEnum.DINING_HALL)) {
-                this.mCallback.setFragment(DiningViewPagerFragment.newInstance(this.mContext,
-                        marker.getTitle().replace(this.mContext.getString(R.string.detail_map_dining_ending), EMPTY_STRING)));
-            } else if (facility.isType(MarkerTypeEnum.LIBRARY)) {
-                this.mCallback.setFragment(MapFacilityViewFragment.newInstance(this.mContext,
-                        marker.getTitle()));
-            }
-        }
-        */
     }
 }

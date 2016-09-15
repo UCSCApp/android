@@ -20,31 +20,18 @@ import slugapp.com.sluglife.enums.AttributeEnum;
  * This file contains a dining hall object.
  */
 public class DiningHallObject extends BaseMarkerObject {
-    public static final int diningImage = R.drawable.dining_hall;
-
     public String name;
     public FoodMenuObject breakfast;
     public FoodMenuObject lunch;
     public FoodMenuObject dinner;
-    public LatLng latLng;
 
     /**
      * Constructor
      */
     public DiningHallObject() {
-        //super(MarkerTypeEnum.DINING_HALL);
         this.breakfast = new FoodMenuObject();
         this.lunch = new FoodMenuObject();
         this.dinner = new FoodMenuObject();
-    }
-
-    /**
-     * Adds name to dining hall
-     *
-     * @param name Name of dining hall
-     */
-    protected void addName(String name) {
-        this.name = name;
     }
 
     /**
@@ -81,17 +68,6 @@ public class DiningHallObject extends BaseMarkerObject {
     }
 
     /**
-     * Adds dining hall coordinates
-     *
-     * @param lat Dining hall latitude
-     * @param lng Dining hall longitude
-     * @throws JSONException
-     */
-    protected void addCoordinates(String lat, String lng) throws JSONException {
-        this.latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-    }
-
-    /**
      * Parses Json array
      *
      * @param context Activity context
@@ -101,13 +77,13 @@ public class DiningHallObject extends BaseMarkerObject {
      */
     private FoodMenuObject addMenu(Context context, JSONArray array) throws JSONException {
         FoodMenuObject menu = new FoodMenuObject();
-        for (int k = 0; k < array.length(); k++) {
+        for (int i = 0; i < array.length(); i++) {
             List<AttributeEnum> attributes = new ArrayList<>();
-            JSONObject item = array.getJSONObject(k);
+            JSONObject item = array.getJSONObject(i);
             String name = item.getString(context.getString(R.string.json_dining_food_name));
             JSONArray attr = item.getJSONArray(context.getString(R.string.json_dining_food_attributes));
-            for (int l = 0; l < attr.length(); l++) {
-                attributes.add(AttributeEnum.valueOf(attr.getString(l).toUpperCase()));
+            for (int j = 0; j < attr.length(); j++) {
+                attributes.add(AttributeEnum.valueOf(attr.getString(j).toUpperCase()));
             }
             menu.add(new FoodObject(name, attributes));
         }

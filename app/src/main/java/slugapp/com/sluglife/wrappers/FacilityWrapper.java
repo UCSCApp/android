@@ -35,17 +35,20 @@ public class FacilityWrapper extends FacilityObject {
             je.printStackTrace();
         }
         try {
-            this.setType(obj.getString(context.getString(R.string.json_map_facility_type)));
+            FacilityObject.setType(
+                    this, obj.getString(context.getString(R.string.json_map_facility_type)));
         } catch (JSONException je) {
             je.printStackTrace();
         }
         try {
-            this.lat = obj.getString(context.getString(R.string.json_map_facility_latitude));
+            FacilityObject.setLatitude(
+                    this, obj.getString(context.getString(R.string.json_map_facility_latitude)));
         } catch (JSONException je) {
             je.printStackTrace();
         }
         try {
-            this.lng = obj.getString(context.getString(R.string.json_map_facility_longitude));
+            FacilityObject.setLongitude(
+                    this, obj.getString(context.getString(R.string.json_map_facility_longitude)));
         } catch (JSONException je) {
             je.printStackTrace();
         }

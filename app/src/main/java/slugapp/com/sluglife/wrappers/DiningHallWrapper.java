@@ -27,36 +27,7 @@ public class DiningHallWrapper extends DiningHallObject {
         super();
         if (array.isEmpty()) return;
         JSONObject obj = new JSONObject(array);
-
-        // TODO: implement coordinates
-        // TODO: strings to constants
-
-        /*
-        try {
-            this.addCoordinates(obj.getString("lat"), obj.getString("lng"));
-        } catch (JSONException je) {
-            je.printStackTrace();
-        }
-        */
-        switch (name) {
-            case "Cowell & Stevenson":
-                this.addCoordinates("36.996808", "-122.053036");
-                break;
-            case "Crown & Merrill":
-                this.addCoordinates("37.000112", "-122.054417");
-                break;
-            case "Porter & Kresge":
-                this.addCoordinates("36.994269", "-122.065944");
-                break;
-            default:
-            case "College Eight & Oakes":
-                this.addCoordinates("36.991694", "-122.065386");
-                break;
-            case "College Nine & College Ten":
-                this.addCoordinates("37.000729", "-122.057771");
-                break;
-        }
-        this.addName(name);
+        this.name = name;
         try {
             this.addBreakfast(context, obj.getJSONArray(context.getString(R.string.json_dining_breakfast)));
         } catch (JSONException je) {
