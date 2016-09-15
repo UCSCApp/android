@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -142,6 +143,10 @@ public class MapFragment extends BaseMapFragment {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
+
+        googleMap.setMinZoomPreference(13.0f);
+        googleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(
+                new LatLng(36.933974, -122.112480), new LatLng(37.025354, -121.929058)));
 
         if (!this.isGPSEnabled()) return;
 
