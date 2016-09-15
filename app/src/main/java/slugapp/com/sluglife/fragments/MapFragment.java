@@ -40,9 +40,9 @@ public class MapFragment extends BaseMapFragment {
 
     private static final long MAP_DELAY = 0;
     private static final int MAP_PERIOD = 2000;
-    private static final float DEFAULT_ZOOM = 14.5f;
+    private static final float DEFAULT_ZOOM = 14.2f;
 
-    private static final double INIT_LAT = 36.993339;
+    private static final double INIT_LAT = 36.991339;
     private static final double INIT_LNG = -122.058972;
 
     private static final int LOOP_MASK = 0b000001;
@@ -144,9 +144,9 @@ public class MapFragment extends BaseMapFragment {
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, DEFAULT_ZOOM));
 
-        googleMap.setMinZoomPreference(13.0f);
+        googleMap.setMinZoomPreference(12.5f);
         googleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(
-                new LatLng(36.933974, -122.112480), new LatLng(37.025354, -121.929058)));
+                new LatLng(36.949355, -122.088585), new LatLng(37.025354, -121.929058)));
 
         if (!this.isGPSEnabled()) return;
 
