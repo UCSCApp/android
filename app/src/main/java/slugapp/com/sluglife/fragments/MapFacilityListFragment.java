@@ -13,6 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.adapters.BaseListAdapter;
@@ -22,6 +23,7 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.FacilityListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.objects.BaseObject;
+import slugapp.com.sluglife.objects.EventObject;
 import slugapp.com.sluglife.objects.FacilityObject;
 
 /**
@@ -111,7 +113,7 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
      */
     @Override
     protected int doSort(BaseObject lhs, BaseObject rhs) {
-        return 0;
+        return (((FacilityObject) lhs).name).compareTo(((FacilityObject) rhs).name);
     }
 
     /**
@@ -141,7 +143,7 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
              */
             @Override
             public void onSuccess(List<FacilityObject> values) {
-                //evaluateQuery(values);
+                evaluateQuery(values);
                 Collections.sort(values, new ListSort());
                 List<BaseObject> facilities = new ArrayList<>();
                 for (BaseObject val : values) facilities.add(val);
@@ -172,5 +174,24 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
                 stopRefreshing();
             }
         });
+    }
+
+    /**
+     * Adjusts list based on query
+     *
+     * @param facilities List of events
+     */
+    private void evaluateQuery(List<FacilityObject> facilities) {
+        ListIterator<FacilityObject> iterator = facilities.listIterator();
+        while (iterator.hasNext()) {
+            FacilityObject facility = iterator.next();
+            if (this.mQuery != null &&
+                    !facility.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&
+                    !facility.description.toLowerCase().contains(this.mQuery.toLowerCase()) &&
+                    !facility.type.name().toLowerCase().contains(this.mQuery.toLowerCase()) &&
+                    !facility.type.name().toLowerCase().contains(this.mQuery.toLowerCase())) {
+                iterator.remove();
+            }
+        }
     }
 }
