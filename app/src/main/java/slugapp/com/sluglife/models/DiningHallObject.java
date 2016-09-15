@@ -20,7 +20,7 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
  * <p/>
  * This file contains a dining hall object.
  */
-public class DiningHallObject extends FacilityObject {
+public class DiningHallObject extends BaseMarkerObject {
     public static final int diningImage = R.drawable.dining_hall;
 
     public String name;
@@ -33,7 +33,7 @@ public class DiningHallObject extends FacilityObject {
      * Constructor
      */
     public DiningHallObject() {
-        super(MarkerTypeEnum.DINING_HALL);
+        //super(MarkerTypeEnum.DINING_HALL);
         this.breakfast = new FoodMenuObject();
         this.lunch = new FoodMenuObject();
         this.dinner = new FoodMenuObject();

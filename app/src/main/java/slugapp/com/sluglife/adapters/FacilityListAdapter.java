@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import slugapp.com.sluglife.R;
+import slugapp.com.sluglife.models.FacilityObject;
 import slugapp.com.sluglife.models.StringObject;
 
 /**
@@ -42,13 +43,13 @@ public class FacilityListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(id, null);
         }
 
-        String facilityItem = ((StringObject) this.getItem(position)).string;
+        FacilityObject facilityItem = ((FacilityObject) this.getItem(position));
 
         ViewHolder holder = new ViewHolder();
         holder.name =  (TextView) convertView.findViewById(R.id.name);
         convertView.setTag(holder);
 
-        holder.name.setText(facilityItem);
+        holder.name.setText(facilityItem.name);
 
         return convertView;
     }
@@ -58,5 +59,6 @@ public class FacilityListAdapter extends BaseListAdapter {
      */
     private static class ViewHolder {
         public TextView name;
+        public TextView description;
     }
 }

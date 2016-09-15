@@ -22,6 +22,13 @@
     <string name="json_map_lng">lon</string>
     <string name="json_map_type">type</string>
 
+    <string name="json_map_facility_name">name</string>
+    <string name="json_map_facility_description">description</string>
+    <string name="json_map_facility_type">type</string>
+    <string name="json_map_facility_longitude">longitude</string>
+    <string name="json_map_facility_latitude">latitude</string>
+    <string name="json_map_facility_id">id</string>
+
     <!-- Bundle keys -->
     <string name="bundle_name">name</string>
     <string name="bundle_json">json</string>

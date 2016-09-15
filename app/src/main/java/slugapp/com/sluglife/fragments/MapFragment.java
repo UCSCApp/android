@@ -23,6 +23,7 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
 import slugapp.com.sluglife.http.DiningHallHttpRequest;
 import slugapp.com.sluglife.http.DiningListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
+import slugapp.com.sluglife.models.BaseMarkerObject;
 import slugapp.com.sluglife.models.DiningHallObject;
 import slugapp.com.sluglife.models.FacilityObject;
 import slugapp.com.sluglife.models.LoopObject;
@@ -51,7 +52,7 @@ public class MapFragment extends BaseMapFragment {
     public static final int DEFAULT_MASK = 0b001001;
 
     private LoopRunnable loopRunnable;
-    private List<FacilityObject> staticMarkers;
+    private List<BaseMarkerObject> staticMarkers;
     private List<LoopObject> dynamicMarkers;
 
     /**
@@ -285,7 +286,8 @@ public class MapFragment extends BaseMapFragment {
      * @param marker Google map marker
      */
     private void onClickStaticInfoWindow(Marker marker) {
-        for (FacilityObject facility : staticMarkers) {
+        /*
+        for (BaseMarkerObject facility : staticMarkers) {
             if (!(facility.marker).getTitle().equals(marker.getTitle())) continue;
             if (facility.isType(MarkerTypeEnum.DINING_HALL)) {
                 this.mCallback.setFragment(DiningViewPagerFragment.newInstance(this.mContext,
@@ -295,5 +297,6 @@ public class MapFragment extends BaseMapFragment {
                         marker.getTitle()));
             }
         }
+        */
     }
 }

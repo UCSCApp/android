@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import slugapp.com.sluglife.R;
@@ -18,7 +19,12 @@ import slugapp.com.sluglife.adapters.BaseListAdapter;
 import slugapp.com.sluglife.adapters.FacilityListAdapter;
 import slugapp.com.sluglife.databinding.ListMapFacilityBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
+import slugapp.com.sluglife.http.EventListHttpRequest;
+import slugapp.com.sluglife.http.FacilityListHttpRequest;
+import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.models.BaseObject;
+import slugapp.com.sluglife.models.EventObject;
+import slugapp.com.sluglife.models.FacilityObject;
 
 /**
  * Created by isaiah on 9/1/2015
@@ -127,10 +133,46 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
      */
     @Override
     public void onSwipeListRefresh() {
-        ((BaseListAdapter) mAdapter).setData(mFacilities);
-        this.mBinding.swipeContainer.setVisibility(View.GONE);
-        this.mBinding.failed.setVisibility(View.VISIBLE);
 
-        this.stopRefreshing();
+        new FacilityListHttpRequest(this.mContext).execute(new HttpCallback<List<FacilityObject>>() {
+
+            /**
+             * On request success
+             *
+             * @param values List of values from request
+             */
+            @Override
+            public void onSuccess(List<FacilityObject> values) {
+                //evaluateQuery(values);
+                Collections.sort(values, new ListSort());
+                List<BaseObject> facilities = new ArrayList<>();
+                for (BaseObject val : values) facilities.add(val);
+
+                if (facilities.isEmpty()) {
+                    hideViews(mBinding.swipeContainer);
+                    showViews(mBinding.failed);
+                } else {
+                    hideViews(mBinding.failed);
+                    showViews(mBinding.swipeContainer);
+                }
+
+                ((BaseListAdapter) mAdapter).setData(facilities);
+
+                stopRefreshing();
+            }
+
+            /**
+             * On request error
+             *
+             * @param e Exception
+             */
+            @Override
+            public void onError(Exception e) {
+                hideViews(mBinding.swipeContainer);
+                showViews(mBinding.failed);
+
+                stopRefreshing();
+            }
+        });
     }
 }

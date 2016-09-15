@@ -1,5 +1,7 @@
 package slugapp.com.sluglife.models;
 
+import android.content.Context;
+
 import com.google.android.gms.maps.model.Marker;
 
 import slugapp.com.sluglife.enums.MarkerTypeEnum;
@@ -11,14 +13,20 @@ import slugapp.com.sluglife.enums.MarkerTypeEnum;
  */
 public class FacilityObject extends BaseMarkerObject {
     public MarkerTypeEnum type;
+    public Context context;
+    public String name;
+    public String description;
+    public String lat;
+    public String lng;
+    public int id;
 
     /**
      * Constructor
      *
-     * @param type Facility type
+     * @param context Activity context
      */
-    public FacilityObject(MarkerTypeEnum type) {
-        this.type = type;
+    public FacilityObject(Context context) {
+        this.context = context;
     }
 
     /**
@@ -29,6 +37,14 @@ public class FacilityObject extends BaseMarkerObject {
     public FacilityObject(MarkerTypeEnum type, Marker marker) {
         this.type = type;
         this.marker = marker;
+    }
+
+    /**
+     * Sets type
+     *
+     * @param type Facility type
+     */
+    public void setType(String type) {
     }
 
     /**

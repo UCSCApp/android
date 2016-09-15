@@ -25,6 +25,7 @@
     <!-- Api Paths -->
     <string name="api_loops_location">/location/get</string>
     <string name="api_triton_get_events">/events/getEvents</string>
+    <string name="api_triton_get_locations">/map/getLocations</string>
 
     <string name="api_map_roads">/v1/snapToRoads</string>
 </resources>
