@@ -33,6 +33,14 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/checkbox_dining_halls" />
 
+        <CheckBox
+            android:id="@+id/checkbox_cafes"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/checkbox_libraries" />
+
         <TextView
             android:id="@+id/textview_loop_buses"
             android:layout_width="200dip"
@@ -75,6 +83,20 @@
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/textview_cafes"
+            android:layout_width="200dip"
+            android:layout_height="36dip"
+            android:layout_below="@id/textview_libraries"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/checkbox_cafes"
+            android:layout_toStartOf="@id/checkbox_cafes"
+            android:gravity="center_vertical"
+            android:text="@string/dialog_map_cafes"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
         <ImageView
             android:id="@+id/image_loop_buses"
             android:layout_width="24dip"
@@ -110,5 +132,17 @@
             android:layout_toStartOf="@id/textview_libraries"
             android:contentDescription="@string/app_name"
             android:src="@drawable/library_legend" />
+
+        <ImageView
+            android:id="@+id/image_cafes"
+            android:layout_width="24dip"
+            android:layout_height="36dip"
+            android:layout_below="@id/image_libraries"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_toLeftOf="@id/textview_cafes"
+            android:layout_toStartOf="@id/textview_cafes"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/cafe_legend" />
     </RelativeLayout>
 </layout>

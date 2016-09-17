@@ -87,6 +87,8 @@ public class MapViewFragment extends BaseViewFragment {
                     this.hideViews(this.mBinding.search.searchBar);
                     this.searchShowing = false;
                     this.mBinding.search.searchEditText.setText(EMPTY_STRING);
+
+                    this.setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
 
                 int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers));
@@ -99,6 +101,9 @@ public class MapViewFragment extends BaseViewFragment {
                     this.showViews(this.mBinding.search.searchBar);
 
                     this.mCallback.showKeyboard(this.mBinding.search.searchEditText);
+
+                    this.setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(
+                            this.mContext, this.mQuery));
                 } else {
                     this.mCallback.hideKeyboard();
 
@@ -106,11 +111,7 @@ public class MapViewFragment extends BaseViewFragment {
 
                     this.hideViews(this.mBinding.search.searchBar);
 
-                    if (this.resultsShowing) {
-                        this.resultsShowing = false;
-
-                        this.setChildFragment(R.id.map_view, MapFragment.newInstance());
-                    }
+                    this.setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
                 this.searchShowing = !this.searchShowing;
 
@@ -198,16 +199,10 @@ public class MapViewFragment extends BaseViewFragment {
             public void afterTextChanged(Editable s) {
                 mQuery = s.toString();
 
-                if (!mQuery.isEmpty()) {
-                    resultsShowing = true;
+                resultsShowing = true;
 
-                    setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
-                            mQuery));
-                } else if (resultsShowing) {
-                    resultsShowing = false;
-
-                    setChildFragment(R.id.map_view, MapFragment.newInstance());
-                }
+                setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
+                        mQuery));
             }
         });
 

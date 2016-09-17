@@ -133,8 +133,6 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
 
     /**
      * Requests location permissions
-     *
-     * @return Boolean if location permissions were accepted
      */
     protected void requestLocationPermissions() {
         ActivityCompat.requestPermissions(this.getActivity(), new String[]{

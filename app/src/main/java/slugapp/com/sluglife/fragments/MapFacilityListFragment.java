@@ -36,7 +36,6 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
 
     private ListMapFacilityBinding mBinding;
     private String mQuery;
-    private List<BaseObject> mFacilities;
 
     /**
      * Gets a new instance of fragment
@@ -89,8 +88,6 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
     @Override
     protected void setSwipeListFields() {
         this.mSwipeLayout = this.mBinding.swipeContainer;
-
-        this.mFacilities = new ArrayList<>();
     }
 
     /**

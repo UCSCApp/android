@@ -10,7 +10,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="left"
             android:paddingBottom="12dip"
             android:paddingLeft="8dip"
             android:paddingRight="8dip"

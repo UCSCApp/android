@@ -9,6 +9,7 @@
     <string name="dialog_map_loop_buses">Loop Buses</string>
     <string name="dialog_map_dining_halls">Dining Halls</string>
     <string name="dialog_map_libraries">Libraries</string>
+    <string name="dialog_map_cafes">Cafes</string>
     <string name="dialog_positive">@android:string/ok</string>
     <string name="dialog_negative">@android:string/cancel</string>
 

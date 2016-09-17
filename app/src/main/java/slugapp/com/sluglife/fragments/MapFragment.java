@@ -1,10 +1,15 @@
 package slugapp.com.sluglife.fragments;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,6 +48,8 @@ public class MapFragment extends BaseMapFragment {
     private static final long MAP_DELAY = 0;
     private static final int MAP_PERIOD = 2000;
     private static final float DEFAULT_ZOOM = 14.2f;
+    private static final float LOCATION_ZOOM = 14.5f;
+    private static final float SCHOOL_RADIUS = 1672.2233f;
 
     private static final double INIT_LAT = 36.991339;
     private static final double INIT_LNG = -122.058972;
@@ -130,6 +137,25 @@ public class MapFragment extends BaseMapFragment {
                 return false;
             }
         });
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                View view = getActivity().getLayoutInflater().inflate(
+                        R.layout.info_window_map, null);
+                TextView name = (TextView) view.findViewById(R.id.name);
+                TextView description = (TextView) view.findViewById(R.id.description);
+
+                name.setText(marker.getTitle());
+                description.setText(marker.getSnippet());
+
+                return view;
+            }
+        });
     }
 
     /**
@@ -152,7 +178,25 @@ public class MapFragment extends BaseMapFragment {
 
         if (!this.isGPSEnabled()) return;
 
-        if (this.isLocationPermitted()) googleMap.setMyLocationEnabled(true);
+        if (this.isLocationPermitted()) {
+            googleMap.setMyLocationEnabled(true);
+
+            LocationManager locationManager = (LocationManager) this.getActivity()
+                    .getSystemService(Context.LOCATION_SERVICE);
+
+            Location location = locationManager.getLastKnownLocation(locationManager
+                    .getBestProvider(new Criteria(), false));
+
+            if (location == null) return;
+
+            float[] distance = new float[3];
+            Location.distanceBetween(initLatLng.latitude, initLatLng.longitude,
+                    location.getLatitude(), location.getLongitude(), distance);
+            LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+            if (distance[0] < SCHOOL_RADIUS) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
+            }
+        }
         else this.requestLocationPermissions();
     }
 
@@ -175,7 +219,7 @@ public class MapFragment extends BaseMapFragment {
      * Sets loop bus markers on google map
      *
      * @param googleMap Google map
-     * @param bin Binary number for map filter
+     * @param bin       Binary number for map filter
      */
     private void setLoopBusMarkers(final GoogleMap googleMap, int bin) {
         if ((bin & LOOP_MASK) == 0) return;
@@ -192,47 +236,47 @@ public class MapFragment extends BaseMapFragment {
      * Sets static markers on google map
      *
      * @param googleMap Google map
-     * @param bin Binary number for map filter
+     * @param bin       Binary number for map filter
      */
     private void setStaticMarkers(final GoogleMap googleMap, final int bin) {
         new FacilityListHttpRequest(this.mContext).execute(
                 new HttpCallback<List<FacilityObject>>() {
 
-            /**
-             * On request success
-             *
-             * @param values List of values from request
-             */
-            @Override
-            public void onSuccess(List<FacilityObject> values) {
-                for (FacilityObject facility : values) {
-                    staticMarkers.add(facility);
+                    /**
+                     * On request success
+                     *
+                     * @param values List of values from request
+                     */
+                    @Override
+                    public void onSuccess(List<FacilityObject> values) {
+                        for (FacilityObject facility : values) {
+                            staticMarkers.add(facility);
 
-                    String title = facility.name;
-                    String snippet = facility.description;
-                    LatLng latLng = new LatLng(facility.lat, facility.lng);
+                            String title = facility.name;
+                            String snippet = facility.description;
+                            LatLng latLng = new LatLng(facility.lat, facility.lng);
 
-                    BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(
-                            facility.type.markerImage);
+                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(
+                                    facility.type.markerImage);
 
-                    if ((bin & facility.type.mask) == 0) continue;
-                    facility.marker = googleMap.addMarker(new MarkerOptions()
-                            .title(title)
-                            .snippet(snippet)
-                            .position(latLng)
-                            .icon(bitmap));
-                }
-            }
+                            if ((bin & facility.type.mask) == 0) continue;
+                            facility.marker = googleMap.addMarker(new MarkerOptions()
+                                    .title(title)
+                                    .snippet(snippet)
+                                    .position(latLng)
+                                    .icon(bitmap));
+                        }
+                    }
 
-            /**
-             * On request error
-             *
-             * @param e Exception
-             */
-            @Override
-            public void onError(Exception e) {
-                e.printStackTrace();
-            }
-        });
+                    /**
+                     * On request error
+                     *
+                     * @param e Exception
+                     */
+                    @Override
+                    public void onError(Exception e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 }

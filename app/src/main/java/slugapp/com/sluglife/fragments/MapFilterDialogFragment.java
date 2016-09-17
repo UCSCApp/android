@@ -27,6 +27,7 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
     private static final int LOOP_BIN = 0b000001;
     private static final int DINING_BIN = 0b000100;
     private static final int LIBRARY_BIN = 0b001000;
+    private static final int CAFE_BIN = 0b010000;
 
     private DialogMapFilterBinding mBinding;
 
@@ -66,6 +67,8 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
                 this.mBinding.textviewDiningHalls);
         this.setCheckBox(pref, LIBRARY_BIN, this.mBinding.checkboxLibraries,
                 this.mBinding.textviewLibraries);
+        this.setCheckBox(pref, CAFE_BIN, this.mBinding.checkboxCafes,
+                this.mBinding.textviewCafes);
 
         return new AlertDialog.Builder(this.getActivity())
                 .setTitle(this.mContext.getString(R.string.title_map_dialog_filter))
@@ -86,6 +89,7 @@ public class MapFilterDialogFragment extends BaseDialogFragment {
                         if (mBinding.checkboxLoopBuses.isChecked()) bin = bin | LOOP_BIN;
                         if (mBinding.checkboxDiningHalls.isChecked()) bin = bin | DINING_BIN;
                         if (mBinding.checkboxLibraries.isChecked()) bin = bin | LIBRARY_BIN;
+                        if (mBinding.checkboxCafes.isChecked()) bin = bin | CAFE_BIN;
 
                         Intent intent = new Intent();
                         intent.putExtra(mContext.getString(R.string.bundle_markers), bin);
