@@ -3,6 +3,7 @@ package slugapp.com.sluglife.fragments;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,6 +172,16 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
                 stopRefreshing();
             }
         });
+    }
+
+    /**
+     * Updates query
+     *
+     * @param query Query to update to
+     */
+    public void updateQuery(String query) {
+        this.mQuery = query;
+        this.onRefresh();
     }
 
     /**

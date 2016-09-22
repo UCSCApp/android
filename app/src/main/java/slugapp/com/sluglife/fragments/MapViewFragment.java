@@ -91,6 +91,8 @@ public class MapViewFragment extends BaseViewFragment {
                     this.setChildFragment(R.id.map_view, MapFragment.newInstance());
                 }
 
+                this.resultsShowing = false;
+
                 int bin = this.getSharedPrefInt(this.mContext.getString(R.string.bundle_markers));
                 this.setDialogFragment(MapFilterDialogFragment.newInstance(this.mContext, bin));
 
@@ -100,10 +102,9 @@ public class MapViewFragment extends BaseViewFragment {
                 if (!this.searchShowing) {
                     this.showViews(this.mBinding.search.searchBar);
 
-                    this.mCallback.showKeyboard(this.mBinding.search.searchEditText);
+                    this.mBinding.search.searchEditText.setText(EMPTY_STRING);
 
-                    this.setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(
-                            this.mContext, this.mQuery));
+                    this.mCallback.showKeyboard(this.mBinding.search.searchEditText);
                 } else {
                     this.mCallback.hideKeyboard();
 
@@ -112,6 +113,8 @@ public class MapViewFragment extends BaseViewFragment {
                     this.hideViews(this.mBinding.search.searchBar);
 
                     this.setChildFragment(R.id.map_view, MapFragment.newInstance());
+
+                    this.resultsShowing = false;
                 }
                 this.searchShowing = !this.searchShowing;
 
@@ -165,6 +168,7 @@ public class MapViewFragment extends BaseViewFragment {
         this.setChildFragment(R.id.map_view, MapFragment.newInstance());
 
         this.mBinding.search.searchEditText.addTextChangedListener(new TextWatcher() {
+            private MapFacilityListFragment fragment;
 
             /**
              * Before edit text changed
@@ -199,10 +203,14 @@ public class MapViewFragment extends BaseViewFragment {
             public void afterTextChanged(Editable s) {
                 mQuery = s.toString();
 
-                resultsShowing = true;
+                if (resultsShowing) {
+                    this.fragment.updateQuery(mQuery);
+                } else {
+                    this.fragment = MapFacilityListFragment.newInstance(mContext, mQuery);
+                    setChildFragment(R.id.map_view, this.fragment);
+                }
 
-                setChildFragment(R.id.map_view, MapFacilityListFragment.newInstance(mContext,
-                        mQuery));
+                resultsShowing = true;
             }
         });
 
