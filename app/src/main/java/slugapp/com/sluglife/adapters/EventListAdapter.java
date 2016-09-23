@@ -62,12 +62,15 @@ public class EventListAdapter extends BaseListAdapter {
         new ImageHttpRequest(event.image).execute(holder.image);
 
         // TODO: constants
+        /*
 
         if (DateObject.compareDates(event.date, DateObject.getToday(this.mContext)) < 1) {
             holder.name.setTextColor(Color.GRAY);
             holder.date.setTextColor(Color.GRAY);
             holder.summary.setTextColor(Color.GRAY);
         }
+
+        */
 
         return convertView;
     }
