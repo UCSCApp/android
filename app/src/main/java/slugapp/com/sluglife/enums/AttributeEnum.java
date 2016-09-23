@@ -19,7 +19,8 @@ public enum AttributeEnum implements Serializable {
     NUTS(R.string.dining_food_attribute_nuts, R.drawable.ic_nuts),
     FISH(R.string.dining_food_attribute_fish, R.drawable.ic_fish),
     PORK(R.string.dining_food_attribute_pork, R.drawable.ic_pork),
-    BEEF(R.string.dining_food_attribute_beef, R.drawable.ic_beef);
+    BEEF(R.string.dining_food_attribute_beef, R.drawable.ic_beef),
+    HALAL(R.string.dining_food_attribute_halal, R.drawable.ic_halal);
 
     public int name;
     public int icon;

@@ -14,5 +14,6 @@
     <string name="dining_food_attribute_fish">Fish</string>
     <string name="dining_food_attribute_pork">Pork</string>
     <string name="dining_food_attribute_beef">Beef</string>
+    <string name="dining_food_attribute_halal">Halal</string>
 </resources>
 
