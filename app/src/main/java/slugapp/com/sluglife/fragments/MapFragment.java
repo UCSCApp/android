@@ -5,6 +5,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,23 @@ public class MapFragment extends BaseMapFragment {
      */
     public static MapFragment newInstance() {
         return new MapFragment();
+    }
+
+    /**
+     * Gets a new instance of fragment
+     *
+     * @param context  Activity context
+     * @param facility Name of facility to search
+     * @return New instance of fragment
+     */
+    public static MapFragment newInstance(Context context, FacilityObject facility) {
+        MapFragment fragment = new MapFragment();
+
+        Bundle b = new Bundle();
+        b.putSerializable(context.getString(R.string.bundle_name), facility);
+        fragment.setArguments(b);
+
+        return fragment;
     }
 
     /**
@@ -165,7 +183,7 @@ public class MapFragment extends BaseMapFragment {
      */
     @Override
     @SuppressWarnings({"MissingPermission"})
-    protected void setInitialZoom(GoogleMap googleMap) {
+    protected void setInitialZoom(final GoogleMap googleMap) {
         LatLng initLatLng = new LatLng(INIT_LAT, INIT_LNG);
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
@@ -196,8 +214,14 @@ public class MapFragment extends BaseMapFragment {
             if (distance[0] < SCHOOL_RADIUS) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
             }
+        } else this.requestLocationPermissions();
+
+        if (this.getArguments() != null && this.getArguments().containsKey(this.getString(
+                R.string.bundle_name))) {
+            FacilityObject facility = (FacilityObject) this.getArguments().getSerializable(
+                    this.getString(R.string.bundle_name));
+            this.createMarker(googleMap, facility);
         }
-        else this.requestLocationPermissions();
     }
 
     /**
@@ -278,5 +302,23 @@ public class MapFragment extends BaseMapFragment {
                         e.printStackTrace();
                     }
                 });
+    }
+
+    public void createMarker(GoogleMap googleMap, FacilityObject facility) {
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(
+                facility.type.markerImage);
+
+        // Adding Marker to Map
+        MarkerOptions options = new MarkerOptions()
+                .snippet(facility.description)
+                .title(facility.name)
+                .position(new LatLng(facility.lat, facility.lng))
+                .icon(bitmap);
+        Marker currentMarker = googleMap.addMarker(options);
+        currentMarker.showInfoWindow();
+
+        // Move camera to new Marker
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(facility.lat,
+                facility.lng), LOCATION_ZOOM));
     }
 }

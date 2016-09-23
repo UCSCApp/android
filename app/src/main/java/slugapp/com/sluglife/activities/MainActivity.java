@@ -154,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      *
      * @param fragment Tab fragment to set
      */
-    private void setTabFragment(Fragment fragment) {
+    @Override
+    public void setTabFragment(Fragment fragment) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() > EMPTY) {
             FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(

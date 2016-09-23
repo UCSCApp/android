@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -124,6 +125,8 @@ public class MapFacilityListFragment extends BaseSwipeListFragment {
      */
     @Override
     protected void onSwipeListItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MapViewFragment fragment = (MapViewFragment) this.getParentFragment();
+        fragment.setMapFragment((FacilityObject) parent.getItemAtPosition(position));
     }
 
     /**

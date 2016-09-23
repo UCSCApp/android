@@ -15,6 +15,13 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
 public interface ActivityCallback {
 
     /**
+     * Sets the given tab fragment
+     *
+     * @param fragment Tab fragment to set
+     */
+    void setTabFragment(Fragment fragment);
+
+    /**
      * Sets the current fragment
      *
      * @param fragment Fragment to set

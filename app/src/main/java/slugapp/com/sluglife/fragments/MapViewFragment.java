@@ -17,6 +17,7 @@ import android.widget.Button;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.databinding.ViewMapBinding;
 import slugapp.com.sluglife.enums.FragmentEnum;
+import slugapp.com.sluglife.objects.FacilityObject;
 
 /**
  * Created by isaiah on 6/20/16
@@ -231,5 +232,18 @@ public class MapViewFragment extends BaseViewFragment {
                 searchShowing = !searchShowing;
             }
         });
+    }
+
+    public void setMapFragment(FacilityObject facility) {
+        this.mCallback.hideKeyboard();
+
+        this.mBinding.search.searchEditText.setText(EMPTY_STRING);
+
+        this.hideViews(mBinding.search.searchBar);
+
+        this.searchShowing = !this.searchShowing;
+        this.resultsShowing = false;
+
+        this.setChildFragment(R.id.map_view, MapFragment.newInstance(this.getActivity(), facility));
     }
 }
