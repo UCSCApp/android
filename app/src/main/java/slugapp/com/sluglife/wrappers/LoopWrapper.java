@@ -24,8 +24,8 @@ public class LoopWrapper extends LoopObject {
      */
     public LoopWrapper(Context context, JSONObject obj) throws JSONException {
         super(Integer.parseInt(obj.getString(context.getString(R.string.json_map_id))),
-                Float.parseFloat(obj.getString(context.getString(R.string.json_map_lat))),
-                Float.parseFloat(obj.getString(context.getString(R.string.json_map_lng))),
+                Double.parseDouble(obj.getString(context.getString(R.string.json_map_lat))),
+                Double.parseDouble(obj.getString(context.getString(R.string.json_map_lng))),
                 obj.getString(context.getString(R.string.json_map_type)));
     }
 }

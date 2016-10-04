@@ -194,9 +194,7 @@ public class MapFragment extends BaseMapFragment {
         googleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(
                 new LatLng(36.949355, -122.088585), new LatLng(37.025354, -121.929058)));
 
-        if (!this.isGPSEnabled()) return;
-
-        if (this.isLocationPermitted()) {
+        if (this.isGPSEnabled() && this.isLocationPermitted()) {
             googleMap.setMyLocationEnabled(true);
 
             LocationManager locationManager = (LocationManager) this.getActivity()
@@ -214,7 +212,7 @@ public class MapFragment extends BaseMapFragment {
             if (distance[0] < SCHOOL_RADIUS) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
             }
-        } else this.requestLocationPermissions();
+        } else if (this.isGPSEnabled()) this.requestLocationPermissions();
 
         if (this.getArguments() != null && this.getArguments().containsKey(this.getString(
                 R.string.bundle_name))) {

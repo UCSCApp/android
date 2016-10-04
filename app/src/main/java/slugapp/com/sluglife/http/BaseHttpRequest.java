@@ -18,13 +18,14 @@ import slugapp.com.sluglife.interfaces.HttpCallback;
  * This file contains a base http request class.
  */
 public abstract class BaseHttpRequest extends BaseRequest {
-    private static final String EMPTY_STRING = "";
     private static final String QUESTION_MARK = "?";
     private static final String EQUALS = "=";
     private static final String SPACE = " ";
     private static final String SPACE_URL = "%20";
     private static final String AMPERSAND = "&";
     private static final String AMPERSAND_URL = "%26";
+
+    protected static final String EMPTY_STRING = "";
 
     protected String mUrl;
     protected String mHeader;

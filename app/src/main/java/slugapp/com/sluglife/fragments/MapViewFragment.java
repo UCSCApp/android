@@ -234,9 +234,12 @@ public class MapViewFragment extends BaseViewFragment {
         });
     }
 
+    /**
+     * Sets map fragment
+     *
+     * @param facility Facility to add to the map
+     */
     public void setMapFragment(FacilityObject facility) {
-        this.mCallback.hideKeyboard();
-
         this.mBinding.search.searchEditText.setText(EMPTY_STRING);
 
         this.hideViews(mBinding.search.searchBar);
@@ -245,5 +248,7 @@ public class MapViewFragment extends BaseViewFragment {
         this.resultsShowing = false;
 
         this.setChildFragment(R.id.map_view, MapFragment.newInstance(this.getActivity(), facility));
+
+        this.mCallback.hideKeyboard();
     }
 }

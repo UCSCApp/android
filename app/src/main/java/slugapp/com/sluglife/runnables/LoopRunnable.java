@@ -95,18 +95,26 @@ public class LoopRunnable implements Runnable {
                 // Adds new markers that are not currently shown
                 for (LoopObject loop : values) {
                     boolean found = false;
+
+                    // If found, animate
                     for (LoopObject loopObject : loops) {
                         if (loop.id == loopObject.id) {
+                            loopObject.getEta(mContext);
+                            //loopObject.updateCoordinates(loop.lat, loop.lng);
+                            loopObject.marker.setSnippet(loopObject.eta);
                             animateMarker(loopObject.marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
                             found = true;
                             break;
                         }
                     }
+
+                    // If not found, add to map
                     if (!found) {
                         if (loop.marker != null) continue;
                         loop.marker = googleMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
+                                .snippet(loop.eta)
                                 .position(new LatLng(loop.lat, loop.lng))
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.loop_bus)));
                         loops.add(loop);
