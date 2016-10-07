@@ -38,10 +38,13 @@ public class LoopTimeHttpRequest extends BaseHttpRequest {
         String protocol = context.getString(R.string.api_protocol_https);
         String api = context.getString(R.string.map_maps_api);
         String port = EMPTY_STRING;
-        String path = context.getString(R.string.api_map_distance_matrix) + "?units=imperial&" +
-                "origins=" + String.valueOf(startLat) + "," + String.valueOf(startLng) + "&" +
-                "destinations=" + String.valueOf(endLat) + "," + String.valueOf(endLng) + "&" +
-                "key=" + "AIzaSyA8SvvXTE8kj2BFNAMiEhVKcgb4az-CvZM";
+        String path = context.getString(R.string.api_map_distance_matrix);
+
+        // TODO: move strings to strings.xml
+
+        path += "?units=imperial&origins=" + String.valueOf(startLat) + "," +
+                String.valueOf(startLng) + "&destinations=" + String.valueOf(endLat) + "," +
+                String.valueOf(endLng) + "&key=AIzaSyA8SvvXTE8kj2BFNAMiEhVKcgb4az-CvZM";
 
         /*
         HashMap<String, String> params = new HashMap<>();
@@ -52,6 +55,7 @@ public class LoopTimeHttpRequest extends BaseHttpRequest {
         */
 
         this.createUrl(protocol, api, port, path, null);
+        Log.e("URL", this.mUrl);
     }
 
     /**

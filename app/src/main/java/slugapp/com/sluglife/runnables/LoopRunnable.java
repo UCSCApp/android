@@ -1,10 +1,17 @@
 package slugapp.com.sluglife.runnables;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -48,7 +55,7 @@ public class LoopRunnable implements Runnable {
      *
      * @param context Activity context
      * @param map     Google map
-     * @param loops Map containing loop information
+     * @param loops   Map containing loop information
      */
     public LoopRunnable(Context context, GoogleMap map, List<LoopObject> loops) {
         this.mContext = context;
@@ -64,6 +71,7 @@ public class LoopRunnable implements Runnable {
      * Runs runnable
      */
     @Override
+    @SuppressWarnings({"MissingPermission"})
     public void run() {
         if (!this.running) return;
 
@@ -77,6 +85,14 @@ public class LoopRunnable implements Runnable {
             @Override
             public void onSuccess(List<LoopObject> values) {
                 noInternet = false;
+
+                if (isGPSEnabled() && isLocationPermitted()) {
+                    googleMap.setMyLocationEnabled(true);
+                } else if (isGPSEnabled()) {
+                    requestLocationPermissions();
+                } else {
+                    googleMap.setMyLocationEnabled(false);
+                }
 
                 // Removes markers on map that disappear
                 Iterator<LoopObject> iterator = loops.iterator();
@@ -99,8 +115,9 @@ public class LoopRunnable implements Runnable {
                     // If found, animate
                     for (LoopObject loopObject : loops) {
                         if (loop.id == loopObject.id) {
+                            loopObject.lat = loop.lat;
+                            loopObject.lng = loop.lng;
                             loopObject.getEta(mContext);
-                            //loopObject.updateCoordinates(loop.lat, loop.lng);
                             loopObject.marker.setSnippet(loopObject.eta);
                             animateMarker(loopObject.marker, new LatLng(loop.lat, loop.lng),
                                     new LatLngInterpolator.Linear());
@@ -112,6 +129,7 @@ public class LoopRunnable implements Runnable {
                     // If not found, add to map
                     if (!found) {
                         if (loop.marker != null) continue;
+                        loop.getEta(mContext);
                         loop.marker = googleMap.addMarker(new MarkerOptions()
                                 .title(loop.type)
                                 .snippet(loop.eta)
@@ -208,5 +226,54 @@ public class LoopRunnable implements Runnable {
                 if (this.t < MAX_DURATION) handler.postDelayed(this, DELAY);
             }
         });
+    }
+
+    /**
+     * Checks if location permissions were accepted
+     *
+     * @return Boolean if location permissions were accepted
+     */
+    protected boolean isLocationPermitted() {
+        return ActivityCompat.checkSelfPermission(this.mContext,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this.mContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Requests location permissions
+     */
+    protected void requestLocationPermissions() {
+        ActivityCompat.requestPermissions((Activity) this.mContext, new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        }, 0);
+    }
+
+    /**
+     * Checks if gps is enabled
+     *
+     * @return If gps is enabled
+     */
+    protected boolean isGPSEnabled() {
+        int locationMode;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(this.mContext.getContentResolver(),
+                        Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        } else {
+            locationProviders = Settings.Secure.getString(this.mContext.getContentResolver(),
+                    Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
     }
 }

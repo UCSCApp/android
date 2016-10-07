@@ -42,8 +42,6 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
  * This file contains a google map fragment that displays a google map using the google map api.
  */
 public class MapFragment extends BaseMapFragment {
-    // INSERT INTO locations VALUES(25, 'Page Smith Library', 'description', 'library', '36.99687611', '-122.0535511');
-
     private static final FragmentEnum FRAGMENT = FragmentEnum.MAP;
 
     private static final long MAP_DELAY = 0;
@@ -169,7 +167,14 @@ public class MapFragment extends BaseMapFragment {
                 TextView description = (TextView) view.findViewById(R.id.description);
 
                 name.setText(marker.getTitle());
-                description.setText(marker.getSnippet());
+
+                if (marker.getSnippet().isEmpty()) {
+                    description.setText("");
+                    hideViews(description);
+                } else {
+                    showViews(description);
+                    description.setText(marker.getSnippet());
+                }
 
                 return view;
             }
@@ -212,7 +217,11 @@ public class MapFragment extends BaseMapFragment {
             if (distance[0] < SCHOOL_RADIUS) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, LOCATION_ZOOM));
             }
-        } else if (this.isGPSEnabled()) this.requestLocationPermissions();
+        } else if (this.isGPSEnabled()) {
+            this.requestLocationPermissions();
+        } else {
+            googleMap.setMyLocationEnabled(false);
+        }
 
         if (this.getArguments() != null && this.getArguments().containsKey(this.getString(
                 R.string.bundle_name))) {

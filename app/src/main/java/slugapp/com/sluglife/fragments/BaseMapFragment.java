@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -165,6 +166,28 @@ public abstract class BaseMapFragment extends SupportMapFragment implements OnMa
             locationProviders = Settings.Secure.getString(this.mContext.getContentResolver(),
                     Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return !TextUtils.isEmpty(locationProviders);
+        }
+    }
+
+    /**
+     * Hides multiple views
+     *
+     * @param views Views to hide
+     */
+    protected void hideViews(View... views) {
+        for (View view : views) {
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Show multiple views
+     *
+     * @param views Views to show
+     */
+    protected void showViews(View... views) {
+        for (View view : views) {
+            view.setVisibility(View.VISIBLE);
         }
     }
 
