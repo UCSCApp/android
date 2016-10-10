@@ -25,12 +25,12 @@ android {
         applicationId "slugapp.com.sluglife"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 12
-        versionName "1.1.0"
+        versionCode 13
+        versionName "1.1.1"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
