@@ -88,8 +88,6 @@ public class LoopRunnable implements Runnable {
 
                 if (isGPSEnabled() && isLocationPermitted()) {
                     googleMap.setMyLocationEnabled(true);
-                } else if (isGPSEnabled()) {
-                    requestLocationPermissions();
                 } else {
                     googleMap.setMyLocationEnabled(false);
                 }

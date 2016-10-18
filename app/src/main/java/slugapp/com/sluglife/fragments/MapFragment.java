@@ -168,12 +168,12 @@ public class MapFragment extends BaseMapFragment {
 
                 name.setText(marker.getTitle());
 
-                if (marker.getSnippet().isEmpty()) {
-                    description.setText("");
-                    hideViews(description);
-                } else {
+                if (marker.getSnippet() != null && !marker.getSnippet().isEmpty()) {
                     showViews(description);
                     description.setText(marker.getSnippet());
+                } else {
+                    description.setText("");
+                    hideViews(description);
                 }
 
                 return view;
@@ -284,7 +284,6 @@ public class MapFragment extends BaseMapFragment {
                             staticMarkers.add(facility);
 
                             String title = facility.name;
-                            String snippet = facility.description;
                             LatLng latLng = new LatLng(facility.lat, facility.lng);
 
                             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(
@@ -293,7 +292,6 @@ public class MapFragment extends BaseMapFragment {
                             if ((bin & facility.type.mask) == 0) continue;
                             facility.marker = googleMap.addMarker(new MarkerOptions()
                                     .title(title)
-                                    .snippet(snippet)
                                     .position(latLng)
                                     .icon(bitmap));
                         }
