@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private TextView mTitle;
     private Timer mTimer;
 
-    // TODO: remove all boilerplate code and trainwrecks
+    // TODO: remove all boilerplate code and train wrecks
 
     /**
      * Activity's onCreate method
