@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the bottom toolbar
      */
     private void setBottomToolbar() {
+
+
+
+        ///*
         AHBottomNavigation bottomToolbar = this.mBinding.bottomToolbar;
 
         for (FragmentEnum fragmentEnum : TAB_FRAGMENTS) {
@@ -124,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
                 return true;
             }
         });
+        //*/
     }
 
     /**
