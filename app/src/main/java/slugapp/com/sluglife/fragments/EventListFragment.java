@@ -241,9 +241,9 @@ public class EventListFragment extends BaseSwipeListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<BaseObject> events = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    EventObject event = new EventObject(getActivity(),
+                    EventObject event = new EventObject(
                             (String) snapshot.child(EventObject.NAME).getValue(),
-                            (String) snapshot.child(EventObject.DATE).getValue(),
+                            (long) snapshot.child(EventObject.DATE).getValue(),
                             (String) snapshot.child(EventObject.SUMMARY).getValue(),
                             (String) snapshot.child(EventObject.IMAGE).getValue()
                     );
@@ -326,11 +326,10 @@ public class EventListFragment extends BaseSwipeListFragment {
         ListIterator<EventObject> iterator = events.listIterator();
         while (iterator.hasNext()) {
             EventObject event = iterator.next();
-            if (!event.date.defined) iterator.remove();
-            else if (this.mQuery != null &&
+            if (this.mQuery != null &&
                     !event.name.toLowerCase().contains(this.mQuery.toLowerCase()) &&
                     !event.summary.toLowerCase().contains(this.mQuery.toLowerCase()) &&
-                    !event.date.getDateString().toLowerCase().contains(this.mQuery.toLowerCase())) {
+                    !event.date.string.toLowerCase().contains(this.mQuery.toLowerCase())) {
                 iterator.remove();
             }
         }

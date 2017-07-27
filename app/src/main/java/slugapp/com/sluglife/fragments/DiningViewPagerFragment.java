@@ -138,7 +138,7 @@ public class DiningViewPagerFragment extends BaseViewFragment {
      */
     @Override
     protected void setView() {
-        this.mBinding.date.setText(DateObject.getToday(this.mContext).getDateString());
+        //this.mBinding.date.setText(DateObject.getToday(this.mContext).getDateString());
 
         new DiningHallHttpRequest(this.mContext, this.mName).execute(
                 new HttpCallback<DiningHallObject>() {
@@ -188,11 +188,13 @@ public class DiningViewPagerFragment extends BaseViewFragment {
      * @return Gets tab index based on time of day
      */
     private int getTimeOfDay() {
+        /*
         int currentTime = DateObject.getToday(this.mContext).hour;
 
         if (currentTime >= BREAKFAST_START && currentTime < BREAKFAST_END) return BREAKFAST;
         else if (currentTime >= LUNCH_START && currentTime < LUNCH_END) return LUNCH;
         else if (currentTime >= DINNER_START && currentTime < DINNER_END) return DINNER;
+        */
 
         return BREAKFAST;
     }

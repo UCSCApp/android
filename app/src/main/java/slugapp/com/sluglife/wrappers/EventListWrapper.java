@@ -27,11 +27,13 @@ public class EventListWrapper extends ArrayList<EventObject> {
     public EventListWrapper(Context context, JSONArray array) throws JSONException {
         super(array.length());
         for (int i = 0; i < array.length(); ++i) {
+            /*
             try {
                 this.add(new EventWrapper(context, array.getJSONObject(i)));
             } catch (JSONException je) {
                 je.printStackTrace();
             }
+            */
         }
     }
 }

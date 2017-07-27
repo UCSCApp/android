@@ -58,7 +58,7 @@ public class EventListHttpRequest extends BaseHttpRequest {
             public void onSuccess(String value) {
                 try {
                     JSONArray jsonArray = new JSONArray(value);
-                    callback.onSuccess(new EventListWrapper(mContext, jsonArray));
+                    //callback.onSuccess(new EventListWrapper(mContext, jsonArray));
                 } catch (JSONException je) {
                     callback.onError(je);
                 }

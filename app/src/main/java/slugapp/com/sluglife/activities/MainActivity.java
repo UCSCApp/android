@@ -24,6 +24,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -124,34 +125,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
                 return true;
             }
         });
-
-        /*
-        BottomNavigationView bottomToolbar = this.mBinding.bottomToolbar;
-
-        bottomToolbar.setOnNavigationItemSelectedListener(
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.action_map:
-                            setTabFragment(getTabFragment(FragmentEnum.MAP));
-                            break;
-                        case R.id.action_events:
-                            setTabFragment(getTabFragment(FragmentEnum.EVENT));
-                            break;
-                        case R.id.action_dining:
-                            setTabFragment(getTabFragment(FragmentEnum.DINING));
-                            break;
-                        case R.id.action_social:
-                            setTabFragment(getTabFragment(FragmentEnum.SOCIAL));
-                            break;
-                    }
-
-                    return true;
-                }
-            }
-        );
-        */
     }
 
     /**
@@ -175,6 +148,15 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         } catch (InvocationTargetException ite) {
             return null;
         }
+    }
+
+    /**
+     * Gets current time
+     */
+    @Override
+    public long getTime() {
+        Date date = new Date();
+        return date.getTime();
     }
 
     /**

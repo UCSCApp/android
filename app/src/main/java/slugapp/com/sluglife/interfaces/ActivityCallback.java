@@ -1,6 +1,5 @@
 package slugapp.com.sluglife.interfaces;
 
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -13,6 +12,11 @@ import slugapp.com.sluglife.runnables.LoopRunnable;
  */
 
 public interface ActivityCallback {
+
+    /**
+     * Gets current time
+     */
+    long getTime();
 
     /**
      * Sets the given tab fragment

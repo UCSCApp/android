@@ -14,6 +14,7 @@ import slugapp.com.sluglife.objects.EventObject;
  * <p/>
  * This file contains an event object wrapper.
  */
+/*
 public class EventWrapper extends EventObject {
 
     /**
@@ -23,6 +24,7 @@ public class EventWrapper extends EventObject {
      * @param obj     Json object
      * @throws JSONException
      */
+    /*
     public EventWrapper(Context context, JSONObject obj) throws JSONException {
         super(context);
         try {
@@ -30,11 +32,13 @@ public class EventWrapper extends EventObject {
         } catch (JSONException je) {
             je.printStackTrace();
         }
+
         try {
             this.setDate(obj.getString(context.getString(R.string.json_event_date)));
         } catch (JSONException je) {
             je.printStackTrace();
         }
+
         try {
             this.summary = obj.getString(context.getString(R.string.json_event_summary));
         } catch (JSONException je) {
@@ -46,4 +50,7 @@ public class EventWrapper extends EventObject {
             je.printStackTrace();
         }
     }
+    */
+    /*
 }
+*/
