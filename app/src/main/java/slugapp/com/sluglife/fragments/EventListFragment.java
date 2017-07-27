@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,8 +15,15 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -27,7 +35,10 @@ import slugapp.com.sluglife.enums.FragmentEnum;
 import slugapp.com.sluglife.http.EventListHttpRequest;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.objects.BaseObject;
+import slugapp.com.sluglife.objects.DateObject;
 import slugapp.com.sluglife.objects.EventObject;
+
+import static com.digits.sdk.android.Digits.TAG;
 
 /**
  * Created by isaiah on 6/23/2015
@@ -223,13 +234,53 @@ public class EventListFragment extends BaseSwipeListFragment {
      */
     @Override
     public void onSwipeListRefresh() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<BaseObject> events = new ArrayList<>();
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    EventObject event = new EventObject(getActivity());
+
+                    event.name = (String) snapshot.child("name").getValue();
+                    event.summary = (String) snapshot.child("summary").getValue();
+                    event.setDate((String) snapshot.child("date").getValue());
+                    event.image = (String) snapshot.child("image").getValue();
+
+                    events.add(event);
+                }
+
+                if (events.isEmpty()) {
+                    hideViews(mBinding.swipeContainer);
+                    showViews(mBinding.failed);
+                } else {
+                    hideViews(mBinding.failed);
+                    showViews(mBinding.swipeContainer);
+                }
+
+                ((BaseListAdapter) mAdapter).setData(events);
+
+                stopRefreshing();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                hideViews(mBinding.swipeContainer);
+                showViews(mBinding.failed);
+
+                stopRefreshing();
+            }
+        });
+
+        /*
         new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<EventObject>>() {
 
             /**
              * On request success
              *
              * @param values List of values from request
-             */
+             *
             @Override
             public void onSuccess(List<EventObject> values) {
                 evaluateQuery(values);
@@ -254,7 +305,7 @@ public class EventListFragment extends BaseSwipeListFragment {
              * On request error
              *
              * @param e Exception
-             */
+             *
             @Override
             public void onError(Exception e) {
                 hideViews(mBinding.swipeContainer);
@@ -263,6 +314,7 @@ public class EventListFragment extends BaseSwipeListFragment {
                 stopRefreshing();
             }
         });
+        */
     }
 
     /**

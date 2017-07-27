@@ -99,10 +99,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
      * Initializes the bottom toolbar
      */
     private void setBottomToolbar() {
-
-
-
-        ///*
         AHBottomNavigation bottomToolbar = this.mBinding.bottomToolbar;
 
         for (FragmentEnum fragmentEnum : TAB_FRAGMENTS) {
@@ -128,7 +124,34 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
                 return true;
             }
         });
-        //*/
+
+        /*
+        BottomNavigationView bottomToolbar = this.mBinding.bottomToolbar;
+
+        bottomToolbar.setOnNavigationItemSelectedListener(
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_map:
+                            setTabFragment(getTabFragment(FragmentEnum.MAP));
+                            break;
+                        case R.id.action_events:
+                            setTabFragment(getTabFragment(FragmentEnum.EVENT));
+                            break;
+                        case R.id.action_dining:
+                            setTabFragment(getTabFragment(FragmentEnum.DINING));
+                            break;
+                        case R.id.action_social:
+                            setTabFragment(getTabFragment(FragmentEnum.SOCIAL));
+                            break;
+                    }
+
+                    return true;
+                }
+            }
+        );
+        */
     }
 
     /**

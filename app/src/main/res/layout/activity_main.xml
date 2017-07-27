@@ -37,6 +37,20 @@
             android:minHeight="?attr/actionBarSize"
             android:orientation="vertical" />
 
+        <!--
+        <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="vertical"
+        app:menu="@menu/menu_bottom_toolbar"
+        app:itemBackground="@color/ucsc_blue"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white" />
+        -->
+
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"

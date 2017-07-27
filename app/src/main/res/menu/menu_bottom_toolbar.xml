@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_map"
+        android:enabled="true"
+        android:icon="@drawable/ic_map"
+        android:title="@string/tab_map" />
+    <item
+        android:id="@+id/action_events"
+        android:enabled="true"
+        android:icon="@drawable/ic_events"
+        android:title="@string/tab_event" />
+    <item
+        android:id="@+id/action_dining"
+        android:enabled="true"
+        android:icon="@drawable/ic_dining"
+        android:title="@string/tab_dining" />
+    <item
+        android:id="@+id/action_social"
+        android:enabled="true"
+        android:icon="@drawable/ic_social"
+        android:title="@string/tab_social" />
+</menu>

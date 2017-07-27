@@ -61,7 +61,7 @@ public class EventObject extends BaseObject {
      *
      * @param date Date string
      */
-    protected void setDate(String date) {
+    public void setDate(String date) {
         String[] dateParts = date.split("\\s+");
         if (dateParts.length != 4 && dateParts.length != 5) this.date = new DateObject(date);
         else this.date = new DateObject(this.context, dateParts[0], dateParts[1], dateParts[2],
