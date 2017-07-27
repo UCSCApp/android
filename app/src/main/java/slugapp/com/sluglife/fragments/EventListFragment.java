@@ -240,13 +240,13 @@ public class EventListFragment extends BaseSwipeListFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<BaseObject> events = new ArrayList<>();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    EventObject event = new EventObject(getActivity());
-
-                    event.name = (String) snapshot.child("name").getValue();
-                    event.summary = (String) snapshot.child("summary").getValue();
-                    event.setDate((String) snapshot.child("date").getValue());
-                    event.image = (String) snapshot.child("image").getValue();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    EventObject event = new EventObject(getActivity(),
+                            (String) snapshot.child(EventObject.NAME).getValue(),
+                            (String) snapshot.child(EventObject.DATE).getValue(),
+                            (String) snapshot.child(EventObject.SUMMARY).getValue(),
+                            (String) snapshot.child(EventObject.IMAGE).getValue()
+                    );
 
                     events.add(event);
                 }

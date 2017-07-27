@@ -9,6 +9,11 @@ import android.content.Context;
  * This file contains an event object.
  */
 public class EventObject extends BaseObject {
+    public static final String NAME = "name";
+    public static final String DATE = "date";
+    public static final String SUMMARY = "summary";
+    public static final String IMAGE = "image";
+
     public String name;
     public DateObject date;
     public String summary;
@@ -27,6 +32,23 @@ public class EventObject extends BaseObject {
         this.date = new DateObject("");
         this.summary = "";
         this.image = "";
+    }
+
+    /**
+     * Constructor
+     *
+     * @param context Activity context
+     * @param name    String name of event
+     * @param date    String date of event
+     * @param summary String summary of event
+     * @param image   String image of event
+     */
+    public EventObject(Context context, String name, String date, String summary, String image) {
+        this.context = context;
+        this.name = name;
+        this.setDate(date);
+        this.summary = summary;
+        this.image = image;
     }
 
     /**
