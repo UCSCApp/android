@@ -100,7 +100,6 @@ public class EventViewFragment extends BaseViewFragment {
      */
     @Override
     protected void setView() {
-
         String dayString = this.mContext.getString(R.string.detail_event_day) + this.mEvent.date.string;
         this.mBinding.title.setText(this.mEvent.name);
         this.mBinding.day.setText(dayString);

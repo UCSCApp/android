@@ -1,15 +1,9 @@
 package slugapp.com.sluglife.objects;
 
-import android.content.Context;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import slugapp.com.sluglife.R;
-import slugapp.com.sluglife.enums.MonthEnum;
 
 /**
  * Created by isaiah on 7/18/2015
@@ -30,7 +24,12 @@ public class DateObject extends BaseObject {
     public String hour;
     public String string;
 
-    public DateObject(long value) {
+    /**
+     * Constructor
+     *
+     * @param value Date value
+     */
+    DateObject(long value) {
         Date date = new Date(value);
 
         DateFormat dateFormat = new SimpleDateFormat(DateObject.DATE_FORMAT, Locale.US);
@@ -53,5 +52,15 @@ public class DateObject extends BaseObject {
      */
     public static int compareDates(DateObject lhs, DateObject rhs) {
         return lhs.value < rhs.value ? LESS_THAN : lhs.value > rhs.value ? GREATER_THAN : EQUAL;
+    }
+
+    /**
+     * Gets today's date
+     *
+     * @return Today's date
+     */
+    public static DateObject getToday() {
+        Date date = new Date();
+        return new DateObject(date.getTime());
     }
 }

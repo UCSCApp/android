@@ -10,7 +10,6 @@ import java.util.List;
 import slugapp.com.sluglife.R;
 import slugapp.com.sluglife.interfaces.HttpCallback;
 import slugapp.com.sluglife.objects.EventObject;
-import slugapp.com.sluglife.wrappers.EventListWrapper;
 
 /**
  * Created by simba on 7/31/15

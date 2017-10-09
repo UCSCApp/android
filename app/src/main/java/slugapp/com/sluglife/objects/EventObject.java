@@ -12,12 +12,23 @@ public class EventObject extends BaseObject {
     public static final String SUMMARY = "summary";
     public static final String IMAGE = "image";
 
+    public long id;
     public String name;
     public DateObject date;
     public String summary;
     public String image;
 
-    public EventObject(String name, long date, String summary, String image) {
+    /**
+     * Constructor
+     *
+     * @param id Event id
+     * @param name Event name
+     * @param date Event date
+     * @param summary Event summary
+     * @param image Event image
+     */
+    public EventObject(long id, String name, long date, String summary, String image) {
+        this.id = id;
         this.name = name;
         this.date = new DateObject(date);
         this.summary = summary;

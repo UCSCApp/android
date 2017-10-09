@@ -201,6 +201,70 @@ public class EventListFragment extends BaseSwipeListFragment {
                 searchShowing = !searchShowing;
             }
         });
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<EventObject> events = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Check if numbers are valid
+                    try {
+                        // Id
+                        long id = Long.parseLong(snapshot.getKey());
+
+                        // Name
+                        String name = (String) snapshot.child(EventObject.NAME).getValue();
+
+                        // Date
+                        Object tempDate = snapshot.child(EventObject.DATE).getValue();
+                        long date = tempDate instanceof Long ? (long) tempDate : 0;
+
+                        // Summary
+                        String summary = (String) snapshot.child(EventObject.SUMMARY).getValue();
+
+                        // Image
+                        String image = (String) snapshot.child(EventObject.IMAGE).getValue();
+
+                        // If date invalid, skip
+                        if (date == 0) throw new NumberFormatException();
+
+                        // Add event to event list
+                        EventObject event = new EventObject(id, name, date, summary, image);
+                        events.add(event);
+                    }
+                    catch (NumberFormatException numberFormatException) {
+                        Log.d("Events", "skipped event");
+                    }
+                }
+
+                evaluateQuery(events);
+                Collections.sort(events, new ListSort());
+
+                List<BaseObject> adapterData = new ArrayList<>();
+                for (BaseObject event : events) adapterData.add(event);
+
+                if (adapterData.isEmpty()) {
+                    hideViews(mBinding.swipeContainer);
+                    showViews(mBinding.failed);
+                } else {
+                    hideViews(mBinding.failed);
+                    showViews(mBinding.swipeContainer);
+                }
+
+                ((BaseListAdapter) mAdapter).setData(adapterData);
+
+                stopRefreshing();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                hideViews(mBinding.swipeContainer);
+                showViews(mBinding.failed);
+
+                stopRefreshing();
+            }
+        });
     }
 
     /**
@@ -234,87 +298,7 @@ public class EventListFragment extends BaseSwipeListFragment {
      */
     @Override
     public void onSwipeListRefresh() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
-
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<BaseObject> events = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    EventObject event = new EventObject(
-                            (String) snapshot.child(EventObject.NAME).getValue(),
-                            (long) snapshot.child(EventObject.DATE).getValue(),
-                            (String) snapshot.child(EventObject.SUMMARY).getValue(),
-                            (String) snapshot.child(EventObject.IMAGE).getValue()
-                    );
-
-                    events.add(event);
-                }
-
-                if (events.isEmpty()) {
-                    hideViews(mBinding.swipeContainer);
-                    showViews(mBinding.failed);
-                } else {
-                    hideViews(mBinding.failed);
-                    showViews(mBinding.swipeContainer);
-                }
-
-                ((BaseListAdapter) mAdapter).setData(events);
-
-                stopRefreshing();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                hideViews(mBinding.swipeContainer);
-                showViews(mBinding.failed);
-
-                stopRefreshing();
-            }
-        });
-
-        /*
-        new EventListHttpRequest(this.mContext).execute(new HttpCallback<List<EventObject>>() {
-
-            /**
-             * On request success
-             *
-             * @param values List of values from request
-             *
-            @Override
-            public void onSuccess(List<EventObject> values) {
-                evaluateQuery(values);
-                Collections.sort(values, new ListSort());
-                List<BaseObject> events = new ArrayList<>();
-                for (BaseObject val : values) events.add(val);
-
-                if (events.isEmpty()) {
-                    hideViews(mBinding.swipeContainer);
-                    showViews(mBinding.failed);
-                } else {
-                    hideViews(mBinding.failed);
-                    showViews(mBinding.swipeContainer);
-                }
-
-                ((BaseListAdapter) mAdapter).setData(events);
-
-                stopRefreshing();
-            }
-
-            /**
-             * On request error
-             *
-             * @param e Exception
-             *
-            @Override
-            public void onError(Exception e) {
-                hideViews(mBinding.swipeContainer);
-                showViews(mBinding.failed);
-
-                stopRefreshing();
-            }
-        });
-        */
+        stopRefreshing();
     }
 
     /**
